@@ -10,7 +10,7 @@ class FavorisManager extends AbstractManager {
       `INSERT INTO ${this.table} (user_id, recipe_id) VALUES (?, ?)`,
       [userId, recipeId]
     );
-    return [result];
+    return result;
   }
 
   async delete(userId, recipeId) {
@@ -18,7 +18,7 @@ class FavorisManager extends AbstractManager {
       `DELETE FROM ${this.table} WHERE (user_id = ? AND recipe_id = ?)`,
       [userId, recipeId]
     );
-    return [result];
+    return result;
   }
 }
 module.exports = FavorisManager;

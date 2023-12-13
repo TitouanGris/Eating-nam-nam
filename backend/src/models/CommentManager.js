@@ -15,7 +15,7 @@ class CommentManager extends AbstractManager {
 
   async update(message, id) {
     const [result] = await this.database.query(
-      `UPDATE ${this.table} SET message = ? WHERE id = ? `,
+      `UPDATE ${this.table} SET (message = ?) WHERE id = ? `,
       [message, id]
     );
 
