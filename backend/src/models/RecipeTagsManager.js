@@ -10,7 +10,7 @@ class RecipeTagsManager extends AbstractManager {
       `INSERT INTO ${this.table} (recipe_id, tags_id) values (?, ?)`,
       [recipeId, tagsId]
     );
-    return [result];
+    return result;
   }
 
   async update({ recipeId, tagsId }) {
@@ -18,7 +18,7 @@ class RecipeTagsManager extends AbstractManager {
       `UPDATE ${this.table} SET tags_id=? WHERE recipe_id=? AND tags_id=?`,
       [tagsId, recipeId, tagsId]
     );
-    return [result];
+    return result;
   }
 
   async delete({ recipeId, tagsId }) {
@@ -26,7 +26,7 @@ class RecipeTagsManager extends AbstractManager {
       `DELETE FROM ${this.table} WHERE recipe_id=? AND tags_id=?`,
       [recipeId, tagsId]
     );
-    return [result];
+    return result;
   }
 }
 

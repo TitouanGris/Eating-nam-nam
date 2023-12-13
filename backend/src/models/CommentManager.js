@@ -10,7 +10,7 @@ class CommentManager extends AbstractManager {
       `INSERT INTO ${this.table} (user_id, recipe_id, message) VALUES (?, ?, ?)`,
       [userId, recipeId, message]
     );
-    return [result];
+    return result;
   }
 
   async update(message, id) {
@@ -21,7 +21,7 @@ class CommentManager extends AbstractManager {
       [message, updatedDate, id]
     );
 
-    return [result];
+    return result;
   }
 }
 module.exports = CommentManager;

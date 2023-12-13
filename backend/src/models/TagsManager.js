@@ -11,7 +11,7 @@ class TagsManager extends AbstractManager {
       [categoryId, imageUrl, name]
     );
 
-    return [result];
+    return result;
   }
 
   async update({ id, categoryId, imageUrl, name }) {
@@ -19,7 +19,7 @@ class TagsManager extends AbstractManager {
       `UPDATE ${this.table} SET category_id=?, image_url=?, name=? WHERE id = ? `,
       [id, categoryId, imageUrl, name]
     );
-    return [result];
+    return result;
   }
 }
 

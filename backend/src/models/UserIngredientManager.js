@@ -10,7 +10,7 @@ class UserIngredientManager extends AbstractManager {
       `INSERT INTO ${this.table} (user_id, ingredient_id) values (?, ?)`,
       [userId, ingredientId]
     );
-    return [result];
+    return result;
   }
 
   async update({ userId, ingredientId }) {
@@ -18,7 +18,7 @@ class UserIngredientManager extends AbstractManager {
       `UPDATE ${this.table} SET ingredient_id=? WHERE user_id=? AND ingredient_id=?`,
       [ingredientId, userId, ingredientId]
     );
-    return [result];
+    return result;
   }
 
   async delete({ userId, ingredientId }) {
@@ -26,7 +26,7 @@ class UserIngredientManager extends AbstractManager {
       `DELETE FROM ${this.table} WHERE user_id=? AND ingredient_id=?`,
       [userId, ingredientId]
     );
-    return [result];
+    return result;
   }
 }
 
