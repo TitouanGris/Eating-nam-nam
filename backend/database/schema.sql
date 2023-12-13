@@ -471,17 +471,18 @@ VALUES
 (6,1),
 (7,5),
 (7,2);
-INSERT INTO comment (message, created_date) 
+INSERT INTO comment (user_id, recipe_id, message ) 
 VALUES 
-('Délicieux plat!', '2023-12-12'),
-('On veut les cookies de Guillaume !', '2023-6-12'),
-('De nouveaux pas déçus de cette recette', '2023-09-12'),
-('je déteste les mogettes', '2023-5-10'),
-('A quand des recettes vegans ?????? 😭', '2023-04-12'),(5,6, 'Hello les loulous !🧑‍🍳', '2023-12-02'),
-('On veut les cookies de Guillaume !', '2023-05-12'),
-("j'aime pas les quantités d'ingrédients avec des chiffres après la virgule", '2023-11-12'),
-('I never cooked something this delicious ! 😍😍😍', '2023-10-10'),
-('Absolument horrible, ne jamais faire cette recette, mon four à exploser, mon chat à disparu depuis suite à ça', '2023-01-01');
+(1,6,'Délicieux plat!'),
+(1,7,'On veut les cookies de Guillaume !'),
+(2,1,'De nouveaux pas déçus de cette recette'),
+(2,3,'je déteste les mogettes'),
+(3,6,'A quand des recettes vegans ?????? 😭'),
+(4,2, 'Hello les loulous !🧑‍🍳'),
+(5,8,'On veut les cookies de Guillaume !'),
+(7,5,"j'aime pas les quantités d'ingrédients avec des chiffres après la virgule"),
+(7,6,'I never cooked something this delicious ! 😍😍😍'),
+(7,6,'Absolument horrible, ne jamais faire cette recette, mon four à exploser, mon chat à disparu depuis suite à ça');
 INSERT INTO user_ingredient (user_id, ingredient_id)
 VALUES 
 (1,1),
