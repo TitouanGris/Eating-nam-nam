@@ -14,11 +14,9 @@ class CommentManager extends AbstractManager {
   }
 
   async update(message, id) {
-    const updatedDate = new Date().toISOString().slice(0, 10);
-
     const [result] = await this.database.query(
-      `UPDATE ${this.table} SET (message = ?, updated_date = ?) WHERE id = ? `,
-      [message, updatedDate, id]
+      `UPDATE ${this.table} SET (message = ?) WHERE id = ? `,
+      [message, id]
     );
 
     return result;
