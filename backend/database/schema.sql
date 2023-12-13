@@ -22,7 +22,7 @@ CREATE TABLE user (
   pseudo VARCHAR(20) NOT NULL,
   email VARCHAR(255) NOT NULL,
   created_date DATETIME NOT NULL DEFAULT NOW(),
-  updated_date DATETIME NOT NULL DEFAULT NOW() ON UPDATE CURRENT_TIMESTAMP,
+  updated_date DATETIME NULL DEFAULT NOW() ON UPDATE CURRENT_TIMESTAMP,
   password VARCHAR(20) NOT NULL,
   is_admin BOOL NOT NULL
 );
@@ -32,7 +32,7 @@ CREATE TABLE recipe (
   name VARCHAR(80) COLLATE utf8mb4_unicode_ci NOT NULL,
   summary VARCHAR(255) NOT NULL,
   created_date DATETIME NOT NULL DEFAULT NOW(),
-  updated_date DATETIME NOT NULL DEFAULT NOW() ON UPDATE CURRENT_TIMESTAMP,
+  updated_date DATETIME NULL DEFAULT NOW() ON UPDATE CURRENT_TIMESTAMP,
   photo_url VARCHAR(255) NULL, 
   nb_serving INT NOT NULL,
   validate_recipe BOOL NOT NULL,
@@ -122,7 +122,7 @@ CREATE TABLE comment (
   recipe_id INT NOT NULL,
   message TEXT COLLATE utf8mb4_unicode_ci NOT NULL,
   created_date DATETIME NOT NULL DEFAULT NOW(),
-   updated_date DATETIME NOT NULL DEFAULT NOW() ON UPDATE CURRENT_TIMESTAMP,
+   updated_date DATETIME NULL DEFAULT NOW() ON UPDATE CURRENT_TIMESTAMP,
   CONSTRAINT fk_user_comment
     FOREIGN KEY (user_id)
     REFERENCES user(id),
@@ -476,17 +476,19 @@ VALUES
 (6,1),
 (7,5),
 (7,2);
-INSERT INTO comment (message, created_date) 
+
+INSERT INTO comment (message) 
 VALUES 
-('Délicieux plat!', '2023-12-12'),
-('On veut les cookies de Guillaume !', '2023-6-12'),
-('De nouveaux pas déçus de cette recette', '2023-09-12'),
-('je déteste les mogettes', '2023-5-10'),
-('A quand des recettes vegans ?????? 😭', '2023-04-12'),(5,6, 'Hello les loulous !🧑‍🍳', '2023-12-02'),
-('On veut les cookies de Guillaume !', '2023-05-12'),
-("j'aime pas les quantités d'ingrédients avec des chiffres après la virgule", '2023-11-12'),
-('I never cooked something this delicious ! 😍😍😍', '2023-10-10'),
-('Absolument horrible, ne jamais faire cette recette, mon four à exploser, mon chat à disparu depuis suite à ça', '2023-01-01');
+('Délicieux plat!'),
+('On veut les cookies de Guillaume !'),
+('De nouveaux pas déçus de cette recette'),
+('je déteste les mogettes'),
+('A quand des recettes vegans ?????? 😭'),(5,6, 'Hello les loulous !🧑‍🍳'),
+('On veut les cookies de Guillaume !'),
+("j'aime pas les quantités d'ingrédients avec des chiffres après la virgule"),
+('I never cooked something this delicious ! 😍😍😍'),
+('Absolument horrible, ne jamais faire cette recette, mon four à exploser, mon chat à disparu depuis suite à ça');
+
 INSERT INTO user_ingredient (user_id, ingredient_id)
 VALUES 
 (1,1),
