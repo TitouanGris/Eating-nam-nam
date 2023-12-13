@@ -1,8 +1,3 @@
-create table item (
-  id int unsigned primary key auto_increment not null,
-  title varchar(255) not null
-);
-
 SET NAMES 'utf8mb4';
 DROP TABLE IF EXISTS `user_ingredient`;
 DROP TABLE IF EXISTS comment;
@@ -22,7 +17,7 @@ CREATE TABLE user (
   pseudo VARCHAR(20) NOT NULL,
   email VARCHAR(255) NOT NULL,
   created_date DATETIME NOT NULL DEFAULT NOW(),
-  updated_date DATETIME NOT NULL DEFAULT NOW() ON UPDATE CURRENT_TIMESTAMP,
+  updated_date DATETIME NULL DEFAULT NOW() ON UPDATE CURRENT_TIMESTAMP,
   password VARCHAR(20) NOT NULL,
   is_admin BOOL NOT NULL
 );
@@ -32,7 +27,7 @@ CREATE TABLE recipe (
   name VARCHAR(80) COLLATE utf8mb4_unicode_ci NOT NULL,
   summary VARCHAR(255) NOT NULL,
   created_date DATETIME NOT NULL DEFAULT NOW(),
-  updated_date DATETIME NOT NULL DEFAULT NOW() ON UPDATE CURRENT_TIMESTAMP,
+  updated_date DATETIME NULL DEFAULT NOW() ON UPDATE CURRENT_TIMESTAMP,
   photo_url VARCHAR(255) NULL, 
   nb_serving INT NOT NULL,
   validate_recipe BOOL NOT NULL,
@@ -122,7 +117,7 @@ CREATE TABLE comment (
   recipe_id INT NOT NULL,
   message TEXT COLLATE utf8mb4_unicode_ci NOT NULL,
   created_date DATETIME NOT NULL DEFAULT NOW(),
-   updated_date DATETIME NOT NULL DEFAULT NOW() ON UPDATE CURRENT_TIMESTAMP,
+   updated_date DATETIME NULL DEFAULT NOW() ON UPDATE CURRENT_TIMESTAMP,
   CONSTRAINT fk_user_comment
     FOREIGN KEY (user_id)
     REFERENCES user(id),
