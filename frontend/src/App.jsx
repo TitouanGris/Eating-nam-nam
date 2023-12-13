@@ -5,12 +5,12 @@ import logo from "./assets/logo.svg";
 import "./App.css";
 
 function App() {
-  const [recipe, setrecipe] = useState();
+  const [recipe, setRecipe] = useState([]);
 
   useEffect(() => {
-    fetch()
-      .then((res) => res.json)
-      .then((data) => setrecipe(data));
+    fetch("http://localhost:3310/api/recipe")
+      .then((res) => res.json())
+      .then((data) => setRecipe(data));
   }, []);
 
   return (

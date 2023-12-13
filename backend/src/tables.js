@@ -9,13 +9,14 @@ const StepManager = require("./models/StepManager");
 const UnitManager = require("./models/UnitManager");
 const UserManager = require("./models/UserManager");
 const UserTagsManager = require("./models/UserTagsManager");
-// const RecipeManager = require("./models/RecipeManager");
-// const IngredientManager = require("./models/IngredientManager");
-// const TagsManager = require("./models/TagsManager");
-// const RecipeTagsManager = require("./models/RecipeTagsManager");
-// const FavorisManager = require("./models/FavorisManager");
-// const CommentManager = require("./models/CommentManager");
-// const UserIngredientManager = require("./models/UserIngredientManager");
+const RecipeManager = require("./models/RecipeManager");
+const IngredientManager = require("./models/IngredientManager");
+const TagsManager = require("./models/TagsManager");
+const RecipeTagsManager = require("./models/RecipeTagsManager");
+const FavorisManager = require("./models/FavorisManager");
+const CommentManager = require("./models/CommentManager");
+const UserIngredientManager = require("./models/UserIngredientManager");
+const CategoryManager = require("./models/CategoryManager");
 
 const managers = [
   ItemManager,
@@ -24,14 +25,14 @@ const managers = [
   UnitManager,
   UserManager,
   UserTagsManager,
-  // RecipeManager,
-  // IngredientManager,
-  // CategoryManager,
-  // TagsManager,
-  // RecipeTagsManager,
-  // FavorisManager,
-  // CommentManager,
-  // UserIngredientManager,
+  RecipeManager,
+  IngredientManager,
+  CategoryManager,
+  TagsManager,
+  RecipeTagsManager,
+  FavorisManager,
+  CommentManager,
+  UserIngredientManager,
 ];
 
 // Create an empty object to hold data managers for different tables

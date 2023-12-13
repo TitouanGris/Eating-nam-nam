@@ -1,31 +1,34 @@
 const AbstractManager = require("./AbstractManager");
-​
+
 class RecipeManager extends AbstractManager {
   constructor() {
     super({ table: "recipe" });
   }
-​
-​
-  async create({ user_id, name, summary, photo_url, nb_serving, validate_recipe }) {
-​
+
+  async create({ userId, name, summary, photoUrl, nbServing, validateRecipe }) {
     const [result] = await this.database.query(
       `INSERT INTO ${this.table} (user_id, name, summary, photo_url, nb_serving, validate_recipe) values (?, ?, ?, ?, ?, ?)`,
-      [user_id, name, summary, photo_url, nb_serving, validate_recipe]
+      [userId, name, summary, photoUrl, nbServing, validateRecipe]
     );
-​
+
     return result;
   }
-​
-  async update( {id, name, summary, photo_url, nb_serving, validate_recipe} ) {
-​
-    const updated_date = new Date().toISOString().slice(0, 10);
-​
+
+  async update({
+    id,
+    userId,
+    name,
+    summary,
+    photoUrl,
+    nbServing,
+    validateRecipe,
+  }) {
     const [result] = await this.database.query(
-      `UPDATE ${this.table} SET name = ?, summary = ?, photo_url = ?, nb_serving = ?, updated_date = ?, validate_recipe = ? WHERE id = ? `,
-      [name, summary, photo_url, nb_serving, updated_date, validate_recipe, id]
+      `UPDATE ${this.table} SET userId=?, name = ?, summary = ?, photo_url = ?, nb_serving = ?, validate_recipe = ? WHERE id = ? `,
+      [userId, name, summary, photoUrl, nbServing, validateRecipe, id]
     );
     return result;
   }
 }
-​
+
 module.exports = RecipeManager;

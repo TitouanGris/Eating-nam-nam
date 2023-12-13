@@ -30,11 +30,12 @@ class AbstractManager {
     return result;
   }
 
-
-
   async deleteById(id) {
     // Execute the SQL SELECT query to retrieve all items from the "item" table
-    const [result] = await this.database.query(`DELETE from ${this.table} WHERE id = ?`, [id]);
+    const [result] = await this.database.query(
+      `DELETE from ${this.table} WHERE id = ?`,
+      [id]
+    );
 
     // Return the array of items
     return result;

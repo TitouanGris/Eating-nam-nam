@@ -5,10 +5,10 @@ const tables = require("../tables");
 const browse = async (req, res, next) => {
   try {
     // Fetch all items from the database
-    const items = await tables.recipe.readAll();
+    const recipes = await tables.recipe.readAll();
 
     // Respond with the items in JSON format
-    res.json(items);
+    res.json(recipes);
   } catch (err) {
     // Pass any errors to the error-handling middleware
     next(err);
@@ -16,6 +16,5 @@ const browse = async (req, res, next) => {
 };
 
 module.exports = {
-    browse,
-  };
-  
+  browse,
+};
