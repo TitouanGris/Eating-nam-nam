@@ -13,16 +13,10 @@ function App() {
     <div className="App">
       {recipe.map((r) => {
         return (
-          <>
-            <div style={{ width: "100px", height: "100px", color: "black" }}>
-              {" "}
-              {r.name}
-            </div>
-            <div style={{ width: "100px", height: "100px", color: "black" }}>
-              {" "}
-              {r.summary}
-            </div>
-          </>
+          <div key={r.id}>
+            <div style={{ width: "100px", height: "100px" }}> {r.name}</div>
+            <div style={{ width: "100px", height: "100px" }}> {r.summary}</div>
+          </div>
         );
       })}
     </div>
