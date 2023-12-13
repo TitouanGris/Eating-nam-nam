@@ -5,7 +5,7 @@ class RecipeTagsManager extends AbstractManager {
     super({ table: "recipe_tags" });
   }
 
-  async create({ recipeId, tagsId }) {
+  async create(recipeId, tagsId) {
     const [result] = await this.database.query(
       `INSERT INTO ${this.table} (recipe_id, tags_id) values (?, ?)`,
       [recipeId, tagsId]
@@ -13,7 +13,7 @@ class RecipeTagsManager extends AbstractManager {
     return result;
   }
 
-  async update({ recipeId, tagsId }) {
+  async update(recipeId, tagsId) {
     const [result] = await this.database.query(
       `UPDATE ${this.table} SET tags_id=? WHERE recipe_id=? AND tags_id=?`,
       [tagsId, recipeId, tagsId]
@@ -21,7 +21,7 @@ class RecipeTagsManager extends AbstractManager {
     return result;
   }
 
-  async delete({ recipeId, tagsId }) {
+  async delete(recipeId, tagsId) {
     const [result] = await this.database.query(
       `DELETE FROM ${this.table} WHERE recipe_id=? AND tags_id=?`,
       [recipeId, tagsId]
