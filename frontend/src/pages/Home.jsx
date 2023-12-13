@@ -7,7 +7,7 @@ function Home() {
       <img src="/images/logo.png" alt="logo" />
       <img src="/images/home-img.jpg" alt="img-accueil" />
       <div className="home-buttons">
-        <NavLink>
+        <NavLink to="/RecipeBrowse">
           <button type="button">Démarrer</button>
         </NavLink>
       </div>
