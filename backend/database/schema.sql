@@ -1,8 +1,3 @@
-create table item (
-  id int unsigned primary key auto_increment not null,
-  title varchar(255) not null
-);
-
 SET NAMES 'utf8mb4';
 DROP TABLE IF EXISTS `user_ingredient`;
 DROP TABLE IF EXISTS comment;
@@ -476,19 +471,18 @@ VALUES
 (6,1),
 (7,5),
 (7,2);
-
-INSERT INTO comment (message) 
+INSERT INTO comment (user_id, recipe_id, message ) 
 VALUES 
-('Délicieux plat!'),
-('On veut les cookies de Guillaume !'),
-('De nouveaux pas déçus de cette recette'),
-('je déteste les mogettes'),
-('A quand des recettes vegans ?????? 😭'),(5,6, 'Hello les loulous !🧑‍🍳'),
-('On veut les cookies de Guillaume !'),
-("j'aime pas les quantités d'ingrédients avec des chiffres après la virgule"),
-('I never cooked something this delicious ! 😍😍😍'),
-('Absolument horrible, ne jamais faire cette recette, mon four à exploser, mon chat à disparu depuis suite à ça');
-
+(1,6,'Délicieux plat!'),
+(1,7,'On veut les cookies de Guillaume !'),
+(2,1,'De nouveaux pas déçus de cette recette'),
+(2,3,'je déteste les mogettes'),
+(3,6,'A quand des recettes vegans ?????? 😭'),
+(4,2, 'Hello les loulous !🧑‍🍳'),
+(5,8,'On veut les cookies de Guillaume !'),
+(7,5,"j'aime pas les quantités d'ingrédients avec des chiffres après la virgule"),
+(7,6,'I never cooked something this delicious ! 😍😍😍'),
+(7,6,'Absolument horrible, ne jamais faire cette recette, mon four à exploser, mon chat à disparu depuis suite à ça');
 INSERT INTO user_ingredient (user_id, ingredient_id)
 VALUES 
 (1,1),
