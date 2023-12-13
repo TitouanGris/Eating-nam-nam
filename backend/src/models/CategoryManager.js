@@ -11,7 +11,7 @@ class CategoryManager extends AbstractManager {
       [name]
     );
 
-    return [result];
+    return result;
   }
 
   async update(name, id) {
@@ -20,7 +20,7 @@ class CategoryManager extends AbstractManager {
       [name, id]
     );
 
-    return [result];
+    return result;
   }
 }
 
