@@ -1,7 +1,11 @@
+import { Outlet, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
+import NavBar from "./components/NavBar";
 
 function App() {
   const [recipe, setRecipe] = useState([]);
+
+  const { pathname } = useLocation();
 
   useEffect(() => {
     fetch("http://localhost:3310/api/recipe")
@@ -11,6 +15,10 @@ function App() {
 
   return (
     <div className="App">
+      <div>{pathname !== "/" && <NavBar />}</div>
+      <div>
+        <Outlet />
+      </div>
       {recipe.map((r) => {
         return (
           <div key={r.id}>
