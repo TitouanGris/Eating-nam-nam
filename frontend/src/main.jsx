@@ -7,6 +7,7 @@ import App from "./App";
 import Home from "./pages/Home";
 import Filters from "./pages/Filters";
 import RecipeBrowse from "./pages/RecipeBrowse";
+
 import "./styles/index.scss";
 
 const router = createBrowserRouter([
@@ -26,10 +27,6 @@ const router = createBrowserRouter([
         path: "/filters",
         element: <Filters />,
       },
-      // {
-      //   path: "/filters",
-      //   element: <Filters />,
-      // },
     ],
   },
 ]);
