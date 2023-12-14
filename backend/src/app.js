@@ -35,6 +35,8 @@ app.use(
   })
 );
 
+app.use(express.static("./public"));
+
 /* ************************************************************************* */
 
 // Request Parsing: Understanding the purpose of this part

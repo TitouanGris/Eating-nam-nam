@@ -1,0 +1,29 @@
+.recipeCard {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  border: solid black 1px;
+  border-radius: 5px;
+  width: 80vw;
+  height: 30vh;
+
+  .imgContainer {
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    img {
+      width: 100%;
+    }
+  }
+  .recipeName {
+    width: 80vw;
+    align-items: center;
+  }
+
+  .recipeInfos {
+    display: flex;
+  }
+}

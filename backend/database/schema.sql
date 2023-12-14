@@ -147,16 +147,16 @@ VALUES
   ('Lucas', 'admin2@email.com', '2023-01-06', NULL, 'Faugeron', FALSE),
   ('Lucasz', 'user5@email.com', '2023-01-07', NULL, 'Grzegorzewski', FALSE);
 INSERT INTO recipe (user_id, name, summary, created_date, updated_date, photo_url, nb_serving, validate_recipe) VALUES
-  (1, 'Salade Méditerranéenne', 'Une délicieuse salade méditerranéenne avec des tomates, du concombre, des olives et du fromage feta.', '2023-12-12', NULL, 'url_salade.jpg', 4, true),
-  (2, 'Poulet au Curry', 'Un plat de poulet savoureux avec une sauce curry crémeuse et des légumes colorés.', '2023-12-11', NULL, 'url_curry.jpg', 3, true),
-  (3, 'Pâtes à la Carbonara', 'Des pâtes crémeuses avec une sauce carbonara riche à base de bacon, de crème et de parmesan.', '2023-12-10', NULL, 'url_carbonara.jpg', 2, true),
-  (4, 'Riz Frit aux Légumes', 'Un délicieux riz frit aux légumes avec des petits pois, des carottes et des œufs.', '2023-12-09', NULL, 'url_riz_frit.jpg', 4, true),
-  (5, 'Pizza Margherita', 'Une pizza classique avec une sauce tomate, de la mozzarella fraîche et des feuilles de basilic.', '2023-12-08', NULL, 'url_pizza.jpg', 3, true),
-  (6, 'Smoothie aux Fruits Rouges', 'Un smoothie rafraîchissant avec des fraises, des framboises et des myrtilles.', '2023-12-07', NULL, 'url_smoothie.jpg', 2, true),
-  (7, 'Tarte aux Pommes', 'Une tarte sucrée aux pommes avec une délicieuse croûte dorée.', '2023-12-06', NULL, 'url_tarte.jpg', 8, true),
-  (7, 'Saumon Grillé', 'Saumon grillé avec une marinade au citron et aux herbes, servi avec des légumes rôtis.', '2023-12-05', NULL, 'url_saumon.jpg', 2, true),
-  (4, 'Gâteau au Chocolat', 'Un délicieux gâteau au chocolat moelleux avec un glaçage fondant.', '2023-12-04', NULL, 'url_gateau.jpg', 10, true),
-  (3, 'Salade de Quinoa aux Légumes', 'Une salade saine de quinoa avec des légumes frais et une vinaigrette légère.', '2023-12-03', NULL, 'url_salade_quinoa.jpg', 6, true);
+  (1, 'Salade Méditerranéenne', 'Une délicieuse salade méditerranéenne avec des tomates, du concombre, des olives et du fromage feta.', '2023-12-12', NULL, '/images/Recette 1.jpg', 4, true),
+  (2, 'Poulet au Curry', 'Un plat de poulet savoureux avec une sauce curry crémeuse et des légumes colorés.', '2023-12-11', NULL, '/images/Recette 2.jpg', 3, true),
+  (3, 'Pâtes à la Carbonara', 'Des pâtes crémeuses avec une sauce carbonara riche à base de bacon, de crème et de parmesan.', '2023-12-10', NULL, '/images/Recette 3.jpg', 2, true),
+  (4, 'Riz Frit aux Légumes', 'Un délicieux riz frit aux légumes avec des petits pois, des carottes et des œufs.', '2023-12-09', NULL, '/images/Recette 4.jpg', 4, true),
+  (5, 'Pizza Margherita', 'Une pizza classique avec une sauce tomate, de la mozzarella fraîche et des feuilles de basilic.', '2023-12-08', NULL, '/images/Recette 5.jpg', 3, true),
+  (6, 'Smoothie aux Fruits Rouges', 'Un smoothie rafraîchissant avec des fraises, des framboises et des myrtilles.', '2023-12-07', NULL, '/images/Recette 6.jpg', 2, true),
+  (7, 'Tarte aux Pommes', 'Une tarte sucrée aux pommes avec une délicieuse croûte dorée.', '2023-12-06', NULL, '/images/Recette 7.jpg', 8, true),
+  (7, 'Saumon Grillé', 'Saumon grillé avec une marinade au citron et aux herbes, servi avec des légumes rôtis.', '2023-12-05', NULL, '/images/Recette 8.jpg', 2, true),
+  (4, 'Gâteau au Chocolat', 'Un délicieux gâteau au chocolat moelleux avec un glaçage fondant.', '2023-12-04', NULL, '/images/Recette 9.jpg', 10, true),
+  (3, 'Salade de Quinoa aux Légumes', 'Une salade saine de quinoa avec des légumes frais et une vinaigrette légère.', '2023-12-03', NULL, '/images/Recette 10.jpg', 6, true);
 INSERT INTO ingredient (name) VALUES
   ('Sel'),
   ('Poivre'),
@@ -392,9 +392,10 @@ INSERT INTO step (recipe_id, step_number, description) VALUES
 INSERT INTO category (name) VALUES ('price'), ('country'), ('regime'), ('difficulty'), ('duration');
  
 INSERT INTO tags (category_id, image_url, name) VALUES
+
 (1, '/images/price-1.png', '€'),  
-(1, '/images/price-2.png', '€€'), 
-(1, '/images/price-3.png', '€€€'), 
+(1, '/images/price-2.png', '€€'),  
+(1, '/images/price-3.png', '€€€'),
 (2, '', 'Italien'), 
 (2, '', 'Français'), 
 (2, '', 'Indien'), 
@@ -415,29 +416,61 @@ INSERT INTO tags (category_id, image_url, name) VALUES
 (5, '/images/chronometre (1).png', '1 heure'), 
 (5, '/images/chronometre (1).png', '1 heure 30'), 
 (5, '/images/chronometre (1).png', '2 heures et +'); 
+
+
 Insert INTO recipe_tags (recipe_id, tags_id)
 VALUES 
 (1, 1),   -- Salade Méditerranéenne, tag: €
 (1, 4),   -- Salade Méditerranéenne, tag: Sans Gluten
-(1, 15),   -- Salade Méditerranéenne, tag: Facile
-(2, 3),   -- Poulet au Curry, tag: €€
-(2, 8),   -- Poulet au Curry, tag: 45 min
-(3, 2),   -- Pâtes à la Carbonara, tag: €€
-(3, 10),  -- Pâtes à la Carbonara, tag: Moyen
-(4, 1),   -- Riz Frit aux Légumes, tag: €
-(4, 6),   -- Riz Frit aux Légumes, tag: 1 heure
-(5, 2),   -- Pizza Margherita, tag: €€
-(5, 4),   -- Pizza Margherita, tag: 45 min
-(6, 7),   -- Smoothie aux Fruits Rouges, tag: unité
-(6, 11),  -- Smoothie aux Fruits Rouges, tag: Vegan
-(7, 5),   -- Tarte aux Pommes, tag: pincée
-(7, 9),   -- Tarte aux Pommes, tag: 1 heure
-(8, 1),   -- Saumon Grillé, tag: €
-(8, 6),   -- Saumon Grillé, tag: 1 heure
-(9, 2),   -- Gâteau au Chocolat, tag: €€
-(9, 9),   -- Gâteau au Chocolat, tag: 2 heures et +
-(10, 3),  -- Salade de Quinoa aux Légumes, tag: €€
-(10, 5);  -- Salade de Quinoa aux Légumes, tag: 1 heure
+(1, 9),   -- Salade Méditerranéenne, tag: Facile
+(1, 16),   -- Poulet au Curry, tag: €€
+(1, 20),   -- Poulet au Curry, tag: 45 min
+(2, 2),   -- Pâtes à la Carbonara, tag: €€
+(2, 5),  -- Pâtes à la Carbonara, tag: Moyen
+(2, 10),   -- Riz Frit aux Légumes, tag: €
+(2, 17),   -- Riz Frit aux Légumes, tag: 1 heure
+(2, 21),   -- Pizza Margherita, tag: €€
+(3, 3),   -- Pizza Margherita, tag: 45 min
+(3, 6),   -- Smoothie aux Fruits Rouges, tag: unité
+(3, 13),  -- Smoothie aux Fruits Rouges, tag: Vegan
+(3, 15),   -- Tarte aux Pommes, tag: pincée
+(3, 19),   -- Tarte aux Pommes, tag: 1 heure
+(4, 1),   -- Saumon Grillé, tag: €
+(4, 4),   -- Saumon Grillé, tag: 1 heure
+(4, 9),   -- Gâteau au Chocolat, tag: €€
+(4, 17),   -- Gâteau au Chocolat, tag: 2 heures et +
+(4, 21),  -- Salade de Quinoa aux Légumes, tag: €€
+(5, 2),  -- Salade de Quinoa aux Légumes, tag: 1 heure
+(5, 5),
+(5, 12),
+(5, 17),
+(5, 23),
+(6, 3),
+(6, 4),
+(6, 11),
+(6, 16),
+(6, 18),
+(7, 1),
+(7, 6),
+(7, 9),
+(7, 15),
+(7, 19),
+(8, 2),
+(8, 5),
+(8, 10),
+(8, 17),
+(8, 21),
+(9, 1),
+(9, 6),
+(9, 11),
+(9, 15),
+(9, 20),
+(10, 3),
+(10, 5),
+(10, 9),
+(10, 16),
+(10, 22);
+
 INSERT INTO user_tags (user_id, tags_id)
 VALUES 
 (1,1),
@@ -471,19 +504,6 @@ VALUES
 (6,1),
 (7,5),
 (7,2);
-<<<<<<< HEAD
-INSERT INTO comment (message) 
-VALUES 
-('Délicieux plat!'),
-('On veut les cookies de Guillaume !'),
-('De nouveaux pas déçus de cette recette'),
-('je déteste les mogettes'),
-('A quand des recettes vegans ?????? 😭'),(5,6, 'Hello les loulous !🧑‍🍳'),
-('On veut les cookies de Guillaume !'),
-("j'aime pas les quantités d'ingrédients avec des chiffres après la virgule"),
-('I never cooked something this delicious ! 😍😍😍'),
-('Absolument horrible, ne jamais faire cette recette, mon four à exploser, mon chat à disparu depuis suite à ça');
-=======
 INSERT INTO comment (user_id, recipe_id, message ) 
 VALUES 
 (1,6,'Délicieux plat!'),
@@ -496,7 +516,6 @@ VALUES
 (7,5,"j'aime pas les quantités d'ingrédients avec des chiffres après la virgule"),
 (7,6,'I never cooked something this delicious ! 😍😍😍'),
 (7,6,'Absolument horrible, ne jamais faire cette recette, mon four à exploser, mon chat à disparu depuis suite à ça');
->>>>>>> dcf8b437499c33f3c88eff8c02004fafbf8f9b23
 INSERT INTO user_ingredient (user_id, ingredient_id)
 VALUES 
 (1,1),
