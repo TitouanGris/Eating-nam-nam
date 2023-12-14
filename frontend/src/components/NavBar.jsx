@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { NavLink } from "react-router-dom";
 
 function NavBar() {
   const [isConnected, setIsConnected] = useState(false);
@@ -8,25 +9,47 @@ function NavBar() {
 
   return (
     <div className="NavBar">
-      <button type="button" className="home_button">
-        <p>Accueil</p>
-      </button>
-      <button type="button" disabled={!isConnected} className="publish_button">
-        <p>Publier</p>
-      </button>
-      <button
-        type="button"
-        className={`account${isConnected ? "_connected" : ""}`}
-        onClick={handleConnected}
-      >
-        <p>{isConnected === false ? "Créer un compte" : "Profil"}</p>
-      </button>
-      <button type="button" className="filter_button">
-        <p>Filtres</p>
-      </button>
-      <button type="button" disabled={!isConnected} className="favorite_button">
-        <p>Favoris</p>
-      </button>
+      <NavLink to="/browse">
+        <button type="button" className="home_button">
+          <p>Accueil</p>
+        </button>
+      </NavLink>
+      <NavLink>
+        <button
+          type="button"
+          disabled={!isConnected}
+          className="publish_button"
+        >
+          <img alt="publish" src="./src/assets/images/add.png" />
+          <p>Publier</p>
+        </button>
+      </NavLink>
+      <NavLink>
+        <button
+          type="button"
+          className={`account${isConnected ? "_connected" : ""}`}
+          onClick={handleConnected}
+        >
+          <img alt="account" src="./src/assets/images/account.png" />
+          <p>{isConnected === false ? "Créer un compte" : "Profil"}</p>
+        </button>
+      </NavLink>
+      <NavLink>
+        <button type="button" className="filter_button">
+          <img alt="filters" src="./src/assets/images/settings.png" />
+          <p>Filtres</p>
+        </button>
+      </NavLink>
+      <NavLink>
+        <button
+          type="button"
+          disabled={!isConnected}
+          className="favorite_button"
+        >
+          <img alt="favorite" src="./src/assets/images/heartFill.png" />
+          <p>Favoris</p>
+        </button>
+      </NavLink>
     </div>
   );
 }
