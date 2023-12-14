@@ -5,7 +5,8 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import App from "./App";
 import Home from "./pages/Home";
-import RecipeBrowse from "./pages/RecipeBrowse";
+import Filters from "./pages/Filters";
+// import RecipeBrowse from "./pages/RecipeBrowse";
 import "./styles/index.scss";
 
 const router = createBrowserRouter([
@@ -16,23 +17,20 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <Home />,
-        children: [
-          {
-            path: "/browse",
-            element: <RecipeBrowse />,
-            // sans la barre
-            // children: {
-
-            // }
-          },
-          // {
-          //   path:"/bouh",
-          //   element: <>Composant </>
-          //   children: [
-          //     //avec barre
-          //   ]
-          // }
-        ],
+        // {
+        //   path: "/browse",
+        //   // element: <RecipeBrowse />,
+        //   // sans la barre
+        //   // children: {
+        //   // }
+        // },
+        // {
+        //   path:"/bouh",
+        //   element: <>Composant </>
+        //   children: [
+        //     //avec barre
+        //   ]
+        // }
       },
       // {
       //   path: "/recipe-create",
@@ -42,10 +40,10 @@ const router = createBrowserRouter([
       //   path: "/user-profile",
       //   element: <UserProfile />,
       // },
-      // {
-      //   path: "/filters",
-      //   element: <Filters />,
-      // },
+      {
+        path: "/filters",
+        element: <Filters />,
+      },
       // {
       //   path: "/favorite-recipes",
       //   element: <FavoriteRecipes />,
