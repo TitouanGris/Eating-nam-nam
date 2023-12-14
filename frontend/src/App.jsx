@@ -1,9 +1,9 @@
-import RecipeBrowse from "./pages/RecipeBrowse";
+import { Outlet } from "react-router-dom";
 
 function App() {
   return (
     <div className="App">
-      <RecipeBrowse />
+      <Outlet />
     </div>
   );
 }

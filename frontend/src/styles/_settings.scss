@@ -3,9 +3,18 @@
   margin: 0;
   padding: 0;
 }
+
 html,
 body,
 :root {
   min-height: 100vh;
   overflow-x: hidden;
+}
+
+:root {
+  --primary-color-text: black;
+  --secondary-color-text: white;
+  --primary-color: #d56c06;
+  --title-font-size: 18px;
+  --font-family: "poppins";
 }

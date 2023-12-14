@@ -12,8 +12,6 @@ class RecipeManager extends AbstractManager {
       recipe_tags rt
     JOIN  ${this.table} r ON rt.recipe_id = r.id
     JOIN tags t ON t.id = rt.tags_id
-    
-
     `
     );
 

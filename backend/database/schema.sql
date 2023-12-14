@@ -389,7 +389,7 @@ INSERT INTO step (recipe_id, step_number, description) VALUES
 (10, 4, 'Arrosez d''huile d''olive et de vinaigre balsamique, et mélangez pour bien enrober.'),
 (10, 5, 'Assaisonnez avec du sel, du poivre et vos herbes préférées.');
 -- Ajoutez autant de lignes que nécessaire
-INSERT INTO category (name) VALUES ('price'), ('country'), ('regime'), ('difficulty'), ('duration');
+INSERT INTO category (name) VALUES ('price'), ('country'), ('regime'), ('difficulty'), ('duration'), ('type');
  
 INSERT INTO tags (category_id, image_url, name) VALUES
 
@@ -415,9 +415,18 @@ INSERT INTO tags (category_id, image_url, name) VALUES
 (5, '/images/chronometre (1).png', '45 min'), 
 (5, '/images/chronometre (1).png', '1 heure'), 
 (5, '/images/chronometre (1).png', '1 heure 30'), 
+<<<<<<< HEAD
 (5, '/images/chronometre (1).png', '2 heures et +'); 
 
 
+=======
+(5, '/images/chronometre (1).png', '2 heures et +'),
+(6, '', 'entrée'),
+(6, '', 'plat'),
+(6, '', 'dessert'),
+(6, '', 'boisson'),
+(6, '', 'apéritif');
+>>>>>>> f02bde3e17fcfac02017de733af49a5d5a28719b
 Insert INTO recipe_tags (recipe_id, tags_id)
 VALUES 
 (1, 1),   -- Salade Méditerranéenne, tag: €
