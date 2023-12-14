@@ -1,0 +1,35 @@
+.home-container {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+
+  .home-image {
+    .logo {
+      img {
+        height: 10vh;
+      }
+    }
+
+    img {
+      height: 50vh;
+    }
+  }
+
+  .home-buttons {
+    display: flex;
+    justify-content: center;
+
+    button {
+      background-color: var(--primary-color);
+      color: var(--secondary-color-text);
+      border: none;
+      border-radius: 20px;
+      width: 60vw;
+      height: 8vh;
+      font-size: var(--title-font-size);
+      font-family: var(--font-family);
+    }
+  }
+}
