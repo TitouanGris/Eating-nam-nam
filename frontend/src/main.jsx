@@ -1,13 +1,11 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-
 import App from "./App";
 import Home from "./pages/Home";
 import Filters from "./pages/Filters";
+import RecipeBrowse from "./pages/RecipeBrowse";
 import "./styles/index.scss";
-// import RecipeBrowse from "./pages/RecipeBrowse";
 
 const router = createBrowserRouter([
   {
@@ -17,40 +15,46 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <Home />,
-        // {
-        //   path: "/browse",
-        //   // element: <RecipeBrowse />,
-        //   // sans la barre
-        //   // children: {
-        //   // }
-        // },
-        // {
-        //   path:"/bouh",
-        //   element: <>Composant </>
-        //   children: [
-        //     //avec barre
-        //   ]
-        // }
       },
-      // {
-      //   path: "/recipe-create",
-      //   element: <RecipeCreate />,
-      // },
-      // {
-      //   path: "/user-profile",
-      //   element: <UserProfile />,
-      // },
+      {
+        path: "/browse",
+        element: <RecipeBrowse />,
+      },
       {
         path: "/filters",
         element: <Filters />,
       },
-      // {
-      //   path: "/favorite-recipes",
-      //   element: <FavoriteRecipes />,
-      // },
     ],
   },
 ]);
+//       // {
+//       //   path:"/bouh",
+//       //   element: <>Composant </>
+//       //   children: [
+//       //     //avec barre
+//       //   ]
+//       // }
+//     ],
+//   },
+//   // {
+//   //   path: "/recipe-create",
+//   //   element: <RecipeCreate />,
+//   // },
+//   // {
+//   //   path: "/user-profile",
+//   //   element: <UserProfile />,
+//   // },
+//   // {
+//   //   path: "/filters",
+//   //   element: <Filters />,
+//   // },
+//   // {
+//   //   path: "/favorite-recipes",
+//   //   element: <FavoriteRecipes />,
+//   // },
+// ],
+//   },
+// ]);
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 

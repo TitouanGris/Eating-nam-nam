@@ -24,10 +24,14 @@
     .filter-titles {
       color: #d56c06;
       font-size: 16px;
+      padding-top: 3vh;
+      padding-bottom: 3vh;
     }
     .filters-button-container {
       display: flex;
+      flex-wrap: wrap;
       gap: 2vw;
+      width: 100%;
     }
     .filters-segmented-button-container {
       .segmented-chip {
