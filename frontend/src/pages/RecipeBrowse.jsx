@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from "react";
 import RecipeCard from "../components/RecipeCard";
 
@@ -19,6 +18,5 @@ function RecipeBrowse() {
     </div>
   );
 }
-
 
 export default RecipeBrowse;
