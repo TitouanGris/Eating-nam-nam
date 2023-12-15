@@ -17,8 +17,10 @@ const browse = async (req, res, next) => {
       actualId = e.recipeId;
 
       if (actualId !== previousId) {
-        finalTable.push(tempObject);
-        tempObject = {};
+        if (previousId > 0) {
+          finalTable.push(tempObject);
+          tempObject = {};
+        }
       }
 
       if (!tempObject.recipeId) {
@@ -27,18 +29,25 @@ const browse = async (req, res, next) => {
           recipeName: e.recipeName,
           recipeImage: e.photo_url, // Assurez-vous que la colonne photo_url existe dans vos résultats SQL
           recipeServing: e.nb_serving,
-          tagPrice: e.tagName,
+          tagPriceName: e.tagName,
+          tagPriceUrl: e.tagUrl,
         };
       } else if (actualId === previousId && !tempObject.tagCountry) {
         tempObject.tagCountry = e.tagName;
+        tempObject.tagCountryUrl = e.tagUrl;
       } else if (actualId === previousId && !tempObject.tagRegime) {
         tempObject.tagRegime = e.tagName;
+        tempObject.tagRegimeUrl = e.tagUrl;
       } else if (actualId === previousId && !tempObject.tagDifficulty) {
         tempObject.tagDifficulty = e.tagName;
+        tempObject.tagDifficultyUrl = e.tagUrl;
       } else if (actualId === previousId && !tempObject.tagDuration) {
         tempObject.tagDuration = e.tagName;
+        tempObject.tagDurationUrl = e.tagUrl;
+      } else if (actualId === previousId && !tempObject.tagType) {
+        tempObject.tagType = e.tagName;
+        tempObject.tagTypeUrl = e.tagUrl;
       }
-
       previousId = actualId;
     });
 

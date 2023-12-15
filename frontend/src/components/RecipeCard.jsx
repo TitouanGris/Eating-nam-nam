@@ -12,9 +12,21 @@ function RecipeCard({ r }) {
               alt={`${r.recipeName}`}
             />
           </div>
-          <div className="recipeName"> {r.recipeName}</div>
-          <div className="recipeName"> {r.tagPrice}</div>
-          <div className="recipeInfos">{r.recipeServing}</div>
+          <div className="card">
+            <div className="recipeName">{r.recipeName}</div>
+            <div className="tags">
+              <img src={r.tagPriceUrl} alt="r.TagPrice" />
+              <img src={r.tagDifficultyUrl} alt="r.TagDifficulty" />
+              <div>
+                <img src="" alt=" recipeServing" />
+                <p>{r.recipeServing}</p>
+              </div>
+              <div>
+                <img src={r.tagDurationUrl} alt="r.TagDuration" />
+                <p>{r.tagDuration}</p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -32,6 +44,12 @@ RecipeCard.propTypes = {
     tagRegime: PropTypes.string,
     tagDifficulty: PropTypes.string,
     tagDuration: PropTypes.string,
+    tagType: PropTypes.string,
+    tagTypeUrl: PropTypes.string,
+    tagRegimeUrl: PropTypes.string,
+    tagDifficultyUrl: PropTypes.string,
+    tagDurationUrl: PropTypes.string,
+    tagPriceUrl: PropTypes.string,
   }).isRequired,
 };
 export default RecipeCard;
