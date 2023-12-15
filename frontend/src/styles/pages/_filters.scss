@@ -54,17 +54,22 @@
         border-color: #d56c06;
       }
     }
+
     .chip {
-      border: solid 1px;
+      border: solid black 2px;
       border-radius: 15px;
       padding: 1vh;
       font-size: 12px;
       background-color: white;
+
+      img {
+        width: 50px;
+      }
     }
     .selected {
-      background-color: #d56c06;
+      // background-color: #d56c06;
       border-color: #d56c06;
-      color: white;
+      // color: white;
     }
   }
 }

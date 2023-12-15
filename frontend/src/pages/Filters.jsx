@@ -214,11 +214,16 @@ function Filters() {
               return (
                 <Button
                   key={tag.id}
-                  label={tag.image_url}
+                  label={
+                    <img
+                      src={`http://localhost:3310${tag.image_url}`}
+                      alt="r.TagDifficulty"
+                    />
+                  }
                   onClick={() => handleClick(tag)}
                   className={
                     filterDifficulty.includes(tag.name)
-                      ? "seleccted chip"
+                      ? "selected chip"
                       : "chip"
                   }
                 />
