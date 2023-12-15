@@ -1,0 +1,21 @@
+.NavBar {
+  display: flex;
+  width: 100vw;
+  height: 10vh;
+  position: fixed;
+  bottom: 0;
+
+  a {
+    display: flex;
+    width: 100vw;
+    button {
+      flex: 1;
+      height: 10vh;
+    }
+
+    img {
+      width: 20px;
+      height: 20px;
+    }
+  }
+}
