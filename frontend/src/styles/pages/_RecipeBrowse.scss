@@ -1,7 +1,16 @@
 .recipeBrowse {
   display: flex;
+  padding-top: 30px;
   flex-direction: column;
-  gap: 15px;
+  gap: 30px;
   align-items: center;
   justify-content: center;
+  margin-bottom: 13vh;
+}
+
+@media screen and (min-width: 900px) {
+  .recipeBrowse {
+    flex-direction: initial;
+    flex-wrap: wrap;
+  }
 }

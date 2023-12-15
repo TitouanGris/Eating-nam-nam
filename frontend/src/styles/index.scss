@@ -3,11 +3,10 @@
 // ------------ import du styles des pages ------------ //
 
 @import "./pages/RecipeBrowse";
-
 @import "home";
+@import "./pages/filters";
 
 // ------------ import du styles des composants ------------ //
 
 @import "./components/RecipeCard";
-
 @import "./components/NavBar";
