@@ -10,8 +10,8 @@ function App() {
   return (
     <FiltersContextProvider>
       <div className="App">
-        <div>{!pagesWithoutNavBar.includes(pathname) && <NavBar />}</div>
         <Outlet />
+        <div>{!pagesWithoutNavBar.includes(pathname) && <NavBar />}</div>
       </div>
     </FiltersContextProvider>
   );
