@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { NavLink } from "react-router-dom";
 import Chip from "../components/Chip";
 
 function Filters() {
@@ -22,7 +23,9 @@ function Filters() {
   return (
     <div className="filters">
       <div className="filters-header">
-        <button type="button">⬅️</button>
+        <NavLink to="/browse">
+          <button type="button">⬅️</button>
+        </NavLink>
         <p>Mes filtres</p>
         <button type="button">réinitialiser</button>
       </div>
