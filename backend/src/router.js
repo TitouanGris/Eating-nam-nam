@@ -14,6 +14,7 @@ const tagsControllers = require("./controllers/tagsControllers");
 // Route to get a list of items
 router.get("/items", itemControllers.browse);
 router.get("/recipe", recipeControllers.browse);
+router.get("/recipe/:id", recipeControllers.read);
 router.get("/tags", tagsControllers.browse);
 
 // Route to get a specific item by ID

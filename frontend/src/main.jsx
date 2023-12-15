@@ -4,8 +4,9 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import App from "./App";
 import Home from "./pages/Home";
 import Filters from "./pages/Filters";
-import RecipeDetails from "./pages/RecipeDetails";
 import RecipeBrowse from "./pages/RecipeBrowse";
+import RecipeDetails, { loadRecipeDetails } from "./pages/RecipeDetails";
+
 import "./styles/index.scss";
 
 const router = createBrowserRouter([
@@ -22,8 +23,9 @@ const router = createBrowserRouter([
         element: <RecipeBrowse />,
       },
       {
-        path: "/recipe-read/:id",
+        path: "/recipe/:id",
         element: <RecipeDetails />,
+        loader: loadRecipeDetails,
       },
       {
         path: "/filters",

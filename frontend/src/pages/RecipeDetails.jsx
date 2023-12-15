@@ -1,20 +1,29 @@
-// // import { useLoaderData } from "react-router-dom";
+import { useLoaderData } from "react-router-dom";
+import RecipeCard from "../components/RecipeCard";
 
-// function RecipeDetails() {
-//   // const recipe = useLoaderData();
+function RecipeDetails() {
+  const recipe = useLoaderData();
 
-//   return <div>{/* <Recipe data={recipe} /> */}</div>;
-// }
+  return (
+    <div>
+      <RecipeCard r={recipe} />
 
-// export const loadRecipes = async ({ params }) => {
-//   try {
-//     const recipeDetails = await fetch(
-//       "http://localhost:3310/recipe-read/" + params.id
-//     );
-//     return recipeDetails.data;
-//   } catch (e) {
-//     console.error(e);
-//   }
-// };
+      <p>{recipe.summary}</p>
+    </div>
+  );
+}
 
-// export default RecipeDetails;
+export const loadRecipeDetails = async ({ params }) => {
+  try {
+    const recipeDetails = await fetch(
+      `http://localhost:3310/api/recipe/" + ${params.id}`
+    );
+    const data = await recipeDetails.json();
+    return data;
+  } catch (e) {
+    console.error(e);
+    return null;
+  }
+};
+
+export default RecipeDetails;
