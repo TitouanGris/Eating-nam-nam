@@ -5,13 +5,13 @@ import { FiltersContextProvider } from "./context/FiltersContext";
 function App() {
   const { pathname } = useLocation();
 
+  const pagesWithoutNavBar = ["/", "/filters"];
+
   return (
-    <FiltersContextProvider>
-      <div className="App">
-        <div>{pathname !== "/" && <NavBar />}</div>
-        <Outlet />
-      </div>
-    </FiltersContextProvider>
+    <div className="App">
+      <div>{!pagesWithoutNavBar.includes(pathname) && <NavBar />}</div>
+      <Outlet />
+    </div>
   );
 }
 

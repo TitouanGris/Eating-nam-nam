@@ -1,6 +1,8 @@
+
 import { useEffect, useState, useContext } from "react";
 import Button from "../components/Button";
 import FiltersContext from "../context/FiltersContext";
+
 
 function Filters() {
   const [filterChip, setFilterChip] = useState([]);
@@ -139,7 +141,9 @@ function Filters() {
   return (
     <div className="filters">
       <div className="filters-header">
-        <button type="button">⬅️</button>
+        <NavLink to="/browse">
+          <button type="button">⬅️</button>
+        </NavLink>
         <p>Mes filtres</p>
         <div className="filters-button-container">
           <Button
