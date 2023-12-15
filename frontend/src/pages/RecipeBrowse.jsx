@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from "react";
 import RecipeCard from "../components/RecipeCard";
 
@@ -14,11 +13,10 @@ function RecipeBrowse() {
   return (
     <div className="recipeBrowse">
       {recipe.map((r) => {
-        return <RecipeCard r={r} />;
+        return <RecipeCard r={r} key={r.recipeId} />;
       })}
     </div>
   );
 }
-
 
 export default RecipeBrowse;
