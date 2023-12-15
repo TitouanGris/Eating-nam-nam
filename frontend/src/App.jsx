@@ -8,10 +8,12 @@ function App() {
   const pagesWithoutNavBar = ["/", "/filters"];
 
   return (
-    <div className="App">
-      <div>{!pagesWithoutNavBar.includes(pathname) && <NavBar />}</div>
-      <Outlet />
-    </div>
+    <FiltersContextProvider>
+      <div className="App">
+        <div>{!pagesWithoutNavBar.includes(pathname) && <NavBar />}</div>
+        <Outlet />
+      </div>
+    </FiltersContextProvider>
   );
 }
 
