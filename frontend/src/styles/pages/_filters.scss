@@ -1,0 +1,66 @@
+.filters {
+  .filters-header {
+    display: flex;
+    justify-content: space-between;
+    p {
+      font-weight: 900;
+    }
+    .filters-button-container {
+      display: flex;
+      justify-content: end;
+      align-self: flex-end;
+      .reset-button {
+        background-color: #d56c06;
+        color: white;
+        border-radius: 15px;
+        border: solid 1px;
+        border-color: #d56c06;
+        padding: 1vh 2vh 1vh 2vh;
+      }
+    }
+  }
+  .filters-box {
+    margin-left: 10vw;
+    .filter-titles {
+      color: #d56c06;
+      font-size: 16px;
+    }
+    .filters-button-container {
+      display: flex;
+      gap: 2vw;
+    }
+    .filters-segmented-button-container {
+      .segmented-chip {
+        border: solid 1px;
+        border-right: none;
+        background-color: white;
+        padding: 1vh 2vh 1vh 2vh;
+        font-size: 12px;
+      }
+      .segmented-chip:first-child {
+        border-radius: 15px 0 0 15px;
+      }
+      .segmented-chip:last-child {
+        border-radius: 0 15px 15px 0;
+        border-right: solid 1px;
+      }
+      .selected-segmented {
+        background-color: #d56c06;
+        color: white;
+        border-color: #d56c06;
+      }
+    }
+    .chip {
+      border: solid 1px;
+      border-radius: 15px;
+      padding: 1vh;
+      font-size: 12px;
+      background-color: white;
+    }
+    .selected {
+      background-color: #d56c06;
+      border-color: #d56c06;
+      color: white;
+    }
+  }
+}

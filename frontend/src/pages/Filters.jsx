@@ -1,8 +1,34 @@
 import { useEffect, useState } from "react";
-import Chip from "../components/Chip";
+import Button from "../components/Button";
 
 function Filters() {
   const [filterChip, setFilterChip] = useState([]);
+  const [selectedTags, setSelectedTags] = useState([]);
+
+  const handleClick = (id) => {
+    if (selectedTags.includes(id) === true) {
+      console.info(selectedTags);
+      const temp = [...selectedTags];
+      // const temp = []; Initialisation de la variable
+      // temp.push(...selectedTags); // [1, 2, 3] = > ../ => 1, 2, 3
+      const tagIndex = temp.findIndex((item) => {
+        return item === id;
+      });
+      temp.splice(tagIndex, 1);
+      setSelectedTags(temp);
+      console.info("Bouton True !", id);
+    } else {
+      const temp = [...selectedTags];
+      temp.push(id);
+      setSelectedTags(temp);
+      console.info("Bouton false !", id);
+    }
+  };
+  console.info(selectedTags);
+
+  const resetClick = () => {
+    setSelectedTags([]);
+  };
 
   useEffect(() => {
     fetch("http://localhost:3310/api/tags")
@@ -24,28 +50,121 @@ function Filters() {
       <div className="filters-header">
         <button type="button">⬅️</button>
         <p>Mes filtres</p>
-        <button type="button">réinitialiser</button>
+        <div className="filters-button-container">
+          <Button
+            label="réinitialiser"
+            onClick={resetClick}
+            className="reset-button"
+          />
+        </div>
       </div>
-      <div className="Category">
-        {typeTag.map((tag) => {
-          return <Chip name={tag.name} />;
-        })}
+      <div className="filters-box">
+        <div className="categorys">
+          <p className="filter-titles">category</p>
+          <div className="filters-button-container">
+            {typeTag.map((tag) => {
+              return (
+                <Button
+                  key={tag.id}
+                  label={tag.name}
+                  onClick={() => handleClick(tag.id)}
+                  className={
+                    selectedTags.includes(tag.id) ? "selected chip" : "chip"
+                  }
+                />
+              );
+            })}
+          </div>
+          {/* <Button label="Bouton désactivé" disabled /> */}
+        </div>
+        <div className="countrys">
+          <p className="filter-titles">cuisine</p>
+          <div className="filters-button-container">
+            {countryTag.map((tag) => {
+              return (
+                <Button
+                  key={tag.id}
+                  label={tag.name}
+                  onClick={() => handleClick(tag.id)}
+                  className={
+                    selectedTags.includes(tag.id) ? "selected chip" : "chip"
+                  }
+                />
+              );
+            })}
+          </div>
+        </div>
+        <div className="prices">
+          <p className="filter-titles">prix</p>
+          <div className="filters-segmented-button-container">
+            {priceTag.map((tag) => {
+              return (
+                <Button
+                  key={tag.id}
+                  label={tag.name}
+                  onClick={() => handleClick(tag.id)}
+                  className={
+                    selectedTags.includes(tag.id)
+                      ? "selected-segmented segmented-chip"
+                      : "segmented-chip"
+                  }
+                />
+              );
+            })}
+          </div>
+        </div>
+        <div className="difficulties">
+          <p className="filter-titles">difficulté</p>
+          <div className="filters-button-container">
+            {difficultyTag.map((tag) => {
+              return (
+                <Button
+                  key={tag.id}
+                  label={tag.image_url}
+                  onClick={() => handleClick(tag.id)}
+                  className={
+                    selectedTags.includes(tag.id) ? "seleccted chip" : "chip"
+                  }
+                />
+              );
+            })}
+          </div>
+        </div>
+        <div className="regimes">
+          <p className="filter-titles">régime</p>
+          <div className="filters-button-container">
+            {regimeTag.map((tag) => {
+              return (
+                <Button
+                  key={tag.id}
+                  label={tag.name}
+                  onClick={() => handleClick(tag.id)}
+                  className={
+                    selectedTags.includes(tag.id) ? "selected chip" : "chip"
+                  }
+                />
+              );
+            })}
+          </div>
+        </div>
+        <div className="durations">
+          <p className="filter-titles">durée</p>
+          <div className="filters-button-container">
+            {durationTag.map((tag) => {
+              return (
+                <Button
+                  key={tag.id}
+                  label={tag.name}
+                  onClick={() => handleClick(tag.id)}
+                  className={
+                    selectedTags.includes(tag.id) ? "selected chip" : "chip"
+                  }
+                />
+              );
+            })}
+          </div>
+        </div>
       </div>
-      {countryTag.map((tag) => {
-        return <Chip name={tag.name} />;
-      })}
-      {priceTag.map((tag) => {
-        return <Chip name={tag.name} />;
-      })}
-      {difficultyTag.map((tag) => {
-        return <Chip name={tag.name} />;
-      })}
-      {regimeTag.map((tag) => {
-        return <Chip name={tag.name} />;
-      })}
-      {durationTag.map((tag) => {
-        return <Chip name={tag.name} />;
-      })}
     </div>
   );
 }
