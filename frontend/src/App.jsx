@@ -16,6 +16,7 @@ function App() {
 
   return (
     <div className="App">
+
       <div>{pathname !== "/" && <NavBar />}</div>
       <Outlet />
     </div>
