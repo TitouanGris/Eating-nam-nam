@@ -15,22 +15,26 @@ function RecipeCard({ r }) {
           <div className="card">
             <div className="recipeName">{r.recipeName}</div>
             <div className="tags">
-              <img
-                src={`http://localhost:3310${r.tagPriceUrl}`}
-                alt="r.TagPrice"
-              />
-              <img
-                src={`http://localhost:3310${r.tagDifficultyUrl}`}
-                alt="r.TagDifficulty"
-              />
-              <div>
+              <div className="price">
+                <img
+                  src={`http://localhost:3310${r.tagPriceUrl}`}
+                  alt="r.TagPrice"
+                />
+              </div>
+              <div className="difficulty">
+                <img
+                  src={`http://localhost:3310${r.tagDifficultyUrl}`}
+                  alt="r.TagDifficulty"
+                />
+              </div>
+              <div className="serving">
                 <img
                   src="/src/assets/images/nbServingImage.png"
                   alt="recipeServing"
                 />
                 <p>{r.recipeServing}</p>
               </div>
-              <div>
+              <div className="duration">
                 <img
                   src="/src/assets/images/durationImage.png"
                   alt="TagDuration"
