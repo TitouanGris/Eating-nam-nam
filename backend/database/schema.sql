@@ -670,11 +670,7 @@ VALUES ('price'), ('country'), ('regime'), ('difficulty'), ('duration'), ('type'
 
 INSERT INTO tags (category_id, image_url, name) VALUES
 
-(1, '/images/price-1.png', '€'), (1, '/images/price-2.png', '€€'), (
-    1,
-    '/images/price-3.png',
-    '€€€'
-), (2, '', 'Italien'), (2, '', 'Français'), (2, '', 'Indien'), (2, '', 'Américain'), (3, '', 'Végétarien'), (3, '', 'Vegan'), (3, '', 'Viandard'), (3, '', 'Sans Gluten'), (
+(1, '/images/1euros.png', '€'), (1, '/images/2euros.png', '€€'), (1, '/images/3euros.png', '€€€'), (2, '', 'Italien'), (2, '', 'Français'), (2, '', 'Indien'), (2, '', 'Américain'), (3, '', 'Végétarien'), (3, '', 'Vegan'), (3, '', 'Viandard'), (3, '', 'Sans Gluten'), (
     3,
     '',
     'Sans Produits Laitiers'
@@ -690,31 +686,7 @@ INSERT INTO tags (category_id, image_url, name) VALUES
     4,
     '/images/strong-3.png',
     'Difficile'
-), (
-    5,
-    '/images/chronometre.png',
-    '15 min'
-), (
-    5,
-    '/images/chronometre.png',
-    '30 min'
-), (
-    5,
-    '/images/chronometre.png',
-    '45 min'
-), (
-    5,
-    '/images/chronometre.png',
-    '1 heure'
-), (
-    5,
-    '/images/chronometre.png',
-    '1 heure 30'
-), (
-    5,
-    '/images/chronometre.png',
-    '2 heures et +'
-), (6, '', 'entrée'), (6, '', 'plat'), (6, '', 'dessert'), (6, '', 'boisson'), (6, '', 'apéritif');
+), (5, '', '15 min'), (5, '', '30 min'), (5, '', '45 min'), (5, '', '1 heure'), (5, '', '1 heure 30'), (5, '', '2 heures et +'), (6, '', 'entrée'), (6, '', 'plat'), (6, '', 'dessert'), (6, '', 'boisson'), (6, '', 'apéritif');
 
 Insert INTO
     recipe_tags (recipe_id, tags_id)

@@ -8,7 +8,7 @@ class RecipeManager extends AbstractManager {
   async readAllCardInfos() {
     const [result] = await this.database.query(
       `SELECT r.id as recipeId, r.name as recipeName, r.nb_serving, r.validate_recipe, r.photo_url,
-       t.id, t.category_id, t.image_url, t.name as tagName t.image_url as tagUrl FROM
+       t.id, t.category_id, t.name as tagName, t.image_url as tagUrl FROM
       recipe_tags rt
     JOIN  ${this.table} r ON rt.recipe_id = r.id
     JOIN tags t ON t.id = rt.tags_id

@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 function RecipeCard({ r }) {
   return (
     <div>
-      <div key={r.recipeId}>
+      <div>
         <div className="recipeCard">
           <div className="imgContainer">
             <img
@@ -15,14 +15,26 @@ function RecipeCard({ r }) {
           <div className="card">
             <div className="recipeName">{r.recipeName}</div>
             <div className="tags">
-              <img src={r.tagPriceUrl} alt="r.TagPrice" />
-              <img src={r.tagDifficultyUrl} alt="r.TagDifficulty" />
+              <img
+                src={`http://localhost:3310${r.tagPriceUrl}`}
+                alt="r.TagPrice"
+              />
+              <img
+                src={`http://localhost:3310${r.tagDifficultyUrl}`}
+                alt="r.TagDifficulty"
+              />
               <div>
-                <img src="" alt=" recipeServing" />
+                <img
+                  src="/src/assets/images/nbServingImage.png"
+                  alt="recipeServing"
+                />
                 <p>{r.recipeServing}</p>
               </div>
               <div>
-                <img src={r.tagDurationUrl} alt="r.TagDuration" />
+                <img
+                  src="/src/assets/images/durationImage.png"
+                  alt="TagDuration"
+                />
                 <p>{r.tagDuration}</p>
               </div>
             </div>
