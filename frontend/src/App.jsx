@@ -3,10 +3,11 @@ import NavBar from "./components/NavBar";
 
 function App() {
   const { pathname } = useLocation();
+  const pagesWithoutNavBar = ["/", "/filters"];
 
   return (
     <div className="App">
-      <div>{pathname !== "/" && <NavBar />}</div>
+      <div>{!pagesWithoutNavBar.includes(pathname) && <NavBar />}</div>
       <Outlet />
     </div>
   );
