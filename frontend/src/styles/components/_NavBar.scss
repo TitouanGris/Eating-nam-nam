@@ -8,8 +8,9 @@
   a {
     display: flex;
     width: 100vw;
+    text-decoration: none;
     button {
-      background: none;
+      background: white;
       border: none;
       flex: 1;
       height: 10vh;
@@ -18,6 +19,7 @@
     img {
       width: 20px;
       height: 20px;
+      margin-bottom: 5px;
     }
   }
 }

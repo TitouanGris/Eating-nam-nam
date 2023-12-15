@@ -1,8 +1,7 @@
-
 import { useEffect, useState, useContext } from "react";
+import { NavLink } from "react-router-dom";
 import Button from "../components/Button";
 import FiltersContext from "../context/FiltersContext";
-
 
 function Filters() {
   const [filterChip, setFilterChip] = useState([]);

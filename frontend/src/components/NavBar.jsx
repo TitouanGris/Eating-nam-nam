@@ -11,6 +11,7 @@ function NavBar() {
     <div className="NavBar">
       <NavLink to="/browse">
         <button type="button" className="home_button">
+          <img alt="filters" src="./src/assets/images/home.png" />
           <p>Accueil</p>
         </button>
       </NavLink>
