@@ -1,41 +1,19 @@
-import Counter from "./components/Counter";
-import logo from "./assets/logo.svg";
-
-import "./App.css";
+import { Outlet, useLocation } from "react-router-dom";
+import NavBar from "./components/NavBar";
+import { FiltersContextProvider } from "./context/FiltersContext";
 
 function App() {
+  const { pathname } = useLocation();
+
+  const pagesWithoutNavBar = ["/", "/filters"];
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>Hello Vite + React !</p>
-
-        <Counter />
-
-        <p>
-          Edit <code>App.jsx</code> and save to test HMR updates.
-        </p>
-        <p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-          {" | "}
-          <a
-            className="App-link"
-            href="https://vitejs.dev/guide/features.html"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Vite Docs
-          </a>
-        </p>
-      </header>
-    </div>
+    <FiltersContextProvider>
+      <div className="App">
+        <div>{!pagesWithoutNavBar.includes(pathname) && <NavBar />}</div>
+        <Outlet />
+      </div>
+    </FiltersContextProvider>
   );
 }
 
