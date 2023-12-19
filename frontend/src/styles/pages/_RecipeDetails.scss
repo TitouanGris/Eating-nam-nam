@@ -1,18 +1,117 @@
-.recipeCard {
+.recipeDetails {
   display: flex;
+  margin-top: 15px;
+  gap: 15px;
   flex-direction: column;
   // background-color: blue;
-}
 
-.steps_details {
-  display: flex;
-  padding-top: 30px;
-  flex-direction: column;
-  gap: 30px;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 13vh;
-  // background-color: red;
+  .recipeDetailsHeader {
+    display: flex;
+    gap: 20px;
+    padding-left: 10px;
+    align-items: center;
+    img {
+      width: 30px;
+    }
+  }
+  .imgContainer {
+    width: 100vw;
+
+    img {
+      width: 100%;
+    }
+  }
+
+  .card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 100%;
+    gap: 5px;
+    width: 100%;
+    height: 30%;
+
+    .tags {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1%;
+
+      .price {
+        width: 25%;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        img {
+          // object-fit: cover;
+          width: 80%;
+        }
+      }
+
+      .difficulty {
+        width: 25%;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        img {
+          // object-fit: cover;
+          width: 80%;
+        }
+      }
+
+      .serving,
+      .duration {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 25%;
+
+        img {
+          width: 40%;
+        }
+      }
+    }
+  }
+
+  .recipeName {
+    width: 100%;
+    padding-left: 3%;
+    align-items: center;
+    font-weight: 600;
+  }
+  .recipe_summary {
+    padding: 0 20px;
+  }
+
+  .recipe_ingredients {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+    margin-bottom: 15px;
+
+    h3 {
+      color: var(--primary-color);
+    }
+  }
+
+  .steps_details {
+    display: flex;
+    padding: 0 20px 0 35px;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 13vh;
+    h3 {
+      color: var(--primary-color);
+    }
+  }
 }
 
 @media screen and (min-width: 900px) {
