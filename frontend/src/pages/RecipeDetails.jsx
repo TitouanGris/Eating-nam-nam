@@ -5,6 +5,7 @@ function RecipeDetails() {
   const recipe = useLoaderData();
   const [steps, setSteps] = useState([]);
   const [ingredients, setIngredients] = useState([]);
+  const [tags, setTags] = useState([]);
   const { id } = useParams();
 
   useEffect(() => {
@@ -17,6 +18,12 @@ function RecipeDetails() {
     fetch(`http://localhost:3310/api/ingredients/${id}`)
       .then((res) => res.json())
       .then((data) => setIngredients(data));
+  }, []);
+
+  useEffect(() => {
+    fetch(`http://localhost:3310/api/tags/recipe/${id}`)
+      .then((res) => res.json())
+      .then((data) => setTags(data));
   }, []);
 
   return (
@@ -61,11 +68,18 @@ function RecipeDetails() {
         </div>
       </div>
       <h4 className="recipe_summary">{recipe.summary}</h4>
+      <div className="recipe_tags">
+        {tags.map((tag) => (
+          <div key={tag.id}>{tag.name}</div>
+        ))}
+      </div>
       <div className="recipe_ingredients">
         <h3>Ingrédients</h3>
         <ul>
           {ingredients.map((ingredient) => (
-            <li>{`${ingredient.quantity} ${ingredient.unitName} ${ingredient.ingredientName}`}</li>
+            <li
+              key={ingredient.id}
+            >{`${ingredient.quantity} ${ingredient.unitName} ${ingredient.ingredientName}`}</li>
           ))}
         </ul>
       </div>

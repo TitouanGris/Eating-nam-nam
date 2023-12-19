@@ -15,10 +15,10 @@
     }
   }
   .imgContainer {
-    width: 100vw;
-
     img {
-      width: 100%;
+      width: 100vw;
+      height: 30vh;
+      object-fit: cover;
     }
   }
 
@@ -97,6 +97,23 @@
 
     h3 {
       color: var(--primary-color);
+    }
+  }
+
+  .recipe_tags {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 10px;
+    width: 80%;
+    padding: 1vh;
+
+    div {
+      border: solid black 2px;
+      padding: 10px;
+      border-radius: 15px;
+      // color: white;
+      // background-color: var(--primary-color);
     }
   }
 

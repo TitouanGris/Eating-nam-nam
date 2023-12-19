@@ -19,6 +19,7 @@ router.get("/recipe", recipeControllers.browse);
 router.get("/recipe/:id", recipeControllers.read);
 router.get("/step/:id", stepControllers.readSteps);
 router.get("/tags", tagsControllers.browse);
+router.get("/tags/recipe/:id", tagsControllers.readTagsByRecipeId);
 router.get("/ingredients/:id", ingredientControllers.readIngredientsByRecipeId);
 
 // Route to get a specific item by ID
