@@ -13,13 +13,19 @@ function RecipeDetails() {
   }, []);
 
   return (
-    <div>
+    <div className="recipeCard">
       <RecipeCard r={recipe} key={recipe.id} />
-      <p>{recipe.summary}</p>
-      <div>
-        {steps.map((step) => {
-          return <p>{step.description}</p>;
-        })}
+      <p className="recipe_summary">{recipe.summary}</p>
+      <div className="steps_details">
+        <ul>
+          {steps.map((step) => {
+            return (
+              <li key={step.id}>
+                {step.id}. {step.description}
+              </li>
+            );
+          })}
+        </ul>
       </div>
     </div>
   );
