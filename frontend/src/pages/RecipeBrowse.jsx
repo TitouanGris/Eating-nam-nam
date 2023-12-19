@@ -1,4 +1,5 @@
 import { useEffect, useState, useContext } from "react";
+import { Link } from "react-router-dom";
 import RecipeCard from "../components/RecipeCard";
 import FiltersContext from "../context/FiltersContext";
 
@@ -56,9 +57,16 @@ function RecipeBrowse() {
           // Si aucun filtre n'a de valeur, afficher toutes les recettes
           return true;
         })
-        .map((r) => (
-          <RecipeCard r={r} key={r.recipeId} />
-        ))}
+        .map((r) => {
+          return (
+            <Link
+              to={`http://localhost:3000/recipe/${r.recipeId}`}
+              style={{ color: "inherit", textDecoration: "inherit" }}
+            >
+              <RecipeCard r={r} key={r.recipeId} />
+            </Link>
+          );
+        })}
     </div>
   );
 }

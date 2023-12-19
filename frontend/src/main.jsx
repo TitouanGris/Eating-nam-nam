@@ -5,6 +5,8 @@ import App from "./App";
 import Home from "./pages/Home";
 import Filters from "./pages/Filters";
 import RecipeBrowse from "./pages/RecipeBrowse";
+import RecipeDetails, { loadRecipeDetails } from "./pages/RecipeDetails";
+
 import "./styles/index.scss";
 
 const router = createBrowserRouter([
@@ -21,8 +23,14 @@ const router = createBrowserRouter([
         element: <RecipeBrowse />,
       },
       {
+        path: "/recipe/:id",
+        element: <RecipeDetails />,
+        loader: loadRecipeDetails,
+      },
+      {
         path: "/filters",
         element: <Filters />,
+        // loader: loadRecipes
       },
     ],
   },
