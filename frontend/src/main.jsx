@@ -3,8 +3,12 @@ import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import App from "./App";
 import Home from "./pages/Home";
-import Filters from "./pages/Filters";
+import Filters, { loadFiltersData } from "./pages/Filters";
 import RecipeBrowse from "./pages/RecipeBrowse";
+import RecipePost, {
+  loadIngredientsData,
+  loadUnitsData,
+} from "./pages/RecipePost";
 import "./styles/index.scss";
 
 const router = createBrowserRouter([
@@ -21,8 +25,23 @@ const router = createBrowserRouter([
         element: <RecipeBrowse />,
       },
       {
+        path: "/publish",
+        element: <RecipePost />,
+        async loader() {
+          const filtersData = await loadFiltersData();
+          const ingredientsData = await loadIngredientsData();
+          const unitsData = await loadUnitsData();
+          return {
+            filters: filtersData,
+            ingredients: ingredientsData,
+            units: unitsData,
+          };
+        },
+      },
+      {
         path: "/filters",
         element: <Filters />,
+        loader: loadFiltersData,
       },
     ],
   },

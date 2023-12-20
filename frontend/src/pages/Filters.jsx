@@ -1,10 +1,10 @@
-import { useEffect, useState, useContext } from "react";
-import { NavLink } from "react-router-dom";
+import { useContext } from "react";
+import { NavLink, useLoaderData } from "react-router-dom";
 import Button from "../components/Button";
 import FiltersContext from "../context/FiltersContext";
 
 function Filters() {
-  const [filterChip, setFilterChip] = useState([]);
+  const filters = useLoaderData();
   const {
     filterCountry,
     setFilterCountry,
@@ -123,19 +123,19 @@ function Filters() {
     setFilterType([]);
   };
 
-  useEffect(() => {
-    fetch("http://localhost:3310/api/tags")
-      .then((res) => res.json())
-      .then((data) => setFilterChip(data))
-      .catch((err) => console.error(err));
-  }, []);
+  // useEffect(() => {
+  //   fetch("http://localhost:3310/api/tags")
+  //     .then((res) => res.json())
+  //     .then((data) => setFilterChip(data))
+  //     .catch((err) => console.error(err));
+  // }, []);
 
-  const typeTag = filterChip.filter((tag) => tag.category_id === 6);
-  const countryTag = filterChip.filter((tag) => tag.category_id === 2);
-  const priceTag = filterChip.filter((tag) => tag.category_id === 1);
-  const difficultyTag = filterChip.filter((tag) => tag.category_id === 4);
-  const regimeTag = filterChip.filter((tag) => tag.category_id === 3);
-  const durationTag = filterChip.filter((tag) => tag.category_id === 5);
+  const typeTag = filters.filter((tag) => tag.category_id === 6);
+  const countryTag = filters.filter((tag) => tag.category_id === 2);
+  const priceTag = filters.filter((tag) => tag.category_id === 1);
+  const difficultyTag = filters.filter((tag) => tag.category_id === 4);
+  const regimeTag = filters.filter((tag) => tag.category_id === 3);
+  const durationTag = filters.filter((tag) => tag.category_id === 5);
 
   return (
     <div className="filters">
@@ -269,4 +269,16 @@ function Filters() {
     </div>
   );
 }
+
+export const loadFiltersData = async () => {
+  try {
+    const filtersData = await fetch(`http://localhost:3310/api/tags`);
+    const data = await filtersData.json();
+    return data;
+  } catch (e) {
+    console.error(e);
+    return null;
+  }
+};
+
 export default Filters;
