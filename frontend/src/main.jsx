@@ -3,7 +3,7 @@ import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import App from "./App";
 import Home from "./pages/Home";
-import Filters from "./pages/Filters";
+// import Filters from "./components/Filters";
 import RecipeBrowse from "./pages/RecipeBrowse";
 import RecipeDetails, { loadRecipeDetails } from "./pages/RecipeDetails";
 
@@ -26,11 +26,6 @@ const router = createBrowserRouter([
         path: "/recipe/:id",
         element: <RecipeDetails />,
         loader: loadRecipeDetails,
-      },
-      {
-        path: "/filters",
-        element: <Filters />,
-        // loader: loadRecipes
       },
     ],
   },

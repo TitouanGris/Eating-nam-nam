@@ -65,7 +65,9 @@ function RecipeDetails() {
         <h3>Ingrédients</h3>
         <ul>
           {ingredients.map((ingredient) => (
-            <li>{`${ingredient.quantity} ${ingredient.unitName} ${ingredient.ingredientName}`}</li>
+            <li
+              key={ingredient.id}
+            >{`${ingredient.quantity} ${ingredient.unitName} ${ingredient.ingredientName}`}</li>
           ))}
         </ul>
       </div>
@@ -73,7 +75,7 @@ function RecipeDetails() {
         <h3>Recette</h3>
         <ol>
           {steps.map((step) => {
-            return <li key={step.step_number}>{step.description}</li>;
+            return <li key={step.id}>{step.description}</li>;
           })}
         </ol>
       </div>
