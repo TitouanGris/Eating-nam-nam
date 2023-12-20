@@ -87,7 +87,7 @@ function RecipeDetails() {
         <h3>Recette</h3>
         <ol>
           {steps.map((step) => {
-            return <li key={step.step_number}>{step.description}</li>;
+            return <li key={step.id}>{step.description}</li>;
           })}
         </ol>
       </div>

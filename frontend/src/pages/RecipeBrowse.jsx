@@ -60,10 +60,11 @@ function RecipeBrowse() {
         .map((r) => {
           return (
             <Link
+              key={r.recipeId}
               to={`http://localhost:3000/recipe/${r.recipeId}`}
               style={{ color: "inherit", textDecoration: "inherit" }}
             >
-              <RecipeCard r={r} key={r.recipeId} />
+              <RecipeCard r={r} />
             </Link>
           );
         })}

@@ -21,6 +21,14 @@ class TagsManager extends AbstractManager {
     );
     return result;
   }
+
+  async readTagsByRecipeId(id) {
+    const [result] = await this.database.query(
+      `SELECT recipe_id, tags.name, tags.id FROM recipe_tags JOIN ${this.table} ON tags_id = tags.id WHERE recipe_id=? AND (category_id=2 OR category_id=3 OR category_id=6)`,
+      [id]
+    );
+    return result;
+  }
 }
 
 module.exports = TagsManager;
