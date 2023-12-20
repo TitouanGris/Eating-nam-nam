@@ -22,6 +22,14 @@ class StepManager extends AbstractManager {
 
     return result;
   }
+
+  async readSteps(id) {
+    const [result] = await this.database.query(
+      `select * from ${this.table} where recipe_id = ?`,
+      [id]
+    );
+    return result;
+  }
 }
 
 module.exports = StepManager;
