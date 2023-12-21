@@ -11,13 +11,18 @@ const browse = async (req, res, next) => {
 
 // The A of BREAD - Add (Create) operation
 const add = async (req, res, next) => {
-  const users = req.body;
   try {
-    const insertId = await tables.user.create(users);
+    const { pseudo, email } = req.body;
+    const existingUser = await tables.user.readOneUser(pseudo, email);
+    if (existingUser) {
+      return res.status((400).json({ error: "Cet utilsateur existe déjà." }));
+    }
+    const insertId = await tables.user.create(req.body);
     res.status(201).json({ insertId });
   } catch (err) {
     next(err);
   }
+  return null;
 };
 
 module.exports = {

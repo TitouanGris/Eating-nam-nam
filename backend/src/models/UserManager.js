@@ -10,7 +10,6 @@ class UserManager extends AbstractManager {
       `INSERT INTO ${this.table} (pseudo, email, password, is_admin) values (?, ?, ?, ?)`,
       [user.pseudo, user.email, user.password, user.is_admin]
     );
-
     return result;
   }
 
@@ -21,6 +20,14 @@ class UserManager extends AbstractManager {
     );
 
     return result;
+  }
+
+  async readOneUser(pseudo, email) {
+    const [result] = await this.database.query(
+      `SELECT * FROM ${this.table} WHERE pseudo = ? OR email = ?`,
+      [pseudo, email]
+    );
+    return result[0];
   }
 }
 

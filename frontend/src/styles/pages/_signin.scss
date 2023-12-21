@@ -12,6 +12,10 @@
     text-align: center;
   }
 
+  .success-message {
+    color: green;
+  }
+
   form {
     display: flex;
     flex-direction: column;
@@ -21,6 +25,7 @@
       width: 60vw;
       height: 6vh;
       border-radius: 10px;
+      font-size: var(--text-second-font-size);
     }
 
     .signin-button {
@@ -29,6 +34,7 @@
       button {
         background-color: var(--primary-color);
         color: var(--secondary-color-text);
+        font-size: var(--text-second-font-size);
         font-weight: bold;
         border-radius: 10px;
         border: none;

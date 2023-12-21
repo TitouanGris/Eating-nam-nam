@@ -9,25 +9,33 @@ function Signin() {
     is_admin: false,
   });
   const [submittedUser, setSubmittedUser] = useState([]);
+  const [errorMessage, setErrorMessage] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!newUser.pseudo || !newUser.email || !newUser.password) {
-      console.error("Veuillez remplir tous les champs");
+      setErrorMessage("Veuillez remplir tous les champs");
     }
     try {
       await axios.post("http://localhost:3310/api/user", newUser);
 
       setSubmittedUser([...submittedUser, newUser]);
       setNewUser({ pseudo: "", email: "", password: "" });
+      setSuccessMessage("Votre compte a bien été créé !");
     } catch (err) {
       console.error(err);
+      setErrorMessage("Cet utilisateur existe déjà.");
     }
   };
 
   return (
     <div className="signin-page">
       <h1>Inscription</h1>
+      {errorMessage && <p>{errorMessage}</p>}
+      {successMessage && (
+        <div className="success-message">{successMessage}</div>
+      )}
       <form onSubmit={handleSubmit}>
         <input
           type="text"
@@ -51,7 +59,7 @@ function Signin() {
           onChange={(e) => setNewUser({ ...newUser, password: e.target.value })}
         />
         <div className="signin-button">
-          <button type="button">Je m'inscris</button>
+          <button type="submit">Je m'inscris</button>
         </div>
       </form>
     </div>
