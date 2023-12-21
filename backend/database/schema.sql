@@ -34,7 +34,7 @@ CREATE TABLE
         created_date DATETIME NOT NULL DEFAULT NOW(),
         updated_date DATETIME NULL DEFAULT NOW() ON UPDATE CURRENT_TIMESTAMP,
         password VARCHAR(20) NOT NULL,
-        is_admin BOOL NOT NULL
+        is_admin BOOL NOT NULL DEFAULT FALSE
     );
 
 CREATE TABLE

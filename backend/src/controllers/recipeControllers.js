@@ -1,5 +1,5 @@
 // Import access to database tables
-// const console = require("console");
+
 const tables = require("../tables");
 
 // The B of BREAD - Browse (Read All) operation
@@ -61,10 +61,8 @@ const browse = async (req, res, next) => {
 
 const read = async (req, res, next) => {
   try {
-    // Fetch all items from the database
     const recipes = await tables.recipe.readCardInfos(req.params.id);
     let tempObject = {};
-    // // let previousId = 0;
 
     recipes.forEach((e) => {
       if (!tempObject.recipeId) {

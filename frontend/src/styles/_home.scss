@@ -32,4 +32,11 @@
       font-family: var(--font-family);
     }
   }
+
+  .inscription {
+    p {
+      text-align: center;
+      color: var(--primary-color-text);
+    }
+  }
 }

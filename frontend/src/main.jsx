@@ -11,6 +11,8 @@ import RecipePost, {
 // import Filters from "./components/Filters";
 import RecipeBrowse from "./pages/RecipeBrowse";
 import RecipeDetails, { loadRecipeDetails } from "./pages/RecipeDetails";
+import Signin from "./pages/Signin";
+
 import "./styles/index.scss";
 
 const router = createBrowserRouter([
@@ -21,6 +23,10 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <Home />,
+      },
+      {
+        path: "/signin",
+        element: <Signin />,
       },
       {
         path: "/browse",

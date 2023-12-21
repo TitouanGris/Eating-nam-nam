@@ -13,7 +13,7 @@ const tagsControllers = require("./controllers/tagsControllers");
 const ingredientControllers = require("./controllers/ingredientControllers");
 const unitsControllers = require("./controllers/unitsControllers");
 const stepControllers = require("./controllers/stepControllers");
-
+const userControllers = require("./controllers/userControllers");
 // Route to get a list of items
 router.get("/items", itemControllers.browse);
 router.get("/recipe", recipeControllers.browse);
@@ -30,6 +30,8 @@ router.get("/items/:id", itemControllers.read);
 // Route to add a new item
 router.post("/items", itemControllers.add);
 router.post("/recipe", recipeControllers.add);
+router.post("/user", userControllers.add);
+
 
 /* ************************************************************************* */
 
