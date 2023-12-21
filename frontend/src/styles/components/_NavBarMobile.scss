@@ -4,15 +4,11 @@
   height: 10vh;
   position: fixed;
   bottom: 0;
+  justify-content: space-around;
 
-  // a {
-  //   display: flex;
-  //   width: 10vw;
-  //   text-decoration: none;
   button {
     background: white;
     border: none;
-    flex: 1;
     height: 10vh;
   }
 
