@@ -1,5 +1,5 @@
 // import { useState } from "react";
-// import { NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import PropTypes from "prop-types";
 
 function NavBarMobile({ setFavoriteMobileisActive }) {
@@ -14,12 +14,12 @@ function NavBarMobile({ setFavoriteMobileisActive }) {
 
   return (
     <div className="navBarMobile">
-      {/* <NavLink to="/browse"> */}
-      <button type="button" className="home_button">
-        <img alt="filters" src="./src/assets/images/home.png" />
-        <p>Accueil</p>
-      </button>
-      {/* </NavLink> */}
+      <NavLink to="/browse">
+        <button type="button" className="home_button">
+          <img alt="home" src="./src/assets/images/home.png" />
+          <p>Accueil</p>
+        </button>
+      </NavLink>
       {/* <button type="button" disabled={!isConnected} className="publish_button">
         <img alt="publish" src="./src/assets/images/add.png" />
         <p>Publier</p>
