@@ -32,6 +32,10 @@ body,
   font-size: var(--title-font-size);
   font-family: var(--font-family);
   margin-bottom: 15px;
+
+  &:hover {
+    cursor: pointer;
+  }
 }
 
 .button2 {
@@ -44,6 +48,9 @@ body,
   font-size: var(--title-font-size);
   font-family: var(--font-family);
   margin-bottom: 15px;
+  &:hover {
+    cursor: pointer;
+  }
 }
 
 @media screen and (min-width: 900px) {
