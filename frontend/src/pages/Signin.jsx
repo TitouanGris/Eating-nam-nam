@@ -1,5 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function Signin() {
   const [newUser, setNewUser] = useState({
@@ -12,6 +13,8 @@ function Signin() {
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
 
+  const navigate = useNavigate();
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!newUser.pseudo || !newUser.email || !newUser.password) {
@@ -19,10 +22,12 @@ function Signin() {
     }
     try {
       await axios.post("http://localhost:3310/api/user", newUser);
-
       setSubmittedUser([...submittedUser, newUser]);
       setNewUser({ pseudo: "", email: "", password: "" });
       setSuccessMessage("Votre compte a bien été créé !");
+      setTimeout(() => {
+        navigate("/browse");
+      }, 2000);
     } catch (err) {
       console.error(err);
       setErrorMessage("Cet utilisateur existe déjà.");
@@ -32,10 +37,11 @@ function Signin() {
   return (
     <div className="signin-page">
       <h1>Inscription</h1>
-      {errorMessage && <p>{errorMessage}</p>}
       {successMessage && (
         <div className="success-message">{successMessage}</div>
       )}
+      {errorMessage && <p>{errorMessage}</p>}
+
       <form onSubmit={handleSubmit}>
         <input
           type="text"

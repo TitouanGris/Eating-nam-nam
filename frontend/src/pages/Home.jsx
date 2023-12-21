@@ -15,7 +15,7 @@ function Home() {
           <button type="button">Démarrer</button>
         </NavLink>
       </div>
-      <div>
+      <div className="inscription">
         <NavLink to="/signin">
           <p>Pas encore de compte ? Inscrivez-vous</p>
         </NavLink>
