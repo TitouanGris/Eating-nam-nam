@@ -15,6 +15,11 @@ function Home() {
           <button type="button">Démarrer</button>
         </NavLink>
       </div>
+      <div>
+        <NavLink to="/signin">
+          <p>Pas encore de compte ? Inscrivez-vous</p>
+        </NavLink>
+      </div>
     </div>
   );
 }
