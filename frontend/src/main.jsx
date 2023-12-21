@@ -3,12 +3,14 @@ import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import App from "./App";
 import Home from "./pages/Home";
-import Filters, { loadFiltersData } from "./pages/Filters";
-import RecipeBrowse from "./pages/RecipeBrowse";
+import { loadFiltersData } from "./components/Filters";
 import RecipePost, {
   loadIngredientsData,
   loadUnitsData,
 } from "./pages/RecipePost";
+// import Filters from "./components/Filters";
+import RecipeBrowse from "./pages/RecipeBrowse";
+import RecipeDetails, { loadRecipeDetails } from "./pages/RecipeDetails";
 import "./styles/index.scss";
 
 const router = createBrowserRouter([
@@ -23,6 +25,7 @@ const router = createBrowserRouter([
       {
         path: "/browse",
         element: <RecipeBrowse />,
+        loader: loadFiltersData,
       },
       {
         path: "/publish",
@@ -39,9 +42,9 @@ const router = createBrowserRouter([
         },
       },
       {
-        path: "/filters",
-        element: <Filters />,
-        loader: loadFiltersData,
+        path: "/recipe/:id",
+        element: <RecipeDetails />,
+        loader: loadRecipeDetails,
       },
     ],
   },

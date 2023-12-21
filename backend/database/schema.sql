@@ -67,7 +67,7 @@ CREATE TABLE
     recipe_ingredient (
         recipe_id INT NOT NULL,
         ingredient_id INT NOT NULL,
-        quantity VARCHAR(100),
+        quantity INT NOT NULL,
         unit_id INT NOT NULL,
         PRIMARY KEY (
             recipe_id,
@@ -686,7 +686,7 @@ INSERT INTO tags (category_id, image_url, name) VALUES
     4,
     '/images/strong-3.png',
     'Difficile'
-), (5, '', '15 min'), (5, '', '30 min'), (5, '', '45 min'), (5, '', '1 heure'), (5, '', '1 heure 30'), (5, '', '2 heures et +'), (6, '', 'entrée'), (6, '', 'plat'), (6, '', 'dessert'), (6, '', 'boisson'), (6, '', 'apéritif');
+), (5, '', '15 min'), (5, '', '30 min'), (5, '', '45 min'), (5, '', '1h'), (5, '', '1h30'), (5, '', '2h+'), (6, '', 'entrée'), (6, '', 'plat'), (6, '', 'dessert'), (6, '', 'boisson'), (6, '', 'apéritif');
 
 Insert INTO
     recipe_tags (recipe_id, tags_id)

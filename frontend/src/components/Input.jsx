@@ -11,6 +11,7 @@ function Input({
   inputList,
   onChange,
   value,
+  size,
   // onSelect
 }) {
   return (
@@ -24,6 +25,7 @@ function Input({
       list={inputList}
       onChange={onChange}
       value={value}
+      size={size}
       // onSelect={onSelect}
     />
   );
@@ -39,6 +41,7 @@ Input.propTypes = {
   inputList: PropTypes.string,
   onChange: PropTypes.func,
   value: PropTypes.string,
+  size: PropTypes.number,
 };
 
 Input.defaultProps = {
@@ -49,5 +52,6 @@ Input.defaultProps = {
   onChange: null,
   inputId: "inputId",
   value: "",
+  size: "",
 };
 export default Input;

@@ -1,4 +1,3 @@
-// Import access to database tables
 const tables = require("../tables");
 
 // The B of BREAD - Browse (Read All) operation
@@ -15,6 +14,22 @@ const browse = async (req, res, next) => {
   }
 };
 
+const readIngredientsByRecipeId = async (req, res, next) => {
+  try {
+    const ingredient = await tables.ingredient.readIngredientsByRecipeId(
+      req.params.id
+    );
+    if (ingredient == null) {
+      res.sendStatus(404);
+    } else {
+      res.json(ingredient);
+    }
+  } catch (err) {
+    next(err);
+  }
+};
+
 module.exports = {
+  readIngredientsByRecipeId,
   browse,
 };

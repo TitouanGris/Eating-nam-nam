@@ -22,13 +22,39 @@ function RecipePost() {
   const [unitValue, setUnitValue] = useState("");
   const [sumIng, setSumIng] = useState([]);
   const [verifIng, setVerifIng] = useState(true);
+  const [toPostRecipe, setToPostRecipe] = useState({
+    recipe_name: "",
+    user_id: 1,
+    summary: "",
+    nb_serving: persons,
+    validateRecipe: true,
+    photoUrl: null,
+  });
+  const [toPostTags, setToPostTags] = useState({
+    type_tags_id: null,
+    time_tags_id: null,
+    price_tags_id: null,
+    diff_tags_id: null,
+    regime_tags_id: null,
+    country_tags_id: null,
+  });
+  const [toPostSteps, setToPostSteps] = useState({
+    description: "",
+    step_number: 1,
+  });
 
   const handlePlusPersons = () => {
-    setPersons(persons + 1);
+    setPersons((prevPersons) => prevPersons + 1);
+    setToPostRecipe((oldObj) => {
+      return { ...oldObj, nb_serving: persons + 1 };
+    });
   };
   const handleLessPersons = () => {
     if (persons > 0) {
-      setPersons(persons - 1);
+      setPersons((prevPersons) => prevPersons - 1);
+      setToPostRecipe((oldObj) => {
+        return { ...oldObj, nb_serving: persons - 1 };
+      });
     }
   };
 
@@ -46,8 +72,12 @@ function RecipePost() {
   };
   const handleSumIng = () => {
     if (!sumIng.find((ing) => ing.ingValue === ingValue)) {
+      const catId = ingredients?.find(
+        (ingredient) => ingredient.name === ingValue
+      ).id;
+      const unitId = units?.find((unit) => unit.name === unitValue).id;
       setSumIng((oldObj) => {
-        return [...oldObj, { ingValue, qtyValue, unitValue }];
+        return [...oldObj, { catId, qtyValue, unitId }];
       });
       setIngValue("");
       setQtyValue("");
@@ -59,10 +89,76 @@ function RecipePost() {
     setVerifIng(false);
     return false;
   };
-  console.info(ingValue);
-  console.info(qtyValue);
-  console.info(unitValue);
+  const handleRemove = (index) => {
+    setSumIng((oldObj) => {
+      const updateSumIng = [...oldObj];
+      updateSumIng.splice(index, 1);
+      return updateSumIng;
+    });
+  };
+
+  const handleRecipeName = (event) => {
+    const { value } = event.target;
+    setToPostRecipe((oldObj) => {
+      return { ...oldObj, recipe_name: value };
+    });
+  };
+  const handleRecipeSummary = (event) => {
+    const { value } = event.target;
+    setToPostRecipe((oldObj) => {
+      return { ...oldObj, summary: value };
+    });
+  };
+  const handleRecipeTypeTags = (tag) => {
+    const value = tag.id;
+    setToPostTags((oldObj) => {
+      return { ...oldObj, type_tags_id: value };
+    });
+  };
+  const handleRecipeTimeTags = (tag) => {
+    const value = tag.id;
+    setToPostTags((oldObj) => {
+      return { ...oldObj, time_tags_id: value };
+    });
+  };
+  const handleRecipePriceTags = (tag) => {
+    const value = tag.id;
+    setToPostTags((oldObj) => {
+      return { ...oldObj, price_tags_id: value };
+    });
+  };
+  const handleRecipeDiffTags = (tag) => {
+    const value = tag.id;
+    setToPostTags((oldObj) => {
+      return { ...oldObj, diff_tags_id: value };
+    });
+  };
+  const handleRecipeRegimeTags = (tag) => {
+    const value = tag.id;
+    setToPostTags((oldObj) => {
+      return { ...oldObj, regime_tags_id: value };
+    });
+  };
+  const handleRecipeCountryTags = (tag) => {
+    const value = tag.id;
+    setToPostTags((oldObj) => {
+      return { ...oldObj, country_tags_id: value };
+    });
+  };
+  const handleRecipeStep = (event) => {
+    const { value } = event.target;
+    setToPostSteps((oldObj) => {
+      return { ...oldObj, description: value };
+    });
+  };
+
+  // console.info(ingValue);
+  // console.info(qtyValue);
+  // console.info(unitValue);
   console.info(sumIng);
+  console.info(toPostRecipe);
+  console.info(toPostTags);
+  console.info(toPostSteps);
 
   const typeTag = filters.filter((tag) => tag.category_id === 6);
   const countryTag = filters.filter((tag) => tag.category_id === 2);
@@ -70,6 +166,37 @@ function RecipePost() {
   const difficultyTag = filters.filter((tag) => tag.category_id === 4);
   const regimeTag = filters.filter((tag) => tag.category_id === 3);
   const durationTag = filters.filter((tag) => tag.category_id === 5);
+
+  const handleShareRecipe = async () => {
+    try {
+      // Envoi des données à la backend
+      const response = await fetch("http://localhost:3310/api/recipe", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          recipe: toPostRecipe,
+          tags: toPostTags,
+          steps: [toPostSteps], // Mettez les étapes dans un tableau, car votre backend semble attendre un tableau de steps
+          ingredients: sumIng,
+        }),
+      });
+
+      if (response.ok) {
+        // Succès de l'envoi
+        console.info("Recette partagée avec succès !");
+      } else {
+        // Gestion des erreurs
+        console.error(
+          "Erreur lors du partage de la recette :",
+          response.statusText
+        );
+      }
+    } catch (error) {
+      console.error("Erreur inattendue lors du partage de la recette :", error);
+    }
+  };
 
   return (
     <div className="recipe_post">
@@ -82,6 +209,22 @@ function RecipePost() {
           inputMinLength="0"
           inputMaxLength="80"
           inputPlaceholder="Choucroute"
+          value={toPostRecipe.recipe_name}
+          onChange={handleRecipeName}
+        />
+      </div>
+      <div className="recipe_resume">
+        <p>Décrivez en quelques mots votre recette</p>
+        <Input
+          inputType="text"
+          inputId="generic_input"
+          inputName="recipe_resume"
+          inputMinLength="0"
+          inputMaxLength="255"
+          inputPlaceholder="Salade fraîche pour l'été"
+          size="30"
+          value={toPostRecipe.summary}
+          onChange={handleRecipeSummary}
         />
       </div>
       <div className="number_persons">
@@ -111,6 +254,9 @@ function RecipePost() {
                 className={
                   filterType.includes(tag.name) ? "selected chip" : "chip"
                 }
+                onClick={() => {
+                  handleRecipeTypeTags(tag);
+                }}
               />
             );
           })}
@@ -127,6 +273,9 @@ function RecipePost() {
                 className={
                   filterDuration.includes(tag.name) ? "selected chip" : "chip"
                 }
+                onClick={() => {
+                  handleRecipeTimeTags(tag);
+                }}
               />
             );
           })}
@@ -143,6 +292,9 @@ function RecipePost() {
                 className={
                   filterPrice.includes(tag.name) ? "selected chip" : "chip"
                 }
+                onClick={() => {
+                  handleRecipePriceTags(tag);
+                }}
               />
             );
           })}
@@ -159,6 +311,9 @@ function RecipePost() {
                 className={
                   filterDifficulty.includes(tag.name) ? "selected chip" : "chip"
                 }
+                onClick={() => {
+                  handleRecipeDiffTags(tag);
+                }}
               />
             );
           })}
@@ -175,6 +330,9 @@ function RecipePost() {
                 className={
                   filterRegime.includes(tag.name) ? "selected chip" : "chip"
                 }
+                onClick={() => {
+                  handleRecipeRegimeTags(tag);
+                }}
               />
             );
           })}
@@ -191,6 +349,9 @@ function RecipePost() {
                 className={
                   filterCountry.includes(tag.name) ? "selected chip" : "chip"
                 }
+                onClick={() => {
+                  handleRecipeCountryTags(tag);
+                }}
               />
             );
           })}
@@ -240,11 +401,18 @@ function RecipePost() {
         />
         {verifIng === false && <p>⚠️ Ingrédient déjà ajouté</p>}
         <div className="ingListSummary">
-          {sumIng.map((ing) => {
+          {sumIng.map((ing, index) => {
             return (
-              <p>
-                {ing.qtyValue} {ing.unitValue} {ing.ingValue}
-              </p>
+              <div key={ing.ingValue}>
+                <p>
+                  {ing.qtyValue} {ing.unitValue} {ing.ingValue}
+                </p>
+                <Button
+                  label="X"
+                  className="removeIng"
+                  onClick={() => handleRemove(index)}
+                />
+              </div>
             );
           })}
         </div>
@@ -257,8 +425,14 @@ function RecipePost() {
           minLength="1"
           cols="40"
           rows="8"
+          onChange={handleRecipeStep}
         />
       </div>
+      <Button
+        className="share-recipe"
+        label="Partagez !"
+        onClick={handleShareRecipe}
+      />
     </div>
   );
 }
