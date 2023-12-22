@@ -14,7 +14,6 @@ const ingredientControllers = require("./controllers/ingredientControllers");
 
 const authControllers = require("./controllers/authControllers");
 
-
 const unitsControllers = require("./controllers/unitsControllers");
 const stepControllers = require("./controllers/stepControllers");
 
@@ -25,6 +24,7 @@ router.get("/recipe", recipeControllers.browse);
 router.get("/recipe/:id", recipeControllers.read);
 router.get("/step/:id", stepControllers.readSteps);
 router.get("/tags", tagsControllers.browse);
+router.get("/tags/recipe/:id", tagsControllers.readTagsByRecipeId);
 router.get("/ingredient", ingredientControllers.browse);
 router.get("/ingredients/:id", ingredientControllers.readIngredientsByRecipeId);
 router.get("/unit", unitsControllers.browse);
@@ -37,11 +37,9 @@ router.post("/items", itemControllers.add);
 router.post("/recipe", recipeControllers.add);
 router.post("/user", userControllers.add);
 
-
 // Route to authentification
 
 router.post("/login", authControllers.login);
-
 
 /* ************************************************************************* */
 

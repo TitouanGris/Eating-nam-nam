@@ -33,10 +33,17 @@ function FilterDifficuly({ difficultyTag }) {
             <Button
               key={tag.id}
               label={
-                <img
-                  src={`http://localhost:3310${tag.image_url}`}
-                  alt="r.TagDifficulty"
-                />
+                filterDifficulty.includes(tag.name) ? (
+                  <img
+                    src={`http://localhost:3310/images/chef${tag.id}active.png`}
+                    alt={`Difficulté ${tag.id}`}
+                  />
+                ) : (
+                  <img
+                    src={`http://localhost:3310/images/chef${tag.id}.png`}
+                    alt={`Difficulté ${tag.id - 14}`}
+                  />
+                )
               }
               onClick={() => handleClick(tag)}
               className={

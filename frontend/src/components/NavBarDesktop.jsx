@@ -1,10 +1,8 @@
 // import { useState } from "react";
 import { useContext } from "react";
 import { NavLink } from "react-router-dom";
-
-import { useUser } from "../context/UserContext";
-
 import FiltersContext from "../context/FiltersContext";
+import { useUser } from "../context/UserContext";
 
 function NavBarDesktop() {
   // const [isConnected, setIsConnected] = useState(false);
@@ -19,7 +17,6 @@ function NavBarDesktop() {
     setFilterRegime,
     setFilterType,
   } = useContext(FiltersContext);
-
   const handlePublish = () => {
     setFilterPrice([]);
     setFilterDifficulty([]);
@@ -77,5 +74,4 @@ function NavBarDesktop() {
     </div>
   );
 }
-
 export default NavBarDesktop;
