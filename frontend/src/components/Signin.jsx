@@ -15,6 +15,7 @@ function Signin() {
   const [submittedUser, setSubmittedUser] = useState([]);
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
 
   const navigate = useNavigate();
 
@@ -23,26 +24,33 @@ function Signin() {
     if (!newUser.pseudo || !newUser.email || !newUser.password) {
       setErrorMessage("Veuillez remplir tous les champs");
     }
-    try {
-      await axios.post("http://localhost:3310/api/user", newUser);
-      const res2 = await axios.post("http://localhost:3310/api/login", {
-        // on INSERT dans la DB avec les infos saisies
-        inputEmail: newUser.email,
-        inputPassword: newUser.password,
-      });
-      setUserInfos(res2.data);
-      setSubmittedUser([...submittedUser, newUser]);
-      setNewUser({ pseudo: "", email: "", password: "" });
-      setSuccessMessage(
-        `Félicitations ${res2.data.pseudo}, votre compte a bien été créé !`
-      );
-      setTimeout(() => {
-        navigate("/browse");
-      }, 2000);
-    } catch (err) {
-      console.error(err);
-      setErrorMessage("Cet utilisateur existe déjà.");
+    if (!newUser.email.includes("@")) {
+      setErrorMessage("Veuillez fournir une adresse e-mail valide");
+    } else {
+      try {
+        await axios.post("http://localhost:3310/api/user", newUser);
+        const res2 = await axios.post("http://localhost:3310/api/login", {
+          // on INSERT dans la DB avec les infos saisies
+          inputEmail: newUser.email,
+          inputPassword: newUser.password,
+        });
+        setUserInfos(res2.data);
+        setSubmittedUser([...submittedUser, newUser]);
+        setNewUser({ pseudo: "", email: "", password: "" });
+        setSuccessMessage(
+          `Félicitations ${res2.data.pseudo}, votre compte a bien été créé !`
+        );
+        setTimeout(() => {
+          navigate("/browse");
+        }, 2000);
+      } catch (err) {
+        console.error(err);
+        setErrorMessage("Cet utilisateur existe déjà.");
+      }
     }
+  };
+  const PasswordVisibility = () => {
+    setShowPassword(!showPassword);
   };
 
   return (
@@ -69,15 +77,21 @@ function Signin() {
             value={newUser.email}
             onChange={(e) => setNewUser({ ...newUser, email: e.target.value })}
           />
-          <input
-            type="password"
-            name="password"
-            placeholder="Mot de passe"
-            value={newUser.password}
-            onChange={(e) =>
-              setNewUser({ ...newUser, password: e.target.value })
-            }
-          />
+          <div className="button-password">
+            <input
+              type={showPassword ? "text" : "password"}
+              name="password"
+              placeholder="Mot de passe"
+              value={newUser.password}
+              onChange={(e) =>
+                setNewUser({ ...newUser, password: e.target.value })
+              }
+            />
+            <button type="button" onClick={PasswordVisibility}>
+              {showPassword ? "Masquer" : "Afficher"}
+            </button>
+          </div>
+
           <div className="signin-button">
             <button type="submit">Je m'inscris</button>
           </div>
