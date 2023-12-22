@@ -391,6 +391,15 @@ INSERT INTO
         unit_id
     )
 VALUES (9, 51, 200, 1), (9, 53, 150, 1), (9, 16, 150, 1), (9, 9, 3, 7), (9, 52, 200, 1);
+-- Pour la recette 'Saumon grillé'
+INSERT INTO
+    recipe_ingredient (
+        recipe_id,
+        ingredient_id,
+        quantity,
+        unit_id
+    )
+VALUES (8, 41, 800, 1), (8, 9, 5, 8), (8, 24, 5, 8), (8, 18, 1, 7), (8, 1, 1, 6), (8, 2, 1, 6), (8, 3, 1, 3);
 -- Pour la recette 'Salade de Quinoa aux Légumes'
 INSERT INTO
     recipe_ingredient (
@@ -673,8 +682,8 @@ INSERT INTO tags (category_id, image_url, name) VALUES
 (1, '/images/1euros.png', '€'), (1, '/images/2euros.png', '€€'), (1, '/images/3euros.png', '€€€'), (2, '', 'Italien'), (2, '', 'Français'), (2, '', 'Indien'), (2, '', 'Américain'), (3, '', 'Végétarien'), (3, '', 'Vegan'), (3, '', 'Viandard'), (3, '', 'Sans Gluten'), (
     3,
     '',
-    'Sans Produits Laitiers'
-), (3, '', 'Sans Porc'), (3, '', 'Pescétarien'), (
+    'Sans lactose'
+), (3, '', 'Sans porc'), (3, '', 'Pescétarien'), (
     4,
     '/images/strong-1.png',
     'Facile'

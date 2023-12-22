@@ -10,6 +10,7 @@ body,
 :root {
   min-height: 100vh;
   overflow-x: hidden;
+  overflow-y: scroll;
 }
 
 :root {
@@ -18,4 +19,12 @@ body,
   --primary-color: #d56c06;
   --title-font-size: 18px;
   --font-family: "poppins";
+}
+
+@media screen and (min-width: 900px) {
+  html,
+  body,
+  :root {
+    overflow-y: auto;
+  }
 }

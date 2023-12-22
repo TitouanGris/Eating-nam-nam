@@ -73,23 +73,25 @@ function RecipeDetails() {
           <div key={tag.id}>{tag.name}</div>
         ))}
       </div>
-      <div className="recipe_ingredients">
-        <h3>Ingrédients</h3>
-        <ul>
-          {ingredients.map((ingredient) => (
-            <li
-              key={ingredient.id}
-            >{`${ingredient.quantity} ${ingredient.unitName} ${ingredient.ingredientName}`}</li>
-          ))}
-        </ul>
-      </div>
-      <div className="steps_details">
-        <h3>Recette</h3>
-        <ol>
-          {steps.map((step) => {
-            return <li key={step.id}>{step.description}</li>;
-          })}
-        </ol>
+      <div className="recipe_ingredientsAndSteps">
+        <div className="recipe_ingredients">
+          <h3>Ingrédients</h3>
+          <ul>
+            {ingredients.map((ingredient) => (
+              <li
+                key={ingredient.id}
+              >{`${ingredient.quantity} ${ingredient.unitName} ${ingredient.ingredientName}`}</li>
+            ))}
+          </ul>
+        </div>
+        <div className="steps_details">
+          <h3>Recette</h3>
+          <ol>
+            {steps.map((step) => {
+              return <li key={step.id}>{step.description}</li>;
+            })}
+          </ol>
+        </div>
       </div>
     </div>
   );

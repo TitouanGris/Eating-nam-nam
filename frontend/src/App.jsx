@@ -1,5 +1,7 @@
 import { Outlet, useLocation } from "react-router-dom";
-import NavBar from "./components/NavBar";
+import { useState } from "react";
+import NavBarMobile from "./components/NavBarMobile";
+import NavBarDesktop from "./components/NavBarDesktop";
 import { FiltersContextProvider } from "./context/FiltersContext";
 
 function App() {
@@ -7,11 +9,26 @@ function App() {
 
   const pagesWithoutNavBar = ["/", "/filters"];
 
+  const [favoriteMobileisActive, setFavoriteMobileisActive] = useState(false);
+
   return (
     <FiltersContextProvider>
-      <div className="App">
-        <Outlet />
-        <div>{!pagesWithoutNavBar.includes(pathname) && <NavBar />}</div>
+      <div className="app">
+        <div className="navBarDesktopArea">
+          {!pagesWithoutNavBar.includes(pathname) && <NavBarDesktop />}
+        </div>
+        <div className="App">
+          <Outlet
+            context={[favoriteMobileisActive, setFavoriteMobileisActive]}
+          />
+          <div className="navBarMobileArea">
+            {!pagesWithoutNavBar.includes(pathname) && (
+              <NavBarMobile
+                setFavoriteMobileisActive={setFavoriteMobileisActive}
+              />
+            )}
+          </div>
+        </div>
       </div>
     </FiltersContextProvider>
   );
