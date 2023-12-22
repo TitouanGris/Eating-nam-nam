@@ -8,13 +8,10 @@
 @import "home";
 @import "./pages/filters";
 @import "./pages/RecipePost";
-@import "./pages/signin";
 
 // ------------ import du styles des composants ------------ //
 @import "./components/RecipeCard";
 @import "./components/NavBarDesktop";
-
 @import "./components/connexion";
-
 @import "./components/NavBarMobile";
-
+@import "./components/signin";

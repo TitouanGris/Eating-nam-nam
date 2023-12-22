@@ -46,39 +46,43 @@ function Signin() {
   };
 
   return (
-    <div className="signin-page">
-      <h1>Inscription</h1>
-      {successMessage && (
-        <div className="success-message">{successMessage}</div>
-      )}
-      {errorMessage && <p>{errorMessage}</p>}
+    <div className="inscription">
+      <div className="signin-page">
+        <h1>Inscription</h1>
+        {successMessage && (
+          <div className="success-message">{successMessage}</div>
+        )}
+        {errorMessage && <p>{errorMessage}</p>}
 
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          name="pseudo"
-          placeholder="Pseudo"
-          value={newUser.pseudo}
-          onChange={(e) => setNewUser({ ...newUser, pseudo: e.target.value })}
-        />
-        <input
-          type="text"
-          name="email"
-          placeholder="Email"
-          value={newUser.email}
-          onChange={(e) => setNewUser({ ...newUser, email: e.target.value })}
-        />
-        <input
-          type="password"
-          name="password"
-          placeholder="Mot de passe"
-          value={newUser.password}
-          onChange={(e) => setNewUser({ ...newUser, password: e.target.value })}
-        />
-        <div className="signin-button">
-          <button type="submit">Je m'inscris</button>
-        </div>
-      </form>
+        <form onSubmit={handleSubmit}>
+          <input
+            type="text"
+            name="pseudo"
+            placeholder="Pseudo"
+            value={newUser.pseudo}
+            onChange={(e) => setNewUser({ ...newUser, pseudo: e.target.value })}
+          />
+          <input
+            type="text"
+            name="email"
+            placeholder="Email"
+            value={newUser.email}
+            onChange={(e) => setNewUser({ ...newUser, email: e.target.value })}
+          />
+          <input
+            type="password"
+            name="password"
+            placeholder="Mot de passe"
+            value={newUser.password}
+            onChange={(e) =>
+              setNewUser({ ...newUser, password: e.target.value })
+            }
+          />
+          <div className="signin-button">
+            <button type="submit">Je m'inscris</button>
+          </div>
+        </form>
+      </div>
     </div>
   );
 }
