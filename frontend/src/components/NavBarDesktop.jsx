@@ -1,12 +1,34 @@
 // import { useState } from "react";
+import { useContext } from "react";
 import { NavLink } from "react-router-dom";
+
 import { useUser } from "../context/UserContext";
+
+import FiltersContext from "../context/FiltersContext";
+
 
 function NavBarDesktop() {
   // const [isConnected, setIsConnected] = useState(false);
   // const handleConnected = () => {
   //   setIsConnected(!isConnected);
   // };
+  const {
+    setFilterCountry,
+    setFilterDifficulty,
+    setFilterDuration,
+    setFilterPrice,
+    setFilterRegime,
+    setFilterType,
+  } = useContext(FiltersContext);
+
+  const handlePublish = () => {
+    setFilterPrice([]);
+    setFilterDifficulty([]);
+    setFilterDuration([]);
+    setFilterRegime([]);
+    setFilterCountry([]);
+    setFilterType([]);
+  };
 
   const { userInfos } = useUser();
 
@@ -19,6 +41,7 @@ function NavBarDesktop() {
         <NavLink to="/browse">
           <p>Accueil</p>
         </NavLink>
+
         {/* <button type="button" disabled={!isConnected} className="publish_button">
         <img alt="publish" src="./src/assets/images/add.png" />
         <p>Publier</p>
@@ -40,6 +63,7 @@ function NavBarDesktop() {
         <img alt="favorite" src="./src/assets/images/heartFill.png" />
         <p>Favoris</p>
       </button> */}
+
       </div>
       <div className="userPseudo">{userInfos.pseudo}</div>
     </div>
