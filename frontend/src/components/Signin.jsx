@@ -15,6 +15,7 @@ function Signin() {
   const [submittedUser, setSubmittedUser] = useState([]);
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
 
   const navigate = useNavigate();
 
@@ -44,6 +45,9 @@ function Signin() {
       setErrorMessage("Cet utilisateur existe déjà.");
     }
   };
+  const PasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
 
   return (
     <div className="inscription">
@@ -69,15 +73,21 @@ function Signin() {
             value={newUser.email}
             onChange={(e) => setNewUser({ ...newUser, email: e.target.value })}
           />
-          <input
-            type="password"
-            name="password"
-            placeholder="Mot de passe"
-            value={newUser.password}
-            onChange={(e) =>
-              setNewUser({ ...newUser, password: e.target.value })
-            }
-          />
+          <div className="button-password">
+            <input
+              type={showPassword ? "text" : "password"}
+              name="password"
+              placeholder="Mot de passe"
+              value={newUser.password}
+              onChange={(e) =>
+                setNewUser({ ...newUser, password: e.target.value })
+              }
+            />
+            <button type="button" onClick={PasswordVisibility}>
+              {showPassword ? "Masquer" : "Afficher"}
+            </button>
+          </div>
+
           <div className="signin-button">
             <button type="submit">Je m'inscris</button>
           </div>

@@ -57,6 +57,21 @@
           height: 6vh;
         }
       }
+
+      .button-password {
+        display: flex;
+        position: relative;
+        button {
+          width: 5vw;
+          height: 4vh;
+          border: none;
+          background-color: white;
+          position: absolute;
+          right: 10%;
+          top: 50%;
+          transform: translateY(-50%);
+        }
+      }
     }
   }
 }
@@ -68,6 +83,7 @@
       height: 40vw;
 
       form {
+        gap: 20px;
         input {
           margin-bottom: 3vh;
           width: 30vw;
@@ -76,6 +92,14 @@
 
         .signin-button {
           width: 30vw;
+        }
+        .button-password {
+          position: relative;
+          button {
+            position: absolute;
+            right: 2%;
+            top: 30%;
+          }
         }
       }
     }
