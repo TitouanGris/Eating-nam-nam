@@ -4,22 +4,36 @@
   height: 10vh;
   position: fixed;
   bottom: 0;
+  flex: 1;
+  justify-content: space-around;
+  background-color: white;
 
-  // a {
-  //   display: flex;
-  //   width: 10vw;
-  //   text-decoration: none;
-  button {
+  a {
+    display: flex;
+    width: 10vw;
+    text-decoration: none;
+
+    button {
+      background: white;
+      border: none;
+      // flex: 1;
+      height: 10vh;
+    }
+
+    img {
+      width: 20px;
+      height: 20px;
+      margin-bottom: 5px;
+    }
+  }
+  .filter_button {
     background: white;
     border: none;
-    flex: 1;
     height: 10vh;
-  }
-
-  img {
-    width: 20px;
-    height: 20px;
-    margin-bottom: 5px;
+    img {
+      width: 20px;
+      height: 20px;
+      margin-bottom: 5px;
+    }
   }
 }
-// }

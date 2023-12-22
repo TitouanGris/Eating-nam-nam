@@ -7,9 +7,11 @@
 @import "./pages/RecipeDetails";
 @import "home";
 @import "./pages/filters";
+@import "./pages/RecipePost";
 
 // ------------ import du styles des composants ------------ //
-
 @import "./components/RecipeCard";
-@import "./components/NavBarMobile";
 @import "./components/NavBarDesktop";
+@import "./components/connexion";
+@import "./components/NavBarMobile";
+@import "./components/signin";

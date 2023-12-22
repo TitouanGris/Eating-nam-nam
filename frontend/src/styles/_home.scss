@@ -3,33 +3,100 @@
   height: 100vh;
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
 
-  .home-image {
-    .logo {
+  .home-logo {
+    height: 13vh;
+    width: 25vw;
+    .logo-container {
+      width: 100%;
+      height: 100%;
       img {
-        height: 10vh;
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
       }
     }
+  }
 
-    img {
-      height: 50vh;
+  .home-image {
+    margin-bottom: 10px;
+    .image-container {
+      height: 60vh;
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
     }
   }
 
   .home-buttons {
     display: flex;
     justify-content: center;
+    align-items: center;
+    .buttons-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+  }
+}
 
-    button {
-      background-color: var(--primary-color);
-      color: var(--secondary-color-text);
-      border: none;
-      border-radius: 20px;
-      width: 60vw;
-      height: 8vh;
-      font-size: var(--title-font-size);
-      font-family: var(--font-family);
+@media screen and (min-width: 900px) {
+  .home-container {
+    position: relative;
+
+    .home-logo {
+      position: absolute;
+      height: 60vh;
+      width: 50vw;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      left: 0px;
+      top: 0px;
+      .logo-container {
+        height: 100%;
+        width: 100%;
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: contain;
+        }
+      }
+    }
+
+    .home-image {
+      // z-index: 1;
+      height: 100vh;
+      width: 50vw;
+      position: absolute;
+      right: 0px;
+      top: 0px;
+      .image-container {
+        height: 100%;
+        width: 100%;
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+      }
+    }
+
+    .home-buttons {
+      position: absolute;
+      height: 40vh;
+      width: 50vw;
+      left: 0px;
+      bottom: 0px;
+      .buttons-container {
+        button {
+          width: 30vw;
+          height: 8vh;
+        }
+      }
     }
   }
 }

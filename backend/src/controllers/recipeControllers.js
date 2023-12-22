@@ -1,5 +1,5 @@
 // Import access to database tables
-// const console = require("console");
+
 const tables = require("../tables");
 
 // The B of BREAD - Browse (Read All) operation
@@ -61,10 +61,8 @@ const browse = async (req, res, next) => {
 
 const read = async (req, res, next) => {
   try {
-    // Fetch all items from the database
     const recipes = await tables.recipe.readCardInfos(req.params.id);
     let tempObject = {};
-    // // let previousId = 0;
 
     recipes.forEach((e) => {
       if (!tempObject.recipeId) {
@@ -103,7 +101,44 @@ const read = async (req, res, next) => {
   }
 };
 
+const add = async (req, res, next) => {
+  const { recipe, tags, ingredients, steps } = req.body;
+
+  try {
+    // Insert the recipe and associated data into the database
+    const recipeResult = await tables.recipe.create({
+      recipe,
+      tags,
+      ingredients,
+      steps,
+    });
+
+    // Respond with HTTP 201 (Created) and the ID of the newly inserted recipe
+    res.status(201).json({ recipeId: recipeResult.insertId });
+  } catch (err) {
+    // Pass any errors to the error-handling middleware
+    next(err);
+  }
+};
+
+// const add = async (req, res, next) => {
+//   // Extract the item data from the request body
+//   const item = req.body;
+
+//   try {
+//     // Insert the item into the database
+//     const insertId = await tables.item.create(item);
+
+//     // Respond with HTTP 201 (Created) and the ID of the newly inserted item
+//     res.status(201).json({ insertId });
+//   } catch (err) {
+//     // Pass any errors to the error-handling middleware
+//     next(err);
+//   }
+// };
+
 module.exports = {
   browse,
   read,
+  add,
 };
