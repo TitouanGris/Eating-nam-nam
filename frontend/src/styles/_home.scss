@@ -42,6 +42,13 @@
       flex-direction: column;
     }
   }
+
+  .inscription {
+    p {
+      text-align: center;
+      color: var(--primary-color-text);
+    }
+  }
 }
 
 @media screen and (min-width: 900px) {
@@ -88,7 +95,7 @@
 
     .home-buttons {
       position: absolute;
-      height: 50vh;
+      height: 40vh;
       width: 50vw;
       left: 0px;
       bottom: 0px;
@@ -99,12 +106,18 @@
         }
       }
     }
-  }
+    .inscription {
+      position: absolute;
+      height: 10vh;
+      width: 50vw;
+      left: 0px;
+      bottom: 0px;
 
-  .inscription {
-    p {
-      text-align: center;
-      color: var(--primary-color-text);
+      p {
+        font-size: 2rem;
+        text-align: center;
+        color: var(--primary-color-text);
+      }
     }
   }
 }

@@ -37,6 +37,7 @@ function Home() {
           {connexion && <Connexion />}
         </div>
       </div>
+
       <div className="inscription">
         <NavLink to="/signin">
           <p>Pas encore de compte ? Inscrivez-vous</p>

@@ -22,6 +22,7 @@ function Connexion() {
         inputEmail,
         inputPassword,
       });
+
       setUserInfos(res.data);
     } catch (error) {
       console.error(error);
