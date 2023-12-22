@@ -152,14 +152,6 @@ function RecipePost() {
     });
   };
 
-  // console.info(ingValue);
-  // console.info(qtyValue);
-  // console.info(unitValue);
-  console.info(sumIng);
-  console.info(toPostRecipe);
-  console.info(toPostTags);
-  console.info(toPostSteps);
-
   const typeTag = filters.filter((tag) => tag.category_id === 6);
   const countryTag = filters.filter((tag) => tag.category_id === 2);
   const priceTag = filters.filter((tag) => tag.category_id === 1);
@@ -169,7 +161,6 @@ function RecipePost() {
 
   const handleShareRecipe = async () => {
     try {
-      // Envoi des données à la backend
       const response = await fetch("http://localhost:3310/api/recipe", {
         method: "POST",
         headers: {
@@ -178,23 +169,84 @@ function RecipePost() {
         body: JSON.stringify({
           recipe: toPostRecipe,
           tags: toPostTags,
-          steps: [toPostSteps], // Mettez les étapes dans un tableau, car votre backend semble attendre un tableau de steps
+          steps: [toPostSteps],
           ingredients: sumIng,
         }),
       });
 
       if (response.ok) {
-        // Succès de l'envoi
         console.info("Recette partagée avec succès !");
+        setToPostRecipe({
+          recipe_name: "",
+          user_id: 1,
+          summary: "",
+          nb_serving: persons,
+          validateRecipe: true,
+          photoUrl: null,
+        });
+        setToPostTags({
+          type_tags_id: null,
+          time_tags_id: null,
+          price_tags_id: null,
+          diff_tags_id: null,
+          regime_tags_id: null,
+          country_tags_id: null,
+        });
+        setToPostSteps({
+          description: "",
+          step_number: 1,
+        });
+        setSumIng([]);
       } else {
-        // Gestion des erreurs
         console.error(
           "Erreur lors du partage de la recette :",
           response.statusText
         );
+        setToPostRecipe({
+          recipe_name: "",
+          user_id: 1,
+          summary: "",
+          nb_serving: persons,
+          validateRecipe: true,
+          photoUrl: null,
+        });
+        setToPostTags({
+          type_tags_id: null,
+          time_tags_id: null,
+          price_tags_id: null,
+          diff_tags_id: null,
+          regime_tags_id: null,
+          country_tags_id: null,
+        });
+        setToPostSteps({
+          description: "",
+          step_number: 1,
+        });
+        setSumIng([]);
       }
     } catch (error) {
       console.error("Erreur inattendue lors du partage de la recette :", error);
+      setToPostRecipe({
+        recipe_name: "",
+        user_id: 1,
+        summary: "",
+        nb_serving: persons,
+        validateRecipe: true,
+        photoUrl: null,
+      });
+      setToPostTags({
+        type_tags_id: null,
+        time_tags_id: null,
+        price_tags_id: null,
+        diff_tags_id: null,
+        regime_tags_id: null,
+        country_tags_id: null,
+      });
+      setToPostSteps({
+        description: "",
+        step_number: 1,
+      });
+      setSumIng([]);
     }
   };
 
@@ -283,14 +335,16 @@ function RecipePost() {
       </div>
       <div className="recipe_price">
         <p>Prix</p>
-        <div className="filters-button-container">
+        <div className="filters-button-segmented-container">
           {priceTag.map((tag) => {
             return (
               <Button
                 key={tag.id}
                 label={tag.name}
                 className={
-                  filterPrice.includes(tag.name) ? "selected chip" : "chip"
+                  filterPrice.includes(tag.name)
+                    ? "selected-segmented segemented-chip"
+                    : "segmented-chip"
                 }
                 onClick={() => {
                   handleRecipePriceTags(tag);

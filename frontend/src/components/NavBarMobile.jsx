@@ -43,7 +43,7 @@ function NavBarMobile({ setFavoriteMobileisActive }) {
           type="button"
           className="home_button"
         >
-          <img alt="home" src="./src/assets/images/home.png" />
+          <img alt="home" src="/src/assets/images/home.png" />
           <p>Accueil</p>
         </button>
       </NavLink>
@@ -53,7 +53,7 @@ function NavBarMobile({ setFavoriteMobileisActive }) {
           // disabled=
           className="publish_button"
         >
-          <img alt="publish" src="./src/assets/images/add.png" />
+          <img alt="publish" src="/src/assets/images/add.png" />
           <p>Publier</p>
         </button>
       </NavLink>
@@ -72,7 +72,7 @@ function NavBarMobile({ setFavoriteMobileisActive }) {
         className="filter_button"
         disabled={pagesWithoutFilter.includes(pathname)}
       >
-        <img alt="filters" src="./src/assets/images/settings.png" />
+        <img alt="filters" src="/src/assets/images/settings.png" />
         <p>Filtres</p>
       </button>
       {/* </NavLink> */}
