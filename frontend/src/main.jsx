@@ -6,6 +6,7 @@ import Home from "./pages/Home";
 import RecipeBrowse from "./pages/RecipeBrowse";
 import RecipeDetails, { loadRecipeDetails } from "./pages/RecipeDetails";
 import Signin from "./pages/Signin";
+import Regime from "./pages/Regime";
 
 import "./styles/index.scss";
 
@@ -21,6 +22,10 @@ const router = createBrowserRouter([
       {
         path: "/signin",
         element: <Signin />,
+      },
+      {
+        path: "/regime",
+        element: <Regime />,
       },
       {
         path: "/browse",
