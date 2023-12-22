@@ -1,4 +1,5 @@
 // import { useState } from "react";
+
 import { NavLink, useLocation } from "react-router-dom";
 import { useContext } from "react";
 import PropTypes from "prop-types";
@@ -48,12 +49,8 @@ function NavBarMobile({ setFavoriteMobileisActive }) {
         </button>
       </NavLink>
       <NavLink to="/publish" onClick={handlePublish}>
-        <button
-          type="button"
-          // disabled=
-          className="publish_button"
-        >
-          <img alt="publish" src="/src/assets/images/add.png" />
+        <button type="button" className="publish_button">
+          <img alt="publish" src="./src/assets/images/add.png" />
           <p>Publier</p>
         </button>
       </NavLink>

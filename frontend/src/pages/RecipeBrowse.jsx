@@ -1,6 +1,5 @@
 import { useEffect, useState, useContext } from "react";
 import { useOutletContext, Link } from "react-router-dom";
-
 import RecipeCard from "../components/RecipeCard";
 import Filters from "../components/Filters";
 import FiltersContext from "../context/FiltersContext";
@@ -65,6 +64,7 @@ function RecipeBrowse() {
             return true;
           })
           .map((r) => {
+            console.info(r);
             return (
               <Link
                 key={r.recipeId}

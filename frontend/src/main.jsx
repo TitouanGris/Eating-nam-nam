@@ -8,9 +8,9 @@ import RecipePost, {
   loadIngredientsData,
   loadUnitsData,
 } from "./pages/RecipePost";
-// import Filters from "./components/Filters";
 import RecipeBrowse from "./pages/RecipeBrowse";
 import RecipeDetails, { loadRecipeDetails } from "./pages/RecipeDetails";
+
 import "./styles/index.scss";
 
 const router = createBrowserRouter([
