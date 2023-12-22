@@ -58,7 +58,7 @@ function Signin() {
           onChange={(e) => setNewUser({ ...newUser, email: e.target.value })}
         />
         <input
-          type="text"
+          type="password"
           name="password"
           placeholder="Mot de passe"
           value={newUser.password}
