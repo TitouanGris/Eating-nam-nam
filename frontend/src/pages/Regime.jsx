@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import FilterRegime from "../components/FilterRegime";
+import { loadIngredientsData } from "./RecipePost";
 
 function Regime() {
   const [filterChip, setFilterChip] = useState([]);
+  const [ingredients, setIngredients] = useState([]);
 
   useEffect(() => {
     fetch("http://localhost:3310/api/tags")
@@ -12,6 +14,15 @@ function Regime() {
   }, []);
 
   const regimeTag = filterChip.filter((tag) => tag.category_id === 3);
+
+  async function loadData() {
+    const ing = await loadIngredientsData();
+    setIngredients(ing);
+  }
+
+  useEffect(() => {
+    loadData();
+  }, []);
 
   return (
     <div className="regime">
@@ -23,7 +34,16 @@ function Regime() {
       <div className="regimetag">
         <FilterRegime regimeTag={regimeTag} />
       </div>
-      <div className="ingredientTag">To do</div>
+      <div className="ingredientTag">
+        {" "}
+        {ingredients.map((ingredient) => {
+          return (
+            <option key={ingredient.id} value={ingredient.name}>
+              {ingredient.name}
+            </option>
+          );
+        })}
+      </div>
     </div>
   );
 }

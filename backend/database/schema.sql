@@ -67,7 +67,7 @@ CREATE TABLE
     recipe_ingredient (
         recipe_id INT NOT NULL,
         ingredient_id INT NOT NULL,
-        quantity VARCHAR(100),
+        quantity INT NOT NULL,
         unit_id INT NOT NULL,
         PRIMARY KEY (
             recipe_id,
