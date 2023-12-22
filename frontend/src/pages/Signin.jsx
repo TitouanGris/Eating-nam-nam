@@ -1,8 +1,11 @@
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { useUser } from "../context/UserContext";
 
 function Signin() {
+  const { setUserInfos } = useUser();
+
   const [newUser, setNewUser] = useState({
     pseudo: "",
     email: "",
@@ -22,9 +25,17 @@ function Signin() {
     }
     try {
       await axios.post("http://localhost:3310/api/user", newUser);
+      const res2 = await axios.post("http://localhost:3310/api/login", {
+        // on INSERT dans la DB avec les infos saisies
+        inputEmail: newUser.email,
+        inputPassword: newUser.password,
+      });
+      setUserInfos(res2.data);
       setSubmittedUser([...submittedUser, newUser]);
       setNewUser({ pseudo: "", email: "", password: "" });
-      setSuccessMessage("Votre compte a bien été créé !");
+      setSuccessMessage(
+        `Félicitations ${res2.data.pseudo}, votre compte a bien été créé !`
+      );
       setTimeout(() => {
         navigate("/browse");
       }, 2000);

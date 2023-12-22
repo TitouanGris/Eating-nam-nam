@@ -23,6 +23,37 @@ body,
   --font-family: "poppins";
 }
 
+.button1 {
+  background-color: var(--primary-color);
+  color: var(--secondary-color-text);
+  border: none;
+  border-radius: 20px;
+  width: 60vw;
+  height: 8vh;
+  font-size: var(--title-font-size);
+  font-family: var(--font-family);
+  margin-bottom: 15px;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.button2 {
+  background-color: white;
+  color: var(--primary-color);
+  border: solid 2px var(--primary-color);
+  border-radius: 20px;
+  width: 60vw;
+  height: 8vh;
+  font-size: var(--title-font-size);
+  font-family: var(--font-family);
+  margin-bottom: 15px;
+  &:hover {
+    cursor: pointer;
+  }
+}
+
 @media screen and (min-width: 900px) {
   html,
   body,
