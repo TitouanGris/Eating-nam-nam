@@ -12,7 +12,7 @@ function Signin() {
     password: "",
     is_admin: false,
   });
-  const [submittedUser, setSubmittedUser] = useState([]);
+  // const [submittedUser, setSubmittedUser] = useState([]);
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -24,6 +24,7 @@ function Signin() {
     if (!newUser.pseudo || !newUser.email || !newUser.password) {
       setErrorMessage("Veuillez remplir tous les champs");
     }
+
     if (!newUser.email.includes("@")) {
       setErrorMessage("Veuillez fournir une adresse e-mail valide");
     } else {
