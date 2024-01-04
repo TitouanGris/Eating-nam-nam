@@ -21,6 +21,7 @@ function RecipePost() {
   const [qtyValue, setQtyValue] = useState("");
   const [unitValue, setUnitValue] = useState("");
   const [sumIng, setSumIng] = useState([]);
+  const [selectedIng, setSelectedIng] = useState([]);
   const [verifIng, setVerifIng] = useState(true);
   const [toPostRecipe, setToPostRecipe] = useState({
     recipe_name: "",
@@ -71,13 +72,20 @@ function RecipePost() {
     setUnitValue(value);
   };
   const handleSumIng = () => {
-    if (!sumIng.find((ing) => ing.ingValue === ingValue)) {
+    if (
+      !ingredients?.name &&
+      !selectedIng.find((ing) => ing.ingValue === ingValue) &&
+      ingredients.find((ingredient) => ingredient.name === ingValue)
+    ) {
       const catId = ingredients?.find(
         (ingredient) => ingredient.name === ingValue
       ).id;
       const unitId = units?.find((unit) => unit.name === unitValue).id;
       setSumIng((oldObj) => {
         return [...oldObj, { catId, qtyValue, unitId }];
+      });
+      setSelectedIng((oldObj) => {
+        return [...oldObj, { ingValue, qtyValue, unitValue }];
       });
       setIngValue("");
       setQtyValue("");
@@ -197,6 +205,7 @@ function RecipePost() {
           step_number: 1,
         });
         setSumIng([]);
+        setSelectedIng([]);
       } else {
         console.error(
           "Erreur lors du partage de la recette :",
@@ -247,6 +256,7 @@ function RecipePost() {
         step_number: 1,
       });
       setSumIng([]);
+      setSelectedIng([]);
     }
   };
 
@@ -419,7 +429,10 @@ function RecipePost() {
           inputList="ingredientList"
           inputName="ingredientList"
           value={ingValue}
-          onChange={handleIngValue}
+          onChange={(event) => {
+            handleIngValue(event);
+            setVerifIng(true);
+          }}
         />
         <datalist id="ingredientList">
           {ingredients.map((ingredient) => {
@@ -453,9 +466,14 @@ function RecipePost() {
           label="+"
           disabled={ingValue === "" || unitValue === "" || qtyValue === ""}
         />
-        {verifIng === false && <p>⚠️ Ingrédient déjà ajouté</p>}
+        {verifIng === false && (
+          <p>
+            ⚠️ L'ingrédient sélectionné n'est pas présent dans la liste ou à
+            déja été ajouté
+          </p>
+        )}
         <div className="ingListSummary">
-          {sumIng.map((ing, index) => {
+          {selectedIng.map((ing, index) => {
             return (
               <div key={ing.ingValue}>
                 <p>
@@ -483,7 +501,7 @@ function RecipePost() {
         />
       </div>
       <Button
-        className="share-recipe"
+        className="share-recipe button1"
         label="Partagez !"
         onClick={handleShareRecipe}
       />
@@ -506,6 +524,7 @@ export const loadUnitsData = async () => {
   try {
     const unitsData = await fetch(`http://localhost:3310/api/unit`);
     const data = await unitsData.json();
+
     return data;
   } catch (e) {
     console.error(e);

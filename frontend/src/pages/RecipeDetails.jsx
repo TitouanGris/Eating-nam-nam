@@ -48,13 +48,13 @@ function RecipeDetails() {
         <div className="tags">
           <div className="price">
             <img
-              src={`http://localhost:3310${recipe.tagPriceUrl}`}
+              src={`http://localhost:3310${recipe.price[0].tagUrl}`}
               alt="r.TagPrice"
             />
           </div>
           <div className="difficulty">
             <img
-              src={`http://localhost:3310${recipe.tagDifficultyUrl}`}
+              src={`http://localhost:3310${recipe.difficulty[0].tagUrl}`}
               alt="r.TagDifficulty"
             />
           </div>
@@ -67,7 +67,7 @@ function RecipeDetails() {
           </div>
           <div className="duration">
             <img src="/src/assets/images/durationImage.png" alt="TagDuration" />
-            <p>{recipe.tagDuration}</p>
+            <p>{recipe.duration[0].tagName}</p>
           </div>
         </div>
       </div>
@@ -107,8 +107,7 @@ export const loadRecipeDetails = async ({ params }) => {
       `http://localhost:3310/api/recipe/${params.id}`
     );
     const data = await recipeDetails.json();
-
-    return data;
+    return data[0];
   } catch (e) {
     console.error(e);
     return null;
