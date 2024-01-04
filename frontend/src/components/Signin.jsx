@@ -12,7 +12,7 @@ function Signin() {
     password: "",
     is_admin: false,
   });
-  const [submittedUser, setSubmittedUser] = useState([]);
+  // const [submittedUser, setSubmittedUser] = useState([]);
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
 
@@ -31,7 +31,7 @@ function Signin() {
         inputPassword: newUser.password,
       });
       setUserInfos(res2.data);
-      setSubmittedUser([...submittedUser, newUser]);
+      // setSubmittedUser([...submittedUser, newUser]);
       setNewUser({ pseudo: "", email: "", password: "" });
       setSuccessMessage(
         `Félicitations ${res2.data.pseudo}, votre compte a bien été créé !`

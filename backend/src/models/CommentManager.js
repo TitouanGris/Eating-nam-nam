@@ -21,5 +21,13 @@ class CommentManager extends AbstractManager {
 
     return result;
   }
+
+  async readCommentsByRecipeId(id) {
+    const [result] = await this.database.query(
+      `select comment.id AS commentId, recipe_id, message, comment.created_date, pseudo from ${this.table} JOIN user ON user_id=user.id where recipe_id = ?`,
+      [id]
+    );
+    return result;
+  }
 }
 module.exports = CommentManager;

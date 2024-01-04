@@ -3,6 +3,7 @@
   flex-direction: column;
   gap: 15px;
   padding-top: 10px;
+  background-color: white;
 
   .recipeDetailsHeader {
     display: flex;
@@ -38,7 +39,6 @@
     .tags {
       display: flex;
       justify-content: space-between;
-      margin-bottom: 1%;
 
       .price {
         width: 25%;
@@ -47,7 +47,6 @@
         justify-content: center;
 
         img {
-          // object-fit: cover;
           width: 80%;
         }
       }
@@ -60,7 +59,6 @@
         justify-content: center;
 
         img {
-          // object-fit: cover;
           width: 80%;
         }
       }
@@ -88,7 +86,6 @@
   }
   .recipe_summary {
     padding: 0 20px;
-    // font-size: 1.2rem;
   }
 
   .recipe_tags {
@@ -100,7 +97,6 @@
     padding: 1vh;
 
     div {
-      // border: solid black 2px;
       padding: 10px;
       border-radius: 20px;
       color: black;
@@ -111,18 +107,20 @@
   .recipe_ingredientsAndSteps {
     font-size: 1rem;
     line-height: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    h3 {
+      color: var(--primary-color);
+      text-align: center;
+    }
 
     .recipe_ingredients {
       display: flex;
       flex-direction: column;
       gap: 10px;
       align-items: center;
-      margin-bottom: 15px;
-
-      h3 {
-        color: var(--primary-color);
-        text-align: center;
-      }
     }
 
     .steps_details {
@@ -132,11 +130,24 @@
       gap: 10px;
       align-items: center;
       justify-content: center;
-      margin-bottom: 13vh;
 
       h3 {
         text-align: center;
         color: var(--primary-color);
+      }
+    }
+    .comments {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+
+      .comment_pseudo {
+        font-weight: bold;
+      }
+
+      .comment_date {
+        color: gray;
+        font-size: 0.9em;
       }
     }
   }
@@ -155,7 +166,6 @@
     padding: 0 5vw;
     margin: auto;
     background-color: white;
-    // background-color: blue;
 
     .recipeDetailsHeader {
       img {
@@ -183,7 +193,6 @@
 
       .tags {
         display: flex;
-        margin-bottom: 1%;
         width: 80%;
 
         .price {
@@ -193,7 +202,6 @@
           justify-content: center;
 
           img {
-            // object-fit: cover;
             width: 50%;
           }
         }
@@ -205,7 +213,6 @@
           justify-content: center;
 
           img {
-            // object-fit: cover;
             width: 50%;
           }
         }
@@ -239,7 +246,6 @@
     .recipe_tags {
       display: flex;
       flex-direction: row;
-      // justify-content: space-between;
       flex-wrap: wrap;
       gap: 10px;
       width: 80%;
@@ -256,8 +262,6 @@
       .recipe_ingredients {
         gap: 10px;
         align-items: center;
-        margin-bottom: 2%;
-        margin-bottom: 25px;
 
         ul {
           -webkit-columns: 100px 3;
@@ -272,8 +276,6 @@
         text-justify: auto;
         gap: 10px;
         align-items: center;
-        // justify-content: center;
-        // font-size: 1rem;
       }
     }
   }
