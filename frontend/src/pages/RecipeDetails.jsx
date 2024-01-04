@@ -36,7 +36,11 @@ function RecipeDetails() {
       </div>
       <div className="imgContainer">
         <img
-          src={`http://localhost:3310${recipe.recipeImage}`}
+          src={
+            recipe.recipeImage
+              ? `http://localhost:3310${recipe.recipeImage}`
+              : "/src/assets/images/logo.png"
+          }
           alt={`${recipe.recipeName}`}
         />
       </div>
