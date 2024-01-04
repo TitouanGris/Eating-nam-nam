@@ -1,0 +1,31 @@
+.user-container {
+  .user {
+    display: flex;
+    justify-content: space-around;
+    width: 50vw;
+    margin-bottom: 50px;
+    margin-top: 20px;
+
+    img {
+      height: 30vh;
+    }
+
+    .userInfos {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+    }
+  }
+
+  h2 {
+    font-size: 15px;
+  }
+
+  .separationBarre {
+    margin-top: 15px;
+    margin-bottom: 15px;
+    width: 55%;
+    border: solid 0.1px rgb(117, 117, 117);
+    margin: 0 auto;
+  }
+}

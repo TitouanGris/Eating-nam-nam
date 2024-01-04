@@ -30,13 +30,6 @@ function Filters({ setFavoriteMobileisActive }) {
     setFilterType([]);
   };
 
-  // useEffect(() => {
-  //   fetch("http://localhost:3310/api/tags")
-  //     .then((res) => res.json())
-  //     .then((data) => setFilterChip(data))
-  //     .catch((err) => console.error(err));
-  // }, []);
-
   const difficultyTag = filters.filter((tag) => tag.category_id === 4);
   const regimeTag = filters.filter((tag) => tag.category_id === 3);
   const durationTag = filters.filter((tag) => tag.category_id === 5);
