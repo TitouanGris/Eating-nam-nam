@@ -78,6 +78,7 @@ function RecipeBrowse() {
             return true;
           })
           .map((r) => {
+            console.info(r);
             return (
               <Link
                 key={r.recipeId}

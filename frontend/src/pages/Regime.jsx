@@ -25,6 +25,7 @@ function Regime() {
   const regimeTag = filterChip.filter((tag) => tag.category_id === 3);
 
   // todo : mettre des icons pour les régime : https://react-icons.github.io/react-icons/
+  // todo : virer la route /regime pour gérer en modal finalement (donc ce jsx à mettre en composant + code modal tel que connexion)
   return (
     <div className="regime">
       <div className="titleRegimeTag">

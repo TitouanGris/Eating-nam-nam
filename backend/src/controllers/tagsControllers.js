@@ -15,6 +15,20 @@ const browse = async (req, res, next) => {
   }
 };
 
+const readTagsByRecipeId = async (req, res, next) => {
+  try {
+    const tags = await tables.tags.readTagsByRecipeId(req.params.id);
+    if (tags == null) {
+      res.sendStatus(404);
+    } else {
+      res.json(tags);
+    }
+  } catch (err) {
+    next(err);
+  }
+};
+
 module.exports = {
   browse,
+  readTagsByRecipeId,
 };

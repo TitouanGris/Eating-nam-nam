@@ -1,4 +1,5 @@
 .filters {
+  background-color: white;
   overflow-y: scroll;
   .filters-header {
     display: flex;
@@ -17,7 +18,7 @@
         border: solid 1px;
         border-color: var(--primary-color);
         padding: 1vh 2vh 1vh 2vh;
-        font-size: 1.5rem;
+        font-size: 1rem;
 
         &:hover {
           background-color: white;
@@ -35,7 +36,8 @@
     .separationBarre {
       margin-top: 15px;
       margin-bottom: 15px;
-      display: flex;
+      // display: flex;
+      display: none;
       // align-self: center;
       width: 55%;
       height: 0.5px;
@@ -44,7 +46,7 @@
 
     .filter-titles {
       color: #d56c06;
-      font-size: 2.5rem;
+      font-size: 1rem;
       padding-top: 1vh;
       padding-bottom: 1vh;
       font-weight: bold;
@@ -61,7 +63,7 @@
         border-right: none;
         background-color: white;
         padding: 1vh 2vh 1vh 2vh;
-        font-size: 1.5rem;
+        font-size: 1rem;
 
         &:hover {
           background-color: var(--primary-color);
@@ -88,7 +90,7 @@
       border: solid black 1px;
       border-radius: 15px;
       padding: 7px;
-      font-size: 1.5rem;
+      font-size: 1rem;
       background-color: white;
 
       &:hover {
@@ -130,9 +132,13 @@
     }
     .filters-box {
       margin-left: 0px;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+
       .filter-titles {
         padding-top: 0vh;
-        padding-bottom: 2vh;
+        padding-bottom: 10px;
       }
       .filters-button-container {
         gap: 5px;
