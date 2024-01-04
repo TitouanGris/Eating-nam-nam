@@ -15,7 +15,7 @@ const add = async (req, res, next) => {
     const { pseudo, email } = req.body;
     const existingUser = await tables.user.readOneUser(pseudo, email);
     if (existingUser) {
-      return res.status((400).json({ error: "Cet utilsateur existe déjà." }));
+      return res.status((400).json({ error: "Cet utilisateur existe déjà." }));
     }
     const insertId = await tables.user.create(req.body);
     res.status(201).json({ insertId });

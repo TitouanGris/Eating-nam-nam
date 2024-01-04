@@ -6,7 +6,15 @@ function RecipeDetails() {
   const [steps, setSteps] = useState([]);
   const [ingredients, setIngredients] = useState([]);
   const [tags, setTags] = useState([]);
+  const [comments, setComments] = useState([]);
   const { id } = useParams();
+
+  const options = {
+    weekday: "long",
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  };
 
   useEffect(() => {
     fetch(`http://localhost:3310/api/step/${id}`)
@@ -24,6 +32,12 @@ function RecipeDetails() {
     fetch(`http://localhost:3310/api/tags/recipe/${id}`)
       .then((res) => res.json())
       .then((data) => setTags(data));
+  }, []);
+
+  useEffect(() => {
+    fetch(`http://localhost:3310/api/comments/recipe/${id}`)
+      .then((res) => res.json())
+      .then((data) => setComments(data));
   }, []);
 
   return (
@@ -95,6 +109,21 @@ function RecipeDetails() {
               return <li key={step.id}>{step.description}</li>;
             })}
           </ol>
+        </div>
+        <div className="comments">
+          <h3>L'avis des gourmands</h3>
+          {comments.map((comment) => (
+            <div>
+              <p className="comment_pseudo">{comment.pseudo}</p>
+              <p>{comment.message}</p>
+              <p className="comment_date">
+                {new Date(comment.created_date).toLocaleString(
+                  "fr-FR",
+                  options
+                )}
+              </p>
+            </div>
+          ))}
         </div>
       </div>
     </div>
