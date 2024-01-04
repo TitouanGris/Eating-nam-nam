@@ -21,6 +21,7 @@ function RecipePost() {
   const [qtyValue, setQtyValue] = useState("");
   const [unitValue, setUnitValue] = useState("");
   const [sumIng, setSumIng] = useState([]);
+  const [selectedIng, setSelectedIng] = useState([]);
   const [verifIng, setVerifIng] = useState(true);
   const [toPostRecipe, setToPostRecipe] = useState({
     recipe_name: "",
@@ -71,13 +72,20 @@ function RecipePost() {
     setUnitValue(value);
   };
   const handleSumIng = () => {
-    if (!sumIng.find((ing) => ing.ingValue === ingValue)) {
+    if (
+      !ingredients?.name &&
+      !selectedIng.find((ing) => ing.ingValue === ingValue) &&
+      ingredients.find((ingredient) => ingredient.name === ingValue)
+    ) {
       const catId = ingredients?.find(
         (ingredient) => ingredient.name === ingValue
       ).id;
       const unitId = units?.find((unit) => unit.name === unitValue).id;
       setSumIng((oldObj) => {
         return [...oldObj, { catId, qtyValue, unitId }];
+      });
+      setSelectedIng((oldObj) => {
+        return [...oldObj, { ingValue, qtyValue, unitValue }];
       });
       setIngValue("");
       setQtyValue("");
@@ -152,14 +160,6 @@ function RecipePost() {
     });
   };
 
-  // console.info(ingValue);
-  // console.info(qtyValue);
-  // console.info(unitValue);
-  console.info(sumIng);
-  console.info(toPostRecipe);
-  console.info(toPostTags);
-  console.info(toPostSteps);
-
   const typeTag = filters.filter((tag) => tag.category_id === 6);
   const countryTag = filters.filter((tag) => tag.category_id === 2);
   const priceTag = filters.filter((tag) => tag.category_id === 1);
@@ -169,7 +169,6 @@ function RecipePost() {
 
   const handleShareRecipe = async () => {
     try {
-      // Envoi des données à la backend
       const response = await fetch("http://localhost:3310/api/recipe", {
         method: "POST",
         headers: {
@@ -178,23 +177,86 @@ function RecipePost() {
         body: JSON.stringify({
           recipe: toPostRecipe,
           tags: toPostTags,
-          steps: [toPostSteps], // Mettez les étapes dans un tableau, car votre backend semble attendre un tableau de steps
+          steps: [toPostSteps],
           ingredients: sumIng,
         }),
       });
 
       if (response.ok) {
-        // Succès de l'envoi
         console.info("Recette partagée avec succès !");
+        setToPostRecipe({
+          recipe_name: "",
+          user_id: 1,
+          summary: "",
+          nb_serving: persons,
+          validateRecipe: true,
+          photoUrl: null,
+        });
+        setToPostTags({
+          type_tags_id: null,
+          time_tags_id: null,
+          price_tags_id: null,
+          diff_tags_id: null,
+          regime_tags_id: null,
+          country_tags_id: null,
+        });
+        setToPostSteps({
+          description: "",
+          step_number: 1,
+        });
+        setSumIng([]);
+        setSelectedIng([]);
       } else {
-        // Gestion des erreurs
         console.error(
           "Erreur lors du partage de la recette :",
           response.statusText
         );
+        setToPostRecipe({
+          recipe_name: "",
+          user_id: 1,
+          summary: "",
+          nb_serving: persons,
+          validateRecipe: true,
+          photoUrl: null,
+        });
+        setToPostTags({
+          type_tags_id: null,
+          time_tags_id: null,
+          price_tags_id: null,
+          diff_tags_id: null,
+          regime_tags_id: null,
+          country_tags_id: null,
+        });
+        setToPostSteps({
+          description: "",
+          step_number: 1,
+        });
+        setSumIng([]);
       }
     } catch (error) {
       console.error("Erreur inattendue lors du partage de la recette :", error);
+      setToPostRecipe({
+        recipe_name: "",
+        user_id: 1,
+        summary: "",
+        nb_serving: persons,
+        validateRecipe: true,
+        photoUrl: null,
+      });
+      setToPostTags({
+        type_tags_id: null,
+        time_tags_id: null,
+        price_tags_id: null,
+        diff_tags_id: null,
+        regime_tags_id: null,
+        country_tags_id: null,
+      });
+      setToPostSteps({
+        description: "",
+        step_number: 1,
+      });
+      setSumIng([]);
+      setSelectedIng([]);
     }
   };
 
@@ -283,14 +345,16 @@ function RecipePost() {
       </div>
       <div className="recipe_price">
         <p>Prix</p>
-        <div className="filters-button-container">
+        <div className="filters-button-segmented-container">
           {priceTag.map((tag) => {
             return (
               <Button
                 key={tag.id}
                 label={tag.name}
                 className={
-                  filterPrice.includes(tag.name) ? "selected chip" : "chip"
+                  filterPrice.includes(tag.name)
+                    ? "selected-segmented segemented-chip"
+                    : "segmented-chip"
                 }
                 onClick={() => {
                   handleRecipePriceTags(tag);
@@ -365,7 +429,10 @@ function RecipePost() {
           inputList="ingredientList"
           inputName="ingredientList"
           value={ingValue}
-          onChange={handleIngValue}
+          onChange={(event) => {
+            handleIngValue(event);
+            setVerifIng(true);
+          }}
         />
         <datalist id="ingredientList">
           {ingredients.map((ingredient) => {
@@ -399,9 +466,14 @@ function RecipePost() {
           label="+"
           disabled={ingValue === "" || unitValue === "" || qtyValue === ""}
         />
-        {verifIng === false && <p>⚠️ Ingrédient déjà ajouté</p>}
+        {verifIng === false && (
+          <p>
+            ⚠️ L'ingrédient sélectionné n'est pas présent dans la liste ou à
+            déja été ajouté
+          </p>
+        )}
         <div className="ingListSummary">
-          {sumIng.map((ing, index) => {
+          {selectedIng.map((ing, index) => {
             return (
               <div key={ing.ingValue}>
                 <p>
@@ -429,7 +501,7 @@ function RecipePost() {
         />
       </div>
       <Button
-        className="share-recipe"
+        className="share-recipe button1"
         label="Partagez !"
         onClick={handleShareRecipe}
       />
@@ -452,6 +524,7 @@ export const loadUnitsData = async () => {
   try {
     const unitsData = await fetch(`http://localhost:3310/api/unit`);
     const data = await unitsData.json();
+
     return data;
   } catch (e) {
     console.error(e);

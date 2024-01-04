@@ -12,7 +12,7 @@ function Signin() {
     password: "",
     is_admin: false,
   });
-  // const [submittedUser, setSubmittedUser] = useState([]);
+  const [submittedUser, setSubmittedUser] = useState([]);
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
   const [showPassword, setShowPassword] = useState(false);
