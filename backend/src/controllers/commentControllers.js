@@ -27,7 +27,22 @@ const readCommentsByRecipeId = async (req, res, next) => {
   }
 };
 
+const add = async (req, res, next) => {
+  const message = req.body;
+  try {
+    // Insert the comment and associated data into the database
+    const commentResult = await tables.comment.create(message);
+
+    // Respond with HTTP 201 (Created) and the ID of the newly inserted comment
+    res.status(201).json({ commentId: commentResult.insertId });
+  } catch (err) {
+    // Pass any errors to the error-handling middleware
+    next(err);
+  }
+};
+
 module.exports = {
   readCommentsByRecipeId,
   browse,
+  add,
 };
