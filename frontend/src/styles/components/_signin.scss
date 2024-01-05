@@ -9,6 +9,7 @@
   justify-content: center;
   backdrop-filter: blur(5px);
   align-items: center;
+  flex-direction: column;
 
   .signin-page {
     display: flex;
@@ -22,14 +23,17 @@
     height: 70%;
     background-color: white;
 
+    .message {
+      .error {
+        color: red;
+        font-size: 1.5rem;
+      }
+    }
+
     h1 {
       color: var(--primary-color);
       font-size: var(--title-font-size);
       text-align: center;
-    }
-
-    .success-message {
-      color: green;
     }
 
     form {

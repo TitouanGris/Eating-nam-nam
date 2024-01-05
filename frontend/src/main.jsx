@@ -10,7 +10,6 @@ import RecipePost, {
 } from "./pages/RecipePost";
 import RecipeBrowse from "./pages/RecipeBrowse";
 import RecipeDetails, { loadRecipeDetails } from "./pages/RecipeDetails";
-import Regime from "./pages/Regime";
 
 import "./styles/index.scss";
 
@@ -22,10 +21,6 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <Home />,
-      },
-      {
-        path: "/regime",
-        element: <Regime />,
       },
       {
         path: "/browse",

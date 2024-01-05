@@ -5,21 +5,30 @@ class UserTagsManager extends AbstractManager {
     super({ table: "user_tags" });
   }
 
-  async create({ userId, tagsId }) {
+  async add(newTable) {
     const [result] = await this.database.query(
-      `INSERT INTO ${this.table} (user_id, tags_id) VALUES(?, ?)`,
-      [userId, tagsId]
+      `INSERT INTO ${this.table} (user_id, tags_id) values ${newTable}`
     );
     return result;
   }
 
-  async delete({ userId, tagsId }) {
+  async browse(id) {
     const [result] = await this.database.query(
-      `DELETE FROM  ${this.table} WHERE user_id=? AND tags_id=?`,
-      [userId, tagsId]
+      `SELECT t.name FROM tags t
+      JOIN ${this.table} ut on ut.tags_id = t.id
+      WHERE ut.user_id = ${id}
+      `
     );
     return result;
   }
+
+  // async delete({ userId, tagsId }) {
+  //   const [result] = await this.database.query(
+  //     `DELETE FROM  ${this.table} WHERE user_id=? AND tags_id=?`,
+  //     [userId, tagsId]
+  //   );
+  //   return result;
+  // }
 }
 
 module.exports = UserTagsManager;
