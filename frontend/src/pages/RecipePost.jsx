@@ -1,20 +1,10 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import { useLoaderData } from "react-router-dom";
 import Input from "../components/Input";
 import Button from "../components/Button";
-import FiltersContext from "../context/FiltersContext";
 
 function RecipePost() {
   const { filters, ingredients, units } = useLoaderData();
-  // console.info(ingredients);
-  const {
-    filterCountry,
-    filterDifficulty,
-    filterDuration,
-    filterPrice,
-    filterRegime,
-    filterType,
-  } = useContext(FiltersContext);
 
   const [persons, setPersons] = useState(0);
   const [ingValue, setIngValue] = useState("");
@@ -262,249 +252,265 @@ function RecipePost() {
 
   return (
     <div className="recipe_post">
-      <div className="recipe_name">
-        <p>Quel est le nom de votre recette ?</p>
-        <Input
-          inputType="text"
-          inputId="generic_input"
-          inputName="recipe_name"
-          inputMinLength="0"
-          inputMaxLength="80"
-          inputPlaceholder="Choucroute"
-          value={toPostRecipe.recipe_name}
-          onChange={handleRecipeName}
-        />
-      </div>
-      <div className="recipe_resume">
-        <p>Décrivez en quelques mots votre recette</p>
-        <Input
-          inputType="text"
-          inputId="generic_input"
-          inputName="recipe_resume"
-          inputMinLength="0"
-          inputMaxLength="255"
-          inputPlaceholder="Salade fraîche pour l'été"
-          size="30"
-          value={toPostRecipe.summary}
-          onChange={handleRecipeSummary}
-        />
-      </div>
-      <div className="number_persons">
-        <p>Pour combien de personnes ?</p>
-        <Button
-          label="-"
-          onClick={handleLessPersons}
-          className="less_button"
-          disabled={false}
-        />
-        <p>{persons}</p>
-        <Button
-          label="+"
-          onClick={handlePlusPersons}
-          className="plus_button"
-          disabled={false}
-        />
-      </div>
-      <div className="recipe_type">
-        <p>Quel type de recette ?</p>
-        <div className="filters-button-container">
-          {typeTag.map((tag) => {
-            return (
-              <Button
-                key={tag.id}
-                label={tag.name}
-                className={
-                  filterType.includes(tag.name) ? "selected chip" : "chip"
-                }
-                onClick={() => {
-                  handleRecipeTypeTags(tag);
-                }}
-              />
-            );
-          })}
+      <div className="post_left">
+        <div className="recipe_name">
+          <p>Quel est le nom de votre recette ?</p>
+          <Input
+            inputType="text"
+            inputId="generic_input"
+            inputName="recipe_name"
+            inputMinLength="0"
+            inputMaxLength="80"
+            inputPlaceholder="Choucroute"
+            value={toPostRecipe.recipe_name}
+            onChange={handleRecipeName}
+          />
         </div>
-      </div>
-      <div className="recipe_time">
-        <p>Temps de préparation</p>
-        <div className="filters-button-container">
-          {durationTag.map((tag) => {
-            return (
-              <Button
-                key={tag.id}
-                label={tag.name}
-                className={
-                  filterDuration.includes(tag.name) ? "selected chip" : "chip"
-                }
-                onClick={() => {
-                  handleRecipeTimeTags(tag);
-                }}
-              />
-            );
-          })}
+        <div className="recipe_resume">
+          <p>Décrivez en quelques mots votre recette</p>
+          <Input
+            inputType="text"
+            inputId="generic_input"
+            inputName="recipe_resume"
+            inputMinLength="0"
+            inputMaxLength="255"
+            inputPlaceholder="Salade fraîche pour l'été"
+            size="30"
+            value={toPostRecipe.summary}
+            onChange={handleRecipeSummary}
+          />
         </div>
-      </div>
-      <div className="recipe_price">
-        <p>Prix</p>
-        <div className="filters-button-segmented-container">
-          {priceTag.map((tag) => {
-            return (
-              <Button
-                key={tag.id}
-                label={tag.name}
-                className={
-                  filterPrice.includes(tag.name)
-                    ? "selected-segmented segemented-chip"
-                    : "segmented-chip"
-                }
-                onClick={() => {
-                  handleRecipePriceTags(tag);
-                }}
-              />
-            );
-          })}
+        <div className="number_persons">
+          <p>Pour combien de personnes ?</p>
+          <div className="counter">
+            <Button
+              label="-"
+              onClick={handleLessPersons}
+              className="serving_button"
+              disabled={false}
+            />
+            <p>{persons}</p>
+            <Button
+              label="+"
+              onClick={handlePlusPersons}
+              className="serving_button"
+              disabled={false}
+            />
+          </div>
         </div>
-      </div>
-      <div className="recipe_difficulty">
-        <p>Difficulté</p>
-        <div className="filters-button-container">
-          {difficultyTag.map((tag) => {
-            return (
-              <Button
-                key={tag.id}
-                label={tag.name}
-                className={
-                  filterDifficulty.includes(tag.name) ? "selected chip" : "chip"
-                }
-                onClick={() => {
-                  handleRecipeDiffTags(tag);
-                }}
-              />
-            );
-          })}
-        </div>
-      </div>
-      <div className="recipe_regime">
-        <p>Dans quel régime s'inscris votre recette ?</p>
-        <div className="filters-button-container">
-          {regimeTag.map((tag) => {
-            return (
-              <Button
-                key={tag.id}
-                label={tag.name}
-                className={
-                  filterRegime.includes(tag.name) ? "selected chip" : "chip"
-                }
-                onClick={() => {
-                  handleRecipeRegimeTags(tag);
-                }}
-              />
-            );
-          })}
-        </div>
-      </div>
-      <div className="recipe_country">
-        <p>Pays</p>
-        <div className="filters-button-container">
-          {countryTag.map((tag) => {
-            return (
-              <Button
-                key={tag.id}
-                label={tag.name}
-                className={
-                  filterCountry.includes(tag.name) ? "selected chip" : "chip"
-                }
-                onClick={() => {
-                  handleRecipeCountryTags(tag);
-                }}
-              />
-            );
-          })}
-        </div>
-      </div>
-      <div className="selection-ingredients">
-        <p>Quels sont les ingrédients présents dans votre recette ?</p>
-        <Input
-          inputType="text"
-          inputPlaceholder="Entrez votre ingrédient"
-          inputList="ingredientList"
-          inputName="ingredientList"
-          value={ingValue}
-          onChange={(event) => {
-            handleIngValue(event);
-            setVerifIng(true);
-          }}
-        />
-        <datalist id="ingredientList">
-          {ingredients.map((ingredient) => {
-            return (
-              <option key={ingredient.id} value={ingredient.name}>
-                {ingredient.name}
-              </option>
-            );
-          })}
-        </datalist>
-        <Input
-          inputName="quantity"
-          inputType="number"
-          inputPlaceholder="Quantité"
-          value={qtyValue}
-          onChange={handleQtyValue}
-        />
-        <select onChange={handleUnitValue} value={unitValue}>
-          <option value=""> --- </option>
-          {units.map((unit) => {
-            return (
-              <option key={unit.id} value={unit.name}>
-                {unit.name}
-              </option>
-            );
-          })}
-        </select>
-        <Button
-          className="add-ingredient"
-          onClick={handleSumIng}
-          label="+"
-          disabled={ingValue === "" || unitValue === "" || qtyValue === ""}
-        />
-        {verifIng === false && (
-          <p>
-            ⚠️ L'ingrédient sélectionné n'est pas présent dans la liste ou à
-            déja été ajouté
-          </p>
-        )}
-        <div className="ingListSummary">
-          {selectedIng.map((ing, index) => {
-            return (
-              <div key={ing.ingValue}>
-                <p>
-                  {ing.qtyValue} {ing.unitValue} {ing.ingValue}
-                </p>
+        <div className="recipe_type">
+          <p>Quel type de recette ?</p>
+          <div className="filters-button-container">
+            {typeTag.map((tag) => {
+              return (
                 <Button
-                  label="X"
-                  className="removeIng"
-                  onClick={() => handleRemove(index)}
+                  key={tag.id}
+                  label={tag.name}
+                  className={
+                    toPostTags.type_tags_id === tag.id
+                      ? "selected chip"
+                      : "chip"
+                  }
+                  onClick={() => {
+                    handleRecipeTypeTags(tag);
+                  }}
                 />
-              </div>
-            );
-          })}
+              );
+            })}
+          </div>
+        </div>
+        <div className="recipe_time">
+          <p>Temps de préparation</p>
+          <div className="filters-button-container">
+            {durationTag.map((tag) => {
+              return (
+                <Button
+                  key={tag.id}
+                  label={tag.name}
+                  className={
+                    toPostTags.time_tags_id === tag.id
+                      ? "selected chip"
+                      : "chip"
+                  }
+                  onClick={() => {
+                    handleRecipeTimeTags(tag);
+                  }}
+                />
+              );
+            })}
+          </div>
+        </div>
+        <div className="recipe_price">
+          <p>Prix</p>
+          <div className="filters-button-segmented-container">
+            {priceTag.map((tag) => {
+              return (
+                <Button
+                  key={tag.id}
+                  label={tag.name}
+                  className={
+                    toPostTags.price_tags_id === tag.id
+                      ? "selected-segmented segemented-chip"
+                      : "segmented-chip"
+                  }
+                  onClick={() => {
+                    handleRecipePriceTags(tag);
+                  }}
+                />
+              );
+            })}
+          </div>
+        </div>
+        <div className="recipe_difficulty">
+          <p>Difficulté</p>
+          <div className="filters-button-container">
+            {difficultyTag.map((tag) => {
+              return (
+                <Button
+                  key={tag.id}
+                  label={tag.name}
+                  className={
+                    toPostTags.diff_tags_id === tag.id
+                      ? "selected chip"
+                      : "chip"
+                  }
+                  onClick={() => {
+                    handleRecipeDiffTags(tag);
+                  }}
+                />
+              );
+            })}
+          </div>
         </div>
       </div>
-      <div className="recipe-steps">
-        <p>Etapes de la recette</p>
-        <textarea
-          name="steps"
-          placeholder="Décrivez les étapes de votre recette"
-          minLength="1"
-          cols="40"
-          rows="8"
-          onChange={handleRecipeStep}
+      <div className="post_right">
+        <div className="recipe_regime">
+          <p>Dans quel régime s'inscris votre recette ?</p>
+          <div className="filters-button-container">
+            {regimeTag.map((tag) => {
+              return (
+                <Button
+                  key={tag.id}
+                  label={tag.name}
+                  className={
+                    toPostTags.regime_tags_id === tag.id
+                      ? "selected chip"
+                      : "chip"
+                  }
+                  onClick={() => {
+                    handleRecipeRegimeTags(tag);
+                  }}
+                />
+              );
+            })}
+          </div>
+        </div>
+        <div className="recipe_country">
+          <p>Pays</p>
+          <div className="filters-button-container">
+            {countryTag.map((tag) => {
+              return (
+                <Button
+                  key={tag.id}
+                  label={tag.name}
+                  className={
+                    toPostTags.country_tags_id === tag.id
+                      ? "selected chip"
+                      : "chip"
+                  }
+                  onClick={() => {
+                    handleRecipeCountryTags(tag);
+                  }}
+                />
+              );
+            })}
+          </div>
+        </div>
+        <div className="selection-ingredients">
+          <p>Quels sont les ingrédients présents dans votre recette ?</p>
+          <Input
+            inputType="text"
+            inputPlaceholder="Entrez votre ingrédient"
+            inputList="ingredientList"
+            inputName="ingredientList"
+            value={ingValue}
+            onChange={(event) => {
+              handleIngValue(event);
+              setVerifIng(true);
+            }}
+          />
+          <datalist id="ingredientList">
+            {ingredients.map((ingredient) => {
+              return (
+                <option key={ingredient.id} value={ingredient.name}>
+                  {ingredient.name}
+                </option>
+              );
+            })}
+          </datalist>
+          <Input
+            inputName="quantity"
+            inputType="number"
+            inputPlaceholder="Quantité"
+            value={qtyValue}
+            onChange={handleQtyValue}
+          />
+          <select onChange={handleUnitValue} value={unitValue}>
+            <option value=""> --- </option>
+            {units.map((unit) => {
+              return (
+                <option key={unit.id} value={unit.name}>
+                  {unit.name}
+                </option>
+              );
+            })}
+          </select>
+          <Button
+            className="add-ingredient"
+            onClick={handleSumIng}
+            label="+"
+            disabled={ingValue === "" || unitValue === "" || qtyValue === ""}
+          />
+          {verifIng === false && (
+            <p>
+              ⚠️ L'ingrédient sélectionné n'est pas présent dans la liste ou à
+              déja été ajouté
+            </p>
+          )}
+          <div className="ingListSummary">
+            {selectedIng.map((ing, index) => {
+              return (
+                <div className="list" key={ing.ingValue}>
+                  <p>
+                    {ing.qtyValue} {ing.unitValue} {ing.ingValue}
+                  </p>
+                  <Button
+                    label="x"
+                    className="removeIng"
+                    onClick={() => handleRemove(index)}
+                  />
+                </div>
+              );
+            })}
+          </div>
+        </div>
+        <div className="recipe-steps">
+          <p>Etapes de la recette</p>
+          <textarea
+            name="steps"
+            placeholder="Décrivez les étapes de votre recette"
+            minLength="1"
+            cols="40"
+            rows="8"
+            onChange={handleRecipeStep}
+          />
+        </div>
+        <Button
+          className="share-recipe button1"
+          label="Partagez !"
+          onClick={handleShareRecipe}
         />
       </div>
-      <Button
-        className="share-recipe button1"
-        label="Partagez !"
-        onClick={handleShareRecipe}
-      />
     </div>
   );
 }
