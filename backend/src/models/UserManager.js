@@ -22,6 +22,15 @@ class UserManager extends AbstractManager {
     return result;
   }
 
+  async edit(id, user) {
+    const [result] = await this.database.query(
+      `UPDATE ${this.table} SET pseudo = ?, email = ?, password = ?, is_admin = ? WHERE id = ?`,
+      [user.pseudo, user.email, user.password, user.is_admin, id]
+    );
+
+    return result;
+  }
+
   // on cherche le user par son adresse e-mail pour renvoyer toutes ses infos (pour ensuite vérifier le mdp et si ok renvoyer les infos users vers le front)
   async getByMail(email) {
     const [result] = await this.database.query(
@@ -31,12 +40,23 @@ class UserManager extends AbstractManager {
     return result[0];
   }
 
-  async readOneUser(pseudo, email) {
+  async readOneUser(pseudo, email, id) {
     const [result] = await this.database.query(
-      `SELECT * FROM ${this.table} WHERE pseudo = ? OR email = ?`,
-      [pseudo, email]
+      `SELECT * FROM ${this.table} WHERE pseudo = ? OR email = ? OR id=?`,
+      [pseudo, email, id]
     );
     return result[0];
+  }
+
+  //  The D of CRUD - Delete operation
+  // TODO: Implement the delete operation to remove an item by its ID
+
+  async destroy(id) {
+    const [result] = await this.database.query(
+      `DELETE FROM ${this.table} WHERE id = ?`,
+      [id]
+    );
+    return result;
   }
 }
 

@@ -44,8 +44,45 @@ const read = async (req, res, next) => {
   }
 };
 
+const edit = async (req, res, next) => {
+  try {
+    const { pseudo, email, password, isAdmin } = req.body;
+    const existingUser = await tables.user.readOneUser(pseudo, email);
+
+    if (existingUser) {
+      const modifyId = await tables.user.edit(req.params.id, {
+        pseudo,
+        email,
+        password,
+        isAdmin,
+      });
+      res.status(201).json({ modifyId });
+    }
+  } catch (err) {
+    next(err);
+    res.status(404).send("Erreur de modification du user");
+  }
+};
+
+const destroy = async (req, res, next) => {
+  try {
+    const { pseudo, email } = req.body;
+    const deleteUser = await tables.user.destroy(pseudo, email);
+    if (!deleteUser) {
+      return res.status((404).json({ error: "Cet utilsateur n'existe pas." }));
+    }
+    const deleteId = await tables.user.destroy(req.params.id);
+    res.status(201).json({ deleteId });
+  } catch (err) {
+    next(err);
+  }
+  return null;
+};
+
 module.exports = {
   browse,
-  add,
   read,
+  add,
+  edit,
+  destroy,
 };

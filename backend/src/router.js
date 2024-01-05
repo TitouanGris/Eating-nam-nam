@@ -39,6 +39,12 @@ router.post("/user", userControllers.add);
 // Route to authentification
 router.post("/login", authControllers.login);
 
+// Route to delete item
+router.delete("/user/:id", userControllers.destroy);
+
+// Route to modify item
+router.put("/user/:id", userControllers.edit);
+
 /* ************************************************************************* */
 
 module.exports = router;
