@@ -23,6 +23,10 @@
     height: 6vh;
     justify-self: center;
   }
+  .share-recipe:disabled {
+    opacity: 0.5;
+    cursor: default;
+  }
   p {
     color: #d56c06;
     font-size: 1.5rem;

@@ -1,0 +1,28 @@
+.post {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  backdrop-filter: blur(5px);
+  align-items: center;
+}
+
+.post-modal {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  border-radius: 10px;
+  border: 2px solid var(--primary-color);
+  width: 70vw;
+  height: 70%;
+  background-color: white;
+  a {
+    color: black;
+  }
+}
