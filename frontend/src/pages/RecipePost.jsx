@@ -3,6 +3,7 @@ import { useLoaderData } from "react-router-dom";
 import Input from "../components/Input";
 import Button from "../components/Button";
 import FiltersContext from "../context/FiltersContext";
+import PostModal from "../components/PostModal";
 
 function RecipePost() {
   const { filters, ingredients, units } = useLoaderData();
@@ -21,7 +22,9 @@ function RecipePost() {
   const [qtyValue, setQtyValue] = useState("");
   const [unitValue, setUnitValue] = useState("");
   const [sumIng, setSumIng] = useState([]);
+  const [selectedIng, setSelectedIng] = useState([]);
   const [verifIng, setVerifIng] = useState(true);
+  const [postModal, setPostModal] = useState(false);
   const [toPostRecipe, setToPostRecipe] = useState({
     recipe_name: "",
     user_id: 1,
@@ -71,13 +74,20 @@ function RecipePost() {
     setUnitValue(value);
   };
   const handleSumIng = () => {
-    if (!sumIng.find((ing) => ing.ingValue === ingValue)) {
+    if (
+      !ingredients?.name &&
+      !selectedIng.find((ing) => ing.ingValue === ingValue) &&
+      ingredients.find((ingredient) => ingredient.name === ingValue)
+    ) {
       const catId = ingredients?.find(
         (ingredient) => ingredient.name === ingValue
       ).id;
       const unitId = units?.find((unit) => unit.name === unitValue).id;
       setSumIng((oldObj) => {
         return [...oldObj, { catId, qtyValue, unitId }];
+      });
+      setSelectedIng((oldObj) => {
+        return [...oldObj, { ingValue, qtyValue, unitValue }];
       });
       setIngValue("");
       setQtyValue("");
@@ -94,6 +104,11 @@ function RecipePost() {
       const updateSumIng = [...oldObj];
       updateSumIng.splice(index, 1);
       return updateSumIng;
+    });
+    setSelectedIng((oldObj) => {
+      const updateSelectedIng = [...oldObj];
+      updateSelectedIng.splice(index, 1);
+      return updateSelectedIng;
     });
   };
 
@@ -197,6 +212,8 @@ function RecipePost() {
           step_number: 1,
         });
         setSumIng([]);
+        setSelectedIng([]);
+        setPostModal(true);
       } else {
         console.error(
           "Erreur lors du partage de la recette :",
@@ -247,13 +264,14 @@ function RecipePost() {
         step_number: 1,
       });
       setSumIng([]);
+      setSelectedIng([]);
     }
   };
 
   return (
     <div className="recipe_post">
       <div className="recipe_name">
-        <p>Quel est le nom de votre recette ?</p>
+        <p>Quel est le nom de votre recette ? *</p>
         <Input
           inputType="text"
           inputId="generic_input"
@@ -266,7 +284,7 @@ function RecipePost() {
         />
       </div>
       <div className="recipe_resume">
-        <p>Décrivez en quelques mots votre recette</p>
+        <p>Décrivez en quelques mots votre recette *</p>
         <Input
           inputType="text"
           inputId="generic_input"
@@ -280,7 +298,7 @@ function RecipePost() {
         />
       </div>
       <div className="number_persons">
-        <p>Pour combien de personnes ?</p>
+        <p>Pour combien de personnes ? *</p>
         <Button
           label="-"
           onClick={handleLessPersons}
@@ -296,7 +314,7 @@ function RecipePost() {
         />
       </div>
       <div className="recipe_type">
-        <p>Quel type de recette ?</p>
+        <p>Quel type de recette ? *</p>
         <div className="filters-button-container">
           {typeTag.map((tag) => {
             return (
@@ -315,7 +333,7 @@ function RecipePost() {
         </div>
       </div>
       <div className="recipe_time">
-        <p>Temps de préparation</p>
+        <p>Temps de préparation *</p>
         <div className="filters-button-container">
           {durationTag.map((tag) => {
             return (
@@ -355,7 +373,7 @@ function RecipePost() {
         </div>
       </div>
       <div className="recipe_difficulty">
-        <p>Difficulté</p>
+        <p>Difficulté *</p>
         <div className="filters-button-container">
           {difficultyTag.map((tag) => {
             return (
@@ -412,14 +430,17 @@ function RecipePost() {
         </div>
       </div>
       <div className="selection-ingredients">
-        <p>Quels sont les ingrédients présents dans votre recette ?</p>
+        <p>Quels sont les ingrédients présents dans votre recette ? *</p>
         <Input
           inputType="text"
           inputPlaceholder="Entrez votre ingrédient"
           inputList="ingredientList"
           inputName="ingredientList"
           value={ingValue}
-          onChange={handleIngValue}
+          onChange={(event) => {
+            handleIngValue(event);
+            setVerifIng(true);
+          }}
         />
         <datalist id="ingredientList">
           {ingredients.map((ingredient) => {
@@ -453,9 +474,14 @@ function RecipePost() {
           label="+"
           disabled={ingValue === "" || unitValue === "" || qtyValue === ""}
         />
-        {verifIng === false && <p>⚠️ Ingrédient déjà ajouté</p>}
+        {verifIng === false && (
+          <p>
+            ⚠️ L'ingrédient sélectionné n'est pas présent dans la liste ou à
+            déja été ajouté
+          </p>
+        )}
         <div className="ingListSummary">
-          {sumIng.map((ing, index) => {
+          {selectedIng.map((ing, index) => {
             return (
               <div key={ing.ingValue}>
                 <p>
@@ -472,7 +498,7 @@ function RecipePost() {
         </div>
       </div>
       <div className="recipe-steps">
-        <p>Etapes de la recette</p>
+        <p>Etapes de la recette *</p>
         <textarea
           name="steps"
           placeholder="Décrivez les étapes de votre recette"
@@ -483,10 +509,22 @@ function RecipePost() {
         />
       </div>
       <Button
-        className="share-recipe"
+        className="share-recipe button1"
         label="Partagez !"
+        disabled={
+          toPostRecipe.recipe_name === "" ||
+          toPostRecipe.summary === "" ||
+          toPostRecipe.nb_serving === 0 ||
+          toPostTags.type_tags_id === null ||
+          toPostTags.diff_tags_id === null ||
+          toPostTags.price_tags_id === null ||
+          toPostTags.time_tags_id === null ||
+          toPostSteps.description === "" ||
+          sumIng.length === 0
+        }
         onClick={handleShareRecipe}
       />
+      {postModal && <PostModal />}
     </div>
   );
 }
@@ -506,6 +544,7 @@ export const loadUnitsData = async () => {
   try {
     const unitsData = await fetch(`http://localhost:3310/api/unit`);
     const data = await unitsData.json();
+
     return data;
   } catch (e) {
     console.error(e);

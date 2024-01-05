@@ -38,6 +38,8 @@ function RecipeBrowse() {
     loadData();
   }, []);
 
+  // console.log(recipe.country[0])
+
   return (
     <div className="recipeBrowse">
       <div className="recipeBrowseCard">
@@ -62,15 +64,23 @@ function RecipeBrowse() {
             ) {
               return (
                 (!countryFilterNotEmpty ||
-                  filterCountry.includes(r.tagCountry)) &&
+                  filterCountry.includes(
+                    r.country ? r.country[0].tagName : ""
+                  )) &&
                 (!priceFilterNotEmpty ||
-                  filterPrice.includes(r.tagPriceName)) &&
+                  filterPrice.includes(r.price ? r.price[0].tagName : "")) &&
                 (!difficultyFilterNotEmpty ||
-                  filterDifficulty.includes(r.tagDifficulty)) &&
+                  filterDifficulty.includes(
+                    r.difficulty ? r.difficulty[0].tagName : ""
+                  )) &&
                 (!durationFilterNotEmpty ||
-                  filterDuration.includes(r.tagDuration)) &&
-                (!regimeFilterNotEmpty || filterRegime.includes(r.tagRegime)) &&
-                (!typeFilterNotEmpty || filterType.includes(r.tagType))
+                  filterDuration.includes(
+                    r.duration ? r.duration[0].tagName : ""
+                  )) &&
+                (!regimeFilterNotEmpty ||
+                  filterRegime.includes(r.regime ? r.regime[0].tagName : "")) &&
+                (!typeFilterNotEmpty ||
+                  filterType.includes(r.type ? r.type[0].tagName : ""))
               );
             }
 

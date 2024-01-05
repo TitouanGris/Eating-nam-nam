@@ -20,6 +20,8 @@ const userIngredientsControllers = require("./controllers/userIngredientsControl
 const userTagsControllers = require("./controllers/userTagsControllers");
 
 const userControllers = require("./controllers/userControllers");
+
+const commentControllers = require("./controllers/commentControllers");
 // Route to get a list of items
 router.get("/items", itemControllers.browse);
 router.get("/recipe", recipeControllers.browse);
@@ -31,6 +33,7 @@ router.get("/ingredient", ingredientControllers.browse);
 router.get("/ingredients/:id", ingredientControllers.readIngredientsByRecipeId);
 router.get("/unit", unitsControllers.browse);
 router.get("/usertags/:id", userTagsControllers.browse);
+router.get("/comments/recipe/:id", commentControllers.readCommentsByRecipeId);
 
 // Route to get a specific item by ID
 router.get("/items/:id", itemControllers.read);

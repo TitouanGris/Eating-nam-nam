@@ -43,7 +43,7 @@ function RecipeCard({ r }) {
                   src="/src/assets/images/durationImage.png"
                   alt="TagDuration"
                 />
-                <p>{r.tagDuration}</p>
+                <p>{r.duration[0].tagName}</p>
               </div>
             </div>
           </div>
@@ -73,6 +73,7 @@ RecipeCard.propTypes = {
     price: PropTypes.string,
     difficulty: PropTypes.string,
     tagUrl: PropTypes.string,
+    duration: PropTypes.string,
   }).isRequired,
 };
 export default RecipeCard;

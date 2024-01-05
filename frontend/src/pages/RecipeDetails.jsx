@@ -6,7 +6,15 @@ function RecipeDetails() {
   const [steps, setSteps] = useState([]);
   const [ingredients, setIngredients] = useState([]);
   const [tags, setTags] = useState([]);
+  const [comments, setComments] = useState([]);
   const { id } = useParams();
+
+  const options = {
+    weekday: "long",
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  };
 
   useEffect(() => {
     fetch(`http://localhost:3310/api/step/${id}`)
@@ -24,6 +32,12 @@ function RecipeDetails() {
     fetch(`http://localhost:3310/api/tags/recipe/${id}`)
       .then((res) => res.json())
       .then((data) => setTags(data));
+  }, []);
+
+  useEffect(() => {
+    fetch(`http://localhost:3310/api/comments/recipe/${id}`)
+      .then((res) => res.json())
+      .then((data) => setComments(data));
   }, []);
 
   return (
@@ -48,13 +62,13 @@ function RecipeDetails() {
         <div className="tags">
           <div className="price">
             <img
-              src={`http://localhost:3310${recipe.tagPriceUrl}`}
+              src={`http://localhost:3310${recipe.price[0].tagUrl}`}
               alt="r.TagPrice"
             />
           </div>
           <div className="difficulty">
             <img
-              src={`http://localhost:3310${recipe.tagDifficultyUrl}`}
+              src={`http://localhost:3310${recipe.difficulty[0].tagUrl}`}
               alt="r.TagDifficulty"
             />
           </div>
@@ -67,7 +81,7 @@ function RecipeDetails() {
           </div>
           <div className="duration">
             <img src="/src/assets/images/durationImage.png" alt="TagDuration" />
-            <p>{recipe.tagDuration}</p>
+            <p>{recipe.duration[0].tagName}</p>
           </div>
         </div>
       </div>
@@ -96,6 +110,21 @@ function RecipeDetails() {
             })}
           </ol>
         </div>
+        <div className="comments">
+          <h3>L'avis des gourmands</h3>
+          {comments.map((comment) => (
+            <div>
+              <p className="comment_pseudo">{comment.pseudo}</p>
+              <p>{comment.message}</p>
+              <p className="comment_date">
+                {new Date(comment.created_date).toLocaleString(
+                  "fr-FR",
+                  options
+                )}
+              </p>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );
@@ -107,8 +136,7 @@ export const loadRecipeDetails = async ({ params }) => {
       `http://localhost:3310/api/recipe/${params.id}`
     );
     const data = await recipeDetails.json();
-
-    return data;
+    return data[0];
   } catch (e) {
     console.error(e);
     return null;
