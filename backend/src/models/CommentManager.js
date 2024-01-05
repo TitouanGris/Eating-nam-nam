@@ -5,10 +5,10 @@ class CommentManager extends AbstractManager {
     super({ table: "comment" });
   }
 
-  async create(userId, recipeId, message) {
+  async create(comment) {
     const [result] = await this.database.query(
       `INSERT INTO ${this.table} (user_id, recipe_id, message) VALUES (?, ?, ?)`,
-      [userId, recipeId, message]
+      [comment.userId, comment.recipeId, comment.message]
     );
     return result;
   }

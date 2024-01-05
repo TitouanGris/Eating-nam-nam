@@ -42,6 +42,7 @@ router.get("/items/:id", itemControllers.read);
 router.post("/items", itemControllers.add);
 router.post("/recipe", recipeControllers.add);
 router.post("/user", userControllers.add);
+router.post("/comment", commentControllers.add);
 router.post("/useringredients", userIngredientsControllers.add);
 router.post("/usertags", userTagsControllers.add);
 
