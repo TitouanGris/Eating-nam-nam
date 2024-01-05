@@ -4,6 +4,17 @@ import RecipeCard from "../components/RecipeCard";
 import Filters from "../components/Filters";
 import FiltersContext from "../context/FiltersContext";
 
+export const loadRecipeData = async () => {
+  try {
+    const RecipeData = await fetch("http://localhost:3310/api/recipe");
+    const data = await RecipeData.json();
+    return data;
+  } catch (e) {
+    console.error(e);
+    return null;
+  }
+};
+
 function RecipeBrowse() {
   const [favoriteMobileisActive, setFavoriteMobileisActive] =
     useOutletContext();
@@ -18,10 +29,13 @@ function RecipeBrowse() {
     filterType,
   } = useContext(FiltersContext);
 
+  async function loadData() {
+    const recipeData = await loadRecipeData();
+    setRecipe(recipeData);
+  }
+
   useEffect(() => {
-    fetch("http://localhost:3310/api/recipe")
-      .then((res) => res.json())
-      .then((data) => setRecipe(data));
+    loadData();
   }, []);
 
   // console.log(recipe.country[0])
