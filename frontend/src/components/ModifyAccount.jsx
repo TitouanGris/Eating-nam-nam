@@ -1,23 +1,22 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
+import axios from "axios";
 import { useUser } from "../context/UserContext";
 
 function ModifyAccount({ isOpen, setShowModifyAccount }) {
   const { userInfos, setUserInfos } = useUser();
 
   const [newUser, setNewUser] = useState({
-    pseudo: "",
+    pseudo: userInfos.pseudo,
+    email: userInfos.email,
+    password: userInfos.password,
   });
 
   const handleModify = async () => {
     try {
       if (userInfos && userInfos.id) {
-        await fetch(`http://localhost:3310/api/user/${userInfos.id}`, {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(newUser),
+        await axios.put(`http://localhost:3310/api/user/${userInfos.id}`, {
+          newUser,
         });
         setNewUser({ pseudo: "" });
         setUserInfos({ ...userInfos, pseudo: newUser.pseudo });

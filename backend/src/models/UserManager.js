@@ -27,10 +27,10 @@ class UserManager extends AbstractManager {
     return result;
   }
 
-  async edit(id, user) {
+  async edit(id, newUser) {
     const [result] = await this.database.query(
-      `UPDATE ${this.table} SET pseudo = ?, email = ?, password = ?, is_admin = ? WHERE id = ?`,
-      [user.pseudo, user.email, user.password, user.is_admin, id]
+      `UPDATE ${this.table} SET pseudo = ? WHERE id = ?`,
+      [newUser.pseudo, id]
     );
 
     return result;
@@ -45,10 +45,10 @@ class UserManager extends AbstractManager {
     return result[0];
   }
 
-  async readOneUser(pseudo, email, id) {
+  async readOneUser(newUser) {
     const [result] = await this.database.query(
       `SELECT * FROM ${this.table} WHERE pseudo = ? OR email = ? OR id=?`,
-      [pseudo, email, id]
+      [newUser.pseudo, newUser.email, newUser.id]
     );
     return result[0];
   }

@@ -15,7 +15,7 @@ const add = async (req, res, next) => {
     const { pseudo, email } = req.body;
     const existingUser = await tables.user.readOneUser(pseudo, email);
     if (existingUser) {
-      return res.status(400).json({ error: "Cet utilsateur existe déjà." });
+      return res.status((400).json({ error: "Cet utilsateur existe déjà." }));
     }
     const insertId = await tables.user.create(req.body);
     res.status(201).json({ insertId });
@@ -45,17 +45,11 @@ const read = async (req, res, next) => {
 };
 
 const edit = async (req, res, next) => {
+  const { newUser } = req.body;
   try {
-    const { pseudo, email, password, isAdmin } = req.body;
-    const existingUser = await tables.user.readOneUser(pseudo, email);
-
+    const existingUser = await tables.user.readOneUser(newUser);
     if (existingUser) {
-      const modifyId = await tables.user.edit(req.params.id, {
-        pseudo,
-        email,
-        password,
-        isAdmin,
-      });
+      const modifyId = await tables.user.edit(req.params.id, newUser);
       res.status(201).json({ modifyId });
     }
   } catch (err) {
