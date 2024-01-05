@@ -2,6 +2,7 @@
   display: flex;
   flex-direction: column;
   gap: 2vh;
+  margin-left: 1vw;
   // .recipe_name{}
   // .number_persons{}
   // .recipe_type{}
@@ -13,5 +14,88 @@
   // .selection-ingredients{}
   .share-recipe {
     margin-bottom: 13vh;
+    background-color: var(--primary-color);
+    color: var(--secondary-color-text);
+    font-size: 1.5rem;
+    border-radius: 10px;
+    border: none;
+    width: 40vw;
+    height: 6vh;
+    justify-self: center;
   }
+  .share-recipe:disabled {
+    opacity: 0.5;
+    cursor: default;
+  }
+  p {
+    color: #d56c06;
+    font-size: 1.5rem;
+    padding-top: 1vh;
+    padding-bottom: 1vh;
+    font-weight: bold;
+  }
+
+  .filters-button-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2vw;
+    width: 100%;
+  }
+  .filters-button-segmented-container {
+    .segmented-chip {
+      border: solid 1px;
+      border-right: none;
+      background-color: white;
+      padding: 1vh 2vh 1vh 2vh;
+      font-size: 1.5rem;
+      gap: 0;
+
+      &:hover {
+        background-color: var(--primary-color);
+        color: white;
+        cursor: pointer;
+        border: solid black 1px;
+      }
+    }
+    .segmented-chip:first-child {
+      border-radius: 15px 0 0 15px;
+    }
+    .segmented-chip:last-child {
+      border-radius: 0 15px 15px 0;
+      border-right: solid 1px;
+    }
+    .selected-segmented {
+      background-color: var(--primary-color);
+      color: white;
+      border-color: var(--primary-color);
+    }
+  }
+}
+
+.chip {
+  border: solid black 1px;
+  border-radius: 15px;
+  padding: 7px;
+  font-size: 1.5rem;
+  background-color: white;
+  &:active {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+    color: white;
+  }
+
+  &:hover {
+    background-color: #d56c06;
+    color: white;
+    cursor: pointer;
+  }
+
+  img {
+    width: 40px;
+  }
+}
+.selected {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+  color: white;
 }

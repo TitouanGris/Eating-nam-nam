@@ -1,7 +1,8 @@
-import { React, useState } from "react";
+import { React, useState, useContext } from "react";
 import { Navigate } from "react-router-dom";
 import axios from "axios";
 import { useUser } from "../context/UserContext";
+import FiltersContext from "../context/FiltersContext";
 
 function Connexion() {
   // todo : importer le setter "setUserInfos" via Useconext
@@ -10,6 +11,8 @@ function Connexion() {
   const [inputPassword, setInputPassword] = useState("");
 
   const { userInfos, setUserInfos } = useUser(); // permet de récupérer via un custom Hook l'objet du context (ici l'objet qui contient setUserInfos et UserInfos
+
+  const { setFilterRegime } = useContext(FiltersContext);
 
   async function handleSubmit(event) {
     event.preventDefault();
@@ -24,6 +27,16 @@ function Connexion() {
       });
 
       setUserInfos(res.data);
+
+      try {
+        const res2 = await axios.get(
+          `http://localhost:3310/api/usertags/${res.data.id}`
+        );
+
+        setFilterRegime(res2.data);
+      } catch (error) {
+        console.error(error);
+      }
     } catch (error) {
       console.error(error);
     }

@@ -9,7 +9,6 @@
     gap: 20px;
     align-items: center;
     justify-content: center;
-    margin-bottom: 13vh;
   }
 
   .mobileshow {
@@ -23,6 +22,15 @@
 
   .mobilehide {
     display: none;
+  }
+}
+@media screen and (max-width: 899px) {
+  .recipeBrowse {
+    .recipeBrowseCard {
+      a:last-child {
+        margin-bottom: 15vh;
+      }
+    }
   }
 }
 @media screen and (min-width: 900px) {

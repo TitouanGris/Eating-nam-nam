@@ -16,7 +16,7 @@ function App() {
     // le userProvider permet de fournir les infos du user à tous les enfants de APP (via un context)
     <UserProvider>
       <FiltersContextProvider>
-        <div className="app">
+        <div className="app" id="app">
           <div className="navBarDesktopArea">
             {!pagesWithoutNavBar.includes(pathname) && <NavBarDesktop />}
           </div>
