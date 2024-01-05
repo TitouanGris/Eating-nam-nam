@@ -1,0 +1,67 @@
+.navBarDesktop {
+  display: flex;
+  align-items: center;
+  width: 100vw;
+  height: 10vh;
+  background-color: var(--primary-color);
+
+  .logo {
+    width: 8vw;
+    height: 10vh;
+    padding: 5px;
+
+    img {
+      border-radius: 15px;
+      width: 80%;
+      height: 90%;
+    }
+  }
+
+  .lien {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    width: 100%;
+
+    a {
+      text-decoration: none;
+      padding: 15px;
+
+      p {
+        font-size: 2.5rem;
+        display: flex;
+        color: white;
+        font-weight: 600;
+        text-decoration: none;
+
+        &:hover {
+          color: var(--primary-color-text);
+        }
+
+        // todo : faire fonctionner le active :
+        // p:active {
+        //   color: var(--primary-color-text);
+        // }
+      }
+    }
+
+    .lien1 {
+      display: flex;
+      width: 50vw;
+    }
+
+    .account-link {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      img {
+        height: 5vh;
+      }
+      p {
+        font-size: 1em;
+      }
+    }
+  }
+}

@@ -1,0 +1,282 @@
+.recipeDetails {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  padding-top: 10px;
+  background-color: white;
+
+  .recipeDetailsHeader {
+    display: flex;
+    gap: 20px;
+    padding-left: 10px;
+    padding-top: 10px;
+    justify-content: left;
+    h2 {
+      font-size: 1.2rem;
+    }
+
+    img {
+      width: 30px;
+    }
+  }
+  .imgContainer {
+    img {
+      width: 100vw;
+      height: 30vh;
+      object-fit: cover;
+    }
+  }
+
+  .card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 100%;
+    gap: 5px;
+    width: 100%;
+    height: 30%;
+
+    .tags {
+      display: flex;
+      justify-content: space-between;
+
+      .price {
+        width: 25%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        img {
+          width: 80%;
+        }
+      }
+
+      .difficulty {
+        width: 25%;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        img {
+          width: 80%;
+        }
+      }
+
+      .serving,
+      .duration {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 25%;
+
+        img {
+          width: 40%;
+        }
+      }
+    }
+  }
+
+  .recipeName {
+    width: 100%;
+    padding-left: 3%;
+    align-items: center;
+    font-weight: 600;
+  }
+  .recipe_summary {
+    padding: 0 20px;
+  }
+
+  .recipe_tags {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 10px;
+    width: 80%;
+    padding: 1vh;
+
+    div {
+      padding: 10px;
+      border-radius: 20px;
+      color: black;
+      background-color: #eeeeee;
+    }
+  }
+
+  .recipe_ingredientsAndSteps {
+    font-size: 1rem;
+    line-height: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    h3 {
+      color: var(--primary-color);
+      text-align: center;
+    }
+
+    .recipe_ingredients {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .steps_details {
+      padding-left: 35px;
+      padding-right: 15px;
+      flex-direction: column;
+      gap: 10px;
+      align-items: center;
+      justify-content: center;
+
+      h3 {
+        text-align: center;
+        color: var(--primary-color);
+      }
+    }
+    .comments {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+
+      .comment_pseudo {
+        font-weight: bold;
+      }
+
+      .comment_date {
+        color: gray;
+        font-size: 0.9em;
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 900px) {
+  html,
+  body,
+  :root {
+    background-color: #eeeeee;
+  }
+
+  .recipeDetails {
+    padding-top: 20px;
+    width: 60vw;
+    padding: 0 5vw;
+    margin: auto;
+    background-color: white;
+
+    .recipeDetailsHeader {
+      img {
+        width: 30px;
+      }
+    }
+    .imgContainer {
+      display: flex;
+      justify-content: center;
+      img {
+        width: 40vw;
+        height: 40vh;
+        object-fit: cover;
+        border-radius: 10px;
+      }
+    }
+
+    .card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 5px;
+      width: 50vw;
+      height: 10vh;
+
+      .tags {
+        display: flex;
+        width: 80%;
+
+        .price {
+          width: 120px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+
+          img {
+            width: 50%;
+          }
+        }
+
+        .difficulty {
+          width: 120px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+
+          img {
+            width: 50%;
+          }
+        }
+
+        .serving,
+        .duration {
+          display: flex;
+          flex-direction: row;
+          gap: 10px;
+          justify-content: center;
+          align-items: center;
+          width: 120px;
+
+          img {
+            width: 25%;
+          }
+        }
+      }
+    }
+
+    .recipeName {
+      width: 100%;
+      padding-left: 3%;
+      align-items: center;
+      font-weight: 600;
+    }
+    .recipe_summary {
+      padding: 0;
+    }
+
+    .recipe_tags {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      gap: 10px;
+      width: 80%;
+      padding: 1vh;
+
+      div {
+        font-size: 0.8em;
+      }
+    }
+    .recipe_ingredientsAndSteps {
+      gap: 20px;
+      padding-left: 20px;
+
+      .recipe_ingredients {
+        gap: 10px;
+        align-items: center;
+
+        ul {
+          -webkit-columns: 100px 3;
+          -moz-columns: 100px 3;
+          columns: 100px 3;
+          column-gap: 40px;
+        }
+      }
+      .steps_details {
+        padding-left: 0;
+        padding-right: 0;
+        text-justify: auto;
+        gap: 10px;
+        align-items: center;
+      }
+    }
+  }
+}

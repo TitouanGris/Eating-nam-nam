@@ -1,12 +1,17 @@
 @import "settings";
+@import "app";
 
 // ------------ import du styles des pages ------------ //
 
 @import "./pages/RecipeBrowse";
+@import "./pages/RecipeDetails";
 @import "home";
 @import "./pages/filters";
+@import "./pages/RecipePost";
 
 // ------------ import du styles des composants ------------ //
-
 @import "./components/RecipeCard";
-@import "./components/NavBar";
+@import "./components/NavBarDesktop";
+@import "./components/connexion";
+@import "./components/NavBarMobile";
+@import "./components/signin";
