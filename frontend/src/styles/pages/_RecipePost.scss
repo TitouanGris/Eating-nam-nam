@@ -74,6 +74,9 @@
     .share-recipe:disabled {
       opacity: 0.5;
       cursor: default;
+      &:hover {
+        color: var(--secondary-color-text);
+      }
     }
   }
   .filters-button-container {
