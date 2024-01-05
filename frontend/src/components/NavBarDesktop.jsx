@@ -25,9 +25,7 @@ function NavBarDesktop() {
     setFilterCountry([]);
     setFilterType([]);
   };
-
   const { userInfos } = useUser();
-
   return (
     <div className="navBarDesktop">
       <div className="logo">
@@ -73,7 +71,6 @@ function NavBarDesktop() {
         <img alt="account" src="./src/assets/images/account.png" />
         <p>{isConnected === false ? "Créer un compte" : "Profil"}</p>
       </button> */}
-
       {/* <button type="button" disabled={!isConnected} className="favorite_button">
         <img alt="favorite" src="./src/assets/images/heartFill.png" />
         <p>Favoris</p>

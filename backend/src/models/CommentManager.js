@@ -5,10 +5,10 @@ class CommentManager extends AbstractManager {
     super({ table: "comment" });
   }
 
-  async create(userId, recipeId, message) {
+  async create(comment) {
     const [result] = await this.database.query(
       `INSERT INTO ${this.table} (user_id, recipe_id, message) VALUES (?, ?, ?)`,
-      [userId, recipeId, message]
+      [comment.userId, comment.recipeId, comment.message]
     );
     return result;
   }
@@ -19,6 +19,14 @@ class CommentManager extends AbstractManager {
       [message, id]
     );
 
+    return result;
+  }
+
+  async readCommentsByRecipeId(id) {
+    const [result] = await this.database.query(
+      `select comment.id AS commentId, recipe_id, message, comment.created_date, pseudo from ${this.table} JOIN user ON user_id=user.id where recipe_id = ?`,
+      [id]
+    );
     return result;
   }
 }

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
 import { useUser } from "../context/UserContext";
+import Regime from "./Regime";
 
 function Signin() {
   const { setUserInfos } = useUser();
@@ -16,14 +16,22 @@ function Signin() {
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const [signIn, setSignIn] = useState(false);
 
-  const navigate = useNavigate();
+  // state permettant de savoir quand afficher la modal de choix de préférences
+  function handleSignIn() {
+    setSignIn((current) => !current);
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    setErrorMessage("");
+
     if (!newUser.pseudo || !newUser.email || !newUser.password) {
       setErrorMessage("Veuillez remplir tous les champs");
     }
+
     if (!newUser.email.includes("@")) {
       setErrorMessage("Veuillez fournir une adresse e-mail valide");
     } else {
@@ -40,12 +48,13 @@ function Signin() {
         setSuccessMessage(
           `Félicitations ${res2.data.pseudo}, votre compte a bien été créé !`
         );
-        setTimeout(() => {
-          navigate("/browse");
-        }, 2000);
+        handleSignIn();
       } catch (err) {
         console.error(err);
         setErrorMessage("Cet utilisateur existe déjà.");
+        // if (err.data === { error: "Cet utilisateur existe déjà." })  //todo : finir ce check pour traiter si erreur différente du server
+        // setTimeout(() => setErrorMessage(""), 3000);
+        setNewUser({ pseudo: "", email: "", password: "" });
       }
     }
   };
@@ -56,12 +65,12 @@ function Signin() {
   return (
     <div className="inscription">
       <div className="signin-page">
-        <h1>Inscription</h1>
-        {successMessage && (
-          <div className="success-message">{successMessage}</div>
+        {errorMessage !== "" && (
+          <div className="message">
+            <p className="error">{errorMessage}</p>
+          </div>
         )}
-        {errorMessage && <p>{errorMessage}</p>}
-
+        <h1>Inscription</h1>
         <form onSubmit={handleSubmit}>
           <input
             type="text"
@@ -97,6 +106,9 @@ function Signin() {
           </div>
         </form>
       </div>
+      {signIn && errorMessage === "" && (
+        <Regime successMessage={successMessage} errorMessage={errorMessage} />
+      )}
     </div>
   );
 }

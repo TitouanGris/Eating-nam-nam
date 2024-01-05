@@ -1,12 +1,50 @@
 import { useLoaderData, useParams, Link } from "react-router-dom";
 import { useState, useEffect } from "react";
+import axios from "axios";
+import { useUser } from "../context/UserContext";
 
 function RecipeDetails() {
   const recipe = useLoaderData();
   const [steps, setSteps] = useState([]);
   const [ingredients, setIngredients] = useState([]);
   const [tags, setTags] = useState([]);
+  const [comments, setComments] = useState([]);
+  const [newComment, setNewComment] = useState("");
   const { id } = useParams();
+
+  const options = {
+    weekday: "long",
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  };
+
+  const fetchComments = () => {
+    fetch(`http://localhost:3310/api/comments/recipe/${id}`)
+      .then((res) => res.json())
+      .then((data) => setComments(data));
+  };
+
+  const { userInfos } = useUser();
+
+  async function postComment(event) {
+    event.preventDefault();
+
+    try {
+      axios
+        .post(`http://localhost:3310/api/comment`, {
+          userId: userInfos.id,
+          recipeId: recipe.recipeId,
+          message: newComment,
+        })
+        .then(() => {
+          fetchComments();
+          setNewComment("");
+        });
+    } catch (err) {
+      console.error(err);
+    }
+  }
 
   useEffect(() => {
     fetch(`http://localhost:3310/api/step/${id}`)
@@ -24,6 +62,9 @@ function RecipeDetails() {
     fetch(`http://localhost:3310/api/tags/recipe/${id}`)
       .then((res) => res.json())
       .then((data) => setTags(data));
+  }, []);
+  useEffect(() => {
+    fetchComments();
   }, []);
 
   return (
@@ -48,13 +89,13 @@ function RecipeDetails() {
         <div className="tags">
           <div className="price">
             <img
-              src={`http://localhost:3310${recipe.tagPriceUrl}`}
+              src={`http://localhost:3310${recipe.price[0].tagUrl}`}
               alt="r.TagPrice"
             />
           </div>
           <div className="difficulty">
             <img
-              src={`http://localhost:3310${recipe.tagDifficultyUrl}`}
+              src={`http://localhost:3310${recipe.difficulty[0].tagUrl}`}
               alt="r.TagDifficulty"
             />
           </div>
@@ -67,7 +108,7 @@ function RecipeDetails() {
           </div>
           <div className="duration">
             <img src="/src/assets/images/durationImage.png" alt="TagDuration" />
-            <p>{recipe.tagDuration}</p>
+            <p>{recipe.duration[0].tagName}</p>
           </div>
         </div>
       </div>
@@ -96,6 +137,36 @@ function RecipeDetails() {
             })}
           </ol>
         </div>
+        <div className="comments">
+          <h3>L'avis des gourmands</h3>
+          {comments.map((comment) => (
+            <div>
+              <p className="comment_pseudo">{comment.pseudo}</p>
+              <p>{comment.message}</p>
+              <p className="comment_date">
+                {new Date(comment.created_date).toLocaleString(
+                  "fr-FR",
+                  options
+                )}
+              </p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div className="comment_form">
+        <h3>Et vous, vous en avez pensé quoi ?</h3>
+        <form onSubmit={postComment}>
+          <textarea
+            name="comment_text"
+            placeholder="Dites-nous tout"
+            onChange={(e) => setNewComment(e.target.value)}
+            value={newComment}
+          />
+          <button className="button1" type="submit">
+            Valider{" "}
+          </button>
+        </form>
       </div>
     </div>
   );
@@ -107,8 +178,7 @@ export const loadRecipeDetails = async ({ params }) => {
       `http://localhost:3310/api/recipe/${params.id}`
     );
     const data = await recipeDetails.json();
-
-    return data;
+    return data[0];
   } catch (e) {
     console.error(e);
     return null;
