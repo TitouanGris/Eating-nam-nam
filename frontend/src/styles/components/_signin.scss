@@ -1,0 +1,111 @@
+.inscription {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  backdrop-filter: blur(5px);
+  align-items: center;
+  flex-direction: column;
+
+  .signin-page {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    border-radius: 10px;
+    border: 2px solid var(--primary-color);
+    width: 70vw;
+    height: 70%;
+    background-color: white;
+
+    .message {
+      .error {
+        color: red;
+        font-size: 1.5rem;
+      }
+    }
+
+    h1 {
+      color: var(--primary-color);
+      font-size: var(--title-font-size);
+      text-align: center;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+
+      input {
+        width: 60vw;
+        height: 6vh;
+        border-radius: 10px;
+        font-size: var(--text-second-font-size);
+      }
+
+      .signin-button {
+        display: flex;
+        justify-content: center;
+        button {
+          background-color: var(--primary-color);
+          color: var(--secondary-color-text);
+          font-size: 1.5rem;
+          border-radius: 10px;
+          border: none;
+          width: 40vw;
+          height: 6vh;
+        }
+      }
+
+      .button-password {
+        display: flex;
+        position: relative;
+        button {
+          width: 5vw;
+          height: 4vh;
+          border: none;
+          background-color: white;
+          position: absolute;
+          right: 10%;
+          top: 50%;
+          transform: translateY(-50%);
+        }
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 900px) {
+  .inscription {
+    .signin-page {
+      width: 50vw;
+      height: 40vw;
+
+      form {
+        gap: 20px;
+        input {
+          margin-bottom: 3vh;
+          width: 30vw;
+          height: 5vh;
+        }
+
+        .signin-button {
+          width: 30vw;
+        }
+        .button-password {
+          position: relative;
+          button {
+            position: absolute;
+            right: 2%;
+            top: 30%;
+          }
+        }
+      }
+    }
+  }
+}

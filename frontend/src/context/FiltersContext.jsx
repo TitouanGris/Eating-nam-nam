@@ -7,6 +7,7 @@ export function FiltersContextProvider({ children }) {
   const [filterPrice, setFilterPrice] = useState([]);
   const [filterCountry, setFilterCountry] = useState([]);
   const [filterRegime, setFilterRegime] = useState([]);
+  const [filterRegimeId, setFilterRegimeId] = useState([]);
   const [filterDifficulty, setFilterDifficulty] = useState([]);
   const [filterDuration, setFilterDuration] = useState([]);
   const [filterType, setFilterType] = useState([]);
@@ -22,6 +23,8 @@ export function FiltersContextProvider({ children }) {
       setFilterPrice,
       filterRegime,
       setFilterRegime,
+      filterRegimeId,
+      setFilterRegimeId,
       filterType,
       setFilterType,
     };
@@ -36,6 +39,8 @@ export function FiltersContextProvider({ children }) {
     setFilterPrice,
     filterRegime,
     setFilterRegime,
+    filterRegimeId,
+    setFilterRegimeId,
     filterType,
     setFilterType,
   ]);

@@ -5,12 +5,16 @@ class UserManager extends AbstractManager {
     super({ table: "user" });
   }
 
-  async create(pseudo, email, password, isAdmin) {
+  async create(user) {
     const [result] = await this.database.query(
       `INSERT INTO ${this.table} (pseudo, email, password, is_admin) values (?, ?, ?, ?)`,
-      [pseudo, email, password, isAdmin]
+      [
+        user.pseudo,
+        user.email,
+        user.password,
+        user.is_admin !== undefined ? user.is_admin : 0,
+      ]
     );
-
     return result;
   }
 
@@ -21,6 +25,23 @@ class UserManager extends AbstractManager {
     );
 
     return result;
+  }
+
+  // on cherche le user par son adresse e-mail pour renvoyer toutes ses infos (pour ensuite vérifier le mdp et si ok renvoyer les infos users vers le front)
+  async getByMail(email) {
+    const [result] = await this.database.query(
+      `SELECT * from ${this.table} WHERE email = ?`,
+      [email]
+    );
+    return result[0];
+  }
+
+  async readOneUser(pseudo, email) {
+    const [result] = await this.database.query(
+      `SELECT * FROM ${this.table} WHERE pseudo = ? OR email = ?`,
+      [pseudo, email]
+    );
+    return result[0];
   }
 }
 

@@ -1,19 +1,23 @@
 .recipeCard {
+  background-color: white;
   border-radius: 7px;
   display: flex;
   align-items: center;
   justify-content: flex-start;
   flex-direction: column;
-  // box-shadow:
-  //   3px 3px rgb(246, 246, 246),
-  //   -0.2em -0.2em 0.4em rgb(123, 120, 120);
-  // box-shadow: -3px 8px 13px 11px #9e9e9e;
-  // box-shadow: 0px 0px 25px 5px rgba(158, 158, 158, 0.8);
+  font-size: 1rem;
+
   box-shadow: 4px 4px 20px 0px #bbb9b9;
 
-  width: 80vw;
-  height: 30vh;
+  width: 90vw;
+  height: 35vh;
   gap: 5px;
+
+  &:hover {
+    cursor: pointer;
+    border: solid 3px var(--primary-color);
+    border-radius: 7px;
+  }
 
   .imgContainer {
     border-radius: 7px 7px 0 0;
@@ -27,7 +31,7 @@
     object-fit: cover;
 
     img {
-      width: 100%;
+      height: 100%;
       //
     }
   }
@@ -80,6 +84,9 @@
         justify-content: center;
         align-items: center;
         width: 25%;
+        p {
+          font-size: 1rem;
+        }
 
         img {
           width: 40%;
@@ -93,6 +100,7 @@
     padding-left: 3%;
     align-items: center;
     font-weight: 600;
+    font-size: 1.2rem;
   }
 
   .recipeInfos {
@@ -102,7 +110,7 @@
 
 @media screen and (min-width: 900px) {
   .recipeCard {
-    width: 30vw;
-    height: 50vh;
+    width: 21vw;
+    height: 40vh;
   }
 }

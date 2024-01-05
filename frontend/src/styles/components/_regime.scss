@@ -1,0 +1,160 @@
+.regime-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+
+  backdrop-filter: blur(5px);
+  align-items: center;
+
+  .message {
+    width: 70vw;
+    height: 70%;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+
+    p {
+      color: green;
+      font-size: 1.5rem;
+    }
+  }
+
+  .regime {
+    overflow-y: scroll;
+    justify-content: flex-start;
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+    gap: 20px;
+    border-radius: 10px;
+    border: 2px solid var(--primary-color);
+    width: 70vw;
+    height: 90%;
+    background-color: white;
+
+    .filter-titles {
+      display: none;
+    }
+
+    .regimeTag {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 3px;
+      padding-top: 10px;
+
+      .filters-button-container {
+        display: flex;
+        gap: 5px;
+      }
+
+      .chip {
+        background-color: white;
+        color: var(--primary-color);
+        border: solid 2px var(--primary-color);
+        border-radius: 20px;
+        width: auto;
+        height: auto;
+        font-size: var(--title-font-size);
+        font-family: var(--font-family);
+        margin-bottom: 15px;
+        padding: 5px;
+        &:hover {
+          cursor: pointer;
+        }
+      }
+
+      .selected {
+        background-color: var(--primary-color);
+        color: var(--secondary-color-text);
+        border: none;
+        border-radius: 20px;
+        width: auto;
+        height: auto;
+        font-size: var(--title-font-size);
+        font-family: var(--font-family);
+        margin-bottom: 15px;
+        padding: 5px;
+
+        &:hover {
+          cursor: pointer;
+        }
+      }
+    }
+
+    .ingredientTagContainer {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 3px;
+      padding: 10px 50px 10px 50px;
+
+      .buttonIng1 {
+        background-color: var(--primary-color);
+        color: var(--secondary-color-text);
+        border: none;
+        border-radius: 20px;
+        width: auto;
+        height: auto;
+        font-size: var(--title-font-size);
+        font-family: var(--font-family);
+        margin-bottom: 15px;
+        padding: 5px;
+
+        &:hover {
+          cursor: pointer;
+        }
+      }
+
+      .buttonIng2 {
+        background-color: white;
+        color: var(--primary-color);
+        border: solid 2px var(--primary-color);
+        border-radius: 20px;
+        width: auto;
+        height: auto;
+        font-size: var(--title-font-size);
+        font-family: var(--font-family);
+        margin-bottom: 15px;
+        padding: 5px;
+        &:hover {
+          cursor: pointer;
+        }
+      }
+    }
+
+    .titleRegimeTag,
+    .titleIngredientTag {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+
+      h1 {
+        color: var(--primary-color);
+        text-align: left;
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 900px) {
+  .regime-container {
+    .success-message {
+      width: 50vw;
+      height: 40vw;
+    }
+
+    .regime {
+      justify-content: center;
+      overflow-y: hidden;
+    }
+  }
+}

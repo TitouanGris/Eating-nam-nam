@@ -8,7 +8,11 @@ function RecipeCard({ r }) {
         <div className="recipeCard">
           <div className="imgContainer">
             <img
-              src={`http://localhost:3310${r.recipeImage}`}
+              src={
+                r.recipeImage
+                  ? `http://localhost:3310${r.recipeImage}`
+                  : "/src/assets/images/logo.png"
+              }
               alt={`${r.recipeName}`}
             />
           </div>
@@ -17,13 +21,13 @@ function RecipeCard({ r }) {
             <div className="tags">
               <div className="price">
                 <img
-                  src={`http://localhost:3310${r.tagPriceUrl}`}
+                  src={`http://localhost:3310${r.price[0].tagUrl}`}
                   alt="r.TagPrice"
                 />
               </div>
               <div className="difficulty">
                 <img
-                  src={`http://localhost:3310${r.tagDifficultyUrl}`}
+                  src={`http://localhost:3310${r.difficulty[0].tagUrl}`}
                   alt="r.TagDifficulty"
                 />
               </div>
@@ -39,7 +43,7 @@ function RecipeCard({ r }) {
                   src="/src/assets/images/durationImage.png"
                   alt="TagDuration"
                 />
-                <p>{r.tagDuration}</p>
+                <p>{r.duration[0].tagName}</p>
               </div>
             </div>
           </div>
@@ -66,6 +70,10 @@ RecipeCard.propTypes = {
     tagDifficultyUrl: PropTypes.string,
     tagDurationUrl: PropTypes.string,
     tagPriceUrl: PropTypes.string,
+    price: PropTypes.string,
+    difficulty: PropTypes.string,
+    tagUrl: PropTypes.string,
+    duration: PropTypes.string,
   }).isRequired,
 };
 export default RecipeCard;

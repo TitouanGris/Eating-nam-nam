@@ -1,0 +1,25 @@
+.app {
+  display: flex;
+  flex-direction: column;
+  background-color: #f7f7f7;
+
+  .navBarDesktopArea {
+    display: none;
+  }
+
+  .navBarMobileArea {
+    display: initial;
+  }
+}
+
+@media screen and (min-width: 900px) {
+  .app {
+    .navBarDesktopArea {
+      display: initial;
+    }
+
+    .navBarMobileArea {
+      display: none;
+    }
+  }
+}
