@@ -27,7 +27,7 @@ body,
   color: var(--secondary-color-text);
   border: none;
   border-radius: 20px;
-  width: 60vw;
+  width: 90vw;
   height: 8vh;
   font-size: var(--title-font-size);
   font-family: var(--font-family);
@@ -77,5 +77,18 @@ body,
   body,
   :root {
     overflow-y: auto;
+  }
+
+  .button1 {
+    border-radius: 20px;
+    width: 15vw;
+    height: 5vh;
+    font-size: 1em;
+    font-family: var(--font-family);
+    margin-bottom: 15px;
+
+    &:hover {
+      cursor: pointer;
+    }
   }
 }
