@@ -153,21 +153,22 @@ function RecipeDetails() {
           ))}
         </div>
       </div>
-
-      <div className="comment_form">
-        <h3>Et vous, vous en avez pensé quoi ?</h3>
-        <form onSubmit={postComment}>
-          <textarea
-            name="comment_text"
-            placeholder="Dites-nous tout"
-            onChange={(e) => setNewComment(e.target.value)}
-            value={newComment}
-          />
-          <button className="button1" type="submit">
-            Valider{" "}
-          </button>
-        </form>
-      </div>
+      {userInfos.id && (
+        <div className="comment_form">
+          <h3>Et vous, vous en avez pensé quoi ?</h3>
+          <form onSubmit={postComment}>
+            <textarea
+              name="comment_text"
+              placeholder="Dites-nous tout"
+              onChange={(e) => setNewComment(e.target.value)}
+              value={newComment}
+            />
+            <button className="button1" type="submit">
+              Valider{" "}
+            </button>
+          </form>
+        </div>
+      )}
     </div>
   );
 }

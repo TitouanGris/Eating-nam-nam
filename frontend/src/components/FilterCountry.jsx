@@ -4,23 +4,33 @@ import Button from "./Button";
 import FiltersContext from "../context/FiltersContext";
 
 function FilterCountry({ countryTag }) {
-  const { filterCountry, setFilterCountry } = useContext(FiltersContext);
+  const {
+    filterCountry,
+    setFilterCountry,
+    filterCountryId,
+    setFilterCountryId,
+  } = useContext(FiltersContext);
 
   const handleClick = (tag) => {
     if (tag.category_id === 2) {
       if (filterCountry.includes(tag.name) === true) {
         const temp = [...filterCountry];
-        // const temp = []; Initialisation de la variable
-        // temp.push(...selectedTags); // [1, 2, 3] = > ../ => 1, 2, 3
+        const temp2 = [...filterCountryId];
+
         const tagIndex = temp.findIndex((item) => {
           return item === tag.name;
         });
         temp.splice(tagIndex, 1);
+        temp2.splice(tagIndex, 1);
         setFilterCountry(temp);
+        setFilterCountryId(temp2);
       } else {
         const temp = [...filterCountry];
+        const temp2 = [...filterCountryId];
         temp.push(tag.name);
+        temp2.push(tag.id);
         setFilterCountry(temp);
+        setFilterCountryId(temp2);
       }
     }
   };

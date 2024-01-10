@@ -11,8 +11,7 @@ function FilterRegime({ regimeTag }) {
       if (filterRegime.includes(tag.name) === true) {
         const temp = [...filterRegime];
         const temp2 = [...filterRegimeId];
-        // const temp = []; Initialisation de la variable
-        // temp.push(...selectedTags); // [1, 2, 3] = > ../ => 1, 2, 3
+
         const tagIndex = temp.findIndex((item) => {
           return item === tag.name;
         });
