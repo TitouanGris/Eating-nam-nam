@@ -13,7 +13,12 @@ function Connexion() {
 
   const { userInfos, setUserInfos } = useUser(); // permet de récupérer via un custom Hook l'objet du context (ici l'objet qui contient setUserInfos et UserInfos
 
-  const { setFilterRegime } = useContext(FiltersContext);
+  const {
+    setFilterRegime,
+    setFilterPrice,
+    setFilterCountry,
+    setFilterDifficulty,
+  } = useContext(FiltersContext);
 
   async function handleSubmit(event) {
     event.preventDefault();
@@ -34,7 +39,30 @@ function Connexion() {
           `http://localhost:3310/api/usertags/${res.data.id}`
         );
 
-        setFilterRegime(res2.data);
+        const regimeTable = [];
+        const countryTable = [];
+        const priceTable = [];
+        const difficultyTable = [];
+
+        res2.data.result.forEach((e) => {
+          if (e.category_id === 1) {
+            priceTable.push(e.name);
+          }
+          if (e.category_id === 2) {
+            countryTable.push(e.name);
+          }
+          if (e.category_id === 3) {
+            regimeTable.push(e.name);
+          }
+          if (e.category_id === 4) {
+            difficultyTable.push(e.name);
+          }
+        });
+
+        setFilterRegime(regimeTable);
+        setFilterCountry(countryTable);
+        setFilterPrice(priceTable);
+        setFilterDifficulty(difficultyTable);
       } catch (error) {
         console.error(error);
       }

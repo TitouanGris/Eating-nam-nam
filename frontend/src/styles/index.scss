@@ -7,7 +7,7 @@
 @import "./pages/RecipeDetails";
 @import "home";
 @import "./pages/filters";
-@import "./pages/regime";
+
 @import "./pages/RecipePost";
 @import "./pages/userPage";
 
@@ -21,3 +21,6 @@
 @import "./components/modifyAccount";
 @import "./components/regime";
 @import "./components/PostModal";
+@import "./components/filterDifficulty";
+@import "./components/filterPrice";
+@import "./components/filterDifficultiesCategorysCountryRegimeDuration";

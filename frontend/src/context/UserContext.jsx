@@ -7,7 +7,7 @@ export function UserProvider({ children }) {
   // children permet d'importer le contenu des <> de app
   const [userInfos, setUserInfos] = useState({}); // le state est porté par le UserContext
 
-  // le useMemo est obligatoire avec esLint mais normalement pas nécéssaire dans notre cas.
+  // le useMemo permet de sauvegarder la valeur afin d'éviter des re-render inutile. C'est le tableau de dépendance qui va controller le trigger de MAJ
   const contextValue = useMemo(
     () => ({ userInfos, setUserInfos }),
     [userInfos, setUserInfos]

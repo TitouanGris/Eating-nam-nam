@@ -59,34 +59,6 @@ const router = createBrowserRouter([
     ],
   },
 ]);
-//       // {
-//       //   path:"/bouh",
-//       //   element: <>Composant </>
-//       //   children: [
-//       //     //avec barre
-//       //   ]
-//       // }
-//     ],
-//   },
-//   // {
-//   //   path: "/recipe-create",
-//   //   element: <RecipeCreate />,
-//   // },
-//   // {
-//   //   path: "/user-profile",
-//   //   element: <UserProfile />,
-//   // },
-//   // {
-//   //   path: "/filters",
-//   //   element: <Filters />,
-//   // },
-//   // {
-//   //   path: "/favorite-recipes",
-//   //   element: <FavoriteRecipes />,
-//   // },
-// ],
-//   },
-// ]);
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 

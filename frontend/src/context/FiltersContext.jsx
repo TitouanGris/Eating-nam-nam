@@ -5,10 +5,13 @@ const FiltersContext = createContext();
 
 export function FiltersContextProvider({ children }) {
   const [filterPrice, setFilterPrice] = useState([]);
+  const [filterPriceId, setFilterPriceId] = useState([]);
   const [filterCountry, setFilterCountry] = useState([]);
+  const [filterCountryId, setFilterCountryId] = useState([]);
   const [filterRegime, setFilterRegime] = useState([]);
   const [filterRegimeId, setFilterRegimeId] = useState([]);
   const [filterDifficulty, setFilterDifficulty] = useState([]);
+  const [filterDifficultyId, setFilterDifficultyId] = useState([]);
   const [filterDuration, setFilterDuration] = useState([]);
   const [filterType, setFilterType] = useState([]);
   const selectContext = useMemo(() => {
@@ -17,6 +20,8 @@ export function FiltersContextProvider({ children }) {
       setFilterCountry,
       filterDifficulty,
       setFilterDifficulty,
+      filterDifficultyId,
+      setFilterDifficultyId,
       filterDuration,
       setFilterDuration,
       filterPrice,
@@ -27,6 +32,10 @@ export function FiltersContextProvider({ children }) {
       setFilterRegimeId,
       filterType,
       setFilterType,
+      filterPriceId,
+      setFilterPriceId,
+      filterCountryId,
+      setFilterCountryId,
     };
   }, [
     filterCountry,
@@ -43,6 +52,12 @@ export function FiltersContextProvider({ children }) {
     setFilterRegimeId,
     filterType,
     setFilterType,
+    filterPriceId,
+    setFilterPriceId,
+    filterCountryId,
+    setFilterCountryId,
+    filterDifficultyId,
+    setFilterDifficultyId,
   ]);
 
   return (

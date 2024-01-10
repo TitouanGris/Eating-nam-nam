@@ -4,22 +4,27 @@ import Button from "./Button";
 import FiltersContext from "../context/FiltersContext";
 
 function FilterPrice({ priceTag }) {
-  const { filterPrice, setFilterPrice } = useContext(FiltersContext);
+  const { filterPrice, setFilterPrice, filterPriceId, setFilterPriceId } =
+    useContext(FiltersContext);
   const handleClick = (tag) => {
     if (tag.category_id === 1) {
       if (filterPrice.includes(tag.name) === true) {
         const temp = [...filterPrice];
-        // const temp = []; Initialisation de la variable
-        // temp.push(...selectedTags); // [1, 2, 3] = > ../ => 1, 2, 3
+        const temp2 = [...filterPriceId];
         const tagIndex = temp.findIndex((item) => {
           return item === tag.name;
         });
         temp.splice(tagIndex, 1);
+        temp2.splice(tagIndex, 1);
         setFilterPrice(temp);
+        setFilterPriceId(temp2);
       } else {
         const temp = [...filterPrice];
+        const temp2 = [...filterPriceId];
         temp.push(tag.name);
+        temp2.push(tag.id);
         setFilterPrice(temp);
+        setFilterPriceId(temp2);
       }
     }
   };
