@@ -14,7 +14,8 @@ class UserTagsManager extends AbstractManager {
 
   async browse(id) {
     const [result] = await this.database.query(
-      `SELECT t.name FROM tags t
+      `SELECT t.name, t.category_id 
+      FROM tags t
       JOIN ${this.table} ut on ut.tags_id = t.id
       WHERE ut.user_id = ${id}
       `

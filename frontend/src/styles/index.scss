@@ -7,7 +7,7 @@
 @import "./pages/RecipeDetails";
 @import "home";
 @import "./pages/filters";
-@import "./pages/regime";
+
 @import "./pages/RecipePost";
 // ------------ import du styles des composants ------------ //
 @import "./components/RecipeCard";
@@ -17,3 +17,6 @@
 @import "./components/signin";
 @import "./components/regime";
 @import "./components/PostModal";
+@import "./components/filterDifficulty";
+@import "./components/filterPrice";
+@import "./components/filterDifficultiesCategorysCountryRegimeDuration";

@@ -45,7 +45,7 @@ function RecipeBrowse() {
       <div className="recipeBrowseCard">
         {recipe
           .filter((r) => {
-            // Vérifier si chaque filtre contient au moins une valeur
+            // Vérifie si chaque filtre contient au moins une valeur
             const countryFilterNotEmpty = filterCountry.length > 0;
             const priceFilterNotEmpty = filterPrice.length > 0;
             const difficultyFilterNotEmpty = filterDifficulty.length > 0;
@@ -53,7 +53,7 @@ function RecipeBrowse() {
             const regimeFilterNotEmpty = filterRegime.length > 0;
             const typeFilterNotEmpty = filterType.length > 0;
 
-            // Appliquer les filtres uniquement si au moins un filtre a une valeur
+            // Applique les filtres uniquement si au moins un filtre a une valeur
             if (
               countryFilterNotEmpty ||
               priceFilterNotEmpty ||

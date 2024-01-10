@@ -40,11 +40,15 @@
     height: 90%;
     background-color: white;
 
-    .filter-titles {
-      display: none;
+    p {
+      font-size: 1.5rem;
+      text-align: center;
     }
 
-    .regimeTag {
+    .regimeTag,
+    .CountryTag,
+    .priceTag,
+    .difficultyTag {
       display: flex;
       flex-wrap: wrap;
       gap: 3px;
@@ -53,93 +57,6 @@
       .filters-button-container {
         display: flex;
         gap: 5px;
-      }
-
-      .chip {
-        background-color: white;
-        color: var(--primary-color);
-        border: solid 2px var(--primary-color);
-        border-radius: 20px;
-        width: auto;
-        height: auto;
-        font-size: var(--title-font-size);
-        font-family: var(--font-family);
-        margin-bottom: 15px;
-        padding: 5px;
-        &:hover {
-          cursor: pointer;
-        }
-      }
-
-      .selected {
-        background-color: var(--primary-color);
-        color: var(--secondary-color-text);
-        border: none;
-        border-radius: 20px;
-        width: auto;
-        height: auto;
-        font-size: var(--title-font-size);
-        font-family: var(--font-family);
-        margin-bottom: 15px;
-        padding: 5px;
-
-        &:hover {
-          cursor: pointer;
-        }
-      }
-    }
-
-    .ingredientTagContainer {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 3px;
-      padding: 10px 50px 10px 50px;
-
-      .buttonIng1 {
-        background-color: var(--primary-color);
-        color: var(--secondary-color-text);
-        border: none;
-        border-radius: 20px;
-        width: auto;
-        height: auto;
-        font-size: var(--title-font-size);
-        font-family: var(--font-family);
-        margin-bottom: 15px;
-        padding: 5px;
-
-        &:hover {
-          cursor: pointer;
-        }
-      }
-
-      .buttonIng2 {
-        background-color: white;
-        color: var(--primary-color);
-        border: solid 2px var(--primary-color);
-        border-radius: 20px;
-        width: auto;
-        height: auto;
-        font-size: var(--title-font-size);
-        font-family: var(--font-family);
-        margin-bottom: 15px;
-        padding: 5px;
-        &:hover {
-          cursor: pointer;
-        }
-      }
-    }
-
-    .titleRegimeTag,
-    .titleIngredientTag {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      width: 100%;
-
-      h1 {
-        color: var(--primary-color);
-        text-align: left;
       }
     }
   }
