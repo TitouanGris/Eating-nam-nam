@@ -12,15 +12,86 @@
   .infos-user {
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
     height: 50%;
-    margin-bottom: 30px;
+    justify-content: center;
+    gap: 20px;
+
+    .avatars {
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+
+      .avatars-container {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        form {
+          display: flex;
+          justify-content: center;
+
+          input {
+            font-size: var(--text-second-font-size);
+          }
+          .add-avatar-button {
+            display: flex;
+            justify-content: center;
+            button {
+              height: 4vh;
+              padding: 5px;
+              font-size: 12px;
+              border: none;
+              background-color: var(--primary-color);
+              color: white;
+              border-radius: 8px;
+            }
+          }
+        }
+
+        .avatar-map {
+          display: flex;
+          justify-content: space-around;
+        }
+      }
+    }
+
+    .preferences-container {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+
+      .preferences {
+        display: flex;
+        justify-content: space-around;
+        margin-bottom: 10px;
+
+        .onePreferences {
+          border-radius: 10px;
+          width: 15vw;
+          border: 1px solid var(--primary-color);
+          color: var(--primary-color);
+          font-size: var(--text-second-font-size);
+          text-align: center;
+        }
+      }
+      button {
+        height: 4vh;
+        width: 38vw;
+        font-size: 12px;
+        border: none;
+        background-color: var(--primary-color);
+        color: white;
+        border-radius: 10px;
+        margin: 0 auto;
+      }
+    }
   }
 
   .user {
     display: flex;
     justify-content: space-around;
     width: 100%;
+    text-align: center;
+    margin-bottom: 10px;
 
     img {
       height: 20vh;
@@ -31,9 +102,14 @@
       flex-direction: column;
       justify-content: space-around;
     }
+  }
+
+  .modify-button {
+    display: flex;
+    justify-content: center;
     button {
       height: 4vh;
-      padding: 3px;
+      width: 40vw;
       font-size: 12px;
       border: none;
       background-color: var(--primary-color);

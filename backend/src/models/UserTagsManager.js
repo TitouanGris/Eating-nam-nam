@@ -22,13 +22,13 @@ class UserTagsManager extends AbstractManager {
     return result;
   }
 
-  // async delete({ userId, tagsId }) {
-  //   const [result] = await this.database.query(
-  //     `DELETE FROM  ${this.table} WHERE user_id=? AND tags_id=?`,
-  //     [userId, tagsId]
-  //   );
-  //   return result;
-  // }
+  async delete({ userId, tagsId }) {
+    const [result] = await this.database.query(
+      `DELETE FROM ${this.table} WHERE user_id = ? AND tags_id IN (?)`,
+      [userId, tagsId]
+    );
+    return result;
+  }
 }
 
 module.exports = UserTagsManager;

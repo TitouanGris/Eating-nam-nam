@@ -12,7 +12,7 @@ function ModifyAccount({ isOpen, setShowModifyAccount }) {
     password: userInfos.password,
   });
 
-  const handleModify = async () => {
+  const handleModify1 = async () => {
     try {
       if (userInfos && userInfos.id) {
         await axios.put(`http://localhost:3310/api/user/${userInfos.id}`, {
@@ -30,12 +30,30 @@ function ModifyAccount({ isOpen, setShowModifyAccount }) {
     }
   };
 
+  // const handleModify2 = async () => {
+  //   try {
+  //     if (userInfos && userInfos.id) {
+  //       await axios.put(`http://localhost:3310/api/user/${userInfos.image_url}`, {
+  //         newUser,
+  //       });
+  //       setNewUser({ imageUrl: "" });
+  //       setUserInfos({ ...userInfos, imageUrl: newUser.imageUrl });
+  //     } else {
+  //       console.error("User information is undefined.");
+  //     }
+  //   } catch (err) {
+  //     console.error(err);
+  //   } finally {
+  //     setShowModifyAccount(false);
+  //   }
+  // };
+
   return (
     <div className={`modify-modal ${isOpen ? "open" : ""}`}>
       <div className="modify-modal-content">
-        <div className="photo">
+        {/* <div className="photo">
           <p>Modifier ma photo</p>
-        </div>
+        </div> */}
         <div className="pseudo">
           <p>Modifier mon pseudo</p>
           <input
@@ -51,7 +69,7 @@ function ModifyAccount({ isOpen, setShowModifyAccount }) {
           type="button"
           onClick={() => {
             setShowModifyAccount(false);
-            handleModify();
+            handleModify1();
           }}
         >
           Terminer

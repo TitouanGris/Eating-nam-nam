@@ -2,6 +2,34 @@ const express = require("express");
 
 const router = express.Router();
 
+const path = require("path");
+
+const { v4 } = require("uuid"); // todo : npm install nécéssclé aléatoire complexe (npm install nécéssaire)aire ?
+
+const multer = require("multer"); // multer va permettre la gestion des images (npm install nécéssaire)
+
+// Configuration de notre multer avec les otpions de destinations et de taille
+// cb fonctionne comme next, il fait les choses les unes apres les autres
+const options = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, path.join(__dirname, "/../public/images/avatar/"));
+  },
+
+  filename: (req, file, cb) => {
+    const name = `${v4()}-${file.originalname}`;
+    // on modifie le body en lui rajouant un nom ici url
+    req.body.url = name;
+    cb(null, name);
+  },
+  limits: {
+    fieldSize: 1024 * 5,
+  },
+});
+
+// on passe les option définis plus haut au multer
+const upload = multer({
+  storage: options,
+});
 /* ************************************************************************* */
 // Define Your API Routes Here
 /* ************************************************************************* */
@@ -20,6 +48,9 @@ const userIngredientsControllers = require("./controllers/userIngredientsControl
 const userTagsControllers = require("./controllers/userTagsControllers");
 
 const commentControllers = require("./controllers/commentControllers");
+
+const avatarControllers = require("./controllers/avatarControllers");
+
 // Route to get a list of items
 router.get("/items", itemControllers.browse);
 router.get("/recipe", recipeControllers.browse);
@@ -28,6 +59,7 @@ router.get("/ingredient", ingredientControllers.browse);
 router.get("/unit", unitsControllers.browse);
 router.get("/usertags/:id", userTagsControllers.browse);
 router.get("/comments/recipe/:id", commentControllers.readCommentsByRecipeId);
+router.get("/avatar", avatarControllers.browse);
 
 // Route to get a specific item by ID
 router.get("/items/:id", itemControllers.read);
@@ -45,11 +77,16 @@ router.post("/comment", commentControllers.add);
 router.post("/useringredients", userIngredientsControllers.add);
 router.post("/usertags", userTagsControllers.add);
 
+// Route to upload a single image
+// /!\ le middleware upload.single est lié à l'utilisation de multer (voir en haut de ce fichier)
+router.post("/avatar", upload.single("image"), avatarControllers.add);
+
 // Route to authentification
 router.post("/login", authControllers.login);
 
 // Route to delete item
 router.delete("/user/:id", userControllers.destroy);
+router.delete("/usertags/:id", userTagsControllers.destroy);
 
 // Route to modify item
 router.put("/user/:id", userControllers.edit);

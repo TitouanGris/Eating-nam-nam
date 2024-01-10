@@ -10,6 +10,8 @@ import FilterRegime from "./FilterRegime";
 import FiltersContext from "../context/FiltersContext";
 
 function Regime({ successMessage }) {
+  // const { pathname } = useLocation();
+
   const [filterChip, setFilterChip] = useState([]);
   const [ingredients, setIngredients] = useState([]);
   const [ingSelected, setIngSelected] = useState([]);
@@ -63,7 +65,9 @@ function Regime({ successMessage }) {
 
     // todo : faire 2 routes une pour supprimer et l'autre pour ajouter
     // pré-requis : avoir un tableau liste d'ajout et un autre de suppression
-
+    // if (pathname === "/account") {
+    //   alert("bonjour");
+    // } else {
     try {
       await axios.post("http://localhost:3310/api/useringredients", {
         // on INSERT dans la DB avec les infos saisies
@@ -83,6 +87,9 @@ function Regime({ successMessage }) {
     } catch (error) {
       console.error(error);
     }
+    // }
+
+    // updatePreferences(filterRegimeId);
   }
 
   return (

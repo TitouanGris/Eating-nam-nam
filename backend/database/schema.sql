@@ -25,7 +25,18 @@ DROP TABLE IF EXISTS ingredient;
 
 DROP TABLE IF EXISTS recipe;
 
+DROP TABLE IF EXISTS avatar;
+
 DROP TABLE IF EXISTS user;
+
+
+
+
+CREATE TABLE 
+avatar (
+    id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    image_url VARCHAR(255) NOT NULL
+);
 
 CREATE TABLE
     user (
@@ -35,7 +46,9 @@ CREATE TABLE
         created_date DATETIME NOT NULL DEFAULT NOW(),
         updated_date DATETIME NULL DEFAULT NOW() ON UPDATE CURRENT_TIMESTAMP,
         password VARCHAR(20) NOT NULL,
-        is_admin BOOL NOT NULL DEFAULT FALSE
+        is_admin BOOL NOT NULL DEFAULT FALSE,
+        avatar_id INT NOT NULL DEFAULT 1,
+        CONSTRAINT fk_user_avatar FOREIGN KEY (avatar_id) REFERENCES avatar(id)
     );
 
 CREATE TABLE
@@ -151,6 +164,11 @@ CREATE TABLE
         CONSTRAINT fk_ingredient_user_ingredient FOREIGN KEY (ingredient_id) REFERENCES ingredient(id)
     );
 /* ------------------ ICI LES INSERT ------------------- */
+
+INSERT INTO 
+avatar (image_url) VALUES("avatarDefault.png");
+
+
 INSERT INTO
     user (
         pseudo,
@@ -158,7 +176,8 @@ INSERT INTO
         created_date,
         updated_date,
         password,
-        is_admin
+        is_admin,
+        avatar_id
     )
 VALUES (
         'Nadine',
@@ -166,49 +185,56 @@ VALUES (
         '2023-01-01',
         NULL,
         'Motel',
-        TRUE
+        TRUE,
+        1
     ), (
         'Hélène',
         'user2@email.com',
         '2023-01-02',
         NULL,
         'Vernet',
-        TRUE
+        TRUE,
+        1
     ), (
         'Irwin',
         'admin1@email.com',
         '2023-01-03',
         NULL,
         'Soliman',
-        TRUE
+        TRUE,
+        1
     ), (
         'Titouan',
         'user3@email.com',
         '2023-01-04',
         NULL,
         'Gris',
-        TRUE
+        TRUE,
+        1
     ), (
         'Guillaume',
         'user4@email.com',
         '2023-01-05',
         NULL,
         'Lebeau',
-        TRUE
+        TRUE,
+        1
     ), (
         'Lucas',
         'admin2@email.com',
         '2023-01-06',
         NULL,
         'Faugeron',
-        FALSE
+        FALSE,
+        1
     ), (
         'Lucasz',
         'user5@email.com',
         '2023-01-07',
         NULL,
         'Grzegorzewski',
-        FALSE
+        FALSE,
+        1
     );
 
 INSERT INTO
