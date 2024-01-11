@@ -9,6 +9,7 @@ function Connexion() {
 
   const [inputEmail, setInputEmail] = useState("");
   const [inputPassword, setInputPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
   const { userInfos, setUserInfos } = useUser(); // permet de récupérer via un custom Hook l'objet du context (ici l'objet qui contient setUserInfos et UserInfos
 
@@ -67,6 +68,7 @@ function Connexion() {
       }
     } catch (error) {
       console.error(error);
+      setErrorMessage("Votre adresse email ou mot de passe est incorrect");
     }
   }
 
@@ -76,6 +78,7 @@ function Connexion() {
       <div className="connexion">
         <div className="connexionModal">
           <div className="title">Connexion {userInfos.pseudo}</div>
+          {errorMessage && <p>{errorMessage}</p>}
           <form onSubmit={handleSubmit}>
             <input
               type="email"

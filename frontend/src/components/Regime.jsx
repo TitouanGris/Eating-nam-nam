@@ -51,8 +51,6 @@ function Regime({ successMessage }) {
       navigate("/browse");
     }, 2000);
 
-    // POST vers BACK
-
     try {
       const filterIdChosen = [
         filterRegimeId,
@@ -65,7 +63,6 @@ function Regime({ successMessage }) {
         (acc, currentArray) => acc.concat(currentArray),
         []
       );
-
       await axios.post("http://localhost:3310/api/usertags", {
         // on INSERT dans la DB avec les infos saisies
         userInfosId: userInfos.id,
