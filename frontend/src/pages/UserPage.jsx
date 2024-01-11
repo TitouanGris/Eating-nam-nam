@@ -11,6 +11,13 @@ function UserPage() {
   const { userInfos, setUserInfos } = useUser();
   const { filterRegimeId } = useContext(FiltersContext);
 
+  // const {
+  //   setFilterRegime,
+  //   setFilterPrice,
+  //   setFilterCountry,
+  //   setFilterDifficulty,
+  // } = useContext(FiltersContext);
+
   const [file, setFile] = useState(undefined);
   const [avatar, setAvatar] = useState([]);
 
@@ -42,7 +49,13 @@ function UserPage() {
           },
         }
       );
-      setPreferences(response.data);
+      // console.log(response.data);
+      const table = [];
+
+      response.data.result.forEach((e) => {
+        table.push(e.name);
+      });
+      setPreferences(table);
     } catch (error) {
       console.error(error);
     }
@@ -98,22 +111,6 @@ function UserPage() {
     }
   };
 
-  // Fonction pour mettre à jour les préférences sur la page utilisateur
-  const handleUpdatePreferences = async (newTagsId) => {
-    try {
-      // console.log("tags id supprimés", { newTagsId });
-      await axios.delete(`http://localhost:3310/api/usertags`, {
-        data: { userId: userInfos.id, tagsId: newTagsId },
-      });
-      setPreferences((prevPreferences) =>
-        prevPreferences.filter((tagId) => !newTagsId.includes(tagId))
-      );
-      setShowModifyPreferences(false); // Fermer la modale après validation
-    } catch (err) {
-      console.error(err);
-    }
-  };
-
   return (
     <div className="user-container">
       <h1>Mon compte</h1>
@@ -161,7 +158,7 @@ function UserPage() {
             </button>
             {showModifyPreferences && (
               <div>
-                <Regime updatePreferences={handleUpdatePreferences} />
+                <Regime setPreferences={setPreferences} />
               </div>
             )}
           </div>

@@ -13,8 +13,6 @@ import FiltersContext from "../context/FiltersContext";
 import FilterDifficuly from "./FilterDifficuly";
 
 function Regime({ successMessage }) {
-  // const { pathname } = useLocation();
-
   const [filterChip, setFilterChip] = useState([]);
 
   const [validate, setValidate] = useState(false);
@@ -53,8 +51,6 @@ function Regime({ successMessage }) {
       navigate("/browse");
     }, 2000);
 
-    // POST vers BACK
-
     try {
       const filterIdChosen = [
         filterRegimeId,
@@ -67,7 +63,6 @@ function Regime({ successMessage }) {
         (acc, currentArray) => acc.concat(currentArray),
         []
       );
-
       await axios.post("http://localhost:3310/api/usertags", {
         // on INSERT dans la DB avec les infos saisies
         userInfosId: userInfos.id,
@@ -76,9 +71,6 @@ function Regime({ successMessage }) {
     } catch (error) {
       console.error(error);
     }
-    // }
-
-    // updatePreferences(filterRegimeId);
   }
 
   return (

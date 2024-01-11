@@ -13,6 +13,7 @@ class UserTagsManager extends AbstractManager {
   }
 
   async browse(id) {
+    // console.log(id);
     const [result] = await this.database.query(
       `SELECT t.name, t.category_id 
       FROM tags t
@@ -23,10 +24,9 @@ class UserTagsManager extends AbstractManager {
     return result;
   }
 
-  async delete({ userId, tagsId }) {
+  async delete(userId, newTags) {
     const [result] = await this.database.query(
-      `DELETE FROM ${this.table} WHERE user_id = ? AND tags_id IN (?)`,
-      [userId, tagsId]
+      `DELETE FROM ${this.table} WHERE user_id=${userId} AND tag_id=${newTags}`
     );
     return result;
   }

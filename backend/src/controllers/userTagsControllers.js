@@ -28,14 +28,32 @@ const browse = async (req, res, next) => {
   return null;
 };
 
-const destroy = async (req, res, next) => {
+const update = async (req, res, next) => {
   try {
-    const { userId, tagsId } = req.body;
-    const deleteTag = await tables.user_tags.delete({ userId, tagsId });
-    if (!deleteTag) {
-      return res.status(404).json({ error: "Ce tag n'existe pas." });
-    }
-    res.status(201).json({ deleteTag });
+    // console.log(req.body)
+    const { userId, newTags } = req.body;
+    // Supprimer les anciennes préférences du user
+    await tables.user_tags.delete(userId, newTags);
+    // Ajouter les nouvelles préférences
+    await tables.user_tags.add(newTags);
+    res.status(201).json({ message: "Préférences mises à jour avec succès." });
+  } catch (err) {
+    next(err);
+  }
+};
+
+const destroy = async (req, res, next) => {
+  const { userInfosId, filterIdChosenReduced } = req.body;
+
+  const newTable = filterIdChosenReduced.map(
+    (reg) => `(${userInfosId}, ${reg})`
+  );
+  const values = newTable.join(",");
+  // console.log(values);
+  try {
+    const result = await tables.user_tags.delete(values);
+    // console.log(result)
+    res.status(201).json({ result });
   } catch (err) {
     next(err);
   }
@@ -46,4 +64,5 @@ module.exports = {
   add,
   browse,
   destroy,
+  update,
 };

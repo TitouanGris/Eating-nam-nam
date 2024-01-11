@@ -60,6 +60,7 @@ router.get("/unit", unitsControllers.browse);
 router.get("/usertags/:id", userTagsControllers.browse);
 router.get("/comments/recipe/:id", commentControllers.readCommentsByRecipeId);
 router.get("/avatar", avatarControllers.browse);
+router.get("/usertags/:id", userTagsControllers.browse);
 
 // Route to get a specific item by ID
 router.get("/items/:id", itemControllers.read);
@@ -86,10 +87,11 @@ router.post("/login", authControllers.login);
 
 // Route to delete item
 router.delete("/user/:id", userControllers.destroy);
-router.delete("/usertags/:id", userTagsControllers.destroy);
+// router.delete("/usertags/:id", userTagsControllers.destroy);
 
 // Route to modify item
 router.put("/user/:id", userControllers.edit);
+router.put("/usertags", userTagsControllers.update);
 
 /* ************************************************************************* */
 
