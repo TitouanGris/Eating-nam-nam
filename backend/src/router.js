@@ -18,7 +18,7 @@ const stepControllers = require("./controllers/stepControllers");
 
 const userIngredientsControllers = require("./controllers/userIngredientsControllers");
 const userTagsControllers = require("./controllers/userTagsControllers");
-
+const favorisControllers = require("./controllers/favorisControllers");
 const userControllers = require("./controllers/userControllers");
 
 const commentControllers = require("./controllers/commentControllers");
@@ -34,6 +34,7 @@ router.get("/ingredients/:id", ingredientControllers.readIngredientsByRecipeId);
 router.get("/unit", unitsControllers.browse);
 router.get("/usertags/:id", userTagsControllers.browse);
 router.get("/comments/recipe/:id", commentControllers.readCommentsByRecipeId);
+router.get("/favoris/:id", favorisControllers.browse);
 
 // Route to get a specific item by ID
 router.get("/items/:id", itemControllers.read);
@@ -45,6 +46,10 @@ router.post("/user", userControllers.add);
 router.post("/comment", commentControllers.add);
 router.post("/useringredients", userIngredientsControllers.add);
 router.post("/usertags", userTagsControllers.add);
+router.post("/favoris", favorisControllers.add);
+
+// Route to delette a favoris
+router.put("/favoris", favorisControllers.destroy);
 
 // Route to authentification
 

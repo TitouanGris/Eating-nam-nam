@@ -1,6 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 import { useUser } from "../context/UserContext";
+
 import Regime from "./Regime";
 
 function Signin() {
@@ -47,6 +48,17 @@ function Signin() {
         setNewUser({ pseudo: "", email: "", password: "" });
         setSuccessMessage(
           `Félicitations ${res2.data.pseudo}, votre compte a bien été créé !`
+        );
+        localStorage.setItem(
+          "user",
+          JSON.stringify({
+            id: res2.data.id,
+            pseudo: res2.data.pseudo,
+            is_admin: res2.data.is_admin,
+            email: res2.email,
+            created_date: res2.data.created_date,
+            updated_date: res2.data.updated_date,
+          })
         );
         handleSignIn();
       } catch (err) {

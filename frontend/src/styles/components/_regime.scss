@@ -12,6 +12,8 @@
   align-items: center;
 
   .message {
+    border-radius: 10px;
+    border: 2px solid var(--primary-color);
     width: 70vw;
     height: 70%;
     background-color: white;
