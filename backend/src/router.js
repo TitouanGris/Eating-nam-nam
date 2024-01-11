@@ -2,6 +2,22 @@ const express = require("express");
 
 const router = express.Router();
 
+const multer = require("multer");
+const { v4 } = require("uuid");
+
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "./public/");
+  },
+  filename: (req, file, cb) => {
+    const name = `${v4()}-${file.originalname}`;
+    req.body.url = name;
+    cb(null, name);
+  },
+});
+
+const upload = multer({ storage });
+
 /* ************************************************************************* */
 // Define Your API Routes Here
 /* ************************************************************************* */
@@ -40,7 +56,7 @@ router.get("/items/:id", itemControllers.read);
 
 // Route to add a new item
 router.post("/items", itemControllers.add);
-router.post("/recipe", recipeControllers.add);
+router.post("/recipe", upload.single("image"), recipeControllers.add);
 router.post("/user", userControllers.add);
 router.post("/useringredients", userIngredientsControllers.add);
 router.post("/usertags", userTagsControllers.add);

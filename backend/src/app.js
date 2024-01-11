@@ -1,7 +1,9 @@
 // Load the express module to create a web application
 
 const express = require("express");
+const multer = require("multer");
 
+const upload = multer({ dest: "/images/" });
 const app = express();
 
 // Configure it
@@ -34,6 +36,11 @@ app.use(
     ],
   })
 );
+
+app.post("/api/images", upload.single("image"), (req, res) => {
+  const imageName = req.file.filename;
+  res.send({ imageName });
+});
 
 app.use(express.static("./public"));
 

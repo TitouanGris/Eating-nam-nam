@@ -85,12 +85,27 @@ class RecipeManager extends AbstractManager {
                             ]
         Object.enrties(tags) => [ ["type_tags_id", 1], [], [] ... ]
       */
-      const tagPromises = Object.values(tags).map((tagId) => {
+
+      const regimeTags = tags.regime_tags_id;
+      const tagsCopy = { ...tags };
+      delete tagsCopy.regime_tags_id;
+
+      const tagPromises = Object.values(tagsCopy).map((tagId) => {
         return connection.query(
           "INSERT INTO recipe_tags (recipe_id, tags_id) VALUES (?, ?)",
           [recipeId, tagId]
         );
       });
+
+      regimeTags.forEach((regime) =>
+        tagPromises.push(
+          connection.query(
+            "INSERT INTO recipe_tags (recipe_id, tags_id) VALUES (?, ?)",
+            [recipeId, regime]
+          )
+        )
+      );
+
       await Promise.all(tagPromises);
 
       // Insertion dans la table step
