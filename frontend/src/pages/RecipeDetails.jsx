@@ -1,5 +1,7 @@
 import { useLoaderData, useParams, Link } from "react-router-dom";
 import { useState, useEffect } from "react";
+import axios from "axios";
+import { useUser } from "../context/UserContext";
 
 function RecipeDetails() {
   const recipe = useLoaderData();
@@ -7,6 +9,7 @@ function RecipeDetails() {
   const [ingredients, setIngredients] = useState([]);
   const [tags, setTags] = useState([]);
   const [comments, setComments] = useState([]);
+  const [newComment, setNewComment] = useState("");
   const { id } = useParams();
 
   const options = {
@@ -15,6 +18,33 @@ function RecipeDetails() {
     month: "long",
     day: "numeric",
   };
+
+  const fetchComments = () => {
+    fetch(`http://localhost:3310/api/comments/recipe/${id}`)
+      .then((res) => res.json())
+      .then((data) => setComments(data));
+  };
+
+  const { userInfos } = useUser();
+
+  async function postComment(event) {
+    event.preventDefault();
+
+    try {
+      axios
+        .post(`http://localhost:3310/api/comment`, {
+          userId: userInfos.id,
+          recipeId: recipe.recipeId,
+          message: newComment,
+        })
+        .then(() => {
+          fetchComments();
+          setNewComment("");
+        });
+    } catch (err) {
+      console.error(err);
+    }
+  }
 
   useEffect(() => {
     fetch(`http://localhost:3310/api/step/${id}`)
@@ -33,11 +63,8 @@ function RecipeDetails() {
       .then((res) => res.json())
       .then((data) => setTags(data));
   }, []);
-
   useEffect(() => {
-    fetch(`http://localhost:3310/api/comments/recipe/${id}`)
-      .then((res) => res.json())
-      .then((data) => setComments(data));
+    fetchComments();
   }, []);
 
   return (
@@ -126,6 +153,22 @@ function RecipeDetails() {
           ))}
         </div>
       </div>
+      {userInfos.id && (
+        <div className="comment_form">
+          <h3>Et vous, vous en avez pensé quoi ?</h3>
+          <form onSubmit={postComment}>
+            <textarea
+              name="comment_text"
+              placeholder="Dites-nous tout"
+              onChange={(e) => setNewComment(e.target.value)}
+              value={newComment}
+            />
+            <button className="button1" type="submit">
+              Valider{" "}
+            </button>
+          </form>
+        </div>
+      )}
     </div>
   );
 }

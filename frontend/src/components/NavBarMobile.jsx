@@ -1,9 +1,8 @@
-// import { useState } from "react";
-
 import { NavLink, useLocation } from "react-router-dom";
 import { useContext } from "react";
 import PropTypes from "prop-types";
 import FiltersContext from "../context/FiltersContext";
+import { useUser } from "../context/UserContext";
 
 function NavBarMobile({ setFavoriteMobileisActive }) {
   // const [isConnected, setIsConnected] = useState(false);
@@ -23,6 +22,8 @@ function NavBarMobile({ setFavoriteMobileisActive }) {
     setFilterRegime,
     setFilterType,
   } = useContext(FiltersContext);
+
+  const { userInfos } = useUser();
 
   function handleClick() {
     setFavoriteMobileisActive((current) => !current);
@@ -54,15 +55,22 @@ function NavBarMobile({ setFavoriteMobileisActive }) {
           <p>Publier</p>
         </button>
       </NavLink>
-      {/* <button
-        type="button"
-        className={`account${isConnected ? "_connected" : ""}`}
-        onClick={handleConnected}
-      >
-        <img alt="account" src="./src/assets/images/account.png" />
-        <p>{isConnected === false ? "Créer un compte" : "Profil"}</p>
-      </button> */}
-      {/* <NavLink to="/filters"> */}
+
+      {userInfos.pseudo ? (
+        <NavLink to="/account">
+          <div className="account-link">
+            <img src="src/assets/images/account.png" alt="user-page" />
+            <p>{userInfos.pseudo}</p>
+          </div>
+        </NavLink>
+      ) : (
+        <NavLink to="/signin">
+          <div className="account-link">
+            <img src="src/assets/images/account.png" alt="user-page" />
+            <p>Créer un compte</p>
+          </div>
+        </NavLink>
+      )}
       <button
         type="button"
         onClick={handleClick}

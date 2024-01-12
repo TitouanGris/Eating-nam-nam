@@ -140,6 +140,8 @@
       display: flex;
       flex-direction: column;
       gap: 10px;
+      padding-left: 35px;
+      padding-right: 15px;
 
       .comment_pseudo {
         font-weight: bold;
@@ -149,6 +151,35 @@
         color: gray;
         font-size: 0.9em;
       }
+    }
+  }
+
+  .comment_form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 10vh;
+
+    h3 {
+      color: var(--primary-color);
+      text-align: center;
+    }
+    form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+    textarea {
+      width: 90%;
+      height: 120px;
+      padding: 12px 20px;
+      box-sizing: border-box;
+      border: 2px solid #ccc;
+      border-radius: 4px;
+      background-color: #f8f8f8;
+      font-size: 16px;
+      resize: none;
     }
   }
 }
@@ -276,6 +307,11 @@
         text-justify: auto;
         gap: 10px;
         align-items: center;
+      }
+    }
+    .comment_form {
+      textarea {
+        width: 100%;
       }
     }
   }

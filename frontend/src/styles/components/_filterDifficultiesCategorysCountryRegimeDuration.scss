@@ -1,0 +1,59 @@
+.difficulties,
+.categorys,
+.countrys,
+.regimes,
+.durations {
+  .filter-titles {
+    color: #d56c06;
+    font-size: 1rem;
+    padding-top: 1vh;
+    padding-bottom: 1vh;
+    font-weight: bold;
+  }
+
+  .filters-button-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2vw;
+
+    .chip {
+      border: solid black 1px;
+      border-radius: 15px;
+      padding: 7px;
+      font-size: 1rem;
+      background-color: white;
+
+      &:hover {
+        background-color: #d56c06;
+        color: white;
+        cursor: pointer;
+      }
+
+      img {
+        width: 40px;
+      }
+    }
+    .selected {
+      background-color: var(--primary-color);
+      border-color: var(--primary-color);
+      color: white;
+    }
+  }
+}
+
+@media screen and (min-width: 900px) {
+  .difficulties,
+  .categorys,
+  .countrys,
+  .regimes,
+  .durations {
+    .filter-titles {
+      padding-top: 0vh;
+      padding-bottom: 10px;
+
+      .filters-button-container {
+        gap: 5px;
+      }
+    }
+  }
+}
