@@ -12,6 +12,8 @@ function ModifyAccount({ isOpen, setShowModifyAccount }) {
     password: userInfos.password,
   });
 
+  // const [showModifyAvatar, setShowModifyAvatar] = useState(false);
+
   const handleModify1 = async () => {
     try {
       if (userInfos && userInfos.id) {
@@ -30,30 +32,12 @@ function ModifyAccount({ isOpen, setShowModifyAccount }) {
     }
   };
 
-  // const handleModify2 = async () => {
-  //   try {
-  //     if (userInfos && userInfos.id) {
-  //       await axios.put(`http://localhost:3310/api/user/${userInfos.image_url}`, {
-  //         newUser,
-  //       });
-  //       setNewUser({ imageUrl: "" });
-  //       setUserInfos({ ...userInfos, imageUrl: newUser.imageUrl });
-  //     } else {
-  //       console.error("User information is undefined.");
-  //     }
-  //   } catch (err) {
-  //     console.error(err);
-  //   } finally {
-  //     setShowModifyAccount(false);
-  //   }
-  // };
-
   return (
     <div className={`modify-modal ${isOpen ? "open" : ""}`}>
       <div className="modify-modal-content">
-        {/* <div className="photo">
-          <p>Modifier ma photo</p>
-        </div> */}
+        <div className="photo">
+          <button type="button">Modifier ma photo</button>
+        </div>
         <div className="pseudo">
           <p>Modifier mon pseudo</p>
           <input

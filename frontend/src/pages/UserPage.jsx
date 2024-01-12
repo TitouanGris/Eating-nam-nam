@@ -11,6 +11,8 @@ function UserPage() {
   const { userInfos, setUserInfos } = useUser();
   const { filterRegimeId } = useContext(FiltersContext);
 
+  // console.log(filterRegimeId);
+
   // const {
   //   setFilterRegime,
   //   setFilterPrice,
@@ -56,6 +58,7 @@ function UserPage() {
         table.push(e.name);
       });
       setPreferences(table);
+      // console.log(preferences);
     } catch (error) {
       console.error(error);
     }
@@ -145,20 +148,21 @@ function UserPage() {
             <h2>Mes préférences</h2>
             <div className="preferences">
               {preferences.map((preference) => (
-                <div key={preference.id}>
+                <div key={preference.name}>
                   <div className="onePreferences">{preference}</div>
                 </div>
               ))}
             </div>
             <button
               type="button"
+              className="button-user-preferences"
               onClick={() => setShowModifyPreferences(true)}
             >
               Modifier mes préférences
             </button>
             {showModifyPreferences && (
               <div>
-                <Regime setPreferences={setPreferences} />
+                <Regime />
               </div>
             )}
           </div>
@@ -192,7 +196,9 @@ function UserPage() {
                   accept="image/*"
                 />
                 <div className="add-avatar-button">
-                  <button type="submit">Ajouter</button>
+                  <button type="submit" className="button-user-avatar">
+                    Ajouter
+                  </button>
                 </div>
               </form>
             </div>
