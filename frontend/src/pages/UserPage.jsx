@@ -6,6 +6,7 @@ import ConfirmModal from "../components/ConfirmModal";
 import ModifyAccount from "../components/ModifyAccount";
 import FiltersContext from "../context/FiltersContext";
 import Regime from "../components/Regime";
+import Button from "../components/Button";
 
 function UserPage() {
   const { userInfos, setUserInfos } = useUser();
@@ -29,6 +30,11 @@ function UserPage() {
 
   const navigate = useNavigate();
 
+  const logout = () => {
+    setUserInfos({});
+    navigate("/");
+  };
+
   const fetchAvatar = async () => {
     try {
       const response = await axios.get(`http://localhost:3310/api/avatar`);
@@ -49,7 +55,6 @@ function UserPage() {
           },
         }
       );
-      // console.log(response.data);
       const table = [];
 
       response.data.result.forEach((e) => {
@@ -145,7 +150,7 @@ function UserPage() {
             <h2>Mes préférences</h2>
             <div className="preferences">
               {preferences.map((preference) => (
-                <div key={preference.id}>
+                <div key={preference.name}>
                   <div className="onePreferences">{preference}</div>
                 </div>
               ))}
@@ -171,7 +176,7 @@ function UserPage() {
               <div className="avatar-map">
                 {avatar.map((a) => {
                   return (
-                    <div>
+                    <div key={a.id}>
                       <img
                         width="30px"
                         src={`${
@@ -209,6 +214,7 @@ function UserPage() {
           Supprimer mon compte
         </button>
       </div>
+      <Button label="déconnexion" onClick={logout} className="reset-button" />
       {modal && (
         <ConfirmModal
           isOpen={modal}

@@ -37,7 +37,7 @@ class RecipeManager extends AbstractManager {
 
   // Return the array of items
 
-  async create({ recipe, tags, ingredients, steps }) {
+  async create({ recipe, tags, ingredients, steps, recipeImage }) {
     const connection = await this.database.getConnection();
     try {
       await connection.beginTransaction();
@@ -49,7 +49,7 @@ class RecipeManager extends AbstractManager {
           recipe.user_id,
           recipe.recipe_name,
           recipe.summary,
-          recipe.photoUrl,
+          recipeImage,
           recipe.nb_serving,
           recipe.validateRecipe,
         ]
@@ -85,12 +85,27 @@ class RecipeManager extends AbstractManager {
                             ]
         Object.enrties(tags) => [ ["type_tags_id", 1], [], [] ... ]
       */
-      const tagPromises = Object.values(tags).map((tagId) => {
+
+      const regimeTags = tags.regime_tags_id;
+      const tagsCopy = { ...tags };
+      delete tagsCopy.regime_tags_id;
+
+      const tagPromises = Object.values(tagsCopy).map((tagId) => {
         return connection.query(
           "INSERT INTO recipe_tags (recipe_id, tags_id) VALUES (?, ?)",
           [recipeId, tagId]
         );
       });
+
+      regimeTags.forEach((regime) =>
+        tagPromises.push(
+          connection.query(
+            "INSERT INTO recipe_tags (recipe_id, tags_id) VALUES (?, ?)",
+            [recipeId, regime]
+          )
+        )
+      );
+
       await Promise.all(tagPromises);
 
       // Insertion dans la table step

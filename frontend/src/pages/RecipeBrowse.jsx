@@ -55,8 +55,6 @@ function RecipeBrowse() {
     // setUserInfos(user);
   }, [favorisBtn]);
 
-  // console.log(recipe.country[0])
-
   return (
     <div className="recipeBrowse">
       <div className="recipeBrowseCard">

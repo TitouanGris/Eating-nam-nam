@@ -39,13 +39,17 @@ function Home() {
             className="button2"
             onClick={() => handleClick1()}
           />
-          {connexion && <Connexion setConnexion={setConnexion} />}
+          {connexion && (
+            <Connexion connexion={connexion} setConnexion={setConnexion} />
+          )}
           <Button
             label="Pas encore de compte ? Inscrivez-vous !"
             className="button3"
             onClick={() => handleClick2()}
           />
-          {inscription && <Signin setInscription={setInscription} />}
+          {inscription && (
+            <Signin inscription={inscription} setInscription={setInscription} />
+          )}
         </div>
       </div>
     </div>

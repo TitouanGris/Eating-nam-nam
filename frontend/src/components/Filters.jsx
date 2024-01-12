@@ -28,6 +28,7 @@ function Filters({ setFavoriteMobileisActive }) {
     setFilterCountry([]);
     setFilterType([]);
   };
+
   // useEffect(() => {
   //   fetch("http://localhost:3310/api/tags")
   //     .then((res) => res.json())

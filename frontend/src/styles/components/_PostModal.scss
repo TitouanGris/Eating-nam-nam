@@ -9,20 +9,39 @@
   justify-content: center;
   backdrop-filter: blur(5px);
   align-items: center;
+
+  .post-modal {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    border-radius: 10px;
+    border: 2px solid var(--primary-color);
+    background-color: white;
+    margin: 8vw;
+    padding: 8vw;
+    p {
+      color: var(--primary-color);
+      font-size: xx-large;
+      text-align: center;
+    }
+    a {
+      color: black;
+      font-size: larger;
+    }
+  }
 }
 
-.post-modal {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 20px;
-  border-radius: 10px;
-  border: 2px solid var(--primary-color);
-  width: 70vw;
-  height: 70%;
-  background-color: white;
-  a {
-    color: black;
+@media screen and (min-width: 900px) {
+  .post {
+    .post-modal {
+      width: 50vw;
+      height: 20vh;
+      a {
+        width: 30vw;
+        justify-self: center;
+      }
+    }
   }
 }
