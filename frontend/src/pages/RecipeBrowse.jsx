@@ -43,8 +43,6 @@ function RecipeBrowse() {
     setUserInfos(user);
   }, []);
 
-  // console.log(recipe.country[0])
-
   return (
     <div className="recipeBrowse">
       <div className="recipeBrowseCard">

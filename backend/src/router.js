@@ -27,9 +27,23 @@ const options = multer.diskStorage({
 });
 
 // on passe les option définis plus haut au multer
-const upload = multer({
+const uploadAvatar = multer({
   storage: options,
 });
+
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "./public/images/");
+  },
+  filename: (req, file, cb) => {
+    const name = `${v4()}-${file.originalname}`;
+    req.body.url = name;
+    cb(null, name);
+  },
+});
+
+const uploadRecipePic = multer({ storage });
+
 /* ************************************************************************* */
 // Define Your API Routes Here
 /* ************************************************************************* */
@@ -74,7 +88,7 @@ router.get("/tags/recipe/:id", tagsControllers.readTagsByRecipeId);
 
 // Route to add a new item
 router.post("/items", itemControllers.add);
-router.post("/recipe", recipeControllers.add);
+router.post("/recipe", uploadRecipePic.single("image"), recipeControllers.add);
 router.post("/user", userControllers.add);
 router.post("/comment", commentControllers.add);
 router.post("/useringredients", userIngredientsControllers.add);
@@ -86,7 +100,7 @@ router.put("/favoris", favorisControllers.destroy);
 
 // Route to upload a single image
 // /!\ le middleware upload.single est lié à l'utilisation de multer (voir en haut de ce fichier)
-router.post("/avatar", upload.single("image"), avatarControllers.add);
+router.post("/avatar", uploadAvatar.single("image"), avatarControllers.add);
 
 // Route to authentification
 router.post("/login", authControllers.login);

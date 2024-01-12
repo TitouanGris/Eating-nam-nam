@@ -1,7 +1,6 @@
 // Load the express module to create a web application
 
 const express = require("express");
-const path = require("path");
 
 const app = express();
 
@@ -34,13 +33,7 @@ app.use(
   })
 );
 
-// dir name = endroit ou on est (app)
-
-app.use(express.static(path.join(__dirname, "../public/"))); // function qui permet de rendre static le dossier mentionner. c'est à dire le rendre disponible pour tous.
-
-// app.use(express.static("../public/images/avatar"));
-
-app.use("/images", express.static("images")); // ici on ajout un path au chepin static pour images
+app.use(express.static("./public"));
 
 /* ************************************************************************* */
 
