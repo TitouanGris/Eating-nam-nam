@@ -14,6 +14,7 @@ export function FiltersContextProvider({ children }) {
   const [filterDifficultyId, setFilterDifficultyId] = useState([]);
   const [filterDuration, setFilterDuration] = useState([]);
   const [filterType, setFilterType] = useState([]);
+  const [favorisTable, setFavorisTable] = useState([]);
   const selectContext = useMemo(() => {
     return {
       filterCountry,
@@ -36,6 +37,8 @@ export function FiltersContextProvider({ children }) {
       setFilterPriceId,
       filterCountryId,
       setFilterCountryId,
+      favorisTable,
+      setFavorisTable,
     };
   }, [
     filterCountry,
@@ -58,6 +61,8 @@ export function FiltersContextProvider({ children }) {
     setFilterCountryId,
     filterDifficultyId,
     setFilterDifficultyId,
+    favorisTable,
+    setFavorisTable,
   ]);
 
   return (

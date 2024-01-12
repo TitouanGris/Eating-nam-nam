@@ -70,7 +70,7 @@ function RecipeDetails() {
   return (
     <div className="recipeDetails">
       <div className="recipeDetailsHeader">
-        <Link to="http://localhost:3000/browse">
+        <Link to="/browse">
           <img src="/src/assets/images/back.png" alt="Back Arrow" />
         </Link>
         <h2>{recipe.recipeName}</h2>
