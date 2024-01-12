@@ -5,6 +5,16 @@ class FavorisManager extends AbstractManager {
     super({ table: "favoris" });
   }
 
+  async browse(userId) {
+    const [result] = await this.database.query(
+      `SELECT recipe_id from ${this.table}
+       WHERE user_id = ${userId}
+      `
+    );
+
+    return result;
+  }
+
   async create(userId, recipeId) {
     const [result] = await this.database.query(
       `INSERT INTO ${this.table} (user_id, recipe_id) VALUES (?, ?)`,

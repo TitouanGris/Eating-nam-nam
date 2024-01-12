@@ -144,13 +144,14 @@ const read = async (req, res, next) => {
 // };
 
 const add = async (req, res, next) => {
-  const { recipe, tags, ingredients, steps } = req.body;
+  const { recipe, tags, ingredients, steps, url } = req.body;
   try {
     const recipeResult = await tables.recipe.create({
       recipe: JSON.parse(recipe),
       tags: JSON.parse(tags),
       ingredients: JSON.parse(ingredients),
       steps: JSON.parse(steps),
+      recipeImage: `/images/${url}`,
     });
 
     res.status(201).json({ recipeId: recipeResult.insertId });

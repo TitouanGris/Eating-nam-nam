@@ -1,4 +1,5 @@
 -- SQLBook: Code
+-- SQLBook: Code
 SET NAMES 'utf8mb4';
 
 DROP TABLE IF EXISTS `user_ingredient`;
@@ -25,7 +26,15 @@ DROP TABLE IF EXISTS ingredient;
 
 DROP TABLE IF EXISTS recipe;
 
+DROP TABLE IF EXISTS avatar;
+
 DROP TABLE IF EXISTS user;
+
+CREATE TABLE
+    avatar (
+        id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+        image_url varchar(255) NOT NULL
+    );
 
 CREATE TABLE
     user (
@@ -35,7 +44,9 @@ CREATE TABLE
         created_date DATETIME NOT NULL DEFAULT NOW(),
         updated_date DATETIME NULL DEFAULT NOW() ON UPDATE CURRENT_TIMESTAMP,
         password VARCHAR(20) NOT NULL,
-        is_admin BOOL NOT NULL DEFAULT FALSE
+        is_admin BOOL NOT NULL DEFAULT FALSE,
+        avatar_id INT NOT NULL DEFAULT 1,
+        CONSTRAINT fk_user_avatar FOREIGN KEY (avatar_id) REFERENCES avatar(id)
     );
 
 CREATE TABLE
@@ -151,6 +162,14 @@ CREATE TABLE
         CONSTRAINT fk_ingredient_user_ingredient FOREIGN KEY (ingredient_id) REFERENCES ingredient(id)
     );
 /* ------------------ ICI LES INSERT ------------------- */
+
+INSERT INTO avatar (image_url)
+VALUES ('avatarDefault.png'), (
+        '6ee5f281-5a04-4f85-a57f-544b402667ad-panda.png'
+    ), (
+        'c595c772-2541-4071-9141-31e6e962e4b9-cat.png  '
+    );
+
 INSERT INTO
     user (
         pseudo,
@@ -158,7 +177,8 @@ INSERT INTO
         created_date,
         updated_date,
         password,
-        is_admin
+        is_admin,
+        avatar_id
     )
 VALUES (
         'Nadine',
@@ -166,49 +186,56 @@ VALUES (
         '2023-01-01',
         NULL,
         'Motel',
-        TRUE
+        TRUE,
+        1
     ), (
         'Hélène',
         'user2@email.com',
         '2023-01-02',
         NULL,
         'Vernet',
-        TRUE
+        TRUE,
+        1
     ), (
         'Irwin',
         'admin1@email.com',
         '2023-01-03',
         NULL,
         'Soliman',
-        TRUE
+        TRUE,
+        1
     ), (
         'Titouan',
         'user3@email.com',
         '2023-01-04',
         NULL,
         'Gris',
-        TRUE
+        TRUE,
+        1
     ), (
         'Guillaume',
         'user4@email.com',
         '2023-01-05',
         NULL,
         'Lebeau',
-        TRUE
+        TRUE,
+        1
     ), (
         'Lucas',
         'admin2@email.com',
         '2023-01-06',
         NULL,
         'Faugeron',
-        FALSE
+        FALSE,
+        1
     ), (
         'Lucasz',
         'user5@email.com',
         '2023-01-07',
         NULL,
         'Grzegorzewski',
-        FALSE
+        FALSE,
+        1
     );
 
 INSERT INTO
@@ -680,11 +707,7 @@ VALUES ('price'), ('country'), ('regime'), ('difficulty'), ('duration'), ('type'
 
 INSERT INTO tags (category_id, image_url, name) VALUES
 
-(1, '/images/1euros.png', '€'), (1, '/images/2euros.png', '€€'), (1, '/images/3euros.png', '€€€'), (2, '', 'Italien'), (2, '', 'Français'), (2, '', 'Indien'), (2, '', 'Américain'), (3, '', 'Végétarien'), (3, '', 'Vegan'), (3, '', 'Viandard'), (3, '', 'Sans Gluten'), (
-    3,
-    '',
-    'Sans lactose'
-), (3, '', 'Sans porc'), (3, '', 'Pescétarien'), (
+(1, '/images/1euros.png', '€'), (1, '/images/2euros.png', '€€'), (1, '/images/3euros.png', '€€€'), (2, '', 'Italien'), (2, '', 'Français'), (2, '', 'Indien'), (2, '', 'Américain'), (3, '', 'Végétarien'), (3, '', 'Vegan'), (3, '', 'Viandard'), (3, '', 'Sans Gluten'), (3, '', 'Sans lactose'), (3, '', 'Sans porc'), (3, '', 'Pescétarien'), (
     4,
     '/images/chef15.png',
     'Facile'
@@ -699,12 +722,12 @@ INSERT INTO tags (category_id, image_url, name) VALUES
 ), (5, '', '15 min'), (5, '', '30 min'), (5, '', '45 min'), (5, '', '1h'), (5, '', '1h30'), (5, '', '2h+'), (6, '', 'Entrée'), (6, '', 'Plat'), (6, '', 'Dessert'), (6, '', 'Boisson'), (6, '', 'Apéritif');
 
 Insert INTO
-    recipe_tags (recipe_id, tags_id) VALUES (1, 2), (1, 5), (1, 8), (1, 13), (1, 15), (1, 18), (1, 25), (2, 2), (2, 6), (2, 10), (2, 12), (2, 13), (2, 15), (2, 20), (2, 25), (3, 1), (3, 4), (3, 13), (3, 15), (3, 19), (3, 25), (4, 1), (4, 8), (4, 12), (4, 13), (4, 15), (4, 19), (4, 25), (5, 2), (5, 4), (5, 8), (5, 13), (5, 16), (5, 22), (6, 3), (6, 9), (6, 11), (6, 13), (6, 14), (6, 16), (6, 20), (6, 27), (7, 1), (7, 5), (7, 12), (7, 13), (7, 14), (7, 15), (7, 20), (7, 26), (8, 2), (8, 5), (8, 14), (8, 15), (8, 18), (8, 25), (9, 1), (9, 5), (9, 12), (9, 13), (9, 14), (9, 15), (9, 20), (9, 26), (10, 2), (10, 5), (10, 9), (10, 16), (10, 22), (10, 25);
-    recipe_tags (recipe_id, tags_id) VALUES (1, 2), (1, 5), (1, 8), (1, 13), (1, 15), (1, 18), (1, 25), (2, 2), (2, 6), (2, 10), (2, 12), (2, 13), (2, 15), (2, 20), (2, 25), (3, 1), (3, 4), (3, 13), (3, 15), (3, 19), (3, 25), (4, 1), (4, 8), (4, 12), (4, 13), (4, 15), (4, 19), (4, 25), (5, 2), (5, 4), (5, 8), (5, 13), (5, 16), (5, 22), (6, 3), (6, 9), (6, 11), (6, 13), (6, 14), (6, 16), (6, 20), (6, 27), (7, 1), (7, 5), (7, 12), (7, 13), (7, 14), (7, 15), (7, 20), (7, 26), (8, 2), (8, 5), (8, 14), (8, 15), (8, 18), (8, 25), (9, 1), (9, 5), (9, 12), (9, 13), (9, 14), (9, 15), (9, 20), (9, 26), (10, 2), (10, 5), (10, 9), (10, 16), (10, 22), (10, 25);
+    recipe_tags (recipe_id, tags_id)
+VALUES (1, 2), (1, 5), (1, 8), (1, 13), (1, 15), (1, 18), (1, 25), (2, 2), (2, 6), (2, 10), (2, 12), (2, 13), (2, 15), (2, 20), (2, 25), (3, 1), (3, 4), (3, 13), (3, 15), (3, 19), (3, 25), (4, 1), (4, 8), (4, 12), (4, 13), (4, 15), (4, 19), (4, 25), (5, 2), (5, 4), (5, 8), (5, 13), (5, 16), (5, 22), (6, 3), (6, 9), (6, 11), (6, 13), (6, 14), (6, 16), (6, 20), (6, 27), (7, 1), (7, 5), (7, 12), (7, 13), (7, 14), (7, 15), (7, 20), (7, 26), (8, 2), (8, 5), (8, 14), (8, 15), (8, 18), (8, 25), (9, 1), (9, 5), (9, 12), (9, 13), (9, 14), (9, 15), (9, 20), (9, 26), (10, 2), (10, 5), (10, 9), (10, 16), (10, 22), (10, 25);
 
 INSERT INTO
     user_tags (user_id, tags_id)
-VALUES (1, 9), (1, 13), (1, 12), (1, 14), (2, 8), (2, 12), (2, 14), (3, 10), (3, 13), (3, 14), (4, 8), (4, 11);
+VALUES (1, 1), (1, 2), (1, 3), (1, 5), (1, 6), (2, 2), (2, 3), (2, 5), (3, 3), (3, 4), (3, 6), (4, 6), (4, 2);
 
 INSERT INTO
     favoris (user_id, recipe_id)
@@ -712,52 +735,35 @@ VALUES (1, 1), (1, 2), (1, 5), (1, 6), (1, 9), (2, 2), (2, 3), (2, 5), (3, 7), (
 
 INSERT INTO
     comment (user_id, recipe_id, message)
-VALUES (1, 6, 'C''était plutôt bon, mais ça ne vaut pas les cookies de Guillaume'), (
-        7,
-VALUES (1, 6, 'C''était plutôt bon, mais ça ne vaut pas les cookies de Guillaume'), (
-        7,
-        7,
-        'J''ai mis plus de pommes et plus de tarte'
-        'J''ai mis plus de pommes et plus de tarte'
+VALUES (
+        1,
+        6,
+        'C''était plutôt bon, mais ça ne vaut pas les cookies de Guillaume'
     ), (
         7,
+        7,
+        'J''ai mis plus de pommes et plus de tarte'
+    ), (
         7,
         1,
         'De nouveau pas déçu de cette recette'
-        'De nouveau pas déçu de cette recette'
     ), (
         2,
         3,
         'Les pâtes avec des lardons, je dis oui.'
-        'Les pâtes avec des lardons, je dis oui.'
     ), (
         3,
-        2,
-        'C''est pas très vegan tout ça😭'
         2,
         'C''est pas très vegan tout ça😭'
     ), (
         4,
         2,
         'J''aime le poulet. J''aime le curry. J''aime le poulet au curry.🧑‍🍳'
-    ),
-    (
+    ), (
         3,
         4,
         'Chez nous, tous les lundis, c''est riz frit.'
-    ),
-    (
-        2,
-        6,
-        ' J''aime mieux le yaourt'
-        'J''aime le poulet. J''aime le curry. J''aime le poulet au curry.🧑‍🍳'
-    ),
-    (
-        3,
-        4,
-        'Chez nous, tous les lundis, c''est riz frit.'
-    ),
-    (
+    ), (
         2,
         6,
         ' J''aime mieux le yaourt'
@@ -765,12 +771,9 @@ VALUES (1, 6, 'C''était plutôt bon, mais ça ne vaut pas les cookies de Guilla
         5,
         8,
         'Cette recette de saumon a plu à mon oncle, et mon oncle il est difficile, alors si ça lui a plu c''est que cette recette, elle devait être bonne. J''aime bien mon oncle, il est gentil.'
-        'Cette recette de saumon a plu à mon oncle, et mon oncle il est difficile, alors si ça lui a plu c''est que cette recette, elle devait être bonne. J''aime bien mon oncle, il est gentil.'
     ), (
         6,
-        6,
         5,
-        "C''était plutôt bon, avec les cookies de Guillaume en dessert bien sûr !"
         "C''était plutôt bon, avec les cookies de Guillaume en dessert bien sûr !"
     ), (
         7,
@@ -788,30 +791,11 @@ VALUES (1, 6, 'C''était plutôt bon, mais ça ne vaut pas les cookies de Guilla
         4,
         8,
         'Absolument horrible, ne jamais faire cette recette, mon four a explosé, mon chat à disparu depuis suite à ça. Ou mon chien, je sais plus. L''un des deux en tout cas.'
-    ),(
+    ), (
         6,
         9,
         'J''ai trouvé le même chez Carrefour déjà tout fait, j''ai bien aimé'
-    ),(
-        3,
-        9,
-        'C''était bon, mais je mettrai de la courgette à la place du beurre la prochaine fois.'
-        2,
-        10,
-        'Le quinoa c''est bof quand même, non ?'
     ), (
-        3,
-        10,
-        'J''aime les plats vegan et j''avais besoin de le dire'
-    ), (
-        4,
-        8,
-        'Absolument horrible, ne jamais faire cette recette, mon four a explosé, mon chat à disparu depuis suite à ça. Ou mon chien, je sais plus. L''un des deux en tout cas.'
-    ),(
-        6,
-        9,
-        'J''ai trouvé le même chez Carrefour déjà tout fait, j''ai bien aimé'
-    ),(
         3,
         9,
         'C''était bon, mais je mettrai de la courgette à la place du beurre la prochaine fois.'

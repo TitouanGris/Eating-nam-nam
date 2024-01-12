@@ -3,6 +3,7 @@ import { useOutletContext, Link } from "react-router-dom";
 import RecipeCard from "../components/RecipeCard";
 import Filters from "../components/Filters";
 import FiltersContext from "../context/FiltersContext";
+import { useUser } from "../context/UserContext";
 
 export const loadRecipeData = async () => {
   try {
@@ -18,6 +19,8 @@ export const loadRecipeData = async () => {
 function RecipeBrowse() {
   const [favoriteMobileisActive, setFavoriteMobileisActive] =
     useOutletContext();
+
+  const { setUserInfos } = useUser();
 
   const [recipe, setRecipe] = useState([]);
   const {
@@ -36,6 +39,8 @@ function RecipeBrowse() {
 
   useEffect(() => {
     loadData();
+    const user = JSON.parse(localStorage.user);
+    setUserInfos(user);
   }, []);
 
   return (
@@ -89,7 +94,7 @@ function RecipeBrowse() {
             return (
               <Link
                 key={r.recipeId}
-                to={`http://localhost:3000/recipe/${r.recipeId}`}
+                to={`/recipe/${r.recipeId}`}
                 style={{ color: "inherit", textDecoration: "inherit" }}
               >
                 <RecipeCard r={r} key={r.recipeId} />

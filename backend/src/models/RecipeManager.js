@@ -37,7 +37,7 @@ class RecipeManager extends AbstractManager {
 
   // Return the array of items
 
-  async create({ recipe, tags, ingredients, steps }) {
+  async create({ recipe, tags, ingredients, steps, recipeImage }) {
     const connection = await this.database.getConnection();
     try {
       await connection.beginTransaction();
@@ -49,7 +49,7 @@ class RecipeManager extends AbstractManager {
           recipe.user_id,
           recipe.recipe_name,
           recipe.summary,
-          recipe.photoUrl,
+          recipeImage,
           recipe.nb_serving,
           recipe.validateRecipe,
         ]

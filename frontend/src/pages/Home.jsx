@@ -6,9 +6,10 @@ import Signin from "../components/Signin";
 
 function Home() {
   const [connexion, setConnexion] = useState(false);
+
   const [inscription, setInscription] = useState(false);
   function handleClick1() {
-    setConnexion((current) => !current);
+    setConnexion(true);
   }
   function handleClick2() {
     setInscription((current) => !current);
@@ -38,13 +39,13 @@ function Home() {
             className="button2"
             onClick={() => handleClick1()}
           />
-          {connexion && <Connexion />}
+          {connexion && <Connexion setConnexion={setConnexion} />}
           <Button
             label="Pas encore de compte ? Inscrivez-vous !"
             className="button3"
             onClick={() => handleClick2()}
           />
-          {inscription && <Signin />}
+          {inscription && <Signin setInscription={setInscription} />}
         </div>
       </div>
     </div>

@@ -18,6 +18,7 @@ function RecipePost() {
   const [postModal, setPostModal] = useState(false);
   const [file, setFile] = useState(undefined);
   const [textareaContent, setTextareaContent] = useState("");
+  const [previewURL, setPreviewURL] = useState(null);
   const [toPostRecipe, setToPostRecipe] = useState({
     recipe_name: "",
     user_id: 1,
@@ -195,6 +196,13 @@ function RecipePost() {
   const regimeTag = filters.filter((tag) => tag.category_id === 3);
   const durationTag = filters.filter((tag) => tag.category_id === 5);
 
+  const handleFileChange = (e) => {
+    const selectedFile = e.target.files[0];
+    setFile(selectedFile);
+
+    setPreviewURL(URL.createObjectURL(selectedFile));
+  };
+
   const handleShareRecipe = async () => {
     try {
       const formData = new FormData();
@@ -212,8 +220,7 @@ function RecipePost() {
           },
         }
       );
-
-      if (response.ok) {
+      if (response.status === 201) {
         console.info("Recette partagée avec succès !");
         setToPostRecipe({
           recipe_name: "",
@@ -282,7 +289,6 @@ function RecipePost() {
       setSelectedIng([]);
     }
   };
-
   return (
     <div className="recipe_post">
       <div className="post_left">
@@ -556,7 +562,7 @@ function RecipePost() {
             onChange={handleTextareaChange}
           />
           <button type="button" onClick={handleRecipeStep}>
-            Ajouter
+            Ajoutez l'étape
           </button>
           <ul>
             {toPostSteps.map((step) => (
@@ -566,7 +572,7 @@ function RecipePost() {
                   type="button"
                   onClick={() => handleDeleteStep(step.step_number)}
                 >
-                  Supprimer
+                  ✖️
                 </button>
               </li>
             ))}
@@ -585,15 +591,24 @@ function RecipePost() {
           <input
             id="photoUpload"
             type="file"
-            onChange={(e) => setFile(e.target.files[0])}
+            onChange={handleFileChange}
             accept="image/jpeg, image/jpg, image/png"
           />
           <label htmlFor="photoUpload" className="uploadInput">
             <div className="uploadBox">
-              <img
-                src="./src/assets/images/icons8-camera-100.png"
-                alt="Choose a pic"
-              />
+              {previewURL ? (
+                <img
+                  className="uploadedPic"
+                  src={previewURL}
+                  alt="Pic preview"
+                />
+              ) : (
+                <img
+                  className="placeholderPic"
+                  src="./src/assets/images/icons8-camera-100.png"
+                  alt="Choose a pic"
+                />
+              )}
             </div>
           </label>
         </div>
