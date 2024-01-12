@@ -58,6 +58,7 @@ function Signin() {
             email: res2.email,
             created_date: res2.data.created_date,
             updated_date: res2.data.updated_date,
+            image_url: res2.data.image_url,
           })
         );
         handleSignIn();

@@ -46,6 +46,7 @@ function Connexion() {
           email: inputEmail,
           created_date: res.data.created_date,
           updated_date: res.data.updated_date,
+          image_url: res.data.image_url,
         })
       );
       // get pour récupérer les préférences utilisations de la DB avec le user ID

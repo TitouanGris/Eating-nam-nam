@@ -10,6 +10,8 @@ import RecipePost, {
 } from "./pages/RecipePost";
 import RecipeBrowse from "./pages/RecipeBrowse";
 import RecipeDetails, { loadRecipeDetails } from "./pages/RecipeDetails";
+import UserPage from "./pages/UserPage";
+import Signin from "./components/Signin";
 
 import "./styles/index.scss";
 
@@ -26,6 +28,14 @@ const router = createBrowserRouter([
         path: "/browse",
         element: <RecipeBrowse />,
         loader: loadFiltersData,
+      },
+      {
+        path: "/account",
+        element: <UserPage />,
+      },
+      {
+        path: "/signin",
+        element: <Signin />,
       },
       {
         path: "/publish",
