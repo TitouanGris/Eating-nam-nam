@@ -17,6 +17,7 @@ const FavorisManager = require("./models/FavorisManager");
 const CommentManager = require("./models/CommentManager");
 const UserIngredientManager = require("./models/UserIngredientManager");
 const CategoryManager = require("./models/CategoryManager");
+const AvatarManager = require("./models/AvatarManager");
 
 const managers = [
   ItemManager,
@@ -33,6 +34,7 @@ const managers = [
   FavorisManager,
   CommentManager,
   UserIngredientManager,
+  AvatarManager,
 ];
 
 // Create an empty object to hold data managers for different tables

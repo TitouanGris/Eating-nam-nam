@@ -1,6 +1,7 @@
 // Load the express module to create a web application
 
 const express = require("express");
+const path = require("path");
 
 const app = express();
 
@@ -12,8 +13,6 @@ const app = express();
 
 // CORS (Cross-Origin Resource Sharing) is a security mechanism in web browsers that blocks requests from a different domain than the server.
 // You may find the following magic line in forums:
-
-// app.use(cors());
 
 // You should NOT do that: such code uses the `cors` module to allow all origins, which can pose security issues.
 // For this pedagogical template, the CORS code is commented out to show the need for defining specific allowed origins.
@@ -35,7 +34,13 @@ app.use(
   })
 );
 
-app.use(express.static("./public"));
+// dir name = endroit ou on est (app)
+
+app.use(express.static(path.join(__dirname, "../public/"))); // function qui permet de rendre static le dossier mentionner. c'est à dire le rendre disponible pour tous.
+
+// app.use(express.static("../public/images/avatar"));
+
+app.use("/images", express.static("images")); // ici on ajout un path au chepin static pour images
 
 /* ************************************************************************* */
 

@@ -3,6 +3,7 @@ import { useOutletContext, Link } from "react-router-dom";
 import RecipeCard from "../components/RecipeCard";
 import Filters from "../components/Filters";
 import FiltersContext from "../context/FiltersContext";
+import { useUser } from "../context/UserContext";
 
 export const loadRecipeData = async () => {
   try {
@@ -18,6 +19,8 @@ export const loadRecipeData = async () => {
 function RecipeBrowse() {
   const [favoriteMobileisActive, setFavoriteMobileisActive] =
     useOutletContext();
+
+  const { setUserInfos } = useUser();
 
   const [recipe, setRecipe] = useState([]);
   const {
@@ -36,6 +39,8 @@ function RecipeBrowse() {
 
   useEffect(() => {
     loadData();
+    const user = JSON.parse(localStorage.user);
+    setUserInfos(user);
   }, []);
 
   // console.log(recipe.country[0])
@@ -45,7 +50,7 @@ function RecipeBrowse() {
       <div className="recipeBrowseCard">
         {recipe
           .filter((r) => {
-            // Vérifier si chaque filtre contient au moins une valeur
+            // Vérifie si chaque filtre contient au moins une valeur
             const countryFilterNotEmpty = filterCountry.length > 0;
             const priceFilterNotEmpty = filterPrice.length > 0;
             const difficultyFilterNotEmpty = filterDifficulty.length > 0;
@@ -53,7 +58,7 @@ function RecipeBrowse() {
             const regimeFilterNotEmpty = filterRegime.length > 0;
             const typeFilterNotEmpty = filterType.length > 0;
 
-            // Appliquer les filtres uniquement si au moins un filtre a une valeur
+            // Applique les filtres uniquement si au moins un filtre a une valeur
             if (
               countryFilterNotEmpty ||
               priceFilterNotEmpty ||
@@ -91,7 +96,7 @@ function RecipeBrowse() {
             return (
               <Link
                 key={r.recipeId}
-                to={`http://localhost:3000/recipe/${r.recipeId}`}
+                to={`/recipe/${r.recipeId}`}
                 style={{ color: "inherit", textDecoration: "inherit" }}
               >
                 <RecipeCard r={r} key={r.recipeId} />

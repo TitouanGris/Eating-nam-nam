@@ -6,9 +6,10 @@ import Signin from "../components/Signin";
 
 function Home() {
   const [connexion, setConnexion] = useState(false);
+
   const [inscription, setInscription] = useState(false);
   function handleClick1() {
-    setConnexion((current) => !current);
+    setConnexion(true);
   }
   function handleClick2() {
     setInscription((current) => !current);

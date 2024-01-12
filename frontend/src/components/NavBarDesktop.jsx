@@ -42,11 +42,19 @@ function NavBarDesktop() {
             </NavLink>
           )}
         </div>
-        {userInfos.pseudo && (
+
+        {userInfos.pseudo ? (
           <NavLink to="/account">
             <div className="account-link">
               <img src="src/assets/images/user.png" alt="user-page" />
               <p>{userInfos.pseudo}</p>
+            </div>
+          </NavLink>
+        ) : (
+          <NavLink to="/signin">
+            <div className="account-link">
+              <img src="src/assets/images/user.png" alt="user-page" />
+              <p>Créer son compte</p>
             </div>
           </NavLink>
         )}
