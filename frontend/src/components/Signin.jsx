@@ -1,10 +1,11 @@
 import { useState } from "react";
 import axios from "axios";
+import PropTypes from "prop-types";
 import { useUser } from "../context/UserContext";
 
 import Regime from "./Regime";
 
-function Signin() {
+function Signin({ inscription, setInscription }) {
   const { setUserInfos } = useUser();
 
   const [newUser, setNewUser] = useState({
@@ -22,6 +23,11 @@ function Signin() {
   // state permettant de savoir quand afficher la modal de choix de préférences
   function handleSignIn() {
     setSignIn((current) => !current);
+  }
+
+  function handleClick(e) {
+    e.stopPropagation();
+    setInscription((current) => !current);
   }
 
   const handleSubmit = async (e) => {
@@ -75,55 +81,71 @@ function Signin() {
     setShowPassword(!showPassword);
   };
 
-  return (
+  return inscription ? (
     <div className="inscription">
       <div className="signin-page">
+        <div className="closeDiv">
+          <button type="button" className="closeButton" onClick={handleClick}>
+            &times;
+          </button>
+        </div>
         {errorMessage !== "" && (
           <div className="message">
             <p className="error">{errorMessage}</p>
           </div>
         )}
-        <h1>Inscription</h1>
-        <form onSubmit={handleSubmit}>
-          <input
-            type="text"
-            name="pseudo"
-            placeholder="Pseudo"
-            value={newUser.pseudo}
-            onChange={(e) => setNewUser({ ...newUser, pseudo: e.target.value })}
-          />
-          <input
-            type="text"
-            name="email"
-            placeholder="Email"
-            value={newUser.email}
-            onChange={(e) => setNewUser({ ...newUser, email: e.target.value })}
-          />
-          <div className="button-password">
+        <div className="formDiv">
+          <h1>Inscription</h1>
+          <form onSubmit={handleSubmit}>
             <input
-              type={showPassword ? "text" : "password"}
-              name="password"
-              placeholder="Mot de passe"
-              value={newUser.password}
+              type="text"
+              name="pseudo"
+              placeholder="Pseudo"
+              value={newUser.pseudo}
               onChange={(e) =>
-                setNewUser({ ...newUser, password: e.target.value })
+                setNewUser({ ...newUser, pseudo: e.target.value })
               }
             />
-            <button type="button" onClick={PasswordVisibility}>
-              {showPassword ? "Masquer" : "Afficher"}
-            </button>
-          </div>
+            <input
+              type="text"
+              name="email"
+              placeholder="Email"
+              value={newUser.email}
+              onChange={(e) =>
+                setNewUser({ ...newUser, email: e.target.value })
+              }
+            />
+            <div className="button-password">
+              <input
+                type={showPassword ? "text" : "password"}
+                name="password"
+                placeholder="Mot de passe"
+                value={newUser.password}
+                onChange={(e) =>
+                  setNewUser({ ...newUser, password: e.target.value })
+                }
+              />
+              <button type="button" onClick={PasswordVisibility}>
+                {showPassword ? "Masquer" : "Afficher"}
+              </button>
+            </div>
 
-          <div className="signin-button">
-            <button type="submit">Je m'inscris</button>
-          </div>
-        </form>
+            <div className="signin-button">
+              <button type="submit">Je m'inscris</button>
+            </div>
+          </form>
+        </div>
       </div>
       {signIn && errorMessage === "" && (
         <Regime successMessage={successMessage} errorMessage={errorMessage} />
       )}
     </div>
-  );
+  ) : null;
 }
+
+Signin.propTypes = {
+  inscription: PropTypes.bool.isRequired,
+  setInscription: PropTypes.func.isRequired,
+};
 
 export default Signin;

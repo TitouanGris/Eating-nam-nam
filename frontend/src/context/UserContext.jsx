@@ -10,7 +10,6 @@ export function UserProvider({ children }) {
   useEffect(() => {
     if (localStorage.user) {
       const userData = JSON.parse(localStorage.user);
-
       setUserInfos(userData);
     }
   }, []);
