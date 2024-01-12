@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { NavLink, useLoaderData, useNavigate } from "react-router-dom";
+import { NavLink, useLoaderData } from "react-router-dom";
 import PropTypes from "prop-types";
 import Button from "./Button";
 import FiltersContext from "../context/FiltersContext";
@@ -9,10 +9,8 @@ import FilterPrice from "./FilterPrice";
 import FilterDifficuly from "./FilterDifficuly";
 import FilterRegime from "./FilterRegime";
 import FilterDuration from "./FilterDuration";
-import { useUser } from "../context/UserContext";
 
 function Filters({ setFavoriteMobileisActive }) {
-  const { setUserInfos } = useUser(); // permet de récupérer via un custom Hook l'objet du context (ici l'objet qui contient setUserInfos et UserInfos
   const filters = useLoaderData();
   const {
     setFilterCountry,
@@ -31,12 +29,6 @@ function Filters({ setFavoriteMobileisActive }) {
     setFilterType([]);
   };
 
-  const navigate = useNavigate();
-
-  const logout = () => {
-    setUserInfos({});
-    navigate("/");
-  };
   // useEffect(() => {
   //   fetch("http://localhost:3310/api/tags")
   //     .then((res) => res.json())
@@ -65,11 +57,6 @@ function Filters({ setFavoriteMobileisActive }) {
           <Button
             label="réinitialiser"
             onClick={resetClick}
-            className="reset-button"
-          />
-          <Button
-            label="déconnexion"
-            onClick={logout}
             className="reset-button"
           />
         </div>

@@ -6,6 +6,7 @@ import ConfirmModal from "../components/ConfirmModal";
 import ModifyAccount from "../components/ModifyAccount";
 import FiltersContext from "../context/FiltersContext";
 import Regime from "../components/Regime";
+import Button from "../components/Button";
 
 function UserPage() {
   const { userInfos, setUserInfos } = useUser();
@@ -28,6 +29,11 @@ function UserPage() {
   const [showModifyPreferences, setShowModifyPreferences] = useState(false);
 
   const navigate = useNavigate();
+
+  const logout = () => {
+    setUserInfos({});
+    navigate("/");
+  };
 
   const fetchAvatar = async () => {
     try {
@@ -208,6 +214,7 @@ function UserPage() {
           Supprimer mon compte
         </button>
       </div>
+      <Button label="déconnexion" onClick={logout} className="reset-button" />
       {modal && (
         <ConfirmModal
           isOpen={modal}
