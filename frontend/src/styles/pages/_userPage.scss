@@ -35,7 +35,7 @@
           .add-avatar-button {
             display: flex;
             justify-content: center;
-            button {
+            .button-user-avatar {
               height: 4vh;
               padding: 5px;
               font-size: 12px;
@@ -73,7 +73,7 @@
           text-align: center;
         }
       }
-      button {
+      .button-user-preferences {
         height: 4vh;
         width: 38vw;
         font-size: 12px;

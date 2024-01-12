@@ -53,7 +53,7 @@ function RecipeBrowse() {
     loadData();
     // const user = JSON.parse(localStorage.user);
     // setUserInfos(user);
-  }, [favorisBtn]);
+  }, [favorisBtn, favorisTable]);
 
   return (
     <div className="recipeBrowse">

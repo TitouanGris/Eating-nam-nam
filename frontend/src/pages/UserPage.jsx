@@ -157,6 +157,7 @@ function UserPage() {
             </div>
             <button
               type="button"
+              className="button-user-preferences"
               onClick={() => setShowModifyPreferences(true)}
             >
               Modifier mes préférences
@@ -197,7 +198,9 @@ function UserPage() {
                   accept="image/*"
                 />
                 <div className="add-avatar-button">
-                  <button type="submit">Ajouter</button>
+                  <button type="submit" className="button-user-avatar">
+                    Ajouter
+                  </button>
                 </div>
               </form>
             </div>

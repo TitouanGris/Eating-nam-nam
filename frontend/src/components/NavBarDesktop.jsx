@@ -42,7 +42,7 @@ function NavBarDesktop() {
                 setFavorisBtn(false);
               }}
             >
-              Acceuil
+              Accueil
             </button>
           </NavLink>
           {userInfos.pseudo && (
