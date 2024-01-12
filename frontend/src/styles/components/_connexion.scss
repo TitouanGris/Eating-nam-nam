@@ -10,20 +10,42 @@
   backdrop-filter: blur(5px);
   align-items: center;
   .connexionModal {
+    width: 90vw;
+    position: absolute;
+    z-index: 2;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     border-radius: 10px;
     border: 2px solid var(--primary-color);
-    width: 70vw;
-    height: 70vw;
     background-color: white;
-    .title {
-      color: var(--primary-color);
-      font-size: var(--title-font-size);
-      font-weight: 600;
-      margin-bottom: 3vh;
+
+    .closeDiv {
+      margin: 20px 0 0 0;
+      width: 100%;
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    button.closeButton {
+      background-color: white;
+      border: none;
+      font-weight: black;
+      font-size: 2rem;
+      width: 100px;
+      cursor: pointer;
+    }
+
+    .formDiv {
+      text-align: center;
+
+      .title {
+        color: var(--primary-color);
+        font-size: 2rem;
+        font-weight: 600;
+        margin-bottom: 3vh;
+      }
     }
 
     form {
@@ -34,7 +56,7 @@
 
       input {
         margin-bottom: 3vh;
-        width: 60vw;
+        width: 80vw;
         height: 6vh;
         border-radius: 10px;
         font-size: var(--text-second-font-size);
@@ -46,7 +68,7 @@
         font-size: 1.5rem;
         border-radius: 10px;
         border: none;
-        width: 40vw;
+        width: 80vw;
         height: 6vh;
       }
     }
@@ -56,8 +78,8 @@
 @media screen and (min-width: 900px) {
   .connexion {
     .connexionModal {
-      width: 50vw;
-      height: 40vw;
+      width: 40vw;
+      height: 50vh;
 
       form {
         input {
