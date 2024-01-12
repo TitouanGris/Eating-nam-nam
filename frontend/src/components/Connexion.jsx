@@ -1,29 +1,32 @@
 import { React, useState, useContext } from "react";
 import { Navigate } from "react-router-dom";
 import axios from "axios";
+
 import { useUser } from "../context/UserContext";
 import FiltersContext from "../context/FiltersContext";
 
 function Connexion() {
   // todo : importer le setter "setUserInfos" via Useconext
 
-  const [inputEmail, setInputEmail] = useState("");
   const [inputPassword, setInputPassword] = useState("");
-  const [errorMessage, setErrorMessage] = useState("");
+  const [clickToConnect, setclickToConnect] = useState(false);
 
   const { userInfos, setUserInfos } = useUser(); // permet de récupérer via un custom Hook l'objet du context (ici l'objet qui contient setUserInfos et UserInfos
+  const [inputEmail, setInputEmail] = useState(userInfos.email);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const {
     setFilterRegime,
     setFilterPrice,
     setFilterCountry,
     setFilterDifficulty,
+    setFavorisTable,
   } = useContext(FiltersContext);
 
   async function handleSubmit(event) {
     event.preventDefault();
 
-    // POST vers BACK
+    // envoie au back les infos (user et password) saisie par l'utilisateur pour authentification
 
     try {
       const res = await axios.post("http://localhost:3310/api/login", {
@@ -34,6 +37,19 @@ function Connexion() {
 
       setUserInfos(res.data);
 
+      localStorage.setItem(
+        "user",
+        JSON.stringify({
+          id: res.data.id,
+          pseudo: res.data.pseudo,
+          is_admin: res.data.is_admin,
+          email: inputEmail,
+          created_date: res.data.created_date,
+          updated_date: res.data.updated_date,
+          image_url: res.data.image_url,
+        })
+      );
+      // get pour récupérer les préférences utilisations de la DB avec le user ID
       try {
         const res2 = await axios.get(
           `http://localhost:3310/api/usertags/${res.data.id}`
@@ -66,6 +82,18 @@ function Connexion() {
       } catch (error) {
         console.error(error);
       }
+
+      // get pour récupérer la table favoris à jour de la DB avec le user ID
+      try {
+        const favorisDb = await axios.get(
+          `http://localhost:3310/api/favoris/${res.data.id}`
+        );
+
+        setFavorisTable(favorisDb.data);
+        setclickToConnect((current) => !current);
+      } catch (error) {
+        console.error(error);
+      }
     } catch (error) {
       console.error(error);
       setErrorMessage("Votre adresse email ou mot de passe est incorrect");
@@ -74,7 +102,7 @@ function Connexion() {
 
   return (
     <div>
-      {userInfos.id && <Navigate to="/browse" />}
+      {userInfos.id && clickToConnect && <Navigate to="/browse" />}
       <div className="connexion">
         <div className="connexionModal">
           <div className="title">Connexion {userInfos.pseudo}</div>
@@ -82,6 +110,7 @@ function Connexion() {
           <form onSubmit={handleSubmit}>
             <input
               type="email"
+              value={userInfos.email}
               name="Email"
               placeholder="E-mail"
               onChange={(e) => setInputEmail(e.target.value)}

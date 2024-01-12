@@ -46,6 +46,7 @@ const userControllers = require("./controllers/userControllers");
 
 const userIngredientsControllers = require("./controllers/userIngredientsControllers");
 const userTagsControllers = require("./controllers/userTagsControllers");
+const favorisControllers = require("./controllers/favorisControllers");
 
 const commentControllers = require("./controllers/commentControllers");
 
@@ -59,6 +60,7 @@ router.get("/ingredient", ingredientControllers.browse);
 router.get("/unit", unitsControllers.browse);
 router.get("/usertags/:id", userTagsControllers.browse);
 router.get("/comments/recipe/:id", commentControllers.readCommentsByRecipeId);
+router.get("/favoris/:id", favorisControllers.browse);
 router.get("/avatar", avatarControllers.browse);
 router.get("/usertags/:id", userTagsControllers.browse);
 
@@ -77,6 +79,10 @@ router.post("/user", userControllers.add);
 router.post("/comment", commentControllers.add);
 router.post("/useringredients", userIngredientsControllers.add);
 router.post("/usertags", userTagsControllers.add);
+router.post("/favoris", favorisControllers.add);
+
+// Route to delette a favoris
+router.put("/favoris", favorisControllers.destroy);
 
 // Route to upload a single image
 // /!\ le middleware upload.single est lié à l'utilisation de multer (voir en haut de ce fichier)

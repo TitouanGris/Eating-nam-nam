@@ -1,11 +1,97 @@
-import React from "react";
+import { React, useContext, useEffect, useState } from "react";
+import axios from "axios";
 import PropTypes from "prop-types";
+import FiltersContext from "../context/FiltersContext";
+import { useUser } from "../context/UserContext";
 
 function RecipeCard({ r }) {
+  const { favorisTable, setFavorisTable } = useContext(FiltersContext);
+  const { userInfos } = useUser();
+  const [favoris, setFavoris] = useState(false);
+
+  async function postFavoris() {
+    try {
+      await axios.post("http://localhost:3310/api/favoris", {
+        userId: userInfos.id,
+        recipeId: r.recipeId,
+      });
+
+      // get pour récupérer la table favoris à jour de la DB avec le user ID
+      try {
+        const favorisDb = await axios.get(
+          `http://localhost:3310/api/favoris/${userInfos.id}`
+        );
+
+        setFavorisTable(favorisDb.data);
+      } catch (error) {
+        console.error(error);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  async function deleteFavoris() {
+    try {
+      await axios.put("http://localhost:3310/api/favoris", {
+        userId: userInfos.id,
+        recipeId: r.recipeId,
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  useEffect(() => {
+    if (favorisTable) {
+      if (favorisTable.find((e) => e === r.recipeId)) {
+        setFavoris(true);
+        // post vers back pour ajouter le couple r.recipeId et User ID
+      } else {
+        setFavoris(false);
+        // post vers back pour supprimer le couple r.recipeId et User ID
+      }
+    }
+  }, [setFavorisTable]);
+
+  function handleClick(event) {
+    event.stopPropagation();
+    event.preventDefault();
+    setFavoris((current) => !current);
+    const temp = favorisTable;
+    if (temp.includes(r.recipeId) === true) {
+      const tagIndex = temp.findIndex((item) => {
+        return item === r.recipeId;
+      });
+      temp.splice(tagIndex, 1);
+      setFavorisTable(temp);
+      deleteFavoris();
+    } else {
+      temp.push(r.recipeId);
+      setFavorisTable(temp);
+      postFavoris();
+    }
+  }
+
   return (
     <div>
       <div>
         <div className="recipeCard">
+          <div className="favoris">
+            <button className="heart" type="button" onClick={handleClick}>
+              {favoris ? (
+                <img
+                  src="/src/assets/images/heartFill.png"
+                  alt="favoris coeur plein"
+                />
+              ) : (
+                <img
+                  src="/src/assets/images/heartEmpty.png"
+                  alt="favoris coeur vide"
+                />
+              )}
+            </button>
+          </div>
           <div className="imgContainer">
             <img
               src={
