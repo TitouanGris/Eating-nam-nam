@@ -76,9 +76,16 @@ function Connexion() {
         });
 
         setFilterRegime(regimeTable);
+        localStorage.setItem("regimeTable", JSON.stringify(regimeTable));
         setFilterCountry(countryTable);
+        localStorage.setItem("countryTable", JSON.stringify(countryTable));
         setFilterPrice(priceTable);
+        localStorage.setItem("priceTable", JSON.stringify(priceTable));
         setFilterDifficulty(difficultyTable);
+        localStorage.setItem(
+          "difficultyTable",
+          JSON.stringify(difficultyTable)
+        );
       } catch (error) {
         console.error(error);
       }
@@ -90,6 +97,9 @@ function Connexion() {
         );
 
         setFavorisTable(favorisDb.data);
+
+        localStorage.setItem("favoris", JSON.stringify(favorisDb.data));
+
         setclickToConnect((current) => !current);
       } catch (error) {
         console.error(error);

@@ -20,9 +20,10 @@ function RecipeBrowse() {
   const [favoriteMobileisActive, setFavoriteMobileisActive] =
     useOutletContext();
 
-  const { setUserInfos } = useUser();
+  const { favorisBtn } = useUser();
 
   const [recipe, setRecipe] = useState([]);
+
   const {
     filterCountry,
     filterDifficulty,
@@ -30,18 +31,29 @@ function RecipeBrowse() {
     filterPrice,
     filterRegime,
     filterType,
+    favorisTable,
   } = useContext(FiltersContext);
 
   async function loadData() {
     const recipeData = await loadRecipeData();
-    setRecipe(recipeData);
+
+    if (!favorisBtn) {
+      setRecipe(recipeData);
+    } else {
+      const recipeDataFavoris = recipeData.filter((r) => {
+        // Utilisez simplement 'includes' pour vérifier si r.recipeId est dans favorisTable
+        return favorisTable.includes(r.recipeId);
+      });
+
+      setRecipe(recipeDataFavoris);
+    }
   }
 
   useEffect(() => {
     loadData();
-    const user = JSON.parse(localStorage.user);
-    setUserInfos(user);
-  }, []);
+    // const user = JSON.parse(localStorage.user);
+    // setUserInfos(user);
+  }, [favorisBtn]);
 
   // console.log(recipe.country[0])
 

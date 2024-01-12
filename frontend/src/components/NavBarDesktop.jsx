@@ -25,7 +25,8 @@ function NavBarDesktop() {
     setFilterCountry([]);
     setFilterType([]);
   };
-  const { userInfos } = useUser();
+  const { userInfos, setFavorisBtn } = useUser();
+
   return (
     <div className="navBarDesktop">
       <div className="logo">
@@ -34,12 +35,33 @@ function NavBarDesktop() {
       <div className="lien">
         <div className="lien1">
           <NavLink to="/browse">
-            <p>Accueil</p>
+            <button
+              className="text"
+              type="button"
+              onClick={() => {
+                setFavorisBtn(false);
+              }}
+            >
+              Acceuil
+            </button>
           </NavLink>
           {userInfos.pseudo && (
-            <NavLink to="/publish" onClick={handlePublish}>
-              <p>Publier</p>
-            </NavLink>
+            <>
+              <NavLink to="/publish" onClick={handlePublish}>
+                <p className="text">Publier</p>
+              </NavLink>
+              <NavLink to="/browse">
+                <button
+                  className="text"
+                  type="button"
+                  onClick={() => {
+                    setFavorisBtn(true);
+                  }}
+                >
+                  Favoris
+                </button>
+              </NavLink>
+            </>
           )}
         </div>
 
