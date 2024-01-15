@@ -1,4 +1,4 @@
-import { createContext, useMemo, useState } from "react";
+import { createContext, useMemo, useState, useEffect } from "react";
 import PropTypes from "prop-types";
 
 const FiltersContext = createContext();
@@ -64,6 +64,33 @@ export function FiltersContextProvider({ children }) {
     favorisTable,
     setFavorisTable,
   ]);
+
+  useEffect(() => {
+    if (localStorage.favoris) {
+      const favorisData = JSON.parse(localStorage.favoris);
+      setFavorisTable(favorisData);
+    }
+
+    if (localStorage.regimeTable) {
+      const regimeTableData = JSON.parse(localStorage.regimeTable);
+      setFilterRegime(regimeTableData);
+    }
+
+    if (localStorage.countryTable) {
+      const countryTableData = JSON.parse(localStorage.countryTable);
+      setFilterCountry(countryTableData);
+    }
+
+    if (localStorage.priceTable) {
+      const priceTableData = JSON.parse(localStorage.priceTable);
+      setFilterPrice(priceTableData);
+    }
+
+    if (localStorage.difficultyTable) {
+      const difficultyTableData = JSON.parse(localStorage.priceTable);
+      setFilterDifficulty(difficultyTableData);
+    }
+  }, []);
 
   return (
     <FiltersContext.Provider value={selectContext}>

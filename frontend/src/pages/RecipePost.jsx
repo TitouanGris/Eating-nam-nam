@@ -438,7 +438,8 @@ function RecipePost() {
                   key={tag.id}
                   label={tag.name}
                   className={
-                    toPostTags.regime_tags_id === tag.id
+                    toPostTags.regime_tags_id &&
+                    toPostTags.regime_tags_id.includes(tag.id)
                       ? "selected chip"
                       : "chip"
                   }

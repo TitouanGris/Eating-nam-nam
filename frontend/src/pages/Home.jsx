@@ -31,9 +31,14 @@ function Home() {
 
       <div className="home-buttons">
         <div className="buttons-container">
-          <NavLink to="/browse">
-            <Button label="Découvrir" className="button1" />
-          </NavLink>
+          <Button
+            label="Inscription"
+            className="button1"
+            onClick={() => handleClick2()}
+          />
+          {inscription && (
+            <Signin inscription={inscription} setInscription={setInscription} />
+          )}
           <Button
             label="Connexion"
             className="button2"
@@ -42,14 +47,9 @@ function Home() {
           {connexion && (
             <Connexion connexion={connexion} setConnexion={setConnexion} />
           )}
-          <Button
-            label="Pas encore de compte ? Inscrivez-vous !"
-            className="button3"
-            onClick={() => handleClick2()}
-          />
-          {inscription && (
-            <Signin inscription={inscription} setInscription={setInscription} />
-          )}
+          <NavLink to="/browse">
+            <Button label="Continuer sans se connecter" className="button3" />
+          </NavLink>
         </div>
       </div>
     </div>
