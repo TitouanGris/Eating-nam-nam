@@ -438,7 +438,8 @@ function RecipePost() {
                   key={tag.id}
                   label={tag.name}
                   className={
-                    toPostTags.regime_tags_id === tag.id
+                    toPostTags.regime_tags_id &&
+                    toPostTags.regime_tags_id.includes(tag.id)
                       ? "selected chip"
                       : "chip"
                   }
@@ -504,35 +505,38 @@ function RecipePost() {
                 value={qtyValue}
                 onChange={handleQtyValue}
               />
-              <select
-                onChange={handleUnitValue}
-                value={unitValue}
-                className="ingInput3"
-              >
-                <option value=""> --- </option>
-                {units.map((unit) => {
-                  return (
-                    <option key={unit.id} value={unit.name}>
-                      {unit.name}
-                    </option>
-                  );
-                })}
-              </select>
+              <div className="ingI3Button">
+                <select
+                  onChange={handleUnitValue}
+                  value={unitValue}
+                  className="ingInput3"
+                >
+                  <option value=""> --- </option>
+                  {units.map((unit) => {
+                    return (
+                      <option key={unit.id} value={unit.name}>
+                        {unit.name}
+                      </option>
+                    );
+                  })}
+                </select>{" "}
+                <Button
+                  className="add-ingredient"
+                  onClick={handleSumIng}
+                  label="+"
+                  disabled={
+                    ingValue === "" || unitValue === "" || qtyValue === ""
+                  }
+                />
+              </div>
+              {verifIng === false && (
+                <p>
+                  ⚠️ L'ingrédient sélectionné n'est pas présent dans la liste ou
+                  a déja été ajouté
+                </p>
+              )}
             </div>
-            <Button
-              className="add-ingredient"
-              onClick={handleSumIng}
-              label="+"
-              disabled={ingValue === "" || unitValue === "" || qtyValue === ""}
-            />
-            {verifIng === false && (
-              <p>
-                ⚠️ L'ingrédient sélectionné n'est pas présent dans la liste ou à
-                déja été ajouté
-              </p>
-            )}
           </div>
-
           <div className="ingListSummary">
             {selectedIng.map((ing, index) => {
               return (
@@ -552,18 +556,6 @@ function RecipePost() {
         </div>
         <div className="recipe-steps">
           <p>Etapes de la recette *</p>
-          <textarea
-            name="step"
-            placeholder="Décrivez les étapes de votre recette"
-            minLength="1"
-            cols="40"
-            rows="8"
-            value={textareaContent}
-            onChange={handleTextareaChange}
-          />
-          <button type="button" onClick={handleRecipeStep}>
-            Ajoutez l'étape
-          </button>
           <ul>
             {toPostSteps.map((step) => (
               <li key={step.step_number}>
@@ -577,6 +569,18 @@ function RecipePost() {
               </li>
             ))}
           </ul>
+          <textarea
+            name="step"
+            placeholder="Décrivez les étapes de votre recette"
+            minLength="1"
+            cols="40"
+            rows="8"
+            value={textareaContent}
+            onChange={handleTextareaChange}
+          />
+          <button type="button" onClick={handleRecipeStep}>
+            Ajoutez l'étape
+          </button>
           {/* {toPostSteps.map((step, index) => (
             <div className="recapSteps">
               <p>{`Étape ${step.step_number}: ${step.description}`}</p>
@@ -612,23 +616,25 @@ function RecipePost() {
             </div>
           </label>
         </div>
-        <Button
-          className="share-recipe button1"
-          label="Partagez !"
-          disabled={
-            toPostRecipe.recipe_name === "" ||
-            toPostRecipe.summary === "" ||
-            toPostRecipe.nb_serving === 0 ||
-            toPostTags.type_tags_id === null ||
-            toPostTags.diff_tags_id === null ||
-            toPostTags.price_tags_id === null ||
-            toPostTags.time_tags_id === null ||
-            toPostSteps.description === "" ||
-            sumIng.length === 0
-          }
-          onClick={handleShareRecipe}
-        />
-        {postModal && <PostModal />}
+        <div className="shareContainer">
+          <Button
+            className="share-recipe button1"
+            label="Partagez !"
+            disabled={
+              toPostRecipe.recipe_name === "" ||
+              toPostRecipe.summary === "" ||
+              toPostRecipe.nb_serving === 0 ||
+              toPostTags.type_tags_id === null ||
+              toPostTags.diff_tags_id === null ||
+              toPostTags.price_tags_id === null ||
+              toPostTags.time_tags_id === null ||
+              toPostSteps.description === "" ||
+              sumIng.length === 0
+            }
+            onClick={handleShareRecipe}
+          />
+          {postModal && <PostModal />}
+        </div>
       </div>
     </div>
   );

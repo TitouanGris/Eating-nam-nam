@@ -4,10 +4,10 @@
   width: 100vw;
   height: 100%;
   gap: 2vh;
-  margin-left: 1vw;
+  margin-inline: 1vw;
   padding-inline: 2vw;
   input {
-    border-color: gray;
+    border: solid gray 1.5px;
     padding: 1.5vh 0vh 1.5vh 0vh;
     border-radius: 15px;
     padding-left: 3vw;
@@ -67,6 +67,7 @@
     }
   }
   .post_right {
+    margin-right: 1vw;
     .selection-ingredients {
       display: flex;
       flex-direction: column;
@@ -80,16 +81,9 @@
           display: flex;
           flex-wrap: wrap;
           padding-bottom: 5px;
+          flex: 1;
+          align-items: center;
           .ingInput1 {
-            padding: 5px;
-            font-size: 1.2rem;
-            border: rgb(170, 170, 170) solid 1px;
-            background-color: #ffffff;
-            color: #000000;
-            border-radius: 6px;
-            flex: 2;
-          }
-          .ingInput2 {
             padding: 5px;
             font-size: 1.2rem;
             border: rgb(170, 170, 170) solid 1px;
@@ -98,29 +92,42 @@
             border-radius: 6px;
             flex: 1;
           }
-          .ingInput3 {
-            margin-right: 5px;
-            border-radius: 6px;
-            flex: 0.3;
-            color: #000000;
+          .ingInput2 {
+            padding: 5px;
             font-size: 1.2rem;
             border: rgb(170, 170, 170) solid 1px;
+            background-color: #ffffff;
+            color: #000000;
+            border-radius: 6px;
+            flex: 0.5;
           }
-        }
-        .add-ingredient {
-          background-color: var(--primary-color);
-          color: var(--secondary-color-text);
-          border: none;
-          border-radius: 50px;
-          aspect-ratio: 1/1;
-          height: 30px;
-          font-size: var(--title-font-size);
-          font-family: var(--font-family);
-          &:hover {
-            cursor: pointer;
-          }
-          &:active {
-            scale: 0.8;
+          .ingI3Button {
+            width: 100%;
+            height: auto;
+            .ingInput3 {
+              margin-right: 5px;
+              border-radius: 6px;
+              flex: 0.3;
+              color: #000000;
+              font-size: 1.2rem;
+              border: rgb(170, 170, 170) solid 1px;
+            }
+            .add-ingredient {
+              background-color: var(--primary-color);
+              color: var(--secondary-color-text);
+              border: none;
+              border-radius: 50px;
+              aspect-ratio: 1/1;
+              height: 30px;
+              font-size: var(--title-font-size);
+              font-family: var(--font-family);
+              &:hover {
+                cursor: pointer;
+              }
+              &:active {
+                scale: 0.8;
+              }
+            }
           }
         }
       }
@@ -154,9 +161,8 @@
     .recipe-steps {
       display: flex;
       flex-direction: column;
-      width: 70vw;
+      width: 45vw;
       textarea {
-        color: #000000;
         font-size: 1.2rem;
         border: rgb(170, 170, 170) solid 1.5px;
         border-radius: 15px 15px 0 0;
@@ -184,7 +190,8 @@
       }
       ul {
         display: flex;
-        flex-direction: row;
+        flex-direction: column;
+        padding-bottom: 15px;
         li {
           display: flex;
           flex-direction: row;
@@ -204,23 +211,30 @@
         }
       }
     }
-    .share-recipe {
-      margin-bottom: 13vh;
-      background-color: var(--primary-color);
-      color: var(--secondary-color-text);
-      font-size: 1.5rem;
-      border-radius: 10px;
-      border: none;
-      width: 40vw;
-      height: 6vh;
-      justify-self: center;
-      &:hover {
-        color: black;
+    .shareContainer {
+      display: flex;
+      justify-content: center;
+      .share-recipe {
+        margin-bottom: 13vh;
+        background-color: var(--primary-color);
+        color: var(--secondary-color-text);
+        font-size: 1.5rem;
+        border-radius: 10px;
+        border: none;
+        width: 40vw;
+        height: 6vh;
+        justify-self: center;
+        &:hover {
+          color: black;
+        }
       }
-    }
-    .share-recipe:disabled {
-      opacity: 0.5;
-      cursor: default;
+      .share-recipe:disabled {
+        opacity: 0.5;
+        cursor: default;
+        &:hover {
+          color: var(--secondary-color-text);
+        }
+      }
     }
   }
   .filters-button-container {
@@ -231,11 +245,10 @@
   }
   .filters-button-segmented-container {
     .segmented-chip {
-      border: solid gray 1.5px;
-      border-right: none;
+      border: solid gray 2px;
+      // border-right: none;
       background-color: white;
       padding: 1vh 2vh 1vh 2vh;
-      font-size: 1rem;
       gap: 0;
       font-size: 1.2rem;
 
@@ -247,16 +260,18 @@
     }
     .segmented-chip:first-child {
       border-radius: 15px 0 0 15px;
+      border-right: none;
     }
     .segmented-chip:last-child {
       border-radius: 0 15px 15px 0;
+      border-left: none;
     }
     .selected-segmented {
       background-color: var(--primary-color);
       color: white;
       border: solid black 1px;
       padding: 1vh 2vh 1vh 2vh;
-      font-size: 1rem;
+      font-size: 1.2rem;
       gap: 0;
     }
     .selected-segmented:first-child {
@@ -268,11 +283,20 @@
   }
   .uploadFile {
     padding-bottom: 2vh;
+    display: flex;
+    flex-direction: column;
+    p {
+      justify-self: start;
+    }
+    .uploadInput {
+      display: flex;
+      width: fit-content;
+    }
     .uploadBox {
-      width: 15vw;
+      width: 10rem;
       .placeholderPic {
         border: dotted;
-        padding: 3vh;
+        padding: 1rem;
         border-radius: 15px;
         width: 100%;
         cursor: pointer;
@@ -283,6 +307,7 @@
       }
     }
     #photoUpload {
+      align-self: center;
       width: 0.1px;
       height: 0.1px;
       opacity: 0;
@@ -293,10 +318,10 @@
   }
 
   .chip {
-    border: solid gray 1.5px;
+    border: solid gray 2px;
     border-radius: 15px;
     padding: 7px;
-    font-size: 1rem;
+    font-size: 1.2rem;
     background-color: white;
     &:active {
       background-color: var(--primary-color);
@@ -318,5 +343,20 @@
     background-color: var(--primary-color);
     border-color: var(--primary-color);
     color: white;
+  }
+}
+
+@media screen and (min-width: 900px) {
+  .recipe_post {
+    flex-direction: row;
+    .post_left {
+      flex: 1;
+    }
+    .post_right {
+      flex: 1;
+      .uploadFile {
+        align-items: center;
+      }
+    }
   }
 }

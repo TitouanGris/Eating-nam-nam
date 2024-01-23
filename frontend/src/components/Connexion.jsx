@@ -1,5 +1,5 @@
 import { React, useState, useContext } from "react";
-import { Navigate } from "react-router-dom";
+import { Navigate, useOutletContext } from "react-router-dom";
 import axios from "axios";
 
 import { useUser } from "../context/UserContext";
@@ -7,7 +7,7 @@ import FiltersContext from "../context/FiltersContext";
 
 function Connexion() {
   // todo : importer le setter "setUserInfos" via Useconext
-
+  const { setAuth } = useOutletContext();
   const [inputPassword, setInputPassword] = useState("");
   const [clickToConnect, setclickToConnect] = useState(false);
 
@@ -36,7 +36,6 @@ function Connexion() {
       });
 
       setUserInfos(res.data);
-
       localStorage.setItem(
         "user",
         JSON.stringify({
@@ -49,6 +48,13 @@ function Connexion() {
           image_url: res.data.image_url,
         })
       );
+      if (res.status === 200) {
+        const auth = await res.json();
+
+        setAuth(auth);
+      } else {
+        console.info(res);
+      }
       // get pour récupérer les préférences utilisations de la DB avec le user ID
       try {
         const res2 = await axios.get(

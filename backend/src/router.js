@@ -66,6 +66,8 @@ const commentControllers = require("./controllers/commentControllers");
 
 const avatarControllers = require("./controllers/avatarControllers");
 
+const { hashPassword, verifyToken } = require("./services/auth");
+
 // Route to get a list of items
 router.get("/items", itemControllers.browse);
 router.get("/recipe", recipeControllers.browse);
@@ -86,10 +88,15 @@ router.get("/step/:id", stepControllers.readSteps);
 router.get("/ingredients/:id", ingredientControllers.readIngredientsByRecipeId);
 router.get("/tags/recipe/:id", tagsControllers.readTagsByRecipeId);
 
+// Protected routes
+router.post("/login", authControllers.login);
+router.post("/user", hashPassword, userControllers.add);
+
+router.use(verifyToken);
+
 // Route to add a new item
 router.post("/items", itemControllers.add);
 router.post("/recipe", uploadRecipePic.single("image"), recipeControllers.add);
-router.post("/user", userControllers.add);
 router.post("/comment", commentControllers.add);
 router.post("/useringredients", userIngredientsControllers.add);
 router.post("/usertags", userTagsControllers.add);
@@ -103,7 +110,6 @@ router.put("/favoris", favorisControllers.destroy);
 router.post("/avatar", uploadAvatar.single("image"), avatarControllers.add);
 
 // Route to authentification
-router.post("/login", authControllers.login);
 
 // Route to delete item
 router.delete("/user/:id", userControllers.destroy);
