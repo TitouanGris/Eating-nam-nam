@@ -68,6 +68,7 @@ function ModifyAvatar({ isOpen, setShowModifyAvatar }) {
                 onClick={() => setSelectedAvatarId(a.id)}
                 type="button"
                 aria-label={`Select avatar ${a.id}`}
+                // aria-label pour accesibilité user
               >
                 <img
                   width="30px"

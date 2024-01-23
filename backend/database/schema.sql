@@ -1,4 +1,5 @@
 -- SQLBook: Code
+-- SQLBook: Code
 SET NAMES 'utf8mb4';
 
 DROP TABLE IF EXISTS `user_ingredient`;
@@ -28,14 +29,6 @@ DROP TABLE IF EXISTS recipe;
 DROP TABLE IF EXISTS avatar;
 
 DROP TABLE IF EXISTS user;
-
-DROP TABLE IF EXISTS avatar;
-
-CREATE TABLE 
-avatar(
-    id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
-    image_url VARCHAR(255) NOT NULL
-);
 
 CREATE TABLE
     avatar (
@@ -169,20 +162,13 @@ CREATE TABLE
         CONSTRAINT fk_ingredient_user_ingredient FOREIGN KEY (ingredient_id) REFERENCES ingredient(id)
     );
 /* ------------------ ICI LES INSERT ------------------- */
-INSERT INTO 
-avatar (
-    image_url
-) 
-VALUES(
-    'avatarDefault.png'
-),
-(
-    '6ee5f281-5a04-4f85-a57f-544b402667ad-panda.png'
-),
-(
-    'c595c772-2541-4071-9141-31e6e962e4b9-cat.png'
-);
 
+INSERT INTO avatar (image_url)
+VALUES ('avatarDefault.png'), (
+        '6ee5f281-5a04-4f85-a57f-544b402667ad-panda.png'
+    ), (
+        'c595c772-2541-4071-9141-31e6e962e4b9-cat.png  '
+    );
 
 INSERT INTO
     user (

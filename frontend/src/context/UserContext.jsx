@@ -6,18 +6,19 @@ const UserContext = createContext();
 export function UserProvider({ children }) {
   // children permet d'importer le contenu des <> de app
   const [userInfos, setUserInfos] = useState({}); // le state est porté par le UserContext
+  const [favorisBtn, setFavorisBtn] = useState(false); // le state est porté par le UserContext
 
   useEffect(() => {
     if (localStorage.user) {
-      const user = JSON.parse(localStorage.user);
-      setUserInfos(user);
+      const userData = JSON.parse(localStorage.user);
+      setUserInfos(userData);
     }
   }, []);
 
   // le useMemo permet de sauvegarder la valeur afin d'éviter des re-render inutile. C'est le tableau de dépendance qui va controller le trigger de MAJ
   const contextValue = useMemo(
-    () => ({ userInfos, setUserInfos }),
-    [userInfos, setUserInfos]
+    () => ({ userInfos, setUserInfos, favorisBtn, setFavorisBtn }),
+    [userInfos, setUserInfos, favorisBtn, setFavorisBtn]
   );
 
   return (
