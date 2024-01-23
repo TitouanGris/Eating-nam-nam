@@ -46,10 +46,11 @@ const read = async (req, res, next) => {
 
 const edit = async (req, res, next) => {
   const { newUser } = req.body;
+  // console.log(req.body)
   try {
-    const existingUser = await tables.user.readOneUser(newUser);
+    const existingUser = await tables.user.readOneUser(req.params.id);
     if (existingUser) {
-      const modifyId = await tables.user.edit(req.params.id, newUser);
+      const modifyId = await tables.user.update(req.params.id, newUser);
       res.status(201).json({ modifyId });
     }
   } catch (err) {
@@ -57,6 +58,22 @@ const edit = async (req, res, next) => {
     res.status(404).send("Erreur de modification du user");
   }
 };
+
+// const update = async (req, res, next) => {
+//   const { newUser } = req.body;
+
+//   console.log(req.body)
+//   try {
+//     const existingUser = await tables.user.readOneUser(newUser);
+//     if (existingUser) {
+//       const modifyId = await tables.user.edit(req.params.id, newUser);
+//       res.status(201).json({ modifyId });
+//     }
+//   } catch (err) {
+//     next(err);
+//     res.status(404).send("Erreur de modification du user");
+//   }
+// };
 
 const destroy = async (req, res, next) => {
   try {

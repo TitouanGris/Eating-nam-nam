@@ -18,23 +18,23 @@ class UserManager extends AbstractManager {
     return result;
   }
 
-  async update(pseudo, email, password, isAdmin, imageUrl, id) {
+  async update(pseudo, email, password, isAdmin, avatarId, id) {
     const [result] = await this.database.query(
-      `UPDATE ${this.table} SET (pseudo = ?, email = ?, password = ?, is_admin = ?, image_url = ? ) WHERE id = ? `,
-      [pseudo, email, password, isAdmin, imageUrl, id]
+      `UPDATE ${this.table} SET pseudo = ?, email = ?, password = ?, is_admin = ?, avatar_id = ? WHERE id = ? `,
+      [pseudo, email, password, isAdmin, avatarId, id]
     );
 
     return result;
   }
 
-  async edit(id, newUser) {
-    const [result] = await this.database.query(
-      `UPDATE ${this.table} SET pseudo = ? WHERE id = ?`,
-      [newUser.pseudo, id]
-    );
+  // async edit(id, newUser) {
+  //   const [result] = await this.database.query(
+  //     `UPDATE ${this.table} SET pseudo = ? WHERE id = ?`,
+  //     [newUser.pseudo, id]
+  //   );
 
-    return result;
-  }
+  //   return result;
+  // }
 
   // on cherche le user par son adresse e-mail pour renvoyer toutes ses infos (pour ensuite vérifier le mdp et si ok renvoyer les infos users vers le front)
   // on join notre table user avec la table avatar pour récupérer l'avatar choisi par le user
@@ -63,7 +63,7 @@ class UserManager extends AbstractManager {
   async readOneUser(newUser) {
     const [result] = await this.database.query(
       `SELECT * FROM ${this.table}
-       WHERE pseudo = ? OR email = ? OR id=?`,
+       WHERE pseudo = ? OR email = ?  OR id=?`,
       [newUser.pseudo, newUser.email, newUser.id]
     );
     return result[0];

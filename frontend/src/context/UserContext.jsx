@@ -8,8 +8,10 @@ export function UserProvider({ children }) {
   const [userInfos, setUserInfos] = useState({}); // le state est porté par le UserContext
 
   useEffect(() => {
-    const user = JSON.parse(localStorage.user);
-    setUserInfos(user);
+    if (localStorage.user) {
+      const user = JSON.parse(localStorage.user);
+      setUserInfos(user);
+    }
   }, []);
 
   // le useMemo permet de sauvegarder la valeur afin d'éviter des re-render inutile. C'est le tableau de dépendance qui va controller le trigger de MAJ

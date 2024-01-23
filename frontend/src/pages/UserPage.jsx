@@ -12,6 +12,7 @@ function UserPage() {
   const { filterRegimeId } = useContext(FiltersContext);
 
   // console.log(filterRegimeId);
+  // console.log(userInfos);
 
   // const {
   //   setFilterRegime,
@@ -51,14 +52,12 @@ function UserPage() {
           },
         }
       );
-      // console.log(response.data);
       const table = [];
 
       response.data.result.forEach((e) => {
         table.push(e.name);
       });
       setPreferences(table);
-      // console.log(preferences);
     } catch (error) {
       console.error(error);
     }
@@ -175,7 +174,7 @@ function UserPage() {
               <div className="avatar-map">
                 {avatar.map((a) => {
                   return (
-                    <div>
+                    <div key={a.id}>
                       <img
                         width="30px"
                         src={`${

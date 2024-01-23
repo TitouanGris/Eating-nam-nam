@@ -2,6 +2,7 @@ import { useState } from "react";
 import PropTypes from "prop-types";
 import axios from "axios";
 import { useUser } from "../context/UserContext";
+import ModifyAvatar from "./ModifyAvatar";
 
 function ModifyAccount({ isOpen, setShowModifyAccount }) {
   const { userInfos, setUserInfos } = useUser();
@@ -10,9 +11,14 @@ function ModifyAccount({ isOpen, setShowModifyAccount }) {
     pseudo: userInfos.pseudo,
     email: userInfos.email,
     password: userInfos.password,
+    avatar_id: userInfos.avatar_id,
   });
 
-  // const [showModifyAvatar, setShowModifyAvatar] = useState(false);
+  const [showModifyAvatar, setShowModifyAvatar] = useState(false);
+
+  const handleModifyAvatar = () => {
+    setShowModifyAvatar(true);
+  };
 
   const handleModify1 = async () => {
     try {
@@ -20,7 +26,7 @@ function ModifyAccount({ isOpen, setShowModifyAccount }) {
         await axios.put(`http://localhost:3310/api/user/${userInfos.id}`, {
           newUser,
         });
-        setNewUser({ pseudo: "" });
+        // console.log(newUser.pseudo)
         setUserInfos({ ...userInfos, pseudo: newUser.pseudo });
       } else {
         console.error("User information is undefined.");
@@ -31,13 +37,22 @@ function ModifyAccount({ isOpen, setShowModifyAccount }) {
       setShowModifyAccount(false);
     }
   };
+  // console.log(userInfos);
 
   return (
     <div className={`modify-modal ${isOpen ? "open" : ""}`}>
       <div className="modify-modal-content">
         <div className="photo">
-          <button type="button">Modifier ma photo</button>
+          <button type="button" onClick={handleModifyAvatar}>
+            Modifier ma photo
+          </button>
         </div>
+        {showModifyAvatar && (
+          <ModifyAvatar
+            isOpen={showModifyAvatar}
+            setShowModifyAvatar={setShowModifyAvatar}
+          />
+        )}
         <div className="pseudo">
           <p>Modifier mon pseudo</p>
           <input
