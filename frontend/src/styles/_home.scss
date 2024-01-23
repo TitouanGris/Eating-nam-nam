@@ -1,6 +1,7 @@
 .home-container {
   width: 100vw;
   height: 100vh;
+  background-color: white;
   display: flex;
   flex-direction: column;
 
@@ -50,7 +51,7 @@
     .home-logo {
       position: absolute;
       height: 60vh;
-      width: 50vw;
+      width: 35vw;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -70,7 +71,7 @@
     .home-image {
       // z-index: 1;
       height: 100vh;
-      width: 50vw;
+      width: 65vw;
       position: absolute;
       right: 0px;
       top: 0px;
@@ -88,7 +89,7 @@
     .home-buttons {
       position: absolute;
       height: 40vh;
-      width: 50vw;
+      width: 35vw;
       left: 0px;
       bottom: 0px;
       .buttons-container {

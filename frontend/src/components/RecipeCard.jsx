@@ -71,6 +71,8 @@ function RecipeCard({ r }) {
       setFavorisTable(temp);
       postFavoris();
     }
+
+    localStorage.setItem("favoris", JSON.stringify(favorisTable));
   }
 
   return (

@@ -1,16 +1,13 @@
 import { React, useState, useContext } from "react";
-import { Navigate, useOutletContext } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import axios from "axios";
-
+import PropTypes from "prop-types";
 import { useUser } from "../context/UserContext";
 import FiltersContext from "../context/FiltersContext";
 
-function Connexion() {
-  // todo : importer le setter "setUserInfos" via Useconext
-  const { setAuth } = useOutletContext();
+function Connexion({ setConnexion, connexion }) {
   const [inputPassword, setInputPassword] = useState("");
   const [clickToConnect, setclickToConnect] = useState(false);
-
   const { userInfos, setUserInfos } = useUser(); // permet de récupérer via un custom Hook l'objet du context (ici l'objet qui contient setUserInfos et UserInfos
   const [inputEmail, setInputEmail] = useState(userInfos.email);
   const [errorMessage, setErrorMessage] = useState("");
@@ -48,14 +45,6 @@ function Connexion() {
           image_url: res.data.image_url,
         })
       );
-      if (res.status === 200) {
-        const auth = await res.json();
-
-        setAuth(auth);
-      } else {
-        console.info(res);
-      }
-      // get pour récupérer les préférences utilisations de la DB avec le user ID
       try {
         const res2 = await axios.get(
           `http://localhost:3310/api/usertags/${res.data.id}`
@@ -82,9 +71,16 @@ function Connexion() {
         });
 
         setFilterRegime(regimeTable);
+        localStorage.setItem("regimeTable", JSON.stringify(regimeTable));
         setFilterCountry(countryTable);
+        localStorage.setItem("countryTable", JSON.stringify(countryTable));
         setFilterPrice(priceTable);
+        localStorage.setItem("priceTable", JSON.stringify(priceTable));
         setFilterDifficulty(difficultyTable);
+        localStorage.setItem(
+          "difficultyTable",
+          JSON.stringify(difficultyTable)
+        );
       } catch (error) {
         console.error(error);
       }
@@ -96,6 +92,9 @@ function Connexion() {
         );
 
         setFavorisTable(favorisDb.data);
+
+        localStorage.setItem("favoris", JSON.stringify(favorisDb.data));
+
         setclickToConnect((current) => !current);
       } catch (error) {
         console.error(error);
@@ -106,35 +105,51 @@ function Connexion() {
     }
   }
 
-  return (
+  function handleClick(e) {
+    e.stopPropagation();
+    setConnexion((current) => !current);
+  }
+
+  return connexion ? (
     <div>
       {userInfos.id && clickToConnect && <Navigate to="/browse" />}
       <div className="connexion">
         <div className="connexionModal">
-          <div className="title">Connexion {userInfos.pseudo}</div>
-          {errorMessage && <p>{errorMessage}</p>}
-          <form onSubmit={handleSubmit}>
-            <input
-              type="email"
-              value={userInfos.email}
-              name="Email"
-              placeholder="E-mail"
-              onChange={(e) => setInputEmail(e.target.value)}
-            />
-            <input
-              type="password"
-              name="Password"
-              placeholder="password"
-              onChange={(e) => setInputPassword(e.target.value)}
-            />
-            <button className="button1 connexionBtn" type="submit">
-              Je me connecte{" "}
+          <div className="closeDiv">
+            <button type="button" className="closeButton" onClick={handleClick}>
+              &times;
             </button>
-          </form>
+          </div>
+          <div className="formDiv">
+            <div className="title">Connexion {userInfos.pseudo}</div>
+            {errorMessage && <p>{errorMessage}</p>}
+            <form onSubmit={handleSubmit}>
+              <input
+                type="email"
+                name="Email"
+                placeholder="E-mail"
+                onChange={(e) => setInputEmail(e.target.value)}
+              />
+              <input
+                type="password"
+                name="Password"
+                placeholder="password"
+                onChange={(e) => setInputPassword(e.target.value)}
+              />
+              <button className="button1 connexionBtn" type="submit">
+                Je me connecte{" "}
+              </button>
+            </form>
+          </div>
         </div>
       </div>
     </div>
-  );
+  ) : null;
 }
+
+Connexion.propTypes = {
+  connexion: PropTypes.bool.isRequired,
+  setConnexion: PropTypes.func.isRequired,
+};
 
 export default Connexion;
