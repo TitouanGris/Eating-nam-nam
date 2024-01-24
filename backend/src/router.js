@@ -7,7 +7,7 @@ const path = require("path");
 const { v4 } = require("uuid"); // todo : npm install nécéssclé aléatoire complexe (npm install nécéssaire)aire ?
 
 const multer = require("multer"); // multer va permettre la gestion des images (npm install nécéssaire)
-
+const { hashPassword, verifyToken } = require("./services/auth");
 // Configuration de notre multer avec les otpions de destinations et de taille
 // cb fonctionne comme next, il fait les choses les unes apres les autres
 const options = multer.diskStorage({
@@ -65,7 +65,6 @@ const favorisControllers = require("./controllers/favorisControllers");
 const commentControllers = require("./controllers/commentControllers");
 
 const avatarControllers = require("./controllers/avatarControllers");
-const { hashPassword } = require("./services/auth");
 
 // Route to get a list of items
 router.get("/items", itemControllers.browse);
@@ -101,10 +100,6 @@ router.post("/favoris", favorisControllers.add);
 // Route to delette a favoris
 router.put("/favoris", favorisControllers.destroy);
 
-// Route to upload a single image
-// /!\ le middleware upload.single est lié à l'utilisation de multer (voir en haut de ce fichier)
-router.post("/avatar", uploadAvatar.single("image"), avatarControllers.add);
-
 // Route to authentification
 router.post("/login", authControllers.login);
 
@@ -118,5 +113,12 @@ router.put("/usertags", userTagsControllers.update);
 
 /* ************************************************************************* */
 // router.use(verifyToken);
+
+router.use(verifyToken); // mur où il est nécéssaire d'être authentifier pour passer (voir auth.js)
+
+// Route to upload a single image
+// /!\ le middleware upload.single est lié à l'utilisation de multer (voir en haut de ce fichier)
+router.post("/avatar", uploadAvatar.single("image"), avatarControllers.add);
+router.get("/userbytoken", userControllers.getbytoken);
 
 module.exports = router;

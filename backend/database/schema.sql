@@ -176,7 +176,7 @@ INSERT INTO
         email,
         created_date,
         updated_date,
-        password,
+        hashed_password,
         is_admin,
         avatar_id
     )

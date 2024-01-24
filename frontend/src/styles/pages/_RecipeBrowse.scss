@@ -9,6 +9,11 @@
     gap: 20px;
     align-items: center;
     justify-content: center;
+
+    a {
+      display: flex;
+      width: 80%;
+    }
   }
 
   .mobileshow {
@@ -24,6 +29,7 @@
     display: none;
   }
 }
+
 @media screen and (max-width: 899px) {
   .recipeBrowse {
     .recipeBrowseCard {
@@ -33,7 +39,26 @@
     }
   }
 }
-@media screen and (min-width: 900px) {
+
+@media screen and (min-width: 500px) and (max-width: 1000px) {
+  .recipeBrowse {
+    .recipeBrowseCard {
+      // flex-direction: initial;
+      // flex-wrap: wrap;
+      // width: 70%;
+      // padding-bottom: 3vh;
+
+      // overflow-y: scroll;
+      // height: 90vh;
+
+      a {
+        width: 40%;
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 1000px) and (max-width: 1200px) {
   .recipeBrowse {
     .recipeBrowseCard {
       flex-direction: initial;
@@ -43,6 +68,10 @@
 
       overflow-y: scroll;
       height: 90vh;
+
+      a {
+        width: 40%;
+      }
     }
 
     // .recipeBrowseCard::-webkit-scrollbar {
@@ -73,7 +102,66 @@
     }
 
     .filterArea {
+      width: 40%;
+    }
+
+    .mobileshow,
+    .mobilehide {
+      height: initial;
       width: 30%;
+      display: initial;
+      z-index: 0;
+      position: initial;
+      background-color: initial;
+    }
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .recipeBrowse {
+    .recipeBrowseCard {
+      flex-direction: initial;
+      flex-wrap: wrap;
+      width: 70%;
+      padding-bottom: 3vh;
+
+      overflow-y: scroll;
+      height: 90vh;
+
+      a {
+        width: 30%;
+      }
+    }
+
+    // .recipeBrowseCard::-webkit-scrollbar {
+    //   display: none;
+    // }
+
+    .recipeBrowseCard::-webkit-scrollbar-track {
+      // -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+      // background-color: #f5f5f5;
+      border-radius: 10px;
+    }
+
+    .recipeBrowseCard::-webkit-scrollbar {
+      width: 5px;
+      // background-color: #f5f5f5;
+    }
+
+    .recipeBrowseCard::-webkit-scrollbar-thumb {
+      border-radius: 10px;
+      background-image: -webkit-gradient(
+        linear,
+        left bottom,
+        left top,
+        color-stop(0.44, var(--primary-color)),
+        // color-stop(0.72, rgb(11, 74, 151)),
+        // color-stop(0.86, rgb(28, 58, 148))
+      );
+    }
+
+    .filterArea {
+      width: 40%;
     }
 
     .mobileshow,

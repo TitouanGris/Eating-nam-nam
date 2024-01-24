@@ -1,11 +1,11 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import PropTypes from "prop-types";
 import { useUser } from "../context/UserContext";
 
 import Regime from "./Regime";
 
-function Signin({ inscription = false, setInscription }) {
+function Signin({ inscription = false, setInscription, btnSignIn }) {
   const { setUserInfos } = useUser();
 
   const [newUser, setNewUser] = useState({
@@ -24,6 +24,13 @@ function Signin({ inscription = false, setInscription }) {
   function handleSignIn() {
     setSignIn((current) => !current);
   }
+
+  useEffect(() => {
+    if (btnSignIn) {
+      // setInscription(true);
+      console.info("coucou");
+    }
+  }, []);
 
   function handleClick(e) {
     e.stopPropagation();
@@ -146,6 +153,7 @@ function Signin({ inscription = false, setInscription }) {
 Signin.propTypes = {
   inscription: PropTypes.bool.isRequired,
   setInscription: PropTypes.func.isRequired,
+  btnSignIn: PropTypes.bool.isRequired,
 };
 
 export default Signin;

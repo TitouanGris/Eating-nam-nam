@@ -1,6 +1,7 @@
 // import { useState } from "react";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { NavLink } from "react-router-dom";
+import Signin from "./Signin";
 import FiltersContext from "../context/FiltersContext";
 import { useUser } from "../context/UserContext";
 
@@ -26,7 +27,10 @@ function NavBarDesktop() {
     setFilterCountry([]);
     setFilterType([]);
   };
-  const { userInfos } = useUser();
+  const { userInfos, setFavorisBtn } = useUser();
+
+  const [btnSignIn, setBtnSignIn] = useState(false);
+
   return (
     <div className="navBarDesktop">
       <div className="logo">
@@ -35,12 +39,33 @@ function NavBarDesktop() {
       <div className="lien">
         <div className="lien1">
           <NavLink to="/browse">
-            <p>Accueil</p>
+            <button
+              className="text"
+              type="button"
+              onClick={() => {
+                setFavorisBtn(false);
+              }}
+            >
+              Accueil
+            </button>
           </NavLink>
           {userInfos.pseudo && (
-            <NavLink to="/publish" onClick={handlePublish}>
-              <p>Publier</p>
-            </NavLink>
+            <>
+              <NavLink to="/publish" onClick={handlePublish}>
+                <p className="text">Publier</p>
+              </NavLink>
+              <NavLink to="/browse">
+                <button
+                  className="text"
+                  type="button"
+                  onClick={() => {
+                    setFavorisBtn(true);
+                  }}
+                >
+                  Favoris
+                </button>
+              </NavLink>
+            </>
           )}
         </div>
 
@@ -52,14 +77,20 @@ function NavBarDesktop() {
             </div>
           </NavLink>
         ) : (
-          <NavLink to="/signin">
-            <div className="account-link">
-              <img src="/user.png" alt="user-page" />
-              <p>Créer son compte</p>
-            </div>
-          </NavLink>
+          <div className="account-link">
+            <img src="src/assets/images/user.png" alt="user-page" />
+            <button
+              type="button"
+              onClick={() => {
+                setBtnSignIn(!btnSignIn);
+              }}
+            >
+              Créer son compte
+            </button>
+          </div>
         )}
       </div>
+      {btnSignIn && <Signin btnSignIn={btnSignIn} />}
       {/* <button type="button" disabled={!isConnected} className="publish_button">
         <img alt="publish" src="/add.png" />
         <p>Publier</p>

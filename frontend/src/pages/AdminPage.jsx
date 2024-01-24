@@ -26,8 +26,7 @@ function AdminPage() {
     try {
       await axios
         .delete(`http://localhost:3310/api/user/${id}`)
-        .then((res) => console.info(res))
-        .then(alert(`Utilisateur supprimé`));
+        .then((res) => console.info(res));
     } catch (err) {
       console.error(err);
     }
