@@ -6,7 +6,6 @@ import { FiltersContextProvider } from "./context/FiltersContext";
 import { UserProvider } from "./context/UserContext";
 
 function App() {
-  const [auth, setAuth] = useState();
   const { pathname } = useLocation();
 
   const pagesWithoutNavBar = ["/", "/filters", "/connexion"];
@@ -23,10 +22,7 @@ function App() {
           </div>
           <div className="App">
             <Outlet
-              context={[
-                [favoriteMobileisActive, setFavoriteMobileisActive],
-                { auth, setAuth },
-              ]}
+              context={[[favoriteMobileisActive, setFavoriteMobileisActive]]}
             />
             <div className="navBarMobileArea">
               {!pagesWithoutNavBar.includes(pathname) && (

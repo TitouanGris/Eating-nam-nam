@@ -33,6 +33,7 @@ function Connexion({ setConnexion, connexion }) {
       });
 
       setUserInfos(res.data);
+
       localStorage.setItem(
         "user",
         JSON.stringify({
@@ -45,6 +46,7 @@ function Connexion({ setConnexion, connexion }) {
           image_url: res.data.image_url,
         })
       );
+      // get pour récupérer les préférences utilisations de la DB avec le user ID
       try {
         const res2 = await axios.get(
           `http://localhost:3310/api/usertags/${res.data.id}`
