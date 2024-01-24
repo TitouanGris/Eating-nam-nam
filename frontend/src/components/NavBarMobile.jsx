@@ -51,7 +51,7 @@ function NavBarMobile({ setFavoriteMobileisActive }) {
       </NavLink>
       <NavLink to="/publish" onClick={handlePublish}>
         <button type="button" className="publish_button">
-          <img alt="publish" src="./src/assets/images/add.png" />
+          <img alt="publish" src="/add.png" />
           <p>Publier</p>
         </button>
       </NavLink>
@@ -59,14 +59,14 @@ function NavBarMobile({ setFavoriteMobileisActive }) {
       {userInfos.pseudo ? (
         <NavLink to="/account">
           <div className="account-link">
-            <img src="src/assets/images/account.png" alt="user-page" />
+            <img src="/account.png" alt="user-page" />
             <p>{userInfos.pseudo}</p>
           </div>
         </NavLink>
       ) : (
         <NavLink to="/signin">
           <div className="account-link">
-            <img src="src/assets/images/account.png" alt="user-page" />
+            <img src="/account.png" alt="user-page" />
             <p>Créer un compte</p>
           </div>
         </NavLink>

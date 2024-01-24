@@ -5,23 +5,41 @@ class UserManager extends AbstractManager {
     super({ table: "user" });
   }
 
+  async readAll() {
+    const [result] = await this.database.query(
+      `SELECT user.id as id, pseudo, email, created_date, updated_date, is_admin, avatar.id as avatar_id, image_url   FROM ${this.table} JOIN avatar ON avatar_id = avatar.id`
+    );
+    return result;
+  }
+
+  /**
+id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+        pseudo VARCHAR(20) NOT NULL,
+        email VARCHAR(255) NOT NULL,
+        created_date DATETIME NOT NULL DEFAULT NOW(),
+        updated_date DATETIME NULL DEFAULT NOW() ON UPDATE CURRENT_TIMESTAMP,
+        password VARCHAR(255) NOT NULL,
+        is_admin BOOL NOT NULL DEFAULT FALSE,
+        avatar_id
+   */
+
   async create(user) {
     const [result] = await this.database.query(
       `INSERT INTO ${this.table} (pseudo, email, password, is_admin) values (?, ?, ?, ?)`,
       [
         user.pseudo,
         user.email,
-        user.password,
+        user.hashedPassword,
         user.is_admin !== undefined ? user.is_admin : 0,
       ]
     );
     return result;
   }
 
-  async update(pseudo, email, password, isAdmin, imageUrl, id) {
+  async update(pseudo, email, hashedPassword, isAdmin, imageUrl, id) {
     const [result] = await this.database.query(
       `UPDATE ${this.table} SET (pseudo = ?, email = ?, password = ?, is_admin = ?, image_url = ? ) WHERE id = ? `,
-      [pseudo, email, password, isAdmin, imageUrl, id]
+      [pseudo, email, hashedPassword, isAdmin, imageUrl, id]
     );
 
     return result;

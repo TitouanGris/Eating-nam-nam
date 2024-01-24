@@ -17,6 +17,7 @@ function NavBarDesktop() {
     setFilterRegime,
     setFilterType,
   } = useContext(FiltersContext);
+
   const handlePublish = () => {
     setFilterPrice([]);
     setFilterDifficulty([]);
@@ -29,7 +30,7 @@ function NavBarDesktop() {
   return (
     <div className="navBarDesktop">
       <div className="logo">
-        <img src="/src/assets/images/logo.png" alt="" />
+        <img src="/logo.png" alt="" />
       </div>
       <div className="lien">
         <div className="lien1">
@@ -46,21 +47,21 @@ function NavBarDesktop() {
         {userInfos.pseudo ? (
           <NavLink to="/account">
             <div className="account-link">
-              <img src="src/assets/images/user.png" alt="user-page" />
+              <img src="/user.png" alt="user-page" />
               <p>{userInfos.pseudo}</p>
             </div>
           </NavLink>
         ) : (
           <NavLink to="/signin">
             <div className="account-link">
-              <img src="src/assets/images/user.png" alt="user-page" />
+              <img src="/user.png" alt="user-page" />
               <p>Créer son compte</p>
             </div>
           </NavLink>
         )}
       </div>
       {/* <button type="button" disabled={!isConnected} className="publish_button">
-        <img alt="publish" src="./src/assets/images/add.png" />
+        <img alt="publish" src="/add.png" />
         <p>Publier</p>
       </button> */}
       {/* <button
@@ -68,7 +69,7 @@ function NavBarDesktop() {
         className={`account${isConnected ? "_connected" : ""}`}
         onClick={handleConnected}
       >
-        <img alt="account" src="./src/assets/images/account.png" />
+        <img alt="account" src="/account.png" />
         <p>{isConnected === false ? "Créer un compte" : "Profil"}</p>
       </button> */}
       {/* <button type="button" disabled={!isConnected} className="favorite_button">

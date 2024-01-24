@@ -5,7 +5,7 @@ import { useUser } from "../context/UserContext";
 
 import Regime from "./Regime";
 
-function Signin({ inscription, setInscription }) {
+function Signin({ inscription = false, setInscription }) {
   const { setUserInfos } = useUser();
 
   const [newUser, setNewUser] = useState({

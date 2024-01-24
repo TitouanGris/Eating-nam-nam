@@ -5,6 +5,15 @@ class RecipeManager extends AbstractManager {
     super({ table: "recipe" });
   }
 
+  async readAllPendingRecipes() {
+    // Execute the SQL SELECT query to retrieve all items from the "item" table
+    const [result] = await this.database.query(
+      `SELECT * FROM ${this.table} WHERE validate_recipe = 0`
+    );
+    // Return the array of items
+    return result;
+  }
+
   async readAllCardInfos() {
     const [result] = await this.database.query(
       `SELECT r.id as recipeId, r.name as recipeName, r.nb_serving, r.validate_recipe, r.photo_url,
@@ -13,10 +22,26 @@ class RecipeManager extends AbstractManager {
     JOIN  ${this.table} r ON rt.recipe_id = r.id
     JOIN tags t ON t.id = rt.tags_id
     JOIN category ON t.category_id=category.id
+    WHERE r.validate_recipe = 1
     ORDER BY r.id
     `
     );
 
+    return result;
+  }
+
+  async readFalseCardInfos() {
+    const [result] = await this.database.query(
+      `SELECT r.id as recipeId, r.name as recipeName, r.nb_serving, r.validate_recipe, r.photo_url,
+       t.id, t.category_id, t.name as tagName, t.image_url as tagUrl, category.name as categoryName FROM
+      recipe_tags rt
+    JOIN  ${this.table} r ON rt.recipe_id = r.id
+    JOIN tags t ON t.id = rt.tags_id
+    JOIN category ON t.category_id=category.id
+    WHERE r.validate_recipe = 0
+    ORDER BY r.id
+    `
+    );
     return result;
   }
 

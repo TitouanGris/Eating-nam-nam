@@ -14,7 +14,6 @@ class AbstractManager {
   async readAll() {
     // Execute the SQL SELECT query to retrieve all items from the "item" table
     const [result] = await this.database.query(`SELECT * FROM ${this.table}`);
-
     // Return the array of items
     return result;
   }
@@ -25,7 +24,6 @@ class AbstractManager {
       `select * from ${this.table} where id = ?`,
       [id]
     );
-
     // Return the first row of the result, which represents the item
     return result;
   }

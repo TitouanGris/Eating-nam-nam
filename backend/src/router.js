@@ -65,20 +65,23 @@ const favorisControllers = require("./controllers/favorisControllers");
 const commentControllers = require("./controllers/commentControllers");
 
 const avatarControllers = require("./controllers/avatarControllers");
+const { hashPassword } = require("./services/auth");
 
 // Route to get a list of items
 router.get("/items", itemControllers.browse);
+router.get("/users", userControllers.browse);
 router.get("/recipe", recipeControllers.browse);
 router.get("/tags", tagsControllers.browse);
 router.get("/ingredient", ingredientControllers.browse);
 router.get("/unit", unitsControllers.browse);
+router.get("/avatar", avatarControllers.browse);
+router.get("/adminRecipe", recipeControllers.adminBrowse);
+
+// Route to get a specific item by ID
 router.get("/usertags/:id", userTagsControllers.browse);
 router.get("/comments/recipe/:id", commentControllers.readCommentsByRecipeId);
 router.get("/favoris/:id", favorisControllers.browse);
-router.get("/avatar", avatarControllers.browse);
 router.get("/usertags/:id", userTagsControllers.browse);
-
-// Route to get a specific item by ID
 router.get("/items/:id", itemControllers.read);
 router.get("/user/:id", userControllers.read);
 router.get("/recipe/:id", recipeControllers.read);
@@ -89,7 +92,7 @@ router.get("/tags/recipe/:id", tagsControllers.readTagsByRecipeId);
 // Route to add a new item
 router.post("/items", itemControllers.add);
 router.post("/recipe", uploadRecipePic.single("image"), recipeControllers.add);
-router.post("/user", userControllers.add);
+router.post("/user", hashPassword, userControllers.add);
 router.post("/comment", commentControllers.add);
 router.post("/useringredients", userIngredientsControllers.add);
 router.post("/usertags", userTagsControllers.add);
@@ -114,5 +117,6 @@ router.put("/user/:id", userControllers.edit);
 router.put("/usertags", userTagsControllers.update);
 
 /* ************************************************************************* */
+// router.use(verifyToken);
 
 module.exports = router;

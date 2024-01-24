@@ -18,7 +18,6 @@ function ModifyAccount({ isOpen, setShowModifyAccount }) {
         await axios.put(`http://localhost:3310/api/user/${userInfos.id}`, {
           newUser,
         });
-        setNewUser({ pseudo: "" });
         setUserInfos({ ...userInfos, pseudo: newUser.pseudo });
       } else {
         console.error("User information is undefined.");

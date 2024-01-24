@@ -7,7 +7,6 @@ import PostModal from "../components/PostModal";
 
 function RecipePost() {
   const { filters, ingredients, units } = useLoaderData();
-
   const [persons, setPersons] = useState(0);
   const [ingValue, setIngValue] = useState("");
   const [qtyValue, setQtyValue] = useState("");
@@ -24,7 +23,7 @@ function RecipePost() {
     user_id: 1,
     summary: "",
     nb_serving: persons,
-    validateRecipe: true,
+    validateRecipe: false,
     photoUrl: file,
   });
   const [toPostTags, setToPostTags] = useState({
@@ -36,7 +35,6 @@ function RecipePost() {
     country_tags_id: null,
   });
   const [toPostSteps, setToPostSteps] = useState([]);
-
   const handlePlusPersons = () => {
     setPersons((prevPersons) => prevPersons + 1);
     setToPostRecipe((oldObj) => {
@@ -51,11 +49,9 @@ function RecipePost() {
       });
     }
   };
-
   const handleTextareaChange = (event) => {
     setTextareaContent(event.target.value);
   };
-
   const handleIngValue = (event) => {
     const { value } = event.target;
     setIngValue(value);
@@ -106,7 +102,6 @@ function RecipePost() {
       return updateSelectedIng;
     });
   };
-
   const handleRecipeName = (event) => {
     const { value } = event.target;
     setToPostRecipe((oldObj) => {
@@ -145,20 +140,15 @@ function RecipePost() {
   };
   const handleRecipeRegimeTags = (tag) => {
     const value = tag.id;
-
     setToPostTags((oldObj) => {
       if (oldObj.regime_tags_id && oldObj.regime_tags_id.includes(value)) {
         const updatedTags = oldObj.regime_tags_id.filter((id) => id !== value);
-
         const newRegimeTags = updatedTags.length > 0 ? updatedTags : null;
-
         return { ...oldObj, regime_tags_id: newRegimeTags };
       }
-
       const newRegimeTags = oldObj.regime_tags_id
         ? [...oldObj.regime_tags_id, value]
         : [value];
-
       return { ...oldObj, regime_tags_id: newRegimeTags };
     });
   };
@@ -173,7 +163,6 @@ function RecipePost() {
       description: textareaContent,
       step_number: toPostSteps.length + 1,
     };
-
     setToPostSteps([...toPostSteps, newStep]);
     setTextareaContent("");
   };
@@ -181,12 +170,10 @@ function RecipePost() {
     const updatedSteps = toPostSteps.filter(
       (step) => step.step_number !== stepNumber
     );
-
     const updatedStepsWithCorrectNumbers = updatedSteps.map((step, index) => ({
       ...step,
       step_number: index + 1,
     }));
-
     setToPostSteps(updatedStepsWithCorrectNumbers);
   };
   const typeTag = filters.filter((tag) => tag.category_id === 6);
@@ -195,14 +182,11 @@ function RecipePost() {
   const difficultyTag = filters.filter((tag) => tag.category_id === 4);
   const regimeTag = filters.filter((tag) => tag.category_id === 3);
   const durationTag = filters.filter((tag) => tag.category_id === 5);
-
   const handleFileChange = (e) => {
     const selectedFile = e.target.files[0];
     setFile(selectedFile);
-
     setPreviewURL(URL.createObjectURL(selectedFile));
   };
-
   const handleShareRecipe = async () => {
     try {
       const formData = new FormData();
@@ -227,7 +211,6 @@ function RecipePost() {
           user_id: 1,
           summary: "",
           nb_serving: persons,
-          validateRecipe: true,
           photoUrl: null,
         });
         setToPostTags({
@@ -252,7 +235,6 @@ function RecipePost() {
           user_id: 1,
           summary: "",
           nb_serving: persons,
-          validateRecipe: true,
           photoUrl: null,
         });
         setToPostTags({
@@ -273,7 +255,6 @@ function RecipePost() {
         user_id: 1,
         summary: "",
         nb_serving: persons,
-        validateRecipe: true,
         photoUrl: null,
       });
       setToPostTags({

@@ -80,7 +80,7 @@ function RecipeDetails() {
           src={
             recipe.recipeImage
               ? `http://localhost:3310${recipe.recipeImage}`
-              : "/src/assets/images/logo.png"
+              : "/logo.png"
           }
           alt={`${recipe.recipeName}`}
         />

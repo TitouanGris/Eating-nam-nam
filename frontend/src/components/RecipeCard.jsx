@@ -97,7 +97,7 @@ function RecipeCard({ r }) {
               src={
                 r.recipeImage
                   ? `http://localhost:3310${r.recipeImage}`
-                  : "/src/assets/images/logo.png"
+                  : "/logo.png"
               }
               alt={`${r.recipeName}`}
             />

@@ -53,6 +53,17 @@ const browse = async (req, res, next) => {
     next(err);
   }
 };
+
+const adminBrowse = async (req, res, next) => {
+  try {
+    const recipes = await tables.recipe.readAllPendingRecipes();
+
+    res.status(200).json(recipes);
+  } catch (err) {
+    next(err);
+  }
+};
+
 const read = async (req, res, next) => {
   try {
     // Fetch all items from the database
@@ -103,50 +114,11 @@ const read = async (req, res, next) => {
     next(err);
   }
 };
-// const read = async (req, res, next) => {
-//   try {
-//     const recipes = await tables.recipe.readCardInfos(req.params.id);
-//     let tempObject = {};
-
-//     recipes.forEach((e) => {
-//       if (!tempObject.recipeId) {
-//         tempObject = {
-//           recipeId: e.recipeId,
-//           recipeName: e.recipeName,
-//           summary: e.summary,
-//           recipeImage: e.photo_url,
-//           recipeServing: e.nb_serving,
-//           tagPriceName: e.tagName,
-//           tagPriceUrl: e.tagUrl,
-//         };
-//       } else if (!tempObject.tagCountry) {
-//         tempObject.tagCountry = e.tagName;
-//         tempObject.tagCountryUrl = e.tagUrl;
-//       } else if (!tempObject.tagRegime) {
-//         tempObject.tagRegime = e.tagName;
-//         tempObject.tagRegimeUrl = e.tagUrl;
-//       } else if (!tempObject.tagDifficulty) {
-//         tempObject.tagDifficulty = e.tagName;
-//         tempObject.tagDifficultyUrl = e.tagUrl;
-//       } else if (!tempObject.tagDuration) {
-//         tempObject.tagDuration = e.tagName;
-//         tempObject.tagDurationUrl = e.tagUrl;
-//       } else if (!tempObject.tagType) {
-//         tempObject.tagType = e.tagName;
-//         tempObject.tagTypeUrl = e.tagUrl;
-//       }
-//     });
-
-//     res.json(tempObject);
-//   } catch (err) {
-//     next(err);
-//   }
-// };
 
 const add = async (req, res, next) => {
   const { recipe, tags, ingredients, steps, url } = req.body;
   try {
-    const recipeResult = await tables.recipe.create({
+    const insertId = await tables.recipe.create({
       recipe: JSON.parse(recipe),
       tags: JSON.parse(tags),
       ingredients: JSON.parse(ingredients),
@@ -154,7 +126,7 @@ const add = async (req, res, next) => {
       recipeImage: `/images/${url}`,
     });
 
-    res.status(201).json({ recipeId: recipeResult.insertId });
+    res.status(201).json({ insertId });
   } catch (err) {
     next(err);
   }
@@ -162,6 +134,7 @@ const add = async (req, res, next) => {
 
 module.exports = {
   browse,
+  adminBrowse,
   read,
   add,
 };
