@@ -76,64 +76,57 @@ function RecipeCard({ r }) {
   }
 
   return (
-    <div>
-      <div>
-        <div className="recipeCard">
-          <div className="favoris">
-            <button className="heart" type="button" onClick={handleClick}>
-              {favoris ? (
-                <img
-                  src="/src/assets/images/heartFill.png"
-                  alt="favoris coeur plein"
-                />
-              ) : (
-                <img
-                  src="/src/assets/images/heartEmpty.png"
-                  alt="favoris coeur vide"
-                />
-              )}
-            </button>
-          </div>
-          <div className="imgContainer">
+    <div className="recipeCard">
+      <div className="favoris">
+        <button className="heart" type="button" onClick={handleClick}>
+          {favoris ? (
             <img
-              src={
-                r.recipeImage
-                  ? `http://localhost:3310${r.recipeImage}`
-                  : "/src/assets/images/logo.png"
-              }
-              alt={`${r.recipeName}`}
+              src="/src/assets/images/heartFill.png"
+              alt="favoris coeur plein"
+            />
+          ) : (
+            <img
+              src="/src/assets/images/heartEmpty.png"
+              alt="favoris coeur vide"
+            />
+          )}
+        </button>
+      </div>
+      <div className="imgContainer">
+        <img
+          src={
+            r.recipeImage
+              ? `http://localhost:3310${r.recipeImage}`
+              : "/src/assets/images/logo.png"
+          }
+          alt={`${r.recipeName}`}
+        />
+      </div>
+      <div className="card">
+        <div className="recipeName">{r.recipeName}</div>
+        <div className="tags">
+          <div className="price">
+            <img
+              src={`http://localhost:3310${r.price[0].tagUrl}`}
+              alt="r.TagPrice"
             />
           </div>
-          <div className="card">
-            <div className="recipeName">{r.recipeName}</div>
-            <div className="tags">
-              <div className="price">
-                <img
-                  src={`http://localhost:3310${r.price[0].tagUrl}`}
-                  alt="r.TagPrice"
-                />
-              </div>
-              <div className="difficulty">
-                <img
-                  src={`http://localhost:3310${r.difficulty[0].tagUrl}`}
-                  alt="r.TagDifficulty"
-                />
-              </div>
-              <div className="serving">
-                <img
-                  src="/src/assets/images/nbServingImage.png"
-                  alt="recipeServing"
-                />
-                <p>{r.recipeServing}</p>
-              </div>
-              <div className="duration">
-                <img
-                  src="/src/assets/images/durationImage.png"
-                  alt="TagDuration"
-                />
-                <p>{r.duration[0].tagName}</p>
-              </div>
-            </div>
+          <div className="difficulty">
+            <img
+              src={`http://localhost:3310${r.difficulty[0].tagUrl}`}
+              alt="r.TagDifficulty"
+            />
+          </div>
+          <div className="serving">
+            <img
+              src="/src/assets/images/nbServingImage.png"
+              alt="recipeServing"
+            />
+            <p>{r.recipeServing}</p>
+          </div>
+          <div className="duration">
+            <img src="/src/assets/images/durationImage.png" alt="TagDuration" />
+            <p>{r.duration[0].tagName}</p>
           </div>
         </div>
       </div>

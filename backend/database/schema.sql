@@ -1,5 +1,4 @@
 -- SQLBook: Code
--- SQLBook: Code
 SET NAMES 'utf8mb4';
 
 DROP TABLE IF EXISTS `user_ingredient`;
@@ -43,7 +42,7 @@ CREATE TABLE
         email VARCHAR(255) NOT NULL,
         created_date DATETIME NOT NULL DEFAULT NOW(),
         updated_date DATETIME NULL DEFAULT NOW() ON UPDATE CURRENT_TIMESTAMP,
-        password VARCHAR(20) NOT NULL,
+        hashed_password VARCHAR(255) NOT NULL,
         is_admin BOOL NOT NULL DEFAULT FALSE,
         avatar_id INT NOT NULL DEFAULT 1,
         CONSTRAINT fk_user_avatar FOREIGN KEY (avatar_id) REFERENCES avatar(id)
@@ -176,7 +175,7 @@ INSERT INTO
         email,
         created_date,
         updated_date,
-        password,
+        hashed_password,
         is_admin,
         avatar_id
     )

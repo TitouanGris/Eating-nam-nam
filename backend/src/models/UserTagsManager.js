@@ -13,7 +13,6 @@ class UserTagsManager extends AbstractManager {
   }
 
   async browse(id) {
-    // console.log(id);
     const [result] = await this.database.query(
       `SELECT t.name, t.category_id 
       FROM tags t
