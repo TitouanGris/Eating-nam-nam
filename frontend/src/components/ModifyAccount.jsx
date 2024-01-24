@@ -10,9 +10,8 @@ function ModifyAccount({ isOpen, setShowModifyAccount }) {
   const [newUser, setNewUser] = useState({
     pseudo: userInfos.pseudo,
     email: userInfos.email,
-    password: userInfos.password,
+    password: userInfos.hashed_password,
     is_admin: userInfos.is_admin,
-    avatar_id: userInfos.avatar_id,
   });
 
   const [showModifyAvatar, setShowModifyAvatar] = useState(false);
@@ -38,7 +37,6 @@ function ModifyAccount({ isOpen, setShowModifyAccount }) {
       setShowModifyAccount(false);
     }
   };
-
   return (
     <div className={`modify-modal ${isOpen ? "open" : ""}`}>
       <div className="modify-modal-content">

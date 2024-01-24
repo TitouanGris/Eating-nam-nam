@@ -45,7 +45,7 @@ const read = async (req, res, next) => {
   try {
     // Fetch a specific item from the database based on the provided ID
     const oneUser = await tables.user.read(req.params.id);
-
+    console.info(`oneuser: ${oneUser}`);
     // If the item is not found, respond with HTTP 404 (Not Found)
     // Otherwise, respond with the item in JSON format
     if (oneUser == null) {
@@ -65,6 +65,22 @@ const edit = async (req, res, next) => {
     const existingUser = await tables.user.readOneUser(newUser);
     if (existingUser) {
       const modifyId = await tables.user.edit(req.params.id, newUser);
+      res.status(201).json({ modifyId });
+    }
+  } catch (err) {
+    next(err);
+    res.status(404).send("Erreur de modification du user");
+  }
+};
+
+const update = async (req, res, next) => {
+  const newUser = req.body;
+  console.info("avatar:");
+  console.info(req.body);
+  try {
+    const existingUser = await tables.user.readOneUser(newUser);
+    if (existingUser) {
+      const modifyId = await tables.user.editAvatar(req.params.id, newUser);
       res.status(201).json({ modifyId });
     }
   } catch (err) {
@@ -93,6 +109,7 @@ module.exports = {
   read,
   add,
   edit,
+  update,
   destroy,
   getbytoken,
 };

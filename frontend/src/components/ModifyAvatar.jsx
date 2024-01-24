@@ -7,13 +7,9 @@ function ModifyAvatar({ isOpen, setShowModifyAvatar }) {
   const { userInfos, setUserInfos } = useUser();
 
   const [avatar, setAvatar] = useState([]);
-  const [newUser, setNewUser] = useState({
-    pseudo: userInfos.pseudo,
-    email: userInfos.email,
-    password: userInfos.password,
-    avatarId: userInfos.avatar_id,
-  });
+
   const [selectedAvatarId, setSelectedAvatarId] = useState(null);
+  const [imageAvatar, setImageAvatar] = useState();
 
   const fetchAvatar = async () => {
     try {
@@ -32,11 +28,16 @@ function ModifyAvatar({ isOpen, setShowModifyAvatar }) {
     try {
       if (userInfos && userInfos.id && selectedAvatarId !== null) {
         await axios.put(`http://localhost:3310/api/user/${userInfos.id}`, {
+          pseudo: userInfos.pseudo,
+          email: userInfos.email,
+          password: userInfos.hashed_password,
           avatar_id: selectedAvatarId,
         });
-        // Mettre à jour seulement le champ avatar_id
-        setNewUser.avatar_id(selectedAvatarId);
-        setUserInfos(newUser);
+        setUserInfos({
+          ...userInfos,
+          avatarId: selectedAvatarId,
+          image_url: imageAvatar,
+        });
       } else {
         console.error(
           "User information is undefined or selectedAvatarId is null."
@@ -56,7 +57,10 @@ function ModifyAvatar({ isOpen, setShowModifyAvatar }) {
           {avatar.map((a) => (
             <span key={a.id}>
               <button
-                onClick={() => setSelectedAvatarId(a.id)}
+                onClick={() => {
+                  setSelectedAvatarId(a.id);
+                  setImageAvatar(a.image_url);
+                }}
                 type="button"
                 aria-label={`Select avatar ${a.id}`}
                 // aria-label pour accesibilité user

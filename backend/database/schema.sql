@@ -184,7 +184,7 @@ VALUES (
         'user1@email.com',
         '2023-01-01',
         NULL,
-        'Motel',
+        '$argon2id$v=19$m=19456,t=2,p=1$rcKDJ+nrC7qsE+3LCeWqAw$5mdbNlU0speuxxabBpzrIKGAiDMbmd7HO5k8YzChW5Q',
         TRUE,
         1
     ), (
@@ -192,7 +192,7 @@ VALUES (
         'user2@email.com',
         '2023-01-02',
         NULL,
-        'Vernet',
+        '$argon2id$v=19$m=19456,t=2,p=1$rcKDJ+nrC7qsE+3LCeWqAw$5mdbNlU0speuxxabBpzrIKGAiDMbmd7HO5k8YzChW5Q',
         TRUE,
         1
     ), (
@@ -200,7 +200,7 @@ VALUES (
         'admin1@email.com',
         '2023-01-03',
         NULL,
-        'Soliman',
+        '$argon2id$v=19$m=19456,t=2,p=1$rcKDJ+nrC7qsE+3LCeWqAw$5mdbNlU0speuxxabBpzrIKGAiDMbmd7HO5k8YzChW5Q',
         TRUE,
         1
     ), (
@@ -208,7 +208,7 @@ VALUES (
         'user3@email.com',
         '2023-01-04',
         NULL,
-        'Gris',
+        '$argon2id$v=19$m=19456,t=2,p=1$rcKDJ+nrC7qsE+3LCeWqAw$5mdbNlU0speuxxabBpzrIKGAiDMbmd7HO5k8YzChW5Q',
         TRUE,
         1
     ), (
@@ -216,7 +216,7 @@ VALUES (
         'user4@email.com',
         '2023-01-05',
         NULL,
-        'Lebeau',
+        '$argon2id$v=19$m=19456,t=2,p=1$rcKDJ+nrC7qsE+3LCeWqAw$5mdbNlU0speuxxabBpzrIKGAiDMbmd7HO5k8YzChW5Q',
         TRUE,
         1
     ), (
@@ -224,7 +224,7 @@ VALUES (
         'admin2@email.com',
         '2023-01-06',
         NULL,
-        'Faugeron',
+        '$argon2id$v=19$m=19456,t=2,p=1$rcKDJ+nrC7qsE+3LCeWqAw$5mdbNlU0speuxxabBpzrIKGAiDMbmd7HO5k8YzChW5Q',
         FALSE,
         1
     ), (
@@ -232,7 +232,7 @@ VALUES (
         'user5@email.com',
         '2023-01-07',
         NULL,
-        'Grzegorzewski',
+        '$argon2id$v=19$m=19456,t=2,p=1$rcKDJ+nrC7qsE+3LCeWqAw$5mdbNlU0speuxxabBpzrIKGAiDMbmd7HO5k8YzChW5Q',
         FALSE,
         1
     );
