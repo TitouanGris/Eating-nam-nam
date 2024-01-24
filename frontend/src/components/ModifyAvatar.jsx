@@ -11,9 +11,8 @@ function ModifyAvatar({ isOpen, setShowModifyAvatar }) {
     pseudo: userInfos.pseudo,
     email: userInfos.email,
     password: userInfos.password,
-    avatar_id: userInfos.avatar_id,
+    avatarId: userInfos.avatar_id,
   });
-
   const [selectedAvatarId, setSelectedAvatarId] = useState(null);
 
   const fetchAvatar = async () => {
@@ -31,24 +30,17 @@ function ModifyAvatar({ isOpen, setShowModifyAvatar }) {
 
   const handleModifyAvatar = async () => {
     try {
-      // console.log(selectedAvatarId);
       if (userInfos && userInfos.id && selectedAvatarId !== null) {
-        setSelectedAvatarId(selectedAvatarId);
-        setUserInfos((prevUserInfos) => ({
-          ...prevUserInfos,
-          avatar_id: selectedAvatarId,
-        }));
-        setNewUser({
-          ...newUser,
+        await axios.put(`http://localhost:3310/api/user/${userInfos.id}`, {
           avatar_id: selectedAvatarId,
         });
-        await axios.put(
-          `http://localhost:3310/api/user/${userInfos.id}`,
-          newUser
-        );
-        setUserInfos({ ...userInfos, avatar_id: selectedAvatarId });
+        // Mettre à jour seulement le champ avatar_id
+        setNewUser.avatar_id(selectedAvatarId);
+        setUserInfos(newUser);
       } else {
-        console.error("User information is undefined.");
+        console.error(
+          "User information is undefined or selectedAvatarId is null."
+        );
       }
     } catch (err) {
       console.error(err);
@@ -56,7 +48,6 @@ function ModifyAvatar({ isOpen, setShowModifyAvatar }) {
       setShowModifyAvatar(false);
     }
   };
-  // console.log(newUser)
 
   return (
     <div className={`modify-modal ${isOpen ? "open" : ""}`}>

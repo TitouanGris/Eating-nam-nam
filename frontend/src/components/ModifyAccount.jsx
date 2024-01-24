@@ -11,6 +11,7 @@ function ModifyAccount({ isOpen, setShowModifyAccount }) {
     pseudo: userInfos.pseudo,
     email: userInfos.email,
     password: userInfos.password,
+    is_admin: userInfos.is_admin,
     avatar_id: userInfos.avatar_id,
   });
 
@@ -26,7 +27,7 @@ function ModifyAccount({ isOpen, setShowModifyAccount }) {
         await axios.put(`http://localhost:3310/api/user/${userInfos.id}`, {
           newUser,
         });
-        // console.log(newUser.pseudo)
+        setNewUser("");
         setUserInfos({ ...userInfos, pseudo: newUser.pseudo });
       } else {
         console.error("User information is undefined.");
@@ -37,7 +38,6 @@ function ModifyAccount({ isOpen, setShowModifyAccount }) {
       setShowModifyAccount(false);
     }
   };
-  // console.log(userInfos);
 
   return (
     <div className={`modify-modal ${isOpen ? "open" : ""}`}>
@@ -63,7 +63,6 @@ function ModifyAccount({ isOpen, setShowModifyAccount }) {
             onChange={(e) => setNewUser({ ...newUser, pseudo: e.target.value })}
           />
         </div>
-
         <button
           type="button"
           onClick={() => {
