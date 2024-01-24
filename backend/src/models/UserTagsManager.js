@@ -25,7 +25,7 @@ class UserTagsManager extends AbstractManager {
 
   async delete(userId, newTags) {
     const [result] = await this.database.query(
-      `DELETE FROM ${this.table} WHERE user_id=${userId} AND tag_id=${newTags}`
+      `DELETE FROM ${this.table} WHERE user_id=${userId} AND tags_id=${newTags}`
     );
     return result;
   }

@@ -106,6 +106,7 @@ router.delete("/user/:id", userControllers.destroy);
 // router.delete("/usertags/:id", userTagsControllers.destroy);
 
 // Route to modify item
+router.put("/user/:id", userControllers.update);
 router.put("/user/:id", userControllers.edit);
 router.put("/usertags", userTagsControllers.update);
 
