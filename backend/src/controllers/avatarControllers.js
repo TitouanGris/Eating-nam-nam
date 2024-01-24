@@ -10,12 +10,16 @@ const browse = async (req, res, next) => {
 };
 
 const add = async (req, res, next) => {
+  // uniquement un admin peut accéder au controlleur d'ajout d'avatar
+  if (!req.auth.isAdmin) {
+    res.sendStatus(403);
+  }
   try {
     const { url } = req.body;
     // TODO : à adapter pour vérif si image existe déjà dans la base
     const existingAvatar = await tables.avatar.readOneAvatar(url);
     if (existingAvatar) {
-      return res.status((400).json({ error: "Cette image existe déjà" }));
+      res.status((400).json({ error: "Cette image existe déjà" }));
     }
     const insertId = await tables.avatar.create(url);
     res.status(201).json({ insertId });
