@@ -7,7 +7,7 @@ const path = require("path");
 const { v4 } = require("uuid"); // todo : npm install nécéssclé aléatoire complexe (npm install nécéssaire)aire ?
 
 const multer = require("multer"); // multer va permettre la gestion des images (npm install nécéssaire)
-
+const { hashPassword, verifyToken } = require("./services/auth");
 // Configuration de notre multer avec les otpions de destinations et de taille
 // cb fonctionne comme next, il fait les choses les unes apres les autres
 const options = multer.diskStorage({
@@ -89,7 +89,7 @@ router.get("/tags/recipe/:id", tagsControllers.readTagsByRecipeId);
 // Route to add a new item
 router.post("/items", itemControllers.add);
 router.post("/recipe", uploadRecipePic.single("image"), recipeControllers.add);
-router.post("/user", userControllers.add);
+router.post("/user", hashPassword, userControllers.add);
 router.post("/comment", commentControllers.add);
 router.post("/useringredients", userIngredientsControllers.add);
 router.post("/usertags", userTagsControllers.add);
@@ -97,10 +97,6 @@ router.post("/favoris", favorisControllers.add);
 
 // Route to delette a favoris
 router.put("/favoris", favorisControllers.destroy);
-
-// Route to upload a single image
-// /!\ le middleware upload.single est lié à l'utilisation de multer (voir en haut de ce fichier)
-router.post("/avatar", uploadAvatar.single("image"), avatarControllers.add);
 
 // Route to authentification
 router.post("/login", authControllers.login);
@@ -114,5 +110,12 @@ router.put("/user/:id", userControllers.edit);
 router.put("/usertags", userTagsControllers.update);
 
 /* ************************************************************************* */
+
+router.use(verifyToken); // mur où il est nécéssaire d'être authentifier pour passer (voir auth.js)
+
+// Route to upload a single image
+// /!\ le middleware upload.single est lié à l'utilisation de multer (voir en haut de ce fichier)
+router.post("/avatar", uploadAvatar.single("image"), avatarControllers.add);
+router.get("/userbytoken", userControllers.getbytoken);
 
 module.exports = router;

@@ -9,6 +9,21 @@ const browse = async (req, res, next) => {
   }
 };
 
+const getbytoken = async (req, res) => {
+  const userinfo = req.auth; // correspond au payload
+  // console.log(userinfo);
+  try {
+    if (userinfo.sub) {
+      const oneUser = await tables.user.getById(userinfo.sub);
+      // console.log(oneUser);
+      res.status(201).json(oneUser);
+    }
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Internal servor error");
+  }
+};
+
 // The A of BREAD - Add (Create) operation
 const add = async (req, res, next) => {
   try {
@@ -79,4 +94,5 @@ module.exports = {
   add,
   edit,
   destroy,
+  getbytoken,
 };
