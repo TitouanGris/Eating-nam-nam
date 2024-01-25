@@ -30,7 +30,9 @@ function UserPage() {
 
   const fetchAvatar = async () => {
     try {
-      const response = await axios.get(`http://localhost:3310/api/avatar`);
+      const response = await axios.get(
+        `${import.meta.env.VITE_BACKEND_URL}/api/avatar`
+      );
       setAvatar(response.data);
     } catch (error) {
       console.error(error);
@@ -40,7 +42,7 @@ function UserPage() {
   const fetchData = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:3310/api/usertags/${userInfos.id}`,
+        `${import.meta.env.VITE_BACKEND_URL}/api/usertags/${userInfos.id}`,
         {
           params: {
             userInfosId: userInfos.id,
@@ -62,7 +64,7 @@ function UserPage() {
   const fetchUserRecipe = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:3310/api/recipes/user/${userInfos.id}`
+        `${import.meta.env.VITE_BACKEND_URL}/api/recipes/user/${userInfos.id}`
       );
       setUserRecipe(response.data);
     } catch (error) {
@@ -88,9 +90,12 @@ function UserPage() {
 
   const confirmDelete = async () => {
     try {
-      await fetch(`http://localhost:3310/api/user/${userInfos.id}`, {
-        method: "DELETE",
-      });
+      await fetch(
+        `${import.meta.env.VITE_BACKEND_URL}/api/user/${userInfos.id}`,
+        {
+          method: "DELETE",
+        }
+      );
       setUserInfos("");
     } catch (err) {
       console.error(err);
@@ -115,12 +120,16 @@ function UserPage() {
         const formData = new FormData();
         formData.append("image", file); // on ajoute des données à notre formData avec append (couple clé, valeur)
         // dans le post, on passe le le formData dans le body pour l'envoyer au back
-        await axios.post("http://localhost:3310/api/avatar", formData, {
-          headers: {
-            "Content-Type": "multipart/form-data",
-            Authorization: `Bearer ${token}`, // Inclusion du jeton JWT
-          },
-        });
+        await axios.post(
+          `${import.meta.env.VITE_BACKEND_URL}/api/avatar`,
+          formData,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+              Authorization: `Bearer ${token}`, // Inclusion du jeton JWT
+            },
+          }
+        );
         fetchAvatar(); // suite au post, on relance la fonction qui permet de fetch les avatars pour ensuite mapper avec le nouvel avatar
       } else {
         console.error("Pas de pièce jointe de renseignée");
@@ -240,7 +249,9 @@ function UserPage() {
                       <img
                         src={
                           r.recipeImage !== "/images/undefined"
-                            ? `http://localhost:3310${r.recipeImage}`
+                            ? `${import.meta.env.VITE_BACKEND_URL}${
+                                r.recipeImage
+                              }`
                             : "/src/assets/images/logo.png"
                         }
                         alt={r.recipeName}

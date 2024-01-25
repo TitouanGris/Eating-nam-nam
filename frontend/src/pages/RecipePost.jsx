@@ -214,7 +214,7 @@ function RecipePost() {
       formData.append("ingredients", JSON.stringify(sumIng));
       formData.append("image", file);
       const response = await axios.post(
-        "http://localhost:3310/api/recipe",
+        `${import.meta.env.VITE_BACKEND_URL}/api/recipe`,
         formData,
         {
           headers: {
@@ -644,7 +644,9 @@ function RecipePost() {
 
 export const loadIngredientsData = async () => {
   try {
-    const ingredientsData = await fetch(`http://localhost:3310/api/ingredient`);
+    const ingredientsData = await fetch(
+      `${import.meta.env.VITE_BACKEND_URL}/api/ingredient`
+    );
     const data = await ingredientsData.json();
     return data;
   } catch (e) {
@@ -655,7 +657,9 @@ export const loadIngredientsData = async () => {
 
 export const loadUnitsData = async () => {
   try {
-    const unitsData = await fetch(`http://localhost:3310/api/unit`);
+    const unitsData = await fetch(
+      `${import.meta.env.VITE_BACKEND_URL}/api/unit`
+    );
     const data = await unitsData.json();
 
     return data;
