@@ -1,5 +1,4 @@
 -- SQLBook: Code
--- SQLBook: Code
 SET NAMES 'utf8mb4';
 
 DROP TABLE IF EXISTS `user_ingredient`;
@@ -60,7 +59,7 @@ CREATE TABLE
         photo_url VARCHAR(255) NULL,
         nb_serving INT NOT NULL,
         validate_recipe BOOL NOT NULL,
-        CONSTRAINT fk_user_recipe FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE CASCADE
+        CONSTRAINT fk_user_recipe FOREIGN KEY (user_id) REFERENCES user(id)
     );
 
 CREATE TABLE
@@ -86,7 +85,7 @@ CREATE TABLE
             ingredient_id,
             unit_id
         ),
-        CONSTRAINT fk_recipe_recipe_ingredient FOREIGN KEY (recipe_id) REFERENCES recipe(id) ON DELETE CASCADE,
+        CONSTRAINT fk_recipe_recipe_ingredient FOREIGN KEY (recipe_id) REFERENCES recipe(id),
         CONSTRAINT fk_ingredient_recipe_ingredient FOREIGN KEY (ingredient_id) REFERENCES ingredient(id),
         CONSTRAINT fk_unit FOREIGN KEY (unit_id) REFERENCES unit(id)
     );
@@ -119,7 +118,7 @@ CREATE TABLE
         recipe_id INT NOT NULL,
         tags_id INT NOT NULL,
         PRIMARY KEY (recipe_id, tags_id),
-        CONSTRAINT fk_recipe_recipe_tags FOREIGN KEY (recipe_id) REFERENCES recipe(id) ON DELETE CASCADE,
+        CONSTRAINT fk_recipe_recipe_tags FOREIGN KEY (recipe_id) REFERENCES recipe(id),
         CONSTRAINT fk_tags_recipe_tags FOREIGN KEY (tags_id) REFERENCES tags(id)
     );
 
@@ -128,7 +127,7 @@ CREATE TABLE
         user_id INT NOT NULL,
         tags_id INT NOT NULL,
         PRIMARY KEY (user_id, tags_id),
-        CONSTRAINT fk_user_user_tags FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE CASCADE,
+        CONSTRAINT fk_user_user_tags FOREIGN KEY (user_id) REFERENCES user(id),
         CONSTRAINT fk_tags_user_tags FOREIGN KEY (tags_id) REFERENCES tags(id)
     );
 
@@ -137,8 +136,8 @@ CREATE TABLE
         user_id INT NOT NULL,
         recipe_id INT NOT NULL,
         PRIMARY KEY (user_id, recipe_id),
-        CONSTRAINT fk_user_favoris FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE CASCADE,
-        CONSTRAINT fk_recipe_favoris FOREIGN KEY (recipe_id) REFERENCES recipe(id) ON DELETE CASCADE
+        CONSTRAINT fk_user_favoris FOREIGN KEY (user_id) REFERENCES user(id),
+        CONSTRAINT fk_recipe_favoris FOREIGN KEY (recipe_id) REFERENCES recipe(id)
     );
 
 CREATE TABLE
@@ -149,8 +148,8 @@ CREATE TABLE
         message TEXT COLLATE utf8mb4_unicode_ci NOT NULL,
         created_date DATETIME NOT NULL DEFAULT NOW(),
         updated_date DATETIME NULL DEFAULT NOW() ON UPDATE CURRENT_TIMESTAMP,
-        CONSTRAINT fk_user_comment FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE CASCADE,
-        CONSTRAINT fk_recipe_comment FOREIGN KEY (recipe_id) REFERENCES recipe(id) ON DELETE CASCADE
+        CONSTRAINT fk_user_comment FOREIGN KEY (user_id) REFERENCES user(id),
+        CONSTRAINT fk_recipe_comment FOREIGN KEY (recipe_id) REFERENCES recipe(id)
     );
 
 CREATE TABLE
@@ -158,7 +157,7 @@ CREATE TABLE
         user_id INT NOT NULL,
         ingredient_id INT NOT NULL,
         PRIMARY KEY (user_id, ingredient_id),
-        CONSTRAINT fk_user_user_ingredient FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE CASCADE,
+        CONSTRAINT fk_user_user_ingredient FOREIGN KEY (user_id) REFERENCES user(id),
         CONSTRAINT fk_ingredient_user_ingredient FOREIGN KEY (ingredient_id) REFERENCES ingredient(id)
     );
 /* ------------------ ICI LES INSERT ------------------- */
@@ -185,7 +184,7 @@ VALUES (
         'user1@email.com',
         '2023-01-01',
         NULL,
-        '$argon2id$v=19$m=65536,t=3,p=4$vPAXqkUl/kibExzPOPIVZg$CeDZ1m4J4Q4zK4DO/zAszcCNq6QBYiDj/iNd4ZoAHh4',
+        '$argon2id$v=19$m=19456,t=2,p=1$rcKDJ+nrC7qsE+3LCeWqAw$5mdbNlU0speuxxabBpzrIKGAiDMbmd7HO5k8YzChW5Q',
         TRUE,
         1
     ), (
@@ -193,7 +192,7 @@ VALUES (
         'user2@email.com',
         '2023-01-02',
         NULL,
-        '$argon2id$v=19$m=65536,t=3,p=4$vPAXqkUl/kibExzPOPIVZg$CeDZ1m4J4Q4zK4DO/zAszcCNq6QBYiDj/iNd4ZoAHh4',
+        '$argon2id$v=19$m=19456,t=2,p=1$rcKDJ+nrC7qsE+3LCeWqAw$5mdbNlU0speuxxabBpzrIKGAiDMbmd7HO5k8YzChW5Q',
         TRUE,
         1
     ), (
@@ -201,7 +200,7 @@ VALUES (
         'admin1@email.com',
         '2023-01-03',
         NULL,
-        '$argon2id$v=19$m=65536,t=3,p=4$vPAXqkUl/kibExzPOPIVZg$CeDZ1m4J4Q4zK4DO/zAszcCNq6QBYiDj/iNd4ZoAHh4',
+        '$argon2id$v=19$m=19456,t=2,p=1$rcKDJ+nrC7qsE+3LCeWqAw$5mdbNlU0speuxxabBpzrIKGAiDMbmd7HO5k8YzChW5Q',
         TRUE,
         1
     ), (
@@ -209,7 +208,7 @@ VALUES (
         'user3@email.com',
         '2023-01-04',
         NULL,
-        '$argon2id$v=19$m=65536,t=3,p=4$vPAXqkUl/kibExzPOPIVZg$CeDZ1m4J4Q4zK4DO/zAszcCNq6QBYiDj/iNd4ZoAHh4',
+        '$argon2id$v=19$m=19456,t=2,p=1$rcKDJ+nrC7qsE+3LCeWqAw$5mdbNlU0speuxxabBpzrIKGAiDMbmd7HO5k8YzChW5Q',
         TRUE,
         1
     ), (
@@ -217,7 +216,7 @@ VALUES (
         'user4@email.com',
         '2023-01-05',
         NULL,
-        '$argon2id$v=19$m=65536,t=3,p=4$vPAXqkUl/kibExzPOPIVZg$CeDZ1m4J4Q4zK4DO/zAszcCNq6QBYiDj/iNd4ZoAHh4',
+        '$argon2id$v=19$m=19456,t=2,p=1$rcKDJ+nrC7qsE+3LCeWqAw$5mdbNlU0speuxxabBpzrIKGAiDMbmd7HO5k8YzChW5Q',
         TRUE,
         1
     ), (
@@ -225,7 +224,7 @@ VALUES (
         'admin2@email.com',
         '2023-01-06',
         NULL,
-        '$argon2id$v=19$m=65536,t=3,p=4$vPAXqkUl/kibExzPOPIVZg$CeDZ1m4J4Q4zK4DO/zAszcCNq6QBYiDj/iNd4ZoAHh4',
+        '$argon2id$v=19$m=19456,t=2,p=1$rcKDJ+nrC7qsE+3LCeWqAw$5mdbNlU0speuxxabBpzrIKGAiDMbmd7HO5k8YzChW5Q',
         FALSE,
         1
     ), (
@@ -233,7 +232,7 @@ VALUES (
         'user5@email.com',
         '2023-01-07',
         NULL,
-        '$argon2id$v=19$m=65536,t=3,p=4$vPAXqkUl/kibExzPOPIVZg$CeDZ1m4J4Q4zK4DO/zAszcCNq6QBYiDj/iNd4ZoAHh4',
+        '$argon2id$v=19$m=19456,t=2,p=1$rcKDJ+nrC7qsE+3LCeWqAw$5mdbNlU0speuxxabBpzrIKGAiDMbmd7HO5k8YzChW5Q',
         FALSE,
         1
     );
@@ -257,7 +256,7 @@ VALUES (
         NULL,
         '/images/Recette 1.jpg',
         4,
-        false
+        true
     ), (
         2,
         'Poulet au Curry',
@@ -275,7 +274,7 @@ VALUES (
         NULL,
         '/images/Recette 3.jpg',
         2,
-        false
+        true
     ), (
         4,
         'Riz Frit aux Légumes',
@@ -284,7 +283,7 @@ VALUES (
         NULL,
         '/images/Recette 4.jpg',
         4,
-        false
+        true
     ), (
         5,
         'Pizza Margherita',

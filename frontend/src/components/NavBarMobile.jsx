@@ -1,7 +1,8 @@
-import { NavLink, useLocation } from "react-router-dom";
-import { useContext } from "react";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
+import { useContext, useState } from "react";
 import PropTypes from "prop-types";
 import FiltersContext from "../context/FiltersContext";
+import Connexion from "./Connexion";
 import { useUser } from "../context/UserContext";
 
 function NavBarMobile({ setFavoriteMobileisActive }) {
@@ -11,9 +12,11 @@ function NavBarMobile({ setFavoriteMobileisActive }) {
   // };
 
   const { pathname } = useLocation();
-  const pagesWithoutAcceuil = ["/browse"];
+  // const pagesWithoutAcceuil = ["/browse"];
   const pagesWithoutFilter = ["/publish"];
 
+  const [connexion, setConnexion] = useState(false);
+  const navigate = useNavigate();
   const {
     setFilterCountry,
     setFilterDifficulty,
@@ -23,7 +26,7 @@ function NavBarMobile({ setFavoriteMobileisActive }) {
     setFilterType,
   } = useContext(FiltersContext);
 
-  const { userInfos } = useUser();
+  const { userInfos, setFavorisBtn } = useUser();
 
   function handleClick() {
     setFavoriteMobileisActive((current) => !current);
@@ -36,40 +39,66 @@ function NavBarMobile({ setFavoriteMobileisActive }) {
     setFilterRegime([]);
     setFilterCountry([]);
     setFilterType([]);
+    navigate("/publish");
   };
   return (
     <div className="navBarMobile">
-      <NavLink to="/browse">
-        <button
-          disabled={pagesWithoutAcceuil.includes(pathname)}
-          type="button"
-          className="home_button"
-        >
-          <img alt="home" src="/src/assets/images/home.png" />
-          <p>Accueil</p>
-        </button>
-      </NavLink>
-      <NavLink to="/publish" onClick={handlePublish}>
-        <button type="button" className="publish_button">
-          <img alt="publish" src="/add.png" />
-          <p>Publier</p>
-        </button>
-      </NavLink>
+      <button
+        // disabled={pagesWithoutAcceuil.includes(pathname)}
+        type="button"
+        className="home_button"
+        onClick={() => {
+          setFavorisBtn(false);
+          navigate("/browse");
+        }}
+      >
+        <img alt="home" src="/src/assets/images/home.png" />
+        <p>Accueil</p>
+      </button>
 
       {userInfos.pseudo ? (
-        <NavLink to="/account">
-          <div className="account-link">
-            <img src="/account.png" alt="user-page" />
-            <p>{userInfos.pseudo}</p>
-          </div>
-        </NavLink>
+        <>
+          <NavLink to="/account">
+            <div className="account-link">
+              <img src="src/assets/images/account.png" alt="user-page" />
+              <p>{userInfos.pseudo}</p>
+            </div>
+          </NavLink>
+
+          <button
+            onClick={handlePublish}
+            type="button"
+            className="publish_button"
+          >
+            <img alt="publish" src="./src/assets/images/add.png" />
+            <p>Publier</p>
+          </button>
+
+          <button
+            className="text"
+            type="button"
+            onClick={() => {
+              setFavorisBtn(true);
+              navigate("/browse");
+            }}
+          >
+            <img alt="publish" src="./src/assets/images/heartfill.png" />
+            <p>Favoris</p>
+          </button>
+        </>
       ) : (
-        <NavLink to="/signin">
-          <div className="account-link">
-            <img src="/account.png" alt="user-page" />
-            <p>Créer un compte</p>
-          </div>
-        </NavLink>
+        <div className="account-link">
+          <img
+            type="button"
+            aria-hidden
+            onClick={() => {
+              setConnexion(!connexion);
+            }}
+            src="src/assets/images/account.png"
+            alt="user-page"
+          />
+          <p>Connexion</p>
+        </div>
       )}
       <button
         type="button"
@@ -80,11 +109,10 @@ function NavBarMobile({ setFavoriteMobileisActive }) {
         <img alt="filters" src="/src/assets/images/settings.png" />
         <p>Filtres</p>
       </button>
-      {/* </NavLink> */}
-      {/* <button type="button" disabled={!isConnected} className="favorite_button">
-        <img alt="favorite" src="./src/assets/images/heartFill.png" />
-        <p>Favoris</p>
-      </button> */}
+
+      {connexion && (
+        <Connexion connexion={connexion} setConnexion={setConnexion} />
+      )}
     </div>
   );
 }

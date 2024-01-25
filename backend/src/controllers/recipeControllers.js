@@ -114,6 +114,56 @@ const read = async (req, res, next) => {
     next(err);
   }
 };
+const readUserRecipe = async (req, res, next) => {
+  try {
+    // Fetch all items from the database
+    const recipes = await tables.recipe.readUserRecipe(req.params.id);
+
+    const recipesArray = [];
+
+    let recipeTemp = {};
+
+    recipes.forEach((recipe) => {
+      const foundIndex = recipesArray.findIndex(
+        (r) => r.recipeId.toString() === recipe.recipeId.toString()
+      );
+
+      if (foundIndex >= 0) {
+        if (recipesArray[foundIndex][recipe.categoryName] !== undefined) {
+          recipesArray[foundIndex][recipe.categoryName].push({
+            tagName: recipe.tagName,
+            tagUrl: recipe.tagUrl,
+          });
+        } else {
+          recipesArray[foundIndex][recipe.categoryName] = [];
+          recipesArray[foundIndex][recipe.categoryName].push({
+            tagName: recipe.tagName,
+            tagUrl: recipe.tagUrl,
+          });
+        }
+      } else {
+        recipeTemp = { ...recipe };
+        recipeTemp.recipeImage = recipe.photo_url;
+        recipeTemp.recipeServing = recipe.nb_serving;
+
+        recipeTemp[recipe.categoryName] = [];
+        recipeTemp[recipe.categoryName].push({
+          tagName: recipe.tagName,
+          tagUrl: recipe.tagUrl,
+        });
+
+        delete recipeTemp.categoryName;
+        delete recipeTemp.photo_url;
+        delete recipeTemp.nb_serving;
+        recipesArray.push(recipeTemp);
+      }
+    });
+
+    res.status(200).json(recipesArray);
+  } catch (err) {
+    next(err);
+  }
+};
 
 const add = async (req, res, next) => {
   const { recipe, tags, ingredients, steps, url } = req.body;
@@ -152,4 +202,5 @@ module.exports = {
   validateRecipe,
   read,
   add,
+  readUserRecipe,
 };

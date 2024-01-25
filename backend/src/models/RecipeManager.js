@@ -60,6 +60,21 @@ class RecipeManager extends AbstractManager {
     return result;
   }
 
+  async readUserRecipe(userId) {
+    const [result] = await this.database.query(
+      `SELECT r.id as recipeId, r.name as recipeName, r.nb_serving, r.summary, r.validate_recipe, r.photo_url,
+       t.id, t.category_id, t.name as tagName, t.image_url as tagUrl, category.name as categoryName FROM
+      recipe_tags rt
+    JOIN  ${this.table} r ON rt.recipe_id = r.id
+    JOIN tags t ON t.id = rt.tags_id
+    JOIN category ON t.category_id=category.id
+    WHERE r.user_id=?`,
+      [userId]
+    );
+
+    return result;
+  }
+
   // Return the array of items
 
   async create({ recipe, tags, ingredients, steps, recipeImage }) {

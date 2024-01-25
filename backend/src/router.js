@@ -85,6 +85,7 @@ router.get("/items/:id", itemControllers.read);
 router.get("/user/:id", userControllers.read);
 router.get("/recipe/:id", recipeControllers.read);
 router.get("/step/:id", stepControllers.readSteps);
+router.get("/recipes/user/:id", recipeControllers.readUserRecipe);
 router.get("/ingredients/:id", ingredientControllers.readIngredientsByRecipeId);
 router.get("/tags/recipe/:id", tagsControllers.readTagsByRecipeId);
 
@@ -105,9 +106,10 @@ router.post("/login", authControllers.login);
 
 // Route to delete item
 router.delete("/user/:id", userControllers.destroy);
-// router.delete("/usertags/:id", userTagsControllers.destroy);
+router.delete("/usertags/:id", userTagsControllers.destroy);
 
 // Route to modify item
+router.put("/user/:id", userControllers.update);
 router.put("/user/:id", userControllers.edit);
 router.put("/usertags", userTagsControllers.update);
 router.put("/recipe/:id/validate", recipeControllers.validateRecipe);

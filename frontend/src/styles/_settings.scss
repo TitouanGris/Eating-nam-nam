@@ -9,7 +9,7 @@
 html,
 body,
 :root {
-  min-height: 100vh;
+  // min-height: 100vh;
   overflow-x: hidden;
   overflow-y: scroll;
 }
@@ -97,14 +97,14 @@ body,
   html,
   body,
   :root {
-    overflow-y: auto;
+    overflow-y: hidden;
   }
 
   .button1 {
     border-radius: 20px;
     width: 15vw;
     height: 5vh;
-    font-size: 1em;
+
     font-family: var(--font-family);
     margin-bottom: 15px;
 
