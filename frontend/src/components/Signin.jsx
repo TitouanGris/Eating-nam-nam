@@ -50,24 +50,13 @@ function Signin({ inscription, setInscription, btnSignIn, setBtnSignIn }) {
           inputEmail: newUser.email,
           inputPassword: newUser.password,
         });
-        setUserInfos(res2.data);
+        setUserInfos(res2.data.user);
         setSubmittedUser([...submittedUser, newUser]);
         setNewUser({ pseudo: "", email: "", password: "" });
         setSuccessMessage(
-          `Félicitations ${res2.data.pseudo}, votre compte a bien été créé !`
+          `Félicitations ${res2.data.user.pseudo}, votre compte a bien été créé !`
         );
-        localStorage.setItem(
-          "user",
-          JSON.stringify({
-            id: res2.data.id,
-            pseudo: res2.data.pseudo,
-            is_admin: res2.data.is_admin,
-            email: res2.email,
-            created_date: res2.data.created_date,
-            updated_date: res2.data.updated_date,
-            image_url: res2.data.image_url,
-          })
-        );
+        localStorage.setItem("token", res2.data.token);
         handleSignIn();
       } catch (err) {
         console.error(err);
