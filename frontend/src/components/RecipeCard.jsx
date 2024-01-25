@@ -95,7 +95,7 @@ function RecipeCard({ r }) {
       <div className="imgContainer">
         <img
           src={
-            r.recipeImage
+            r.recipeImage !== "/images/undefined"
               ? `http://localhost:3310${r.recipeImage}`
               : "/src/assets/images/logo.png"
           }

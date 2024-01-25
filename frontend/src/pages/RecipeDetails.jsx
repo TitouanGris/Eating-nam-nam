@@ -70,7 +70,7 @@ function RecipeDetails() {
   return (
     <div className="recipeDetails">
       <div className="recipeDetailsHeader">
-        <Link to="/browse">
+        <Link to={-1}>
           <img src="/src/assets/images/back.png" alt="Back Arrow" />
         </Link>
         <h2>{recipe.recipeName}</h2>
@@ -78,7 +78,7 @@ function RecipeDetails() {
       <div className="imgContainer">
         <img
           src={
-            recipe.recipeImage
+            recipe.recipeImage !== "/images/undefined"
               ? `http://localhost:3310${recipe.recipeImage}`
               : "/src/assets/images/logo.png"
           }

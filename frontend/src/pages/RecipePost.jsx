@@ -4,9 +4,11 @@ import axios from "axios";
 import Input from "../components/Input";
 import Button from "../components/Button";
 import PostModal from "../components/PostModal";
+import { useUser } from "../context/UserContext";
 
 function RecipePost() {
   const { filters, ingredients, units } = useLoaderData();
+  const { userInfos } = useUser();
 
   const [persons, setPersons] = useState(0);
   const [ingValue, setIngValue] = useState("");
@@ -21,10 +23,10 @@ function RecipePost() {
   const [previewURL, setPreviewURL] = useState(null);
   const [toPostRecipe, setToPostRecipe] = useState({
     recipe_name: "",
-    user_id: 1,
+    user_id: userInfos.id,
     summary: "",
     nb_serving: persons,
-    validateRecipe: true,
+    validateRecipe: false,
     photoUrl: file,
   });
   const [toPostTags, setToPostTags] = useState({

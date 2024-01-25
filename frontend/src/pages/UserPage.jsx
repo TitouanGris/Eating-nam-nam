@@ -1,6 +1,6 @@
 import { useState, useContext, useEffect } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { useUser } from "../context/UserContext";
 import ConfirmModal from "../components/ConfirmModal";
 import ModifyAccount from "../components/ModifyAccount";
@@ -18,6 +18,7 @@ function UserPage() {
   const [modal, setModal] = useState(false);
   const [showModifyAccount, setShowModifyAccount] = useState(false);
   const [preferences, setPreferences] = useState([]);
+  const [userRecipe, setUserRecipe] = useState([]);
 
   const [showModifyPreferences, setShowModifyPreferences] = useState(false);
   const navigate = useNavigate();
@@ -57,6 +58,21 @@ function UserPage() {
       console.error(error);
     }
   };
+
+  const fetchUserRecipe = async () => {
+    try {
+      const response = await axios.get(
+        `http://localhost:3310/api/recipes/user/${userInfos.id}`
+      );
+      setUserRecipe(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    fetchUserRecipe();
+  }, [userInfos.id]);
 
   useEffect(() => {
     fetchAvatar();
@@ -201,10 +217,41 @@ function UserPage() {
             </div>
           </div>
         </div>
-        <div>
+        <div className="userRecipeBox">
           <div className="separationBarre" />
           <h2>Mes recettes ajoutées</h2>
           <p> Toutes mes recettes ajoutées affichées ici</p>
+          <div className="userRecipe">
+            {userRecipe.map((r) => {
+              return (
+                <Link
+                  key={r.recipeId}
+                  to={`/recipe/${r.recipeId}`}
+                  style={{ color: "inherit", textDecoration: "inherit" }}
+                >
+                  <div
+                    className={
+                      r.validate_recipe
+                        ? "userRecipeCard"
+                        : "userRecipeCard notValidateRecipe"
+                    }
+                  >
+                    <div className="imgBox">
+                      <img
+                        src={
+                          r.recipeImage !== "/images/undefined"
+                            ? `http://localhost:3310${r.recipeImage}`
+                            : "/src/assets/images/logo.png"
+                        }
+                        alt={r.recipeName}
+                      />
+                    </div>
+                    <p>{r.recipeName}</p>
+                  </div>
+                </Link>
+              );
+            })}
+          </div>
         </div>
       </div>
       <div className="delete-button">
