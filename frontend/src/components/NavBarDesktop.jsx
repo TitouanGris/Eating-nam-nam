@@ -57,7 +57,7 @@ function NavBarDesktop() {
   return (
     <div className="navBarDesktop">
       <div className="logo">
-        <img src="/src/assets/images/logo.png" alt="" />
+        <img src="/logo.png" alt="" />
       </div>
       <div className="lien">
         <div className="lien1">

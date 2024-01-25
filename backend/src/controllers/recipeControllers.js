@@ -53,6 +53,17 @@ const browse = async (req, res, next) => {
     next(err);
   }
 };
+
+const adminBrowse = async (req, res, next) => {
+  try {
+    const recipes = await tables.recipe.readAllPendingRecipes();
+
+    res.status(200).json(recipes);
+  } catch (err) {
+    next(err);
+  }
+};
+
 const read = async (req, res, next) => {
   try {
     // Fetch all items from the database
@@ -157,7 +168,7 @@ const readUserRecipe = async (req, res, next) => {
 const add = async (req, res, next) => {
   const { recipe, tags, ingredients, steps, url } = req.body;
   try {
-    const recipeResult = await tables.recipe.create({
+    const insertId = await tables.recipe.create({
       recipe: JSON.parse(recipe),
       tags: JSON.parse(tags),
       ingredients: JSON.parse(ingredients),
@@ -165,7 +176,21 @@ const add = async (req, res, next) => {
       recipeImage: `/images/${url}`,
     });
 
-    res.status(201).json({ recipeId: recipeResult.insertId });
+    res.status(201).json({ insertId });
+  } catch (err) {
+    next(err);
+  }
+};
+
+const validateRecipe = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const result = await tables.recipe.validate(id);
+    if (result.affectedRows === 0) {
+      res.sendStatus(404);
+    } else {
+      res.status(200).json(result.insertId);
+    }
   } catch (err) {
     next(err);
   }
@@ -173,6 +198,8 @@ const add = async (req, res, next) => {
 
 module.exports = {
   browse,
+  adminBrowse,
+  validateRecipe,
   read,
   add,
   readUserRecipe,

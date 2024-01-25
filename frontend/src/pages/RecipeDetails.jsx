@@ -1,6 +1,7 @@
-import { useLoaderData, useParams, Link } from "react-router-dom";
+import { useLoaderData, useParams, Link, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import Button from "../components/Button";
 import { useUser } from "../context/UserContext";
 
 function RecipeDetails() {
@@ -11,6 +12,7 @@ function RecipeDetails() {
   const [comments, setComments] = useState([]);
   const [newComment, setNewComment] = useState("");
   const { id } = useParams();
+  const navigate = useNavigate();
 
   const options = {
     weekday: "long",
@@ -27,6 +29,10 @@ function RecipeDetails() {
 
   const { userInfos } = useUser();
 
+  useEffect(() => {
+    console.info(userInfos);
+  }, [userInfos]);
+
   async function postComment(event) {
     event.preventDefault();
 
@@ -41,6 +47,15 @@ function RecipeDetails() {
           fetchComments();
           setNewComment("");
         });
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
+  async function validateRecipe(recipeId) {
+    try {
+      await axios.put(`http://localhost:3310/api/recipe/${recipeId}/validate`);
+      navigate("/account/admin");
     } catch (err) {
       console.error(err);
     }
@@ -70,10 +85,21 @@ function RecipeDetails() {
   return (
     <div className="recipeDetails">
       <div className="recipeDetailsHeader">
-        <Link to={-1}>
-          <img src="/src/assets/images/back.png" alt="Back Arrow" />
-        </Link>
-        <h2>{recipe.recipeName}</h2>
+        <div className="recipeName">
+          <Link to={-1}>
+            <img src="/src/assets/images/back.png" alt="Back Arrow" />
+          </Link>
+          <h2>{recipe.recipeName}</h2>
+        </div>
+        {userInfos.is_admin === 1 && recipe.validate_recipe === 0 && (
+          <div className="validate_button">
+            <Button
+              label="Valider cette recette"
+              className="buttonGreen"
+              onClick={() => validateRecipe(id)}
+            />
+          </div>
+        )}
       </div>
       <div className="imgContainer">
         <img
@@ -144,7 +170,7 @@ function RecipeDetails() {
         <div className="comments">
           <h3>L'avis des gourmands</h3>
           {comments.map((comment) => (
-            <div>
+            <div key={comment.commentId}>
               <p className="comment_pseudo">{comment.pseudo}</p>
               <p>{comment.message}</p>
               <p className="comment_date">
@@ -168,7 +194,7 @@ function RecipeDetails() {
               value={newComment}
             />
             <button className="button1" type="submit">
-              Valider{" "}
+              Commenter{" "}
             </button>
           </form>
         </div>
