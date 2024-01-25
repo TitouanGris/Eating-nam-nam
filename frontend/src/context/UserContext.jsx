@@ -35,19 +35,16 @@ export function UserProvider({ children }) {
         }
       );
       setUserInfos(res.data);
-
       if (userInfos) {
         // get pour récupérer les préférences utilisations de la DB avec le user ID
         try {
           const res2 = await axios.get(
-            `http://localhost:3310/api/usertags/${res.data.id}`
+            `${import.meta.env.VITE_BACKEND_URL}/api/usertags/${res.data.id}`
           );
-
           const regimeTable = [];
           const countryTable = [];
           const priceTable = [];
           const difficultyTable = [];
-
           res2.data.result.forEach((e) => {
             if (e.category_id === 1) {
               priceTable.push(e.name);
@@ -62,7 +59,6 @@ export function UserProvider({ children }) {
               difficultyTable.push(e.name);
             }
           });
-
           setFilterRegime(regimeTable);
           localStorage.setItem("regimeTable", JSON.stringify(regimeTable));
           setFilterCountry(countryTable);
@@ -77,22 +73,17 @@ export function UserProvider({ children }) {
         } catch (error) {
           console.error(error);
         }
-
         // get pour récupérer la table favoris à jour de la DB avec le user ID
         try {
           const favorisDb = await axios.get(
-            `http://localhost:3310/api/favoris/${res.data.id}`
+            `${import.meta.env.VITE_BACKEND_URL}/api/favoris/${res.data.id}`
           );
-
           setFavorisTable(favorisDb.data);
-
           localStorage.setItem("favoris", JSON.stringify(favorisDb.data));
         } catch (error) {
           console.error(error);
         }
       }
-
-      // setUserInfos
     }
   }
 

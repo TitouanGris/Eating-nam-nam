@@ -20,7 +20,7 @@ class UserManager extends AbstractManager {
 
   async update(pseudo, email, hashedPassword, isAdmin, imageUrl, id) {
     const [result] = await this.database.query(
-      `UPDATE ${this.table} SET (pseudo = ?, email = ?, hashed_password = ?, is_admin = ?, image_url = ? ) WHERE id = ? `,
+      `UPDATE ${this.table} SET pseudo = ?, email = ?, hashed_password = ?, is_admin = ?, image_url = ?  WHERE id = ? `,
       [pseudo, email, hashedPassword, isAdmin, imageUrl, id]
     );
 
@@ -36,8 +36,19 @@ class UserManager extends AbstractManager {
     return result;
   }
 
+  async editAvatar(id, newUser) {
+    console.info("edit avatar manager");
+    console.info(newUser);
+    const [result] = await this.database.query(
+      `UPDATE ${this.table} SET avatar_id = ? WHERE id = ?`,
+      [newUser.avatar_id, id]
+    );
+
+    return result;
+  }
   // on cherche le user par son adresse e-mail pour renvoyer toutes ses infos (pour ensuite vérifier le mdp et si ok renvoyer les infos users vers le front)
   // on join notre table user avec la table avatar pour récupérer l'avatar choisi par le user
+
   async getByMail(email) {
     const [result] = await this.database.query(
       `SELECT u.id as id, u.pseudo, u.email, u.hashed_password, u.created_date, u.updated_date, u.is_admin, u.avatar_id as avatarId, a.image_url
@@ -46,7 +57,6 @@ class UserManager extends AbstractManager {
       WHERE email = ?`,
       [email]
     );
-
     return result[0];
   }
 
@@ -76,8 +86,8 @@ class UserManager extends AbstractManager {
   async readOneUser(newUser) {
     const [result] = await this.database.query(
       `SELECT * FROM ${this.table}
-       WHERE pseudo = ? OR email = ? OR id=?`,
-      [newUser.pseudo, newUser.email, newUser.id]
+       WHERE pseudo = ? OR email = ? OR avatar_id = ? OR id=?`,
+      [newUser.pseudo, newUser.email, newUser.avatarId, newUser.id]
     );
     return result[0];
   }

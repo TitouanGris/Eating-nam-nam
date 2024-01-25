@@ -7,7 +7,9 @@ import { useUser } from "../context/UserContext";
 
 export const loadRecipeData = async () => {
   try {
-    const RecipeData = await fetch("http://localhost:3310/api/recipe");
+    const RecipeData = await fetch(
+      `${import.meta.env.VITE_BACKEND_URL}/api/recipe`
+    );
     const data = await RecipeData.json();
     return data;
   } catch (e) {

@@ -19,9 +19,17 @@ function Regime({ successMessage }) {
 
   const { userInfos } = useUser();
 
-  const { filterRegimeId, filterPriceId, filterCountryId, filterDifficultyId } =
-    useContext(FiltersContext);
+  const {
+    filterRegimeId,
+    filterPriceId,
+    filterCountryId,
+    filterDifficultyId,
+    filterRegime,
+  } = useContext(FiltersContext);
 
+  // const [selectedPreferences, setSelectedPreferences] = useState();
+
+  console.info(filterRegimeId, filterRegime);
   // on récupère les données en important le loader filter
   async function loadData() {
     const filter = await loadFiltersData();
@@ -63,7 +71,36 @@ function Regime({ successMessage }) {
         (acc, currentArray) => acc.concat(currentArray),
         []
       );
-      await axios.post("http://localhost:3310/api/usertags", {
+      // const token = localStorage.getItem("token");
+
+      // console.info(filterIdChosenReduced);
+
+      // const isPreferenceSelected = filterIdChosenReduced.filter((i) => {
+      //   // Utilisez simplement 'includes' pour vérifier si r.recipeId est dans favorisTable
+      //   return selectedPreferences.includes(i);
+      // });
+
+      // console.info(isPreferenceSelected);
+
+      // if (isPreferenceSelected) {
+      //   // faire une condition quand le user clique sur une preference verifier si cette preference existe dans la table user_tags
+      //   // si oui : faire une requete pour delete id du tags cliqué
+      //   // on delete dans la table user_tags
+      //   await axios.delete(
+      //     `http://localhost:3310/api/usertags/${selectedPreferences}`,
+      //     {
+      //       data: {
+      //         userInfosId: userInfos.id,
+      //         filterIdChosenReduced,
+      //         headers: {
+      //           "Content-Type": "application/json",
+      //           Authorization: `Bearer ${token}`, // Inclusion du jeton JWT
+      //         },
+      //       },
+      //     }
+      //   );
+      // } else {
+      await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/usertags`, {
         // on INSERT dans la DB avec les infos saisies
         userInfosId: userInfos.id,
         filterIdChosenReduced,
@@ -86,7 +123,10 @@ function Regime({ successMessage }) {
           <p>Sélectionner vos préférences (si vous en avez)</p>
 
           <div className="regimeTag">
-            <FilterRegime regimeTag={regimeTag} />
+            <FilterRegime
+              regimeTag={regimeTag}
+              // setSelectedPreferences={setSelectedPreferences}
+            />
           </div>
 
           <div className="CountryTag">

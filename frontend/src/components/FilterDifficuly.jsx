@@ -45,12 +45,16 @@ function FilterDifficuly({ difficultyTag }) {
               label={
                 filterDifficulty.includes(tag.name) ? (
                   <img
-                    src={`http://localhost:3310/images/chef${tag.id}active.png`}
+                    src={`${import.meta.env.VITE_BACKEND_URL}/images/chef${
+                      tag.id
+                    }active.png`}
                     alt={`Difficulté ${tag.id}`}
                   />
                 ) : (
                   <img
-                    src={`http://localhost:3310/images/chef${tag.id}.png`}
+                    src={`${import.meta.env.VITE_BACKEND_URL}/images/chef${
+                      tag.id
+                    }.png`}
                     alt={`Difficulté ${tag.id - 14}`}
                   />
                 )

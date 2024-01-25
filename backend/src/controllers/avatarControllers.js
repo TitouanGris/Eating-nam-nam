@@ -11,6 +11,8 @@ const browse = async (req, res, next) => {
 
 const add = async (req, res, next) => {
   // uniquement un admin peut accéder au controlleur d'ajout d'avatar
+  console.info("admin token ?");
+  console.info(req.auth.isAdmin);
   if (!req.auth.isAdmin) {
     res.sendStatus(403);
   }

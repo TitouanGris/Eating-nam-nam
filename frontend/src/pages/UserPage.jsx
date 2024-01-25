@@ -1,6 +1,6 @@
 import { useState, useContext, useEffect } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { useUser } from "../context/UserContext";
 import ConfirmModal from "../components/ConfirmModal";
 import ModifyAccount from "../components/ModifyAccount";
@@ -18,14 +18,16 @@ function UserPage() {
   const [modal, setModal] = useState(false);
   const [showModifyAccount, setShowModifyAccount] = useState(false);
   const [preferences, setPreferences] = useState([]);
+  const [userRecipe, setUserRecipe] = useState([]);
 
   const [showModifyPreferences, setShowModifyPreferences] = useState(false);
-
   const navigate = useNavigate();
 
   const fetchAvatar = async () => {
     try {
-      const response = await axios.get(`http://localhost:3310/api/avatar`);
+      const response = await axios.get(
+        `${import.meta.env.VITE_BACKEND_URL}/api/avatar`
+      );
       setAvatar(response.data);
     } catch (error) {
       console.error(error);
@@ -41,7 +43,7 @@ function UserPage() {
   const fetchData = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:3310/api/usertags/${userInfos.id}`,
+        `${import.meta.env.VITE_BACKEND_URL}/api/usertags/${userInfos.id}`,
         {
           params: {
             userInfosId: userInfos.id,
@@ -60,6 +62,21 @@ function UserPage() {
     }
   };
 
+  const fetchUserRecipe = async () => {
+    try {
+      const response = await axios.get(
+        `${import.meta.env.VITE_BACKEND_URL}/api/recipes/user/${userInfos.id}`
+      );
+      setUserRecipe(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    fetchUserRecipe();
+  }, [userInfos.id]);
+
   useEffect(() => {
     fetchAvatar();
     fetchData();
@@ -74,9 +91,12 @@ function UserPage() {
 
   const confirmDelete = async () => {
     try {
-      await fetch(`http://localhost:3310/api/user/${userInfos.id}`, {
-        method: "DELETE",
-      });
+      await fetch(
+        `${import.meta.env.VITE_BACKEND_URL}/api/user/${userInfos.id}`,
+        {
+          method: "DELETE",
+        }
+      );
       setUserInfos("");
     } catch (err) {
       console.error(err);
@@ -93,26 +113,30 @@ function UserPage() {
   };
 
   const submit = async (event) => {
-    event.preventDefault();
-    if (file) {
-      // le formData permet de passer une image dans le body
-      const formData = new FormData();
-      formData.append("image", file); // on ajoute des données à notre formData avec append (couple clé, valeur)
-
-      // dans le post, on passe le le formData dans le body pour l'envoyer au back
-      await axios.post("http://localhost:3310/api/avatar", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-          Authorization: `Bearer ${userInfos.token}`, // Inclusion du jeton JWT
-        },
-      });
-
-      fetchAvatar(); // suite au post, on relance la fonction qui permet de fetch les avatars pour ensuite mapper avec le nouvel avatar
-    } else {
-      console.error("Pas de pièce jointe de renseignée");
+    const token = localStorage.getItem("token");
+    if (token) {
+      event.preventDefault();
+      if (file) {
+        // le formData permet de passer une image dans le body
+        const formData = new FormData();
+        formData.append("image", file); // on ajoute des données à notre formData avec append (couple clé, valeur)
+        // dans le post, on passe le le formData dans le body pour l'envoyer au back
+        await axios.post(
+          `${import.meta.env.VITE_BACKEND_URL}/api/avatar`,
+          formData,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+              Authorization: `Bearer ${token}`, // Inclusion du jeton JWT
+            },
+          }
+        );
+        fetchAvatar(); // suite au post, on relance la fonction qui permet de fetch les avatars pour ensuite mapper avec le nouvel avatar
+      } else {
+        console.error("Pas de pièce jointe de renseignée");
+      }
     }
   };
-
   return (
     <div className="user-container">
       <h1>Mon compte</h1>
@@ -161,7 +185,7 @@ function UserPage() {
             </button>
             {showModifyPreferences && (
               <div>
-                <Regime setPreferences={setPreferences} />
+                <Regime />
               </div>
             )}
           </div>
@@ -203,10 +227,43 @@ function UserPage() {
             </div>
           </div>
         </div>
-        <div>
+        <div className="userRecipeBox">
           <div className="separationBarre" />
           <h2>Mes recettes ajoutées</h2>
           <p> Toutes mes recettes ajoutées affichées ici</p>
+          <div className="userRecipe">
+            {userRecipe.map((r) => {
+              return (
+                <Link
+                  key={r.recipeId}
+                  to={`/recipe/${r.recipeId}`}
+                  style={{ color: "inherit", textDecoration: "inherit" }}
+                >
+                  <div
+                    className={
+                      r.validate_recipe
+                        ? "userRecipeCard"
+                        : "userRecipeCard notValidateRecipe"
+                    }
+                  >
+                    <div className="imgBox">
+                      <img
+                        src={
+                          r.recipeImage !== "/images/undefined"
+                            ? `${import.meta.env.VITE_BACKEND_URL}${
+                                r.recipeImage
+                              }`
+                            : "/src/assets/images/logo.png"
+                        }
+                        alt={r.recipeName}
+                      />
+                    </div>
+                    <p>{r.recipeName}</p>
+                  </div>
+                </Link>
+              );
+            })}
+          </div>
         </div>
       </div>
       <div className="delete-button">

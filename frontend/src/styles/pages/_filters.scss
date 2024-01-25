@@ -65,9 +65,14 @@
     padding-top: 15px;
     padding-left: 30px;
     height: 89vh;
+    overflow-y: hidden;
 
     .filters-header {
       justify-content: flex-end;
+
+      .leftArrow {
+        display: none;
+      }
 
       p {
         display: none;

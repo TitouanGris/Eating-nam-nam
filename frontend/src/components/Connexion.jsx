@@ -28,11 +28,14 @@ function Connexion({ setConnexion, connexion }) {
     // envoie au back les infos (user et password) saisie par l'utilisateur pour authentification
 
     try {
-      const res = await axios.post("http://localhost:3310/api/login", {
-        // on INSERT dans la DB avec les infos saisies
-        inputEmail,
-        inputPassword,
-      });
+      const res = await axios.post(
+        `${import.meta.env.VITE_BACKEND_URL}/api/login`,
+        {
+          // on INSERT dans la DB avec les infos saisies
+          inputEmail,
+          inputPassword,
+        }
+      );
       setUserInfos(res.data.user);
 
       localStorage.setItem("token", res.data.token);
@@ -40,7 +43,7 @@ function Connexion({ setConnexion, connexion }) {
       // get pour récupérer les préférences utilisations de la DB avec le user ID
       try {
         const res2 = await axios.get(
-          `http://localhost:3310/api/usertags/${res.data.user.id}`
+          `${import.meta.env.VITE_BACKEND_URL}/api/usertags/${res.data.user.id}`
         );
 
         const regimeTable = [];
@@ -81,7 +84,7 @@ function Connexion({ setConnexion, connexion }) {
       // get pour récupérer la table favoris à jour de la DB avec le user ID
       try {
         const favorisDb = await axios.get(
-          `http://localhost:3310/api/favoris/${res.data.user.id}`
+          `${import.meta.env.VITE_BACKEND_URL}/api/favoris/${res.data.user.id}`
         );
 
         setFavorisTable(favorisDb.data);
