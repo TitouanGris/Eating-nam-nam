@@ -84,8 +84,6 @@ class UserManager extends AbstractManager {
   // }
 
   async readOneUser(newUser) {
-    console.info("manger read one user:");
-    console.info(newUser);
     const [result] = await this.database.query(
       `SELECT * FROM ${this.table}
        WHERE pseudo = ? OR email = ? OR avatar_id = ? OR id=?`,
