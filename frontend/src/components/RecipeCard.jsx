@@ -11,7 +11,7 @@ function RecipeCard({ r }) {
 
   async function postFavoris() {
     try {
-      await axios.post("http://localhost:3310/api/favoris", {
+      await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/favoris`, {
         userId: userInfos.id,
         recipeId: r.recipeId,
       });
@@ -19,7 +19,7 @@ function RecipeCard({ r }) {
       // get pour récupérer la table favoris à jour de la DB avec le user ID
       try {
         const favorisDb = await axios.get(
-          `http://localhost:3310/api/favoris/${userInfos.id}`
+          `${import.meta.env.VITE_BACKEND_URL}/api/favoris/${userInfos.id}`
         );
 
         setFavorisTable(favorisDb.data);
@@ -33,7 +33,7 @@ function RecipeCard({ r }) {
 
   async function deleteFavoris() {
     try {
-      await axios.put("http://localhost:3310/api/favoris", {
+      await axios.put(`${import.meta.env.VITE_BACKEND_URL}/api/favoris`, {
         userId: userInfos.id,
         recipeId: r.recipeId,
       });
@@ -95,8 +95,8 @@ function RecipeCard({ r }) {
       <div className="imgContainer">
         <img
           src={
-            r.recipeImage
-              ? `http://localhost:3310${r.recipeImage}`
+            r.recipeImage !== "/images/undefined"
+              ? `${import.meta.env.VITE_BACKEND_URL}${r.recipeImage}`
               : "/src/assets/images/logo.png"
           }
           alt={`${r.recipeName}`}
@@ -107,13 +107,15 @@ function RecipeCard({ r }) {
         <div className="tags">
           <div className="price">
             <img
-              src={`http://localhost:3310${r.price[0].tagUrl}`}
+              src={`${import.meta.env.VITE_BACKEND_URL}${r.price[0].tagUrl}`}
               alt="r.TagPrice"
             />
           </div>
           <div className="difficulty">
             <img
-              src={`http://localhost:3310${r.difficulty[0].tagUrl}`}
+              src={`${import.meta.env.VITE_BACKEND_URL}${
+                r.difficulty[0].tagUrl
+              }`}
               alt="r.TagDifficulty"
             />
           </div>

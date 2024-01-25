@@ -83,6 +83,7 @@ router.get("/items/:id", itemControllers.read);
 router.get("/user/:id", userControllers.read);
 router.get("/recipe/:id", recipeControllers.read);
 router.get("/step/:id", stepControllers.readSteps);
+router.get("/recipes/user/:id", recipeControllers.readUserRecipe);
 router.get("/ingredients/:id", ingredientControllers.readIngredientsByRecipeId);
 router.get("/tags/recipe/:id", tagsControllers.readTagsByRecipeId);
 

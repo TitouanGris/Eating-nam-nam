@@ -100,7 +100,7 @@ function Regime({ successMessage }) {
       //     }
       //   );
       // } else {
-      await axios.post("http://localhost:3310/api/usertags", {
+      await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/usertags`, {
         // on INSERT dans la DB avec les infos saisies
         userInfosId: userInfos.id,
         filterIdChosenReduced,

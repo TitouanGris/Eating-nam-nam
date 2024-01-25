@@ -23,7 +23,7 @@ function App() {
           </div>
           <div className="App">
             <Outlet
-              context={[favoriteMobileisActive, setFavoriteMobileisActive]}
+              context={[[favoriteMobileisActive, setFavoriteMobileisActive]]}
             />
             <div className="navBarMobileArea">
               {!pagesWithoutNavBar.includes(pathname) && (

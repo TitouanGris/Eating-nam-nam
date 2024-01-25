@@ -71,13 +71,13 @@ function NavBarDesktop() {
         {userInfos.pseudo ? (
           <NavLink to="/account">
             <div className="account-link">
-              <img src="src/assets/images/user.png" alt="user-page" />
+              <img src="/src/assets/images/user.png" alt="user-page" />
               <p>{userInfos.pseudo}</p>
             </div>
           </NavLink>
         ) : (
           <div className="account-link">
-            <img src="src/assets/images/user.png" alt="user-page" />
+            <img src="/src/assets/images/user.png" alt="user-page" />
             <button
               type="button"
               onClick={() => {

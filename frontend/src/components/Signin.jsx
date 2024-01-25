@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import PropTypes from "prop-types";
 import { useUser } from "../context/UserContext";
@@ -25,6 +25,13 @@ function Signin({ inscription, setInscription, btnSignIn, setBtnSignIn }) {
     setSignIn((current) => !current);
   }
 
+  useEffect(() => {
+    if (btnSignIn) {
+      // setInscription(true);
+      console.info("coucou");
+    }
+  }, []);
+
   function handleClick(e) {
     e.stopPropagation();
     setInscription(false);
@@ -44,12 +51,18 @@ function Signin({ inscription, setInscription, btnSignIn, setBtnSignIn }) {
       setErrorMessage("Veuillez fournir une adresse e-mail valide");
     } else {
       try {
-        await axios.post("http://localhost:3310/api/user", newUser);
-        const res2 = await axios.post("http://localhost:3310/api/login", {
-          // on INSERT dans la DB avec les infos saisies
-          inputEmail: newUser.email,
-          inputPassword: newUser.password,
-        });
+        await axios.post(
+          `${import.meta.env.VITE_BACKEND_URL}/api/user`,
+          newUser
+        );
+        const res2 = await axios.post(
+          `${import.meta.env.VITE_BACKEND_URL}/api/login`,
+          {
+            // on INSERT dans la DB avec les infos saisies
+            inputEmail: newUser.email,
+            inputPassword: newUser.password,
+          }
+        );
         setUserInfos(res2.data.user);
         setSubmittedUser([...submittedUser, newUser]);
         setNewUser({ pseudo: "", email: "", password: "" });
