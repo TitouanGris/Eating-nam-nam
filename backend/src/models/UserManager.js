@@ -40,12 +40,25 @@ class UserManager extends AbstractManager {
   // on join notre table user avec la table avatar pour récupérer l'avatar choisi par le user
   async getByMail(email) {
     const [result] = await this.database.query(
-      `SELECT u.id as id, u.pseudo, u.email, u.created_date, u.updated_date, u.hashed_password, u.is_admin, u.avatar_id as avatarId, a.image_url
+      `SELECT u.id as id, u.pseudo, u.email, u.hashed_password, u.created_date, u.updated_date, u.is_admin, u.avatar_id as avatarId, a.image_url
       FROM ${this.table} u
       JOIN avatar a ON a.id = u.avatar_id
       WHERE email = ?`,
       [email]
     );
+
+    return result[0];
+  }
+
+  async getById(id) {
+    const [result] = await this.database.query(
+      `SELECT u.id as id, u.pseudo, u.email, u.hashed_password, u.created_date, u.updated_date, u.is_admin, u.avatar_id as avatarId, a.image_url
+      FROM ${this.table} u
+      JOIN avatar a ON a.id = u.avatar_id
+      WHERE u.id = ?`,
+      [id]
+    );
+
     return result[0];
   }
 

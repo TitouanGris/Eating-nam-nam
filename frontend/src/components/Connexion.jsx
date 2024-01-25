@@ -31,25 +31,13 @@ function Connexion({ setConnexion, connexion }) {
         inputEmail,
         inputPassword,
       });
+      setUserInfos(res.data.user);
+      localStorage.setItem("token", res.data.token);
 
-      setUserInfos(res.data);
-
-      localStorage.setItem(
-        "user",
-        JSON.stringify({
-          id: res.data.id,
-          pseudo: res.data.pseudo,
-          is_admin: res.data.is_admin,
-          email: inputEmail,
-          created_date: res.data.created_date,
-          updated_date: res.data.updated_date,
-          image_url: res.data.image_url,
-        })
-      );
       // get pour récupérer les préférences utilisations de la DB avec le user ID
       try {
         const res2 = await axios.get(
-          `http://localhost:3310/api/usertags/${res.data.id}`
+          `http://localhost:3310/api/usertags/${res.data.user.id}`
         );
 
         const regimeTable = [];
@@ -90,7 +78,7 @@ function Connexion({ setConnexion, connexion }) {
       // get pour récupérer la table favoris à jour de la DB avec le user ID
       try {
         const favorisDb = await axios.get(
-          `http://localhost:3310/api/favoris/${res.data.id}`
+          `http://localhost:3310/api/favoris/${res.data.user.id}`
         );
 
         setFavorisTable(favorisDb.data);
@@ -114,7 +102,7 @@ function Connexion({ setConnexion, connexion }) {
 
   return connexion ? (
     <div>
-      {userInfos.id && clickToConnect && <Navigate to="/browse" />}
+      {userInfos && clickToConnect && <Navigate to="/browse" />}
       <div className="connexion">
         <div className="connexionModal">
           <div className="closeDiv">

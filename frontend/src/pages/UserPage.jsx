@@ -12,13 +12,6 @@ function UserPage() {
   const { userInfos, setUserInfos } = useUser();
   const { filterRegimeId } = useContext(FiltersContext);
 
-  // const {
-  //   setFilterRegime,
-  //   setFilterPrice,
-  //   setFilterCountry,
-  //   setFilterDifficulty,
-  // } = useContext(FiltersContext);
-
   const [file, setFile] = useState(undefined);
   const [avatar, setAvatar] = useState([]);
 
@@ -107,7 +100,10 @@ function UserPage() {
 
       // dans le post, on passe le le formData dans le body pour l'envoyer au back
       await axios.post("http://localhost:3310/api/avatar", formData, {
-        headers: { "Content-Type": "multipart/form-data" },
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${userInfos.token}`, // Inclusion du jeton JWT
+        },
       });
 
       fetchAvatar(); // suite au post, on relance la fonction qui permet de fetch les avatars pour ensuite mapper avec le nouvel avatar
