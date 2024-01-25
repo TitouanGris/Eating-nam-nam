@@ -152,22 +152,31 @@
 @media screen and (min-width: 899px) {
   .user-container {
     h1 {
-      font-size: 1.2rem;
+      font-size: 2rem;
+    }
+
+    .modify-button {
+      button {
+        width: 10vw;
+      }
     }
 
     .user {
       display: flex;
       gap: 80px;
       margin: 0 auto;
-
-      .modify-button {
-        width: 100%;
-        display: flex;
-        justify-content: flex-end;
-      }
+      margin-bottom: 20px;
 
       img {
         height: 25vh;
+      }
+    }
+
+    .infos-user {
+      .preferences-container {
+        .button-user-preferences {
+          width: 10vw;
+        }
       }
     }
   }

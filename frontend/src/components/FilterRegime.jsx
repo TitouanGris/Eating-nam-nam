@@ -6,6 +6,7 @@ import FiltersContext from "../context/FiltersContext";
 function FilterRegime({ regimeTag }) {
   const { filterRegime, setFilterRegime, filterRegimeId, setFilterRegimeId } =
     useContext(FiltersContext);
+
   const handleClick = (tag) => {
     if (tag.category_id === 3) {
       if (filterRegime.includes(tag.name) === true) {
@@ -39,7 +40,10 @@ function FilterRegime({ regimeTag }) {
             <Button
               key={tag.id}
               label={tag.name}
-              onClick={() => handleClick(tag)}
+              onClick={() => {
+                // setSelectedPreferences(tag.id);
+                handleClick(tag);
+              }}
               className={
                 filterRegime.includes(tag.name) ? "selected chip" : "chip"
               }
@@ -60,6 +64,7 @@ FilterRegime.propTypes = {
       name: PropTypes.string,
     })
   ).isRequired,
+  // setSelectedPreferences: PropTypes.number.isRequired,
 };
 
 export default FilterRegime;
