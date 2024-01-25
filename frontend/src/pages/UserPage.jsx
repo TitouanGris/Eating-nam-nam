@@ -23,11 +23,6 @@ function UserPage() {
   const [showModifyPreferences, setShowModifyPreferences] = useState(false);
   const navigate = useNavigate();
 
-  const logout = () => {
-    setUserInfos({});
-    navigate("/");
-  };
-
   const fetchAvatar = async () => {
     try {
       const response = await axios.get(
@@ -37,6 +32,12 @@ function UserPage() {
     } catch (error) {
       console.error(error);
     }
+  };
+
+  const logout = () => {
+    setUserInfos({});
+    localStorage.clear();
+    navigate("/");
   };
 
   const fetchData = async () => {

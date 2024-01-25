@@ -1,11 +1,11 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import axios from "axios";
 import PropTypes from "prop-types";
 import { useUser } from "../context/UserContext";
 
 import Regime from "./Regime";
 
-function Signin({ inscription, setInscription, btnSignIn, setBtnSignIn }) {
+function Signin({ inscription, setInscription }) {
   const { setUserInfos } = useUser();
 
   const [newUser, setNewUser] = useState({
@@ -25,17 +25,9 @@ function Signin({ inscription, setInscription, btnSignIn, setBtnSignIn }) {
     setSignIn((current) => !current);
   }
 
-  useEffect(() => {
-    if (btnSignIn) {
-      // setInscription(true);
-      console.info("coucou");
-    }
-  }, []);
-
   function handleClick(e) {
     e.stopPropagation();
     setInscription(false);
-    setBtnSignIn(false);
   }
 
   const handleSubmit = async (e) => {
@@ -84,7 +76,7 @@ function Signin({ inscription, setInscription, btnSignIn, setBtnSignIn }) {
     setShowPassword(!showPassword);
   };
 
-  return inscription || btnSignIn ? (
+  return inscription ? (
     <div className="inscription">
       <div className="signin-page">
         <div className="closeDiv">
@@ -149,8 +141,6 @@ function Signin({ inscription, setInscription, btnSignIn, setBtnSignIn }) {
 Signin.propTypes = {
   inscription: PropTypes.bool.isRequired,
   setInscription: PropTypes.func.isRequired,
-  btnSignIn: PropTypes.bool.isRequired,
-  setBtnSignIn: PropTypes.func.isRequired,
 };
 
 export default Signin;

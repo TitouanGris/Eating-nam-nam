@@ -5,6 +5,37 @@
   height: 10vh;
   background-color: var(--primary-color);
 
+  .menuBurger {
+    z-index: 1;
+    background-color: white;
+    // border-left: solid 2px var(--primary-color);
+    // border-bottom: solid 2px var(--primary-color);
+    background-color: var(--primary-color);
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    align-items: center;
+    top: 10vh;
+    margin-top: 1px;
+    right: 0;
+    width: 12vw;
+    height: auto;
+    padding: 10px;
+
+    a {
+      text-decoration: none;
+    }
+    div {
+      padding: 2px;
+      color: white;
+      text-decoration: none;
+
+      &:hover {
+        color: black;
+      }
+    }
+  }
+
   .logo {
     width: 8vw;
     height: 10vh;
@@ -24,30 +55,35 @@
     padding: 15px;
     width: 100%;
 
-    a {
+    .text {
+      background: none;
+      color: inherit;
+      border: none;
+      padding: 0;
+      font: inherit;
+      cursor: pointer;
+      outline: inherit;
       text-decoration: none;
       padding: 15px;
+      font-size: 1.8rem;
+      display: flex;
+      color: white;
+      font-weight: 600;
+      text-decoration: none;
+      background: none;
+      border: none;
+      outline: none;
+      box-shadow: none;
 
-      .text {
-        font-size: 1.8rem;
-        display: flex;
-        color: white;
-        font-weight: 600;
-        text-decoration: none;
-        background: none;
-        border: none;
-        outline: none;
-        box-shadow: none;
-
-        &:hover {
-          color: var(--primary-color-text);
-        }
-
-        // todo : faire fonctionner le active :
-        // p:active {
-        //   color: var(--primary-color-text);
-        // }
+      &:hover {
+        color: var(--primary-color-text);
+        cursor: pointer;
       }
+
+      // todo : faire fonctionner le active :
+      // p:active {
+      //   color: var(--primary-color-text);
+      // }
     }
 
     .lien1 {
@@ -57,14 +93,22 @@
 
     .account-link {
       display: flex;
-      flex-direction: column;
+      // flex-direction: column;
       align-items: center;
 
       img {
         height: 5vh;
+
+        &:hover {
+          color: var(--primary-color-text);
+          cursor: pointer;
+        }
       }
       p {
-        font-size: 1em;
+        color: white;
+
+        padding-right: 10px;
+        font-size: 1.5rem;
       }
     }
   }
