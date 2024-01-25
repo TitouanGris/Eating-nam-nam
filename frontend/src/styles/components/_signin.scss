@@ -4,7 +4,7 @@
   left: 0;
   width: 100vw;
   height: 100vh;
-  z-index: 1;
+  z-index: 4;
   display: flex;
   justify-content: center;
   backdrop-filter: blur(5px);
@@ -109,6 +109,34 @@
           top: 50%;
           border-radius: 5px;
           transform: translateY(-50%);
+        }
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 700px) {
+  .inscription {
+    .signin-page {
+      width: 70vw;
+      height: 60vh;
+
+      form {
+        gap: 20px;
+        input {
+          height: 40px;
+          width: 50vw;
+          height: 5vh;
+        }
+
+        .signin-button {
+          width: 50vw;
+        }
+        .button-password {
+          button {
+            height: 90%;
+            width: 30%;
+          }
         }
       }
     }

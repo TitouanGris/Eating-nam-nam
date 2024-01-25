@@ -4,6 +4,7 @@ import axios from "axios";
 import PropTypes from "prop-types";
 import { useUser } from "../context/UserContext";
 import FiltersContext from "../context/FiltersContext";
+import Signin from "./Signin";
 
 function Connexion({ setConnexion, connexion }) {
   const [inputPassword, setInputPassword] = useState("");
@@ -11,6 +12,7 @@ function Connexion({ setConnexion, connexion }) {
   const { userInfos, setUserInfos } = useUser(); // permet de récupérer via un custom Hook l'objet du context (ici l'objet qui contient setUserInfos et UserInfos
   const [inputEmail, setInputEmail] = useState(userInfos.email);
   const [errorMessage, setErrorMessage] = useState("");
+  const [inscription, setInscription] = useState(false);
 
   const {
     setFilterRegime,
@@ -32,6 +34,7 @@ function Connexion({ setConnexion, connexion }) {
         inputPassword,
       });
       setUserInfos(res.data.user);
+
       localStorage.setItem("token", res.data.token);
 
       // get pour récupérer les préférences utilisations de la DB avec le user ID
@@ -131,8 +134,19 @@ function Connexion({ setConnexion, connexion }) {
               </button>
             </form>
           </div>
+          <button
+            className="textInscription"
+            type="submit"
+            onClick={() => setInscription(!inscription)}
+          >
+            Pas de compte ?{" "}
+            <span style={{ textDecoration: "underline" }}>Inscription</span>
+          </button>
         </div>
       </div>
+      {inscription && (
+        <Signin inscription={inscription} setInscription={setInscription} />
+      )}
     </div>
   ) : null;
 }

@@ -151,6 +151,9 @@
 
 @media screen and (min-width: 899px) {
   .user-container {
+    .reset-button {
+      display: none;
+    }
     h1 {
       font-size: 1.2rem;
     }

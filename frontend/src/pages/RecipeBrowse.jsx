@@ -41,7 +41,6 @@ function RecipeBrowse() {
       setRecipe(recipeData);
     } else {
       const recipeDataFavoris = recipeData.filter((r) => {
-        // Utilisez simplement 'includes' pour vérifier si r.recipeId est dans favorisTable
         return favorisTable.includes(r.recipeId);
       });
 
@@ -58,6 +57,7 @@ function RecipeBrowse() {
   return (
     <div className="recipeBrowse">
       <div className="recipeBrowseCard">
+        {recipe.length === 0 && <div> Vous n'avez pas de favoris</div>}
         {recipe
           .filter((r) => {
             // Vérifie si chaque filtre contient au moins une valeur

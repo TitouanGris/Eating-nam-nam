@@ -58,18 +58,20 @@ function RecipeCard({ r }) {
     event.stopPropagation();
     event.preventDefault();
     setFavoris((current) => !current);
-    const temp = favorisTable;
+    const temp = [...favorisTable];
     if (temp.includes(r.recipeId) === true) {
       const tagIndex = temp.findIndex((item) => {
         return item === r.recipeId;
       });
       temp.splice(tagIndex, 1);
-      setFavorisTable(temp);
+
       deleteFavoris();
+      setFavorisTable(temp);
     } else {
       temp.push(r.recipeId);
-      setFavorisTable(temp);
+
       postFavoris();
+      setFavorisTable(temp);
     }
 
     localStorage.setItem("favoris", JSON.stringify(favorisTable));

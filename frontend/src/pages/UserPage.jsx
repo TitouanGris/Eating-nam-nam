@@ -23,11 +23,6 @@ function UserPage() {
 
   const navigate = useNavigate();
 
-  const logout = () => {
-    setUserInfos({});
-    navigate("/");
-  };
-
   const fetchAvatar = async () => {
     try {
       const response = await axios.get(`http://localhost:3310/api/avatar`);
@@ -35,6 +30,12 @@ function UserPage() {
     } catch (error) {
       console.error(error);
     }
+  };
+
+  const logout = () => {
+    setUserInfos({});
+    localStorage.clear();
+    navigate("/");
   };
 
   const fetchData = async () => {

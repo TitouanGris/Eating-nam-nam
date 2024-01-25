@@ -1,11 +1,11 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import axios from "axios";
 import PropTypes from "prop-types";
 import { useUser } from "../context/UserContext";
 
 import Regime from "./Regime";
 
-function Signin({ inscription, setInscription, btnSignIn }) {
+function Signin({ inscription, setInscription }) {
   const { setUserInfos } = useUser();
 
   const [newUser, setNewUser] = useState({
@@ -25,16 +25,9 @@ function Signin({ inscription, setInscription, btnSignIn }) {
     setSignIn((current) => !current);
   }
 
-  useEffect(() => {
-    if (btnSignIn) {
-      // setInscription(true);
-      console.info("coucou");
-    }
-  }, []);
-
   function handleClick(e) {
     e.stopPropagation();
-    setInscription((current) => !current);
+    setInscription(false);
   }
 
   const handleSubmit = async (e) => {
@@ -51,29 +44,20 @@ function Signin({ inscription, setInscription, btnSignIn }) {
     } else {
       try {
         await axios.post("http://localhost:3310/api/user", newUser);
+
         const res2 = await axios.post("http://localhost:3310/api/login", {
           // on INSERT dans la DB avec les infos saisies
           inputEmail: newUser.email,
           inputPassword: newUser.password,
         });
-        setUserInfos(res2.data);
+        setUserInfos(res2.data.user);
+
         setSubmittedUser([...submittedUser, newUser]);
         setNewUser({ pseudo: "", email: "", password: "" });
         setSuccessMessage(
-          `Félicitations ${res2.data.pseudo}, votre compte a bien été créé !`
+          `Félicitations ${res2.data.user.pseudo}, votre compte a bien été créé !`
         );
-        localStorage.setItem(
-          "user",
-          JSON.stringify({
-            id: res2.data.id,
-            pseudo: res2.data.pseudo,
-            is_admin: res2.data.is_admin,
-            email: res2.email,
-            created_date: res2.data.created_date,
-            updated_date: res2.data.updated_date,
-            image_url: res2.data.image_url,
-          })
-        );
+        localStorage.setItem("token", res2.data.token);
         handleSignIn();
       } catch (err) {
         console.error(err);
@@ -153,7 +137,6 @@ function Signin({ inscription, setInscription, btnSignIn }) {
 Signin.propTypes = {
   inscription: PropTypes.bool.isRequired,
   setInscription: PropTypes.func.isRequired,
-  btnSignIn: PropTypes.bool.isRequired,
 };
 
 export default Signin;

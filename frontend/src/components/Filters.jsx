@@ -48,8 +48,8 @@ function Filters({ setFavoriteMobileisActive }) {
     <div className="filters">
       <div className="filters-header">
         <NavLink to="/browse">
-          <button onClick={handleClick} type="button">
-            :flèche_gauche:
+          <button className="leftArrow" onClick={handleClick} type="button">
+            ←
           </button>
         </NavLink>
         <p>Mes filtres</p>
