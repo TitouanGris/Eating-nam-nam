@@ -116,6 +116,7 @@ function RecipeCard({ r }) {
               src={`http://localhost:3310${r.difficulty[0].tagUrl}`}
               alt="r.TagDifficulty"
             />
+            <p>{r.difficulty[0].tagName}</p>
           </div>
           <div className="serving">
             <img

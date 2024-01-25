@@ -132,9 +132,24 @@ const add = async (req, res, next) => {
   }
 };
 
+const validateRecipe = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const result = await tables.recipe.validate(id);
+    if (result.affectedRows === 0) {
+      res.sendStatus(404);
+    } else {
+      res.status(200).json(result.insertId);
+    }
+  } catch (err) {
+    next(err);
+  }
+};
+
 module.exports = {
   browse,
   adminBrowse,
+  validateRecipe,
   read,
   add,
 };

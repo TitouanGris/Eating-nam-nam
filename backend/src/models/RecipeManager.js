@@ -168,6 +168,14 @@ class RecipeManager extends AbstractManager {
     );
     return result;
   }
+
+  async validate(id) {
+    const [result] = await this.database.query(
+      `UPDATE ${this.table} SET validate_recipe = 1 WHERE id = ? `,
+      [id]
+    );
+    return result;
+  }
 }
 
 module.exports = RecipeManager;

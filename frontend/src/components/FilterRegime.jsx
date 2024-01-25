@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import PropTypes from "prop-types";
 import Button from "./Button";
 import FiltersContext from "../context/FiltersContext";
@@ -29,6 +29,10 @@ function FilterRegime({ regimeTag }) {
       }
     }
   };
+
+  useEffect(() => {
+    console.info(filterRegime);
+  });
 
   return (
     <div className="regimes">

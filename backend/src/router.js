@@ -110,6 +110,7 @@ router.delete("/user/:id", userControllers.destroy);
 // Route to modify item
 router.put("/user/:id", userControllers.edit);
 router.put("/usertags", userTagsControllers.update);
+router.put("/recipe/:id/validate", recipeControllers.validateRecipe);
 
 /* ************************************************************************* */
 // router.use(verifyToken);

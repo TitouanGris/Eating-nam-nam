@@ -43,7 +43,7 @@ CREATE TABLE
         email VARCHAR(255) NOT NULL,
         created_date DATETIME NOT NULL DEFAULT NOW(),
         updated_date DATETIME NULL DEFAULT NOW() ON UPDATE CURRENT_TIMESTAMP,
-        password VARCHAR(255) NOT NULL,
+        hashed_password VARCHAR(255) NOT NULL,
         is_admin BOOL NOT NULL DEFAULT FALSE,
         avatar_id INT NOT NULL DEFAULT 1,
         CONSTRAINT fk_user_avatar FOREIGN KEY (avatar_id) REFERENCES avatar(id)

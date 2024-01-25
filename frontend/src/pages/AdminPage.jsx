@@ -35,13 +35,17 @@ function AdminPage() {
   return (
     <div className="adminPage">
       <div className="recipeSection">
-        <h1>Valider une recette</h1>
+        <h2>Valider une recette</h2>
         <div className="recipeList">
           {recipes.map(({ id, name: recipeName, photo_url: recipeImage }) => {
             return (
               <Link to={`/recipe/${id}`}>
                 <button type="button" className="recipeDiv" key={id}>
-                  <p>{recipeName}</p>
+                  <p>
+                    {recipeName.length > 20
+                      ? `${recipeName.substring(0, 20)}...`
+                      : recipeName}
+                  </p>
                   <div className="imgDiv">
                     <img
                       className="recipeImg"
@@ -56,7 +60,7 @@ function AdminPage() {
         </div>
       </div>
       <div className="userSection">
-        <h1>Gérer un utilisateur</h1>
+        <h2>Gérer un utilisateur</h2>
         <div className="searchUser">
           <p>Trouver un utilisateur par son nom</p>
           <input
@@ -91,7 +95,7 @@ function AdminPage() {
                     </div>
                     <div className="deleteButton">
                       <button type="button" onClick={() => deleteUser(user.id)}>
-                        Delete {user.pseudo}
+                        Supprimer {user.pseudo}
                       </button>
                     </div>
                   </div>

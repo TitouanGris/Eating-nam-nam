@@ -3,7 +3,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 30px;
+  gap: 15px;
 
   .recipeSection {
     display: flex;
@@ -14,20 +14,37 @@
       display: flex;
       flex-direction: column;
       justify-content: center;
+      gap: 20px;
 
-      gap: 40px;
+      a {
+        text-decoration: none;
 
-      .recipeDiv {
-        padding: 10px;
-        background-color: white;
-        border: none;
-        border-radius: 5px;
-        box-shadow: 4px 4px 4px 0px #bbb9b9;
+        button.recipeDiv {
+          padding: 10px;
+          background-color: white;
+          border: none;
+          border-radius: 5px;
+          box-shadow: 4px 4px 4px 0px #bbb9b9;
+          display: flex;
+          flex-direction: column;
+          gap: 5px;
 
-        .imgDiv {
-          width: 150px;
-          .recipeImg {
-            width: 100%;
+          &:hover {
+            transform: scale(103%);
+          }
+
+          p {
+            font-size: 0.9rem;
+            width: 90%;
+            text-align: left;
+          }
+
+          .imgDiv {
+            .recipeImg {
+              width: 170px;
+              height: 100px;
+              object-fit: cover;
+            }
           }
         }
       }
@@ -88,6 +105,8 @@
 
 @media screen and (min-width: 900px) {
   .adminPage {
+    gap: 30px;
+
     .recipeSection {
       .recipeList {
         flex-direction: row;
