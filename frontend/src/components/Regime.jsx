@@ -63,6 +63,18 @@ function Regime({ successMessage }) {
         (acc, currentArray) => acc.concat(currentArray),
         []
       );
+
+      // if(){
+      //   // faire une condition quand le user clique sur une preference verifier si cette preference existe dans la table user_tags
+      //   // si oui : faire une requete pour delete id du tags cliqué
+      // }
+      // // on delete dans la table user_tags
+      // await axios.delete("http://localhost:3310/api/usertags", {
+      //   // on DELETE dans la DB avec les infos deselectionnées
+      //   userInfosId: userInfos.id,
+      //   filterIdChosenReduced,
+      // });
+
       await axios.post("http://localhost:3310/api/usertags", {
         // on INSERT dans la DB avec les infos saisies
         userInfosId: userInfos.id,

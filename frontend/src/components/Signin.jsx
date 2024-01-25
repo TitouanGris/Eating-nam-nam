@@ -5,7 +5,7 @@ import { useUser } from "../context/UserContext";
 
 import Regime from "./Regime";
 
-function Signin({ inscription, setInscription, btnSignIn }) {
+function Signin({ inscription, setInscription, btnSignIn, setBtnSignIn }) {
   const { setUserInfos } = useUser();
 
   const [newUser, setNewUser] = useState({
@@ -34,7 +34,8 @@ function Signin({ inscription, setInscription, btnSignIn }) {
 
   function handleClick(e) {
     e.stopPropagation();
-    setInscription((current) => !current);
+    setInscription(false);
+    setBtnSignIn(false);
   }
 
   const handleSubmit = async (e) => {
@@ -88,7 +89,7 @@ function Signin({ inscription, setInscription, btnSignIn }) {
     setShowPassword(!showPassword);
   };
 
-  return inscription ? (
+  return inscription || btnSignIn ? (
     <div className="inscription">
       <div className="signin-page">
         <div className="closeDiv">
@@ -154,6 +155,7 @@ Signin.propTypes = {
   inscription: PropTypes.bool.isRequired,
   setInscription: PropTypes.func.isRequired,
   btnSignIn: PropTypes.bool.isRequired,
+  setBtnSignIn: PropTypes.func.isRequired,
 };
 
 export default Signin;

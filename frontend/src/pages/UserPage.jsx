@@ -20,7 +20,6 @@ function UserPage() {
   const [preferences, setPreferences] = useState([]);
 
   const [showModifyPreferences, setShowModifyPreferences] = useState(false);
-
   const navigate = useNavigate();
 
   const logout = () => {
@@ -92,26 +91,26 @@ function UserPage() {
   };
 
   const submit = async (event) => {
-    event.preventDefault();
-    if (file) {
-      // le formData permet de passer une image dans le body
-      const formData = new FormData();
-      formData.append("image", file); // on ajoute des données à notre formData avec append (couple clé, valeur)
-
-      // dans le post, on passe le le formData dans le body pour l'envoyer au back
-      await axios.post("http://localhost:3310/api/avatar", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-          Authorization: `Bearer ${userInfos.token}`, // Inclusion du jeton JWT
-        },
-      });
-
-      fetchAvatar(); // suite au post, on relance la fonction qui permet de fetch les avatars pour ensuite mapper avec le nouvel avatar
-    } else {
-      console.error("Pas de pièce jointe de renseignée");
+    const token = localStorage.getItem("token");
+    if (token) {
+      event.preventDefault();
+      if (file) {
+        // le formData permet de passer une image dans le body
+        const formData = new FormData();
+        formData.append("image", file); // on ajoute des données à notre formData avec append (couple clé, valeur)
+        // dans le post, on passe le le formData dans le body pour l'envoyer au back
+        await axios.post("http://localhost:3310/api/avatar", formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            Authorization: `Bearer ${token}`, // Inclusion du jeton JWT
+          },
+        });
+        fetchAvatar(); // suite au post, on relance la fonction qui permet de fetch les avatars pour ensuite mapper avec le nouvel avatar
+      } else {
+        console.error("Pas de pièce jointe de renseignée");
+      }
     }
   };
-
   return (
     <div className="user-container">
       <h1>Mon compte</h1>
@@ -160,7 +159,7 @@ function UserPage() {
             </button>
             {showModifyPreferences && (
               <div>
-                <Regime setPreferences={setPreferences} />
+                <Regime />
               </div>
             )}
           </div>
