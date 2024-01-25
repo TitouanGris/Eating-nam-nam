@@ -256,7 +256,7 @@ VALUES (
         NULL,
         '/images/Recette 1.jpg',
         4,
-        true
+        false
     ), (
         2,
         'Poulet au Curry',
@@ -265,7 +265,7 @@ VALUES (
         NULL,
         '/images/Recette 2.jpg',
         3,
-        true
+        false
     ), (
         3,
         'Pâtes à la Carbonara',
@@ -274,7 +274,7 @@ VALUES (
         NULL,
         '/images/Recette 3.jpg',
         2,
-        true
+        false
     ), (
         4,
         'Riz Frit aux Légumes',
@@ -283,7 +283,7 @@ VALUES (
         NULL,
         '/images/Recette 4.jpg',
         4,
-        true
+        false
     ), (
         5,
         'Pizza Margherita',
@@ -301,7 +301,7 @@ VALUES (
         NULL,
         '/images/Recette 6.jpg',
         2,
-        true
+        false
     ), (
         7,
         'Tarte aux Pommes',
