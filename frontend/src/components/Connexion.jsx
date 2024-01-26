@@ -8,7 +8,6 @@ import Signin from "./Signin";
 
 function Connexion({ setConnexion, connexion }) {
   const [inputPassword, setInputPassword] = useState("");
-
   const { userInfos, setUserInfos } = useUser(); // permet de récupérer via un custom Hook l'objet du context (ici l'objet qui contient setUserInfos et UserInfos
   const [inputEmail, setInputEmail] = useState(userInfos.email);
   const [errorMessage, setErrorMessage] = useState("");

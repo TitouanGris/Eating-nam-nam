@@ -12,6 +12,7 @@ function ModifyAccount({ isOpen, setShowModifyAccount }) {
     email: userInfos.email,
     password: userInfos.hashed_password,
     is_admin: userInfos.is_admin,
+    avatar_id: userInfos.avatar_id,
   });
 
   const [showModifyAvatar, setShowModifyAvatar] = useState(false);
@@ -22,15 +23,25 @@ function ModifyAccount({ isOpen, setShowModifyAccount }) {
 
   const handleModify1 = async () => {
     try {
+      console.info(userInfos);
       if (userInfos && userInfos.id) {
         await axios.put(
           `${import.meta.env.VITE_BACKEND_URL}/api/user/${userInfos.id}`,
           {
-            newUser,
+            pseudo: newUser.pseudo,
+            email: userInfos.email,
+            password: userInfos.hashed_password,
+            avatar_id: userInfos.avatarId,
           }
         );
+        console.info("modifié pseudo:");
+        console.info(newUser);
         setNewUser("");
-        setUserInfos({ ...userInfos, pseudo: newUser.pseudo });
+        setUserInfos({
+          ...userInfos,
+          pseudo: newUser.pseudo,
+          email: newUser.email,
+        });
       } else {
         console.error("User information is undefined.");
       }

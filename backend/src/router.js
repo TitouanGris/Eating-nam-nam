@@ -106,11 +106,11 @@ router.post("/login", authControllers.login);
 
 // Route to delete item
 router.delete("/user/:id", userControllers.destroy);
-router.delete("/usertags/:id", userTagsControllers.destroy);
+router.delete("/usertags", userTagsControllers.destroy);
 
 // Route to modify item
 router.put("/user/:id", userControllers.update);
-router.put("/user/:id", userControllers.edit);
+// router.put("/user/:id", userControllers.edit);
 router.put("/usertags", userTagsControllers.update);
 router.put("/recipe/:id/validate", recipeControllers.validateRecipe);
 
