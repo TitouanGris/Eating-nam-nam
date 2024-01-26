@@ -108,9 +108,11 @@ function Connexion({ setConnexion, connexion }) {
     e.stopPropagation();
     setConnexion((current) => !current);
   }
+  console.info("connexion", connexion);
 
   return connexion ? (
     <div>
+      {/* {userInfos && clickToConnect && <Navigate to="/browse" />} */}
       <div className="connexion">
         <div className="connexionModal">
           <div className="closeDiv">

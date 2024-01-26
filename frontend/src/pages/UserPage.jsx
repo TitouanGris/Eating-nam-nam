@@ -176,8 +176,9 @@ function UserPage() {
           <p>{userInfos.email}</p>
         </div>
       </div>
+
       <div className="admin-button">
-        {!userInfos.isAdmin && (
+        {userInfos.is_admin === 1 && (
           <button
             type="button"
             onClick={() => {
