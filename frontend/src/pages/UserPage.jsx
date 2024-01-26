@@ -13,9 +13,11 @@ function UserPage() {
   const { userInfos, setUserInfos } = useUser();
   const { filterRegimeId } = useContext(FiltersContext);
 
+
   const [file, setFile] = useState(undefined);
   const [avatar, setAvatar] = useState([]);
   const [previewURL, setPreviewURL] = useState(null);
+
 
   const [modal, setModal] = useState(false);
   const [showModifyAccount, setShowModifyAccount] = useState(false);
@@ -120,6 +122,7 @@ function UserPage() {
     setShowModalTag(false);
   };
 
+
   const handleFileChange = (e) => {
     const selectedFile = e.target.files[0];
     setFile(selectedFile);
@@ -156,6 +159,7 @@ function UserPage() {
     }
   };
 
+
   const deletePreference = async () => {
     if (preferenceId) {
       try {
@@ -188,8 +192,9 @@ function UserPage() {
           <p>{userInfos.email}</p>
         </div>
       </div>
+
       <div className="admin-button">
-        {!userInfos.isAdmin && (
+        {userInfos.is_admin === 1 && (
           <button
             type="button"
             onClick={() => {
@@ -297,6 +302,7 @@ function UserPage() {
             </div>
           </div>
         </div>
+
         <div className="userRecipeBox">
           <div className="separationBarre" />
           <h2>Mes recettes ajoutées</h2>
