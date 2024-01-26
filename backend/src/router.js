@@ -110,7 +110,7 @@ router.delete("/usertags", userTagsControllers.destroy);
 
 // Route to modify item
 router.put("/user/:id", userControllers.update);
-router.put("/user/:id", userControllers.edit);
+// router.put("/user/:id", userControllers.edit);
 router.put("/usertags", userTagsControllers.update);
 router.put("/recipe/:id/validate", recipeControllers.validateRecipe);
 

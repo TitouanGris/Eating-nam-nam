@@ -59,29 +59,39 @@ const read = async (req, res, next) => {
   }
 };
 
-const edit = async (req, res, next) => {
-  const { newUser } = req.body;
-  console.info("newUser reçu edit", newUser);
-  try {
-    const existingUser = await tables.user.readOneUser(newUser);
-    if (existingUser) {
-      const modifyId = await tables.user.edit(req.params.id, newUser);
-      res.status(201).json({ modifyId });
-    }
-  } catch (err) {
-    next(err);
-    res.status(404).send("Erreur de modification du user");
-  }
-};
+// const edit = async (req, res, next) => {
+//   const { newUser } = req.body;
+//   console.info("newUser reçu edit", newUser);
+//   try {
+//     const existingUser = await tables.user.readOneUser(newUser);
+//     if (existingUser) {
+//       const modifyId = await tables.user.edit(req.params.id, newUser);
+//       res.status(201).json({ modifyId });
+//     }
+//   } catch (err) {
+//     next(err);
+//     res.status(404).send("Erreur de modification du user");
+//   }
+// };
 
 const update = async (req, res, next) => {
   const newUser = req.body;
-  console.info("avatar:");
-  console.info(req.body);
+
+  console.info("reçu controller:");
+  console.info(newUser);
+
+  console.info(newUser.pseudo);
+
   try {
     const existingUser = await tables.user.readOneUser(newUser);
-    if (existingUser) {
+
+    console.info("existing", existingUser);
+
+    if (existingUser && newUser.avatar_id !== existingUser.avatar_id) {
       const modifyId = await tables.user.editAvatar(req.params.id, newUser);
+      res.status(201).json({ modifyId });
+    } else if (existingUser && newUser.pseudo !== existingUser.pseudo) {
+      const modifyId = await tables.user.edit(req.params.id, newUser);
       res.status(201).json({ modifyId });
     }
   } catch (err) {
@@ -109,7 +119,7 @@ module.exports = {
   browse,
   read,
   add,
-  edit,
+  // edit,
   update,
   destroy,
   getbytoken,
