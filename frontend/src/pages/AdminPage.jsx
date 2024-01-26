@@ -2,6 +2,9 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { useUser } from "../context/UserContext";
+import { loadIngredientsData } from "./RecipePost";
+import Input from "../components/Input";
+
 // import { useUser } from "../context/UserContext";
 
 function AdminPage() {
@@ -11,6 +14,12 @@ function AdminPage() {
   const [recipes, setRecipes] = useState([]);
   const [file, setFile] = useState(undefined);
   const [avatar, setAvatar] = useState([]);
+  const [ingredients, setIngredients] = useState([]);
+  const [ingValue, setIngValue] = useState("");
+  const [verifIng, setVerifIng] = useState(false);
+  const [sucessIngAdd, setSucessIngAdd] = useState(false);
+  const token = localStorage.getItem("token");
+  const [previewURL, setPreviewURL] = useState(null);
 
   useEffect(() => {
     axios
@@ -22,7 +31,7 @@ function AdminPage() {
     axios
       .get(`http://localhost:3310/api/users`)
       .then((res) => setUserList(res.data));
-  }, [userList]);
+  }, []);
 
   async function deleteUser(id) {
     try {
@@ -33,7 +42,12 @@ function AdminPage() {
       console.error(err);
     }
   }
-
+  const handleFileChange = (e) => {
+    const selectedFile = e.target.files[0];
+    setFile(selectedFile);
+    setPreviewURL(URL.createObjectURL(selectedFile));
+    console.info(selectedFile);
+  };
   const fetchAvatar = async () => {
     try {
       const response = await axios.get(
@@ -50,12 +64,12 @@ function AdminPage() {
   }, [userInfos.id]);
 
   const submit = async (event) => {
-    const token = localStorage.getItem("token");
     if (token) {
       event.preventDefault();
       if (file) {
         // le formData permet de passer une image dans le body
         const formData = new FormData();
+        console.info(formData.toString());
         formData.append("image", file); // on ajoute des données à notre formData avec append (couple clé, valeur)
         // dans le post, on passe le le formData dans le body pour l'envoyer au back
         await axios.post(
@@ -68,13 +82,57 @@ function AdminPage() {
             },
           }
         );
+        setPreviewURL(undefined);
         fetchAvatar(); // suite au post, on relance la fonction qui permet de fetch les avatars pour ensuite mapper avec le nouvel avatar
       } else {
-        console.error("Pas de pièce jointe renseignée");
+        console.error("Pas de pièce jointe de renseignée");
       }
     }
   };
 
+  async function loading() {
+    setIngredients(await loadIngredientsData());
+  }
+  useEffect(() => {
+    loading();
+  }, []);
+  const handleIngValue = (event) => {
+    const { value } = event.target;
+    setIngValue(value);
+  };
+  async function handleAddIng() {
+    if (
+      ingredients.find(
+        (ing) => ing.name.toLowerCase() === ingValue.toLowerCase()
+      )
+    ) {
+      setVerifIng(true);
+    } else {
+      // mise en Camel case du mot :
+      const ingToPush =
+        ingValue.charAt(0).toUpperCase() + ingValue.toLowerCase().slice(1);
+      // push dans la DB
+      try {
+        const res = await axios.post(
+          `${import.meta.env.VITE_BACKEND_URL}/api/ingredients`,
+          { ingToPush },
+          {
+            headers: {
+              Authorization: `Bearer ${token}`, // Inclusion du jeton JWT
+            },
+          }
+        );
+        // on récupère à nouveau la DB :
+        if (res.status === 201) {
+          setSucessIngAdd(true);
+          setIngValue("");
+          loading();
+        }
+      } catch (error) {
+        console.error("Error POST request:", error);
+      }
+    }
+  }
   return (
     <div className="adminPage">
       <div className="avatarSection">
@@ -95,16 +153,25 @@ function AdminPage() {
               );
             })}
           </div>
-          <form onSubmit={submit}>
+          <form onSubmit={submit} className="upload-form">
             <input
               name={file}
-              onChange={(e) => setFile(e.target.files[0])}
+              onChange={handleFileChange}
               type="file"
               accept="image/*"
+              id="file-input"
             />
-            <button type="submit" className="button-user-avatar">
-              Valider
-            </button>
+            <label htmlFor="file-input" className="upload">
+              {previewURL ? (
+                <div className="add-avatar-button">
+                  <button type="submit" className="button-user-avatar">
+                    Télécharger
+                  </button>
+                </div>
+              ) : (
+                <div className="add-avatar-button">Ajouter un avatar</div>
+              )}
+            </label>
           </form>
         </div>
       </div>
@@ -133,6 +200,50 @@ function AdminPage() {
           })}
         </div>
       </div>
+
+      <div className="ingredientSection">
+        <h2>Ajouter des ingrédients</h2>
+        <div className="ingList">
+          <Input
+            className="ingInput1"
+            inputType="text"
+            inputPlaceholder="Entrez votre ingrédient"
+            inputList="ingredientList"
+            inputName="ingredientList"
+            value={ingValue}
+            onChange={(event) => {
+              handleIngValue(event);
+              setVerifIng(false);
+              setSucessIngAdd(false);
+            }}
+          />{" "}
+          <datalist id="ingredientList">
+            {ingredients.map((ingredient) => {
+              return (
+                <option key={ingredient.id} value={ingredient.name}>
+                  {ingredient.name}
+                </option>
+              );
+            })}
+          </datalist>
+          <button onClick={handleAddIng} type="button">
+            Ajouter
+          </button>
+        </div>
+        <div className="messageArea">
+          {" "}
+          {verifIng === true && (
+            <p>
+              ⚠️ L'ingrédient sélectionné est déjà présent dans la liste ou a
+              déja été ajouté
+            </p>
+          )}
+          {sucessIngAdd && (
+            <p>🎇 Félicitations l'ingrédient à été ajouté avec succès.</p>
+          )}
+        </div>
+      </div>
+
       <div className="userSection">
         <h2>Gérer un utilisateur</h2>
         <div className="searchUser">
@@ -181,5 +292,4 @@ function AdminPage() {
     </div>
   );
 }
-
 export default AdminPage;

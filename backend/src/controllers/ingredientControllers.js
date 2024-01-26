@@ -4,13 +4,25 @@ const tables = require("../tables");
 const browse = async (req, res, next) => {
   try {
     // Fetch all items from the database
-    const ingredient = await tables.ingredient.readAll();
+    const ingredient = await tables.ingredient.readAllIng();
 
     // Respond with the items in JSON format
     res.json(ingredient);
   } catch (err) {
     // Pass any errors to the error-handling middleware
     next(err);
+  }
+};
+
+const add = async (req, res, next) => {
+  const name = req.body.ingToPush;
+
+  try {
+    const ing = await tables.ingredient.create(name);
+
+    res.sendStatus(201).json(ing);
+  } catch (error) {
+    next(error);
   }
 };
 
@@ -32,4 +44,5 @@ const readIngredientsByRecipeId = async (req, res, next) => {
 module.exports = {
   readIngredientsByRecipeId,
   browse,
+  add,
 };

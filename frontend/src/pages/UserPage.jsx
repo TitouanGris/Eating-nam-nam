@@ -149,6 +149,7 @@ function UserPage() {
           <p>{userInfos.email}</p>
         </div>
       </div>
+
       <div className="admin-button">
         {userInfos.is_admin === 1 && (
           <button
