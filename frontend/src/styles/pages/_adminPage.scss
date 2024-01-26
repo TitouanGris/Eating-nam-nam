@@ -5,6 +5,51 @@
   align-items: center;
   gap: 15px;
 
+  .avatarSection {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+
+    .avatars-container {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      .avatar-map {
+        display: flex;
+        justify-content: space-around;
+        flex-wrap: wrap;
+      }
+      .upload-form {
+        input {
+          display: none;
+        }
+        label {
+          .add-avatar-button {
+            background-color: var(--primary-color);
+            color: var(--secondary-color-text);
+            border: none;
+            border-radius: 20px;
+            width: 90vw;
+            height: 5vh;
+            font-size: var(--title-font-size);
+            font-family: var(--font-family);
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            &:hover {
+              cursor: pointer;
+              background-color: white;
+              color: var(--primary-color);
+              border: solid 2px var(--primary-color);
+            }
+          }
+        }
+      }
+    }
+  }
+
   .recipeSection {
     display: flex;
     flex-direction: column;
@@ -127,6 +172,36 @@
 @media screen and (min-width: 900px) {
   .adminPage {
     gap: 30px;
+
+    .avatarSection {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+
+      .avatars-container {
+        display: flex;
+        width: 40vw;
+        flex-direction: column;
+        gap: 15px;
+        .avatar-map {
+          display: flex;
+          justify-content: space-around;
+          flex-wrap: wrap;
+        }
+        .upload-form {
+          label {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            .add-avatar-button {
+              width: 20vw;
+              height: 5vh;
+            }
+          }
+        }
+      }
+    }
 
     .recipeSection {
       .recipeList {
