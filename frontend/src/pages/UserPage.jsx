@@ -13,7 +13,11 @@ function UserPage() {
   const { userInfos, setUserInfos } = useUser();
   const { filterRegimeId } = useContext(FiltersContext);
 
-  const [setAvatar] = useState([]);
+
+  const [file, setFile] = useState(undefined);
+  const [avatar, setAvatar] = useState([]);
+  const [previewURL, setPreviewURL] = useState(null);
+
 
   const [modal, setModal] = useState(false);
   const [showModifyAccount, setShowModifyAccount] = useState(false);
@@ -118,6 +122,44 @@ function UserPage() {
     setShowModalTag(false);
   };
 
+
+  const handleFileChange = (e) => {
+    const selectedFile = e.target.files[0];
+    setFile(selectedFile);
+    setPreviewURL(URL.createObjectURL(selectedFile));
+    console.info(selectedFile);
+  };
+
+  const submit = async (event) => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      event.preventDefault();
+      if (file) {
+        // le formData permet de passer une image dans le body
+        const formData = new FormData();
+        console.info(formData.toString());
+        formData.append("image", file); // on ajoute des données à notre formData avec append (couple clé, valeur)
+        // dans le post, on passe le le formData dans le body pour l'envoyer au back
+        await axios.post(
+          `${import.meta.env.VITE_BACKEND_URL}/api/avatar`,
+          formData,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+              Authorization: `Bearer ${token}`, // Inclusion du jeton JWT
+            },
+          }
+        );
+
+        setPreviewURL(undefined);
+        fetchAvatar(); // suite au post, on relance la fonction qui permet de fetch les avatars pour ensuite mapper avec le nouvel avatar
+      } else {
+        console.error("Pas de pièce jointe de renseignée");
+      }
+    }
+  };
+
+
   const deletePreference = async () => {
     if (preferenceId) {
       try {
@@ -132,6 +174,7 @@ function UserPage() {
       console.error("Pas de pref selectionnée");
     }
   };
+  console.info(previewURL);
 
   return (
     <div className="user-container">
@@ -215,6 +258,51 @@ function UserPage() {
             )}
           </div>
         </div>
+        <div>
+          <div className="separationBarre" />
+          <div className="avatars">
+            <div className="avatars-container">
+              <h2>Ajouter des avatars</h2>
+              <div className="avatar-map">
+                {avatar.map((a) => {
+                  return (
+                    <div key={a.id}>
+                      <img
+                        width="30px"
+                        src={`${
+                          import.meta.env.VITE_BACKEND_URL
+                        }/images/avatar/${a.image_url}`}
+                        alt=""
+                      />
+                    </div>
+                  );
+                })}
+              </div>
+              {/* form submit nouvel avatar */}
+              <form onSubmit={submit} className="upload-form">
+                <input
+                  name={file}
+                  onChange={handleFileChange}
+                  type="file"
+                  accept="image/*"
+                  id="file-input"
+                />
+                <label htmlFor="file-input" className="upload">
+                  {previewURL ? (
+                    <div className="add-avatar-button">
+                      <button type="submit" className="button-user-avatar">
+                        Télécharger
+                      </button>
+                    </div>
+                  ) : (
+                    <div>Ajouter un avatar</div>
+                  )}
+                </label>
+              </form>
+            </div>
+          </div>
+        </div>
+
         <div className="userRecipeBox">
           <div className="separationBarre" />
           <h2>Mes recettes ajoutées</h2>

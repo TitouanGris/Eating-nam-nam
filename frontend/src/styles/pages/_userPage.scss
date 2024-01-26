@@ -44,20 +44,27 @@
           justify-content: center;
 
           input {
-            font-size: var(--text-second-font-size);
-            color: var(--primary-color);
+            display: none;
           }
-          .add-avatar-button {
-            display: flex;
-            justify-content: center;
-            .button-user-avatar {
-              width: 6vw;
-              padding: 5px;
-              font-size: var(--text-second-font-size);
-              border: none;
-              background-color: var(--primary-color);
-              color: white;
-              border-radius: 50%;
+          .upload {
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 10px;
+            font-size: var(--text-second-font-size);
+            width: 28vw;
+            height: 3vh;
+            padding: 5px;
+
+            .add-avatar-button {
+              display: flex;
+              justify-content: center;
+              .button-user-avatar {
+                font-size: var(--text-second-font-size);
+                border: none;
+                background-color: var(--primary-color);
+                color: white;
+                border-radius: 50%;
+              }
             }
           }
         }
