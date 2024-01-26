@@ -15,6 +15,7 @@ function UserPage() {
 
   const [file, setFile] = useState(undefined);
   const [avatar, setAvatar] = useState([]);
+  const [previewURL, setPreviewURL] = useState(null);
 
   const [modal, setModal] = useState(false);
   const [showModifyAccount, setShowModifyAccount] = useState(false);
@@ -119,6 +120,13 @@ function UserPage() {
     setShowModalTag(false);
   };
 
+  const handleFileChange = (e) => {
+    const selectedFile = e.target.files[0];
+    setFile(selectedFile);
+    setPreviewURL(URL.createObjectURL(selectedFile));
+    console.info(selectedFile);
+  };
+
   const submit = async (event) => {
     const token = localStorage.getItem("token");
     if (token) {
@@ -126,6 +134,7 @@ function UserPage() {
       if (file) {
         // le formData permet de passer une image dans le body
         const formData = new FormData();
+        console.info(formData.toString());
         formData.append("image", file); // on ajoute des données à notre formData avec append (couple clé, valeur)
         // dans le post, on passe le le formData dans le body pour l'envoyer au back
         await axios.post(
@@ -138,6 +147,8 @@ function UserPage() {
             },
           }
         );
+
+        setPreviewURL(undefined);
         fetchAvatar(); // suite au post, on relance la fonction qui permet de fetch les avatars pour ensuite mapper avec le nouvel avatar
       } else {
         console.error("Pas de pièce jointe de renseignée");
@@ -159,6 +170,7 @@ function UserPage() {
       console.error("Pas de pref selectionnée");
     }
   };
+  console.info(previewURL);
 
   return (
     <div className="user-container">
@@ -262,18 +274,25 @@ function UserPage() {
                 })}
               </div>
               {/* form submit nouvel avatar */}
-              <form onSubmit={submit}>
+              <form onSubmit={submit} className="upload-form">
                 <input
                   name={file}
-                  onChange={(e) => setFile(e.target.files[0])}
+                  onChange={handleFileChange}
                   type="file"
                   accept="image/*"
+                  id="file-input"
                 />
-                <div className="add-avatar-button">
-                  <button type="submit" className="button-user-avatar">
-                    +
-                  </button>
-                </div>
+                <label htmlFor="file-input" className="upload">
+                  {previewURL ? (
+                    <div className="add-avatar-button">
+                      <button type="submit" className="button-user-avatar">
+                        Télécharger
+                      </button>
+                    </div>
+                  ) : (
+                    <div>Ajouter un avatar</div>
+                  )}
+                </label>
               </form>
             </div>
           </div>
