@@ -59,7 +59,7 @@ CREATE TABLE
         photo_url VARCHAR(255) NULL,
         nb_serving INT NOT NULL,
         validate_recipe BOOL NOT NULL,
-        CONSTRAINT fk_user_recipe FOREIGN KEY (user_id) REFERENCES user(id)
+        CONSTRAINT fk_user_recipe FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE CASCADE
     );
 
 CREATE TABLE
@@ -85,7 +85,7 @@ CREATE TABLE
             ingredient_id,
             unit_id
         ),
-        CONSTRAINT fk_recipe_recipe_ingredient FOREIGN KEY (recipe_id) REFERENCES recipe(id),
+        CONSTRAINT fk_recipe_recipe_ingredient FOREIGN KEY (recipe_id) REFERENCES recipe(id) ON DELETE CASCADE,
         CONSTRAINT fk_ingredient_recipe_ingredient FOREIGN KEY (ingredient_id) REFERENCES ingredient(id),
         CONSTRAINT fk_unit FOREIGN KEY (unit_id) REFERENCES unit(id)
     );
@@ -118,7 +118,7 @@ CREATE TABLE
         recipe_id INT NOT NULL,
         tags_id INT NOT NULL,
         PRIMARY KEY (recipe_id, tags_id),
-        CONSTRAINT fk_recipe_recipe_tags FOREIGN KEY (recipe_id) REFERENCES recipe(id),
+        CONSTRAINT fk_recipe_recipe_tags FOREIGN KEY (recipe_id) REFERENCES recipe(id) ON DELETE CASCADE,
         CONSTRAINT fk_tags_recipe_tags FOREIGN KEY (tags_id) REFERENCES tags(id)
     );
 
@@ -127,7 +127,7 @@ CREATE TABLE
         user_id INT NOT NULL,
         tags_id INT NOT NULL,
         PRIMARY KEY (user_id, tags_id),
-        CONSTRAINT fk_user_user_tags FOREIGN KEY (user_id) REFERENCES user(id),
+        CONSTRAINT fk_user_user_tags FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE CASCADE,
         CONSTRAINT fk_tags_user_tags FOREIGN KEY (tags_id) REFERENCES tags(id)
     );
 
@@ -136,8 +136,8 @@ CREATE TABLE
         user_id INT NOT NULL,
         recipe_id INT NOT NULL,
         PRIMARY KEY (user_id, recipe_id),
-        CONSTRAINT fk_user_favoris FOREIGN KEY (user_id) REFERENCES user(id),
-        CONSTRAINT fk_recipe_favoris FOREIGN KEY (recipe_id) REFERENCES recipe(id)
+        CONSTRAINT fk_user_favoris FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE CASCADE,
+        CONSTRAINT fk_recipe_favoris FOREIGN KEY (recipe_id) REFERENCES recipe(id) ON DELETE CASCADE
     );
 
 CREATE TABLE
@@ -148,8 +148,8 @@ CREATE TABLE
         message TEXT COLLATE utf8mb4_unicode_ci NOT NULL,
         created_date DATETIME NOT NULL DEFAULT NOW(),
         updated_date DATETIME NULL DEFAULT NOW() ON UPDATE CURRENT_TIMESTAMP,
-        CONSTRAINT fk_user_comment FOREIGN KEY (user_id) REFERENCES user(id),
-        CONSTRAINT fk_recipe_comment FOREIGN KEY (recipe_id) REFERENCES recipe(id)
+        CONSTRAINT fk_user_comment FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE CASCADE,
+        CONSTRAINT fk_recipe_comment FOREIGN KEY (recipe_id) REFERENCES recipe(id) ON DELETE CASCADE
     );
 
 CREATE TABLE
@@ -157,7 +157,7 @@ CREATE TABLE
         user_id INT NOT NULL,
         ingredient_id INT NOT NULL,
         PRIMARY KEY (user_id, ingredient_id),
-        CONSTRAINT fk_user_user_ingredient FOREIGN KEY (user_id) REFERENCES user(id),
+        CONSTRAINT fk_user_user_ingredient FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE CASCADE,
         CONSTRAINT fk_ingredient_user_ingredient FOREIGN KEY (ingredient_id) REFERENCES ingredient(id)
     );
 /* ------------------ ICI LES INSERT ------------------- */

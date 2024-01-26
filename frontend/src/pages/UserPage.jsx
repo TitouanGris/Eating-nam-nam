@@ -188,8 +188,9 @@ function UserPage() {
           <p>{userInfos.email}</p>
         </div>
       </div>
+
       <div className="admin-button">
-        {!userInfos.isAdmin && (
+        {userInfos.is_admin === 1 && (
           <button
             type="button"
             onClick={() => {
@@ -297,6 +298,7 @@ function UserPage() {
             </div>
           </div>
         </div>
+
         <div className="userRecipeBox">
           <div className="separationBarre" />
           <h2>Mes recettes ajoutées</h2>
