@@ -1,5 +1,5 @@
 import { React, useState, useContext } from "react";
-import { Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import PropTypes from "prop-types";
 import { useUser } from "../context/UserContext";
@@ -8,11 +8,13 @@ import Signin from "./Signin";
 
 function Connexion({ setConnexion, connexion }) {
   const [inputPassword, setInputPassword] = useState("");
-  const [clickToConnect, setclickToConnect] = useState(false);
+  // const [clickToConnect, setclickToConnect] = useState(false);
   const { userInfos, setUserInfos } = useUser(); // permet de récupérer via un custom Hook l'objet du context (ici l'objet qui contient setUserInfos et UserInfos
   const [inputEmail, setInputEmail] = useState(userInfos.email);
   const [errorMessage, setErrorMessage] = useState("");
   const [inscription, setInscription] = useState(false);
+
+  const navigate = useNavigate();
 
   const {
     setFilterRegime,
@@ -91,7 +93,9 @@ function Connexion({ setConnexion, connexion }) {
 
         localStorage.setItem("favoris", JSON.stringify(favorisDb.data));
 
-        setclickToConnect((current) => !current);
+        // setclickToConnect((current) => !current);
+        setConnexion(!connexion);
+        navigate("browse");
       } catch (error) {
         console.error(error);
       }
@@ -105,10 +109,11 @@ function Connexion({ setConnexion, connexion }) {
     e.stopPropagation();
     setConnexion((current) => !current);
   }
+  console.info("connexion", connexion);
 
   return connexion ? (
     <div>
-      {userInfos && clickToConnect && <Navigate to="/browse" />}
+      {/* {userInfos && clickToConnect && <Navigate to="/browse" />} */}
       <div className="connexion">
         <div className="connexionModal">
           <div className="closeDiv">
