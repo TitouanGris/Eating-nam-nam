@@ -27,7 +27,11 @@ function ModifyAccount({ isOpen, setShowModifyAccount }) {
           newUser,
         });
         setNewUser("");
-        setUserInfos({ ...userInfos, pseudo: newUser.pseudo });
+        setUserInfos({
+          ...userInfos,
+          pseudo: newUser.pseudo,
+          email: newUser.email,
+        });
       } else {
         console.error("User information is undefined.");
       }

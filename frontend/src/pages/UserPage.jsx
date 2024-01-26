@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useUser } from "../context/UserContext";
 import ConfirmModal from "../components/ConfirmModal";
 import ModifyAccount from "../components/ModifyAccount";
+import ModifyPreferences from "../components/ModifyPreferences";
 import FiltersContext from "../context/FiltersContext";
 import Regime from "../components/Regime";
 import Button from "../components/Button";
@@ -17,10 +18,14 @@ function UserPage() {
 
   const [modal, setModal] = useState(false);
   const [showModifyAccount, setShowModifyAccount] = useState(false);
+  const [showModalTag, setShowModalTag] = useState(false);
+
   const [preferences, setPreferences] = useState([]);
 
   const [showModifyPreferences, setShowModifyPreferences] = useState(false);
   const navigate = useNavigate();
+
+  const [preferenceId, setPreferenceId] = useState();
 
   const logout = () => {
     setUserInfos({});
@@ -50,7 +55,8 @@ function UserPage() {
       const table = [];
 
       response.data.result.forEach((e) => {
-        table.push(e.name);
+        const object = { name: e.name, id: e.id };
+        table.push(object);
       });
       setPreferences(table);
     } catch (error) {
@@ -88,6 +94,7 @@ function UserPage() {
 
   const closeModal = () => {
     setModal(false);
+    setShowModalTag(false);
   };
 
   const submit = async (event) => {
@@ -111,6 +118,22 @@ function UserPage() {
       }
     }
   };
+
+  const deletePreference = async () => {
+    if (preferenceId) {
+      try {
+        await axios.delete(`http://localhost:3310/api/usertags`, {
+          data: { userInfosId: userInfos.id, preferenceId },
+        });
+        fetchData();
+      } catch (err) {
+        console.error(err);
+      }
+    } else {
+      console.error("Pas de pref selectionnée");
+    }
+  };
+
   return (
     <div className="user-container">
       <h1>Mon compte</h1>
@@ -123,8 +146,8 @@ function UserPage() {
           alt="profile"
         />
         <div className="userInfos">
-          <div>{userInfos.pseudo}</div>
-          <div>{userInfos.email}</div>
+          <p>{userInfos.pseudo}</p>
+          <p>{userInfos.email}</p>
         </div>
       </div>
       <div className="modify-button">
@@ -145,8 +168,24 @@ function UserPage() {
             <h2>Mes préférences</h2>
             <div className="preferences">
               {preferences.map((preference) => (
-                <div key={preference.name}>
-                  <div className="onePreferences">{preference}</div>
+                <div key={preference.id}>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setPreferenceId(preference.id);
+                      setShowModalTag(true);
+                    }}
+                  >
+                    &times;
+                  </button>
+                  {showModalTag && (
+                    <ModifyPreferences
+                      isOpen={showModalTag}
+                      deletePreference={deletePreference}
+                      onCancel={closeModal}
+                    />
+                  )}
+                  <div className="onePreferences">{preference.name}</div>
                 </div>
               ))}
             </div>
@@ -155,7 +194,7 @@ function UserPage() {
               className="button-user-preferences"
               onClick={() => setShowModifyPreferences(true)}
             >
-              Modifier mes préférences
+              Ajouter des préférences
             </button>
             {showModifyPreferences && (
               <div>
@@ -194,7 +233,7 @@ function UserPage() {
                 />
                 <div className="add-avatar-button">
                   <button type="submit" className="button-user-avatar">
-                    Ajouter
+                    +
                   </button>
                 </div>
               </form>

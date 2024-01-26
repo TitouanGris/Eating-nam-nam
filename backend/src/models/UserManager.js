@@ -72,17 +72,6 @@ class UserManager extends AbstractManager {
     return result[0];
   }
 
-  // async getByMail(email) {
-  //   const [result] = await this.database.query(
-  //     `SELECT a.image_url, u.id, u.pseudo, u.email, u.is_admin
-  //     FROM ${this.table} u
-  //     JOIN avatar a ON a.id = u.avatar_id
-  //     WHERE email = ?`,
-  //     [email]
-  //   );
-  //   return result[0];
-  // }
-
   async readOneUser(newUser) {
     const [result] = await this.database.query(
       `SELECT * FROM ${this.table}

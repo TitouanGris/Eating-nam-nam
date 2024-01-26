@@ -61,6 +61,7 @@ const read = async (req, res, next) => {
 
 const edit = async (req, res, next) => {
   const { newUser } = req.body;
+  console.info("newUser reçu edit", newUser);
   try {
     const existingUser = await tables.user.readOneUser(newUser);
     if (existingUser) {
