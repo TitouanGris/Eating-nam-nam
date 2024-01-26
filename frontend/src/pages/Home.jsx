@@ -3,10 +3,11 @@ import { NavLink } from "react-router-dom";
 import Button from "../components/Button";
 import Connexion from "../components/Connexion";
 import Signin from "../components/Signin";
+import { useUser } from "../context/UserContext";
 
 function Home() {
   const [connexion, setConnexion] = useState(false);
-
+  const { setUserInfos } = useUser();
   const [inscription, setInscription] = useState(false);
   function handleClick1() {
     setConnexion(true);
@@ -19,7 +20,7 @@ function Home() {
     <div className="home-container">
       <div className="home-logo">
         <div className="logo-container">
-          <img src="/src/assets/images/logo.png" alt="logo" />
+          <img src="/logo.png" alt="logo" />
         </div>
       </div>
 
@@ -48,7 +49,14 @@ function Home() {
             <Connexion connexion={connexion} setConnexion={setConnexion} />
           )}
           <NavLink to="/browse">
-            <Button label="Continuer sans se connecter" className="button3" />
+            <Button
+              label="Continuer sans se connecter"
+              className="button3"
+              onClick={() => {
+                localStorage.clear();
+                setUserInfos({});
+              }}
+            />
           </NavLink>
         </div>
       </div>

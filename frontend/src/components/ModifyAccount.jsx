@@ -23,9 +23,12 @@ function ModifyAccount({ isOpen, setShowModifyAccount }) {
   const handleModify1 = async () => {
     try {
       if (userInfos && userInfos.id) {
-        await axios.put(`http://localhost:3310/api/user/${userInfos.id}`, {
-          newUser,
-        });
+        await axios.put(
+          `${import.meta.env.VITE_BACKEND_URL}/api/user/${userInfos.id}`,
+          {
+            newUser,
+          }
+        );
         setNewUser("");
         setUserInfos({
           ...userInfos,

@@ -4,9 +4,11 @@ import axios from "axios";
 import Input from "../components/Input";
 import Button from "../components/Button";
 import PostModal from "../components/PostModal";
+import { useUser } from "../context/UserContext";
 
 function RecipePost() {
   const { filters, ingredients, units } = useLoaderData();
+  const { userInfos } = useUser();
 
   const [persons, setPersons] = useState(0);
   const [ingValue, setIngValue] = useState("");
@@ -21,10 +23,10 @@ function RecipePost() {
   const [previewURL, setPreviewURL] = useState(null);
   const [toPostRecipe, setToPostRecipe] = useState({
     recipe_name: "",
-    user_id: 1,
+    user_id: userInfos.id,
     summary: "",
     nb_serving: persons,
-    validateRecipe: true,
+    validateRecipe: false,
     photoUrl: file,
   });
   const [toPostTags, setToPostTags] = useState({
@@ -36,7 +38,6 @@ function RecipePost() {
     country_tags_id: null,
   });
   const [toPostSteps, setToPostSteps] = useState([]);
-
   const handlePlusPersons = () => {
     setPersons((prevPersons) => prevPersons + 1);
     setToPostRecipe((oldObj) => {
@@ -51,11 +52,9 @@ function RecipePost() {
       });
     }
   };
-
   const handleTextareaChange = (event) => {
     setTextareaContent(event.target.value);
   };
-
   const handleIngValue = (event) => {
     const { value } = event.target;
     setIngValue(value);
@@ -106,7 +105,6 @@ function RecipePost() {
       return updateSelectedIng;
     });
   };
-
   const handleRecipeName = (event) => {
     const { value } = event.target;
     setToPostRecipe((oldObj) => {
@@ -145,20 +143,15 @@ function RecipePost() {
   };
   const handleRecipeRegimeTags = (tag) => {
     const value = tag.id;
-
     setToPostTags((oldObj) => {
       if (oldObj.regime_tags_id && oldObj.regime_tags_id.includes(value)) {
         const updatedTags = oldObj.regime_tags_id.filter((id) => id !== value);
-
         const newRegimeTags = updatedTags.length > 0 ? updatedTags : null;
-
         return { ...oldObj, regime_tags_id: newRegimeTags };
       }
-
       const newRegimeTags = oldObj.regime_tags_id
         ? [...oldObj.regime_tags_id, value]
         : [value];
-
       return { ...oldObj, regime_tags_id: newRegimeTags };
     });
   };
@@ -173,7 +166,6 @@ function RecipePost() {
       description: textareaContent,
       step_number: toPostSteps.length + 1,
     };
-
     setToPostSteps([...toPostSteps, newStep]);
     setTextareaContent("");
   };
@@ -181,12 +173,10 @@ function RecipePost() {
     const updatedSteps = toPostSteps.filter(
       (step) => step.step_number !== stepNumber
     );
-
     const updatedStepsWithCorrectNumbers = updatedSteps.map((step, index) => ({
       ...step,
       step_number: index + 1,
     }));
-
     setToPostSteps(updatedStepsWithCorrectNumbers);
   };
   const typeTag = filters.filter((tag) => tag.category_id === 6);
@@ -195,14 +185,11 @@ function RecipePost() {
   const difficultyTag = filters.filter((tag) => tag.category_id === 4);
   const regimeTag = filters.filter((tag) => tag.category_id === 3);
   const durationTag = filters.filter((tag) => tag.category_id === 5);
-
   const handleFileChange = (e) => {
     const selectedFile = e.target.files[0];
     setFile(selectedFile);
-
     setPreviewURL(URL.createObjectURL(selectedFile));
   };
-
   const handleShareRecipe = async () => {
     try {
       const formData = new FormData();
@@ -212,7 +199,7 @@ function RecipePost() {
       formData.append("ingredients", JSON.stringify(sumIng));
       formData.append("image", file);
       const response = await axios.post(
-        "http://localhost:3310/api/recipe",
+        `${import.meta.env.VITE_BACKEND_URL}/api/recipe`,
         formData,
         {
           headers: {
@@ -227,7 +214,6 @@ function RecipePost() {
           user_id: 1,
           summary: "",
           nb_serving: persons,
-          validateRecipe: true,
           photoUrl: null,
         });
         setToPostTags({
@@ -252,7 +238,6 @@ function RecipePost() {
           user_id: 1,
           summary: "",
           nb_serving: persons,
-          validateRecipe: true,
           photoUrl: null,
         });
         setToPostTags({
@@ -273,7 +258,6 @@ function RecipePost() {
         user_id: 1,
         summary: "",
         nb_serving: persons,
-        validateRecipe: true,
         photoUrl: null,
       });
       setToPostTags({
@@ -505,35 +489,38 @@ function RecipePost() {
                 value={qtyValue}
                 onChange={handleQtyValue}
               />
-              <select
-                onChange={handleUnitValue}
-                value={unitValue}
-                className="ingInput3"
-              >
-                <option value=""> --- </option>
-                {units.map((unit) => {
-                  return (
-                    <option key={unit.id} value={unit.name}>
-                      {unit.name}
-                    </option>
-                  );
-                })}
-              </select>
+              <div className="ingI3Button">
+                <select
+                  onChange={handleUnitValue}
+                  value={unitValue}
+                  className="ingInput3"
+                >
+                  <option value=""> --- </option>
+                  {units.map((unit) => {
+                    return (
+                      <option key={unit.id} value={unit.name}>
+                        {unit.name}
+                      </option>
+                    );
+                  })}
+                </select>{" "}
+                <Button
+                  className="add-ingredient"
+                  onClick={handleSumIng}
+                  label="+"
+                  disabled={
+                    ingValue === "" || unitValue === "" || qtyValue === ""
+                  }
+                />
+              </div>
+              {verifIng === false && (
+                <p>
+                  ⚠️ L'ingrédient sélectionné n'est pas présent dans la liste ou
+                  a déja été ajouté
+                </p>
+              )}
             </div>
-            <Button
-              className="add-ingredient"
-              onClick={handleSumIng}
-              label="+"
-              disabled={ingValue === "" || unitValue === "" || qtyValue === ""}
-            />
-            {verifIng === false && (
-              <p>
-                ⚠️ L'ingrédient sélectionné n'est pas présent dans la liste ou à
-                déja été ajouté
-              </p>
-            )}
           </div>
-
           <div className="ingListSummary">
             {selectedIng.map((ing, index) => {
               return (
@@ -553,18 +540,6 @@ function RecipePost() {
         </div>
         <div className="recipe-steps">
           <p>Etapes de la recette *</p>
-          <textarea
-            name="step"
-            placeholder="Décrivez les étapes de votre recette"
-            minLength="1"
-            cols="40"
-            rows="8"
-            value={textareaContent}
-            onChange={handleTextareaChange}
-          />
-          <button type="button" onClick={handleRecipeStep}>
-            Ajoutez l'étape
-          </button>
           <ul>
             {toPostSteps.map((step) => (
               <li key={step.step_number}>
@@ -578,6 +553,18 @@ function RecipePost() {
               </li>
             ))}
           </ul>
+          <textarea
+            name="step"
+            placeholder="Décrivez les étapes de votre recette"
+            minLength="1"
+            cols="40"
+            rows="8"
+            value={textareaContent}
+            onChange={handleTextareaChange}
+          />
+          <button type="button" onClick={handleRecipeStep}>
+            Ajoutez l'étape
+          </button>
           {/* {toPostSteps.map((step, index) => (
             <div className="recapSteps">
               <p>{`Étape ${step.step_number}: ${step.description}`}</p>
@@ -613,23 +600,25 @@ function RecipePost() {
             </div>
           </label>
         </div>
-        <Button
-          className="share-recipe button1"
-          label="Partagez !"
-          disabled={
-            toPostRecipe.recipe_name === "" ||
-            toPostRecipe.summary === "" ||
-            toPostRecipe.nb_serving === 0 ||
-            toPostTags.type_tags_id === null ||
-            toPostTags.diff_tags_id === null ||
-            toPostTags.price_tags_id === null ||
-            toPostTags.time_tags_id === null ||
-            toPostSteps.description === "" ||
-            sumIng.length === 0
-          }
-          onClick={handleShareRecipe}
-        />
-        {postModal && <PostModal />}
+        <div className="shareContainer">
+          <Button
+            className="share-recipe button1"
+            label="Partagez !"
+            disabled={
+              toPostRecipe.recipe_name === "" ||
+              toPostRecipe.summary === "" ||
+              toPostRecipe.nb_serving === 0 ||
+              toPostTags.type_tags_id === null ||
+              toPostTags.diff_tags_id === null ||
+              toPostTags.price_tags_id === null ||
+              toPostTags.time_tags_id === null ||
+              toPostSteps.description === "" ||
+              sumIng.length === 0
+            }
+            onClick={handleShareRecipe}
+          />
+          {postModal && <PostModal />}
+        </div>
       </div>
     </div>
   );
@@ -637,7 +626,9 @@ function RecipePost() {
 
 export const loadIngredientsData = async () => {
   try {
-    const ingredientsData = await fetch(`http://localhost:3310/api/ingredient`);
+    const ingredientsData = await fetch(
+      `${import.meta.env.VITE_BACKEND_URL}/api/ingredient`
+    );
     const data = await ingredientsData.json();
     return data;
   } catch (e) {
@@ -648,7 +639,9 @@ export const loadIngredientsData = async () => {
 
 export const loadUnitsData = async () => {
   try {
-    const unitsData = await fetch(`http://localhost:3310/api/unit`);
+    const unitsData = await fetch(
+      `${import.meta.env.VITE_BACKEND_URL}/api/unit`
+    );
     const data = await unitsData.json();
 
     return data;

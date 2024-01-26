@@ -7,10 +7,16 @@
 
   .recipeDetailsHeader {
     display: flex;
+    flex-direction: column;
     gap: 20px;
     padding-left: 10px;
     padding-top: 10px;
     justify-content: left;
+
+    .recipeName {
+      display: flex;
+      gap: 20px;
+    }
     h2 {
       font-size: 1.2rem;
     }
@@ -185,20 +191,18 @@
 }
 
 @media screen and (min-width: 900px) {
-  html,
-  body,
-  :root {
-    background-color: #eeeeee;
-  }
-
   .recipeDetails {
     padding-top: 20px;
     width: 60vw;
     padding: 0 5vw;
     margin: auto;
     background-color: white;
+    overflow-y: scroll;
+    max-height: 100vh;
 
     .recipeDetailsHeader {
+      flex-direction: row;
+      align-items: center;
       img {
         width: 30px;
       }

@@ -1,5 +1,6 @@
 import { createContext, useState, useContext, useMemo, useEffect } from "react";
 import { useLocation } from "react-router-dom";
+
 import axios from "axios";
 import PropTypes from "prop-types";
 import FiltersContext from "./FiltersContext";
@@ -38,7 +39,7 @@ export function UserProvider({ children }) {
         // get pour récupérer les préférences utilisations de la DB avec le user ID
         try {
           const res2 = await axios.get(
-            `http://localhost:3310/api/usertags/${res.data.id}`
+            `${import.meta.env.VITE_BACKEND_URL}/api/usertags/${res.data.id}`
           );
           const regimeTable = [];
           const countryTable = [];
@@ -75,7 +76,7 @@ export function UserProvider({ children }) {
         // get pour récupérer la table favoris à jour de la DB avec le user ID
         try {
           const favorisDb = await axios.get(
-            `http://localhost:3310/api/favoris/${res.data.id}`
+            `${import.meta.env.VITE_BACKEND_URL}/api/favoris/${res.data.id}`
           );
           setFavorisTable(favorisDb.data);
           localStorage.setItem("favoris", JSON.stringify(favorisDb.data));
@@ -98,7 +99,7 @@ export function UserProvider({ children }) {
       favorisBtn,
       setFavorisBtn,
     }),
-    [userInfos, setUserInfos, favorisBtn, setFavorisBtn]
+    [userInfos, favorisBtn]
   );
 
   return (

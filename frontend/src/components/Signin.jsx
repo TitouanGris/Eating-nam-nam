@@ -5,7 +5,7 @@ import { useUser } from "../context/UserContext";
 
 import Regime from "./Regime";
 
-function Signin({ inscription, setInscription, btnSignIn, setBtnSignIn }) {
+function Signin({ inscription = false, setInscription }) {
   const { setUserInfos } = useUser();
 
   const [newUser, setNewUser] = useState({
@@ -28,7 +28,6 @@ function Signin({ inscription, setInscription, btnSignIn, setBtnSignIn }) {
   function handleClick(e) {
     e.stopPropagation();
     setInscription(false);
-    setBtnSignIn(false);
   }
 
   const handleSubmit = async (e) => {
@@ -44,12 +43,18 @@ function Signin({ inscription, setInscription, btnSignIn, setBtnSignIn }) {
       setErrorMessage("Veuillez fournir une adresse e-mail valide");
     } else {
       try {
-        await axios.post("http://localhost:3310/api/user", newUser);
-        const res2 = await axios.post("http://localhost:3310/api/login", {
-          // on INSERT dans la DB avec les infos saisies
-          inputEmail: newUser.email,
-          inputPassword: newUser.password,
-        });
+        await axios.post(
+          `${import.meta.env.VITE_BACKEND_URL}/api/user`,
+          newUser
+        );
+        const res2 = await axios.post(
+          `${import.meta.env.VITE_BACKEND_URL}/api/login`,
+          {
+            // on INSERT dans la DB avec les infos saisies
+            inputEmail: newUser.email,
+            inputPassword: newUser.password,
+          }
+        );
         setUserInfos(res2.data.user);
         setSubmittedUser([...submittedUser, newUser]);
         setNewUser({ pseudo: "", email: "", password: "" });
@@ -71,7 +76,7 @@ function Signin({ inscription, setInscription, btnSignIn, setBtnSignIn }) {
     setShowPassword(!showPassword);
   };
 
-  return inscription || btnSignIn ? (
+  return inscription ? (
     <div className="inscription">
       <div className="signin-page">
         <div className="closeDiv">
@@ -136,8 +141,6 @@ function Signin({ inscription, setInscription, btnSignIn, setBtnSignIn }) {
 Signin.propTypes = {
   inscription: PropTypes.bool.isRequired,
   setInscription: PropTypes.func.isRequired,
-  btnSignIn: PropTypes.bool.isRequired,
-  setBtnSignIn: PropTypes.func.isRequired,
 };
 
 export default Signin;

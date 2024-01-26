@@ -11,11 +11,11 @@ const browse = async (req, res, next) => {
 
 const getbytoken = async (req, res) => {
   const userinfo = req.auth; // correspond au payload
-  // console.log(userinfo);
+
   try {
     if (userinfo.sub) {
       const oneUser = await tables.user.getById(userinfo.sub);
-      // console.log(oneUser);
+
       res.status(201).json(oneUser);
     }
   } catch (err) {
@@ -97,8 +97,8 @@ const destroy = async (req, res, next) => {
     // if (!deleteUser) {
     //   return res.status((404).json({ error: "Cet utilsateur n'existe pas." }));
     // }
-    const deleteId = await tables.user.destroy(req.params.id);
-    res.status(201).json({ deleteId });
+    const deleteId = await tables.user.deleteById(req.params.id);
+    res.status(200).json({ deleteId });
   } catch (err) {
     next(err);
   }

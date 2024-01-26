@@ -13,7 +13,9 @@ function ModifyAvatar({ isOpen, setShowModifyAvatar }) {
 
   const fetchAvatar = async () => {
     try {
-      const response = await axios.get(`http://localhost:3310/api/avatar`);
+      const response = await axios.get(
+        `${import.meta.env.VITE_BACKEND_URL}/api/avatar`
+      );
       setAvatar(response.data);
     } catch (error) {
       console.error(error);
@@ -27,12 +29,15 @@ function ModifyAvatar({ isOpen, setShowModifyAvatar }) {
   const handleModifyAvatar = async () => {
     try {
       if (userInfos && userInfos.id && selectedAvatarId !== null) {
-        await axios.put(`http://localhost:3310/api/user/${userInfos.id}`, {
-          pseudo: userInfos.pseudo,
-          email: userInfos.email,
-          password: userInfos.hashed_password,
-          avatar_id: selectedAvatarId,
-        });
+        await axios.put(
+          `${import.meta.env.VITE_BACKEND_URL}/api/user/${userInfos.id}`,
+          {
+            pseudo: userInfos.pseudo,
+            email: userInfos.email,
+            password: userInfos.hashed_password,
+            avatar_id: selectedAvatarId,
+          }
+        );
         setUserInfos({
           ...userInfos,
           avatarId: selectedAvatarId,

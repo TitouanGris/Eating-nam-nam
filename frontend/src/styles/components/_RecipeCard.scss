@@ -56,7 +56,6 @@
 
       .price {
         width: 25%;
-
         display: flex;
         align-items: center;
         justify-content: center;
@@ -67,21 +66,22 @@
         }
       }
 
-      .difficulty {
-        width: 25%;
+      // .difficulty {
+      //   width: 25%;
+      //   flex-direction: column;
+      //   display: flex;
+      //   align-items: center;
+      //   justify-content: center;
 
-        display: flex;
-        align-items: center;
-        justify-content: center;
-
-        img {
-          // object-fit: cover;
-          width: 80%;
-        }
-      }
+      //   img {
+      //     // object-fit: cover;
+      //     width: 80%;
+      //   }
+      // }
 
       .serving,
-      .duration {
+      .duration,
+      .difficulty {
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -117,7 +117,7 @@
   .favoris {
     .heart {
       position: absolute;
-      z-index: 2;
+      // z-index: 2;
       top: 10px;
       right: 15px;
       width: 40px;

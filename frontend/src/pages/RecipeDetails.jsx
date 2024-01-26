@@ -1,6 +1,7 @@
-import { useLoaderData, useParams, Link } from "react-router-dom";
+import { useLoaderData, useParams, Link, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import Button from "../components/Button";
 import { useUser } from "../context/UserContext";
 
 function RecipeDetails() {
@@ -11,6 +12,7 @@ function RecipeDetails() {
   const [comments, setComments] = useState([]);
   const [newComment, setNewComment] = useState("");
   const { id } = useParams();
+  const navigate = useNavigate();
 
   const options = {
     weekday: "long",
@@ -20,19 +22,23 @@ function RecipeDetails() {
   };
 
   const fetchComments = () => {
-    fetch(`http://localhost:3310/api/comments/recipe/${id}`)
+    fetch(`${import.meta.env.VITE_BACKEND_URL}/api/comments/recipe/${id}`)
       .then((res) => res.json())
       .then((data) => setComments(data));
   };
 
   const { userInfos } = useUser();
 
+  useEffect(() => {
+    console.info(userInfos);
+  }, [userInfos]);
+
   async function postComment(event) {
     event.preventDefault();
 
     try {
       axios
-        .post(`http://localhost:3310/api/comment`, {
+        .post(`${import.meta.env.VITE_BACKEND_URL}/api/comment`, {
           userId: userInfos.id,
           recipeId: recipe.recipeId,
           message: newComment,
@@ -46,20 +52,29 @@ function RecipeDetails() {
     }
   }
 
+  async function validateRecipe(recipeId) {
+    try {
+      await axios.put(`http://localhost:3310/api/recipe/${recipeId}/validate`);
+      navigate("/account/admin");
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
   useEffect(() => {
-    fetch(`http://localhost:3310/api/step/${id}`)
+    fetch(`${import.meta.env.VITE_BACKEND_URL}/api/step/${id}`)
       .then((res) => res.json())
       .then((data) => setSteps(data));
   }, []);
 
   useEffect(() => {
-    fetch(`http://localhost:3310/api/ingredients/${id}`)
+    fetch(`${import.meta.env.VITE_BACKEND_URL}/api/ingredients/${id}`)
       .then((res) => res.json())
       .then((data) => setIngredients(data));
   }, []);
 
   useEffect(() => {
-    fetch(`http://localhost:3310/api/tags/recipe/${id}`)
+    fetch(`${import.meta.env.VITE_BACKEND_URL}/api/tags/recipe/${id}`)
       .then((res) => res.json())
       .then((data) => setTags(data));
   }, []);
@@ -70,16 +85,27 @@ function RecipeDetails() {
   return (
     <div className="recipeDetails">
       <div className="recipeDetailsHeader">
-        <Link to="/browse">
-          <img src="/src/assets/images/back.png" alt="Back Arrow" />
-        </Link>
-        <h2>{recipe.recipeName}</h2>
+        <div className="recipeName">
+          <Link to={-1}>
+            <img src="/src/assets/images/back.png" alt="Back Arrow" />
+          </Link>
+          <h2>{recipe.recipeName}</h2>
+        </div>
+        {userInfos.is_admin === 1 && recipe.validate_recipe === 0 && (
+          <div className="validate_button">
+            <Button
+              label="Valider cette recette"
+              className="buttonGreen"
+              onClick={() => validateRecipe(id)}
+            />
+          </div>
+        )}
       </div>
       <div className="imgContainer">
         <img
           src={
-            recipe.recipeImage
-              ? `http://localhost:3310${recipe.recipeImage}`
+            recipe.recipeImage !== "/images/undefined"
+              ? `${import.meta.env.VITE_BACKEND_URL}${recipe.recipeImage}`
               : "/src/assets/images/logo.png"
           }
           alt={`${recipe.recipeName}`}
@@ -89,13 +115,17 @@ function RecipeDetails() {
         <div className="tags">
           <div className="price">
             <img
-              src={`http://localhost:3310${recipe.price[0].tagUrl}`}
+              src={`${import.meta.env.VITE_BACKEND_URL}${
+                recipe.price[0].tagUrl
+              }`}
               alt="r.TagPrice"
             />
           </div>
           <div className="difficulty">
             <img
-              src={`http://localhost:3310${recipe.difficulty[0].tagUrl}`}
+              src={`${import.meta.env.VITE_BACKEND_URL}${
+                recipe.difficulty[0].tagUrl
+              }`}
               alt="r.TagDifficulty"
             />
           </div>
@@ -140,7 +170,7 @@ function RecipeDetails() {
         <div className="comments">
           <h3>L'avis des gourmands</h3>
           {comments.map((comment) => (
-            <div>
+            <div key={comment.commentId}>
               <p className="comment_pseudo">{comment.pseudo}</p>
               <p>{comment.message}</p>
               <p className="comment_date">
@@ -164,7 +194,7 @@ function RecipeDetails() {
               value={newComment}
             />
             <button className="button1" type="submit">
-              Valider{" "}
+              Commenter{" "}
             </button>
           </form>
         </div>
@@ -176,7 +206,7 @@ function RecipeDetails() {
 export const loadRecipeDetails = async ({ params }) => {
   try {
     const recipeDetails = await fetch(
-      `http://localhost:3310/api/recipe/${params.id}`
+      `${import.meta.env.VITE_BACKEND_URL}/api/recipe/${params.id}`
     );
     const data = await recipeDetails.json();
     return data[0];
