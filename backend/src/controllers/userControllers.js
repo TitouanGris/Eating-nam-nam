@@ -96,8 +96,8 @@ const destroy = async (req, res, next) => {
     // if (!deleteUser) {
     //   return res.status((404).json({ error: "Cet utilsateur n'existe pas." }));
     // }
-    const deleteId = await tables.user.destroy(req.params.id);
-    res.status(201).json({ deleteId });
+    const deleteId = await tables.user.deleteById(req.params.id);
+    res.status(200).json({ deleteId });
   } catch (err) {
     next(err);
   }

@@ -12,6 +12,7 @@ import RecipeBrowse from "./pages/RecipeBrowse";
 import RecipeDetails, { loadRecipeDetails } from "./pages/RecipeDetails";
 import UserPage from "./pages/UserPage";
 import Signin from "./components/Signin";
+import AdminPage from "./pages/AdminPage";
 
 import "./styles/index.scss";
 
@@ -32,6 +33,10 @@ const router = createBrowserRouter([
       {
         path: "/account",
         element: <UserPage />,
+      },
+      {
+        path: "/account/admin",
+        element: <AdminPage />,
       },
       {
         path: "/signin",

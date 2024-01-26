@@ -120,6 +120,7 @@ function RecipeCard({ r }) {
               }`}
               alt="r.TagDifficulty"
             />
+            <p>{r.difficulty[0].tagName}</p>
           </div>
           <div className="serving">
             <img

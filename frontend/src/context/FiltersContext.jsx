@@ -87,7 +87,7 @@ export function FiltersContextProvider({ children }) {
     }
 
     if (localStorage.difficultyTable) {
-      const difficultyTableData = JSON.parse(localStorage.priceTable);
+      const difficultyTableData = JSON.parse(localStorage.difficultyTable);
       setFilterDifficulty(difficultyTableData);
     }
   }, []);

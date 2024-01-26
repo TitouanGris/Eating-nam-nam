@@ -1,0 +1,152 @@
+.adminPage {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+
+  .recipeSection {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    .recipeList {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 20px;
+
+      a {
+        text-decoration: none;
+
+        button.recipeDiv {
+          padding: 10px;
+          background-color: white;
+          border: none;
+          border-radius: 5px;
+          box-shadow: 4px 4px 4px 0px #bbb9b9;
+          display: flex;
+          flex-direction: column;
+          gap: 5px;
+
+          &:hover {
+            transform: scale(103%);
+          }
+
+          p {
+            font-size: 0.9rem;
+            width: 90%;
+            text-align: left;
+          }
+
+          .imgDiv {
+            .recipeImg {
+              width: 170px;
+              height: 100px;
+              object-fit: cover;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .ingredientSection {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+
+    .ingList {
+      display: flex;
+      align-items: center;
+
+      button {
+        margin-left: 10px;
+      }
+
+      .messageArea {
+        display: flex;
+        align-items: center;
+      }
+    }
+  }
+
+  h1 {
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+
+  .userSection {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 15vh;
+    .searchUser {
+      input {
+        width: 60vw;
+      }
+    }
+    .userList {
+      display: flex;
+      width: 90vw;
+      flex-direction: column;
+      gap: 10px;
+      .userCard {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 5px;
+        justify-content: space-between;
+        .userAvatar {
+          display: flex;
+          align-items: center;
+          .avatarImg {
+            width: 70px;
+          }
+
+          .userPseudoEmail {
+            font-size: 1rem;
+            .pseudo {
+              font-weight: bold;
+            }
+          }
+        }
+        .deleteButton {
+          button {
+            width: 200px;
+            font-size: 1rem;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 900px) {
+  .adminPage {
+    gap: 30px;
+
+    .recipeSection {
+      .recipeList {
+        flex-direction: row;
+        flex-wrap: wrap;
+      }
+    }
+    .userSection {
+      .searchUser {
+        input {
+          width: 20vw;
+        }
+      }
+      .userList {
+        width: 50vw;
+
+        .userCard {
+          flex-direction: row;
+        }
+      }
+    }
+  }
+}

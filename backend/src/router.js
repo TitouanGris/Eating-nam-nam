@@ -68,17 +68,19 @@ const avatarControllers = require("./controllers/avatarControllers");
 
 // Route to get a list of items
 router.get("/items", itemControllers.browse);
+router.get("/users", userControllers.browse);
 router.get("/recipe", recipeControllers.browse);
 router.get("/tags", tagsControllers.browse);
 router.get("/ingredient", ingredientControllers.browse);
 router.get("/unit", unitsControllers.browse);
+router.get("/avatar", avatarControllers.browse);
+router.get("/adminRecipe", recipeControllers.adminBrowse);
+
+// Route to get a specific item by ID
 router.get("/usertags/:id", userTagsControllers.browse);
 router.get("/comments/recipe/:id", commentControllers.readCommentsByRecipeId);
 router.get("/favoris/:id", favorisControllers.browse);
-router.get("/avatar", avatarControllers.browse);
 router.get("/usertags/:id", userTagsControllers.browse);
-
-// Route to get a specific item by ID
 router.get("/items/:id", itemControllers.read);
 router.get("/user/:id", userControllers.read);
 router.get("/recipe/:id", recipeControllers.read);
@@ -110,8 +112,10 @@ router.delete("/usertags/:id", userTagsControllers.destroy);
 router.put("/user/:id", userControllers.update);
 router.put("/user/:id", userControllers.edit);
 router.put("/usertags", userTagsControllers.update);
+router.put("/recipe/:id/validate", recipeControllers.validateRecipe);
 
 /* ************************************************************************* */
+// router.use(verifyToken);
 
 router.use(verifyToken); // mur où il est nécéssaire d'être authentifier pour passer (voir auth.js)
 
@@ -119,5 +123,6 @@ router.use(verifyToken); // mur où il est nécéssaire d'être authentifier pou
 // /!\ le middleware upload.single est lié à l'utilisation de multer (voir en haut de ce fichier)
 router.post("/avatar", uploadAvatar.single("image"), avatarControllers.add);
 router.get("/userbytoken", userControllers.getbytoken);
+router.post("/ingredients", ingredientControllers.add);
 
 module.exports = router;

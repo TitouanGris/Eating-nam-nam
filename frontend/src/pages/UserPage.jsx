@@ -153,6 +153,19 @@ function UserPage() {
           <div>{userInfos.email}</div>
         </div>
       </div>
+
+      <div className="admin-button">
+        {userInfos.is_admin === 1 && (
+          <button
+            type="button"
+            onClick={() => {
+              navigate("/account/admin");
+            }}
+          >
+            Page admin
+          </button>
+        )}
+      </div>
       <div className="modify-button">
         <button type="button" onClick={handleModifyAccount}>
           Modifier mes informations

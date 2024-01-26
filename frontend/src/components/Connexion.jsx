@@ -8,13 +8,11 @@ import Signin from "./Signin";
 
 function Connexion({ setConnexion, connexion }) {
   const [inputPassword, setInputPassword] = useState("");
-  // const [clickToConnect, setclickToConnect] = useState(false);
+
   const { userInfos, setUserInfos } = useUser(); // permet de récupérer via un custom Hook l'objet du context (ici l'objet qui contient setUserInfos et UserInfos
   const [inputEmail, setInputEmail] = useState(userInfos.email);
   const [errorMessage, setErrorMessage] = useState("");
   const [inscription, setInscription] = useState(false);
-
-  const navigate = useNavigate();
 
   const {
     setFilterRegime,
@@ -23,6 +21,8 @@ function Connexion({ setConnexion, connexion }) {
     setFilterDifficulty,
     setFavorisTable,
   } = useContext(FiltersContext);
+
+  const navigate = useNavigate();
 
   async function handleSubmit(event) {
     event.preventDefault();
@@ -122,7 +122,7 @@ function Connexion({ setConnexion, connexion }) {
             </button>
           </div>
           <div className="formDiv">
-            <div className="title">Connexion {userInfos.pseudo}</div>
+            <div className="title">Connexion</div>
             {errorMessage && <p>{errorMessage}</p>}
             <form onSubmit={handleSubmit}>
               <input
