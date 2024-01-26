@@ -8,7 +8,6 @@ import Signin from "./Signin";
 
 function Connexion({ setConnexion, connexion }) {
   const [inputPassword, setInputPassword] = useState("");
-  const [setclickToConnect] = useState(false);
   const { userInfos, setUserInfos } = useUser(); // permet de récupérer via un custom Hook l'objet du context (ici l'objet qui contient setUserInfos et UserInfos
   const [inputEmail, setInputEmail] = useState(userInfos.email);
   const [errorMessage, setErrorMessage] = useState("");
@@ -93,9 +92,9 @@ function Connexion({ setConnexion, connexion }) {
 
         localStorage.setItem("favoris", JSON.stringify(favorisDb.data));
 
-        setclickToConnect((current) => !current);
+        // setclickToConnect((current) => !current);
         setConnexion(!connexion);
-        navigate("/browse");
+        navigate("browse");
       } catch (error) {
         console.error(error);
       }
