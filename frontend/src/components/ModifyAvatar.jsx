@@ -57,7 +57,7 @@ function ModifyAvatar({ isOpen, setShowModifyAvatar }) {
 
   return (
     <div className={`modify-modal ${isOpen ? "open" : ""}`}>
-      <div className="modify-modal-content">
+      <div className="modify-modal-content-avatar">
         <div className="avatar-container">
           {avatar.map((a) => (
             <span key={a.id}>
@@ -67,6 +67,7 @@ function ModifyAvatar({ isOpen, setShowModifyAvatar }) {
                   setImageAvatar(a.image_url);
                 }}
                 type="button"
+                className="avatar-button"
                 aria-label={`Select avatar ${a.id}`}
                 // aria-label pour accesibilité user
               >

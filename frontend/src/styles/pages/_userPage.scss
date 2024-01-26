@@ -18,9 +18,12 @@
   .infos-user {
     display: flex;
     flex-direction: column;
-    height: 45%;
     justify-content: center;
-    gap: 20px;
+    gap: 30px;
+
+    h2 {
+      font-size: 15px;
+    }
 
     .avatars {
       display: flex;
@@ -30,25 +33,31 @@
       .avatars-container {
         display: flex;
         flex-direction: column;
-        gap: 5px;
+        gap: 10px;
+
+        h2 {
+          font-size: 15px;
+        }
+
         form {
           display: flex;
           justify-content: center;
 
           input {
             font-size: var(--text-second-font-size);
+            color: var(--primary-color);
           }
           .add-avatar-button {
             display: flex;
             justify-content: center;
             .button-user-avatar {
-              height: 4vh;
+              width: 6vw;
               padding: 5px;
-              font-size: 12px;
+              font-size: var(--text-second-font-size);
               border: none;
               background-color: var(--primary-color);
               color: white;
-              border-radius: 8px;
+              border-radius: 50%;
             }
           }
         }
@@ -56,6 +65,12 @@
         .avatar-map {
           display: flex;
           justify-content: space-around;
+          flex-wrap: wrap;
+          gap: 10px;
+          margin-bottom: 20px;
+          img {
+            width: 6vh;
+          }
         }
       }
     }
@@ -63,19 +78,35 @@
     .preferences-container {
       display: flex;
       flex-direction: column;
-      gap: 5px;
+      gap: 10px;
+
+      h2 {
+        font-size: 15px;
+      }
 
       .preferences {
         display: flex;
         justify-content: space-around;
-        margin-bottom: 10px;
+        flex-wrap: wrap;
+        margin-bottom: 20px;
+
+        button {
+          border-radius: 80px;
+          width: 5vw;
+          height: 2.5vh;
+          background-color: red;
+          color: white;
+          border: none;
+          margin-bottom: 5px;
+          font-size: 15px;
+        }
 
         .onePreferences {
           border-radius: 10px;
-          width: 15vw;
+          width: 30vw;
           border: 1px solid var(--primary-color);
           color: var(--primary-color);
-          font-size: var(--text-second-font-size);
+          font-size: 13px;
           text-align: center;
         }
       }
@@ -144,22 +175,27 @@
     justify-content: space-around;
     width: 100%;
     text-align: center;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
 
     img {
-      height: 20vh;
+      height: 18vh;
     }
 
     .userInfos {
       display: flex;
       flex-direction: column;
       justify-content: space-around;
+
+      p {
+        font-size: var(--title-font-size);
+      }
     }
   }
 
   .modify-button {
     display: flex;
     justify-content: center;
+    margin-bottom: 30px;
     button {
       height: 4vh;
       width: 40vw;
@@ -192,9 +228,9 @@
     margin-right: 5px;
     button {
       height: 5vh;
-      background-color: white;
+      background-color: rgba(255, 255, 255, 0);
       color: var(--primary-color);
-      font-size: 12px;
+      font-size: var(--text-second-font-size);
       border: none;
       text-decoration: underline;
     }
