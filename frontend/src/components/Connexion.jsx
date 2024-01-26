@@ -8,12 +8,11 @@ import Signin from "./Signin";
 
 function Connexion({ setConnexion, connexion }) {
   const [inputPassword, setInputPassword] = useState("");
-  const [setclickToConnect] = useState(false);
   const { userInfos, setUserInfos } = useUser(); // permet de récupérer via un custom Hook l'objet du context (ici l'objet qui contient setUserInfos et UserInfos
   const [inputEmail, setInputEmail] = useState(userInfos.email);
   const [errorMessage, setErrorMessage] = useState("");
   const [inscription, setInscription] = useState(false);
-
+  const navigate = useNavigate();
   const {
     setFilterRegime,
     setFilterPrice,
@@ -21,14 +20,9 @@ function Connexion({ setConnexion, connexion }) {
     setFilterDifficulty,
     setFavorisTable,
   } = useContext(FiltersContext);
-
-  const navigate = useNavigate();
-
   async function handleSubmit(event) {
     event.preventDefault();
-
     // envoie au back les infos (user et password) saisie par l'utilisateur pour authentification
-
     try {
       const res = await axios.post(
         `${import.meta.env.VITE_BACKEND_URL}/api/login`,
@@ -39,20 +33,16 @@ function Connexion({ setConnexion, connexion }) {
         }
       );
       setUserInfos(res.data.user);
-
       localStorage.setItem("token", res.data.token);
-
       // get pour récupérer les préférences utilisations de la DB avec le user ID
       try {
         const res2 = await axios.get(
           `${import.meta.env.VITE_BACKEND_URL}/api/usertags/${res.data.user.id}`
         );
-
         const regimeTable = [];
         const countryTable = [];
         const priceTable = [];
         const difficultyTable = [];
-
         res2.data.result.forEach((e) => {
           if (e.category_id === 1) {
             priceTable.push(e.name);
@@ -67,7 +57,6 @@ function Connexion({ setConnexion, connexion }) {
             difficultyTable.push(e.name);
           }
         });
-
         setFilterRegime(regimeTable);
         localStorage.setItem("regimeTable", JSON.stringify(regimeTable));
         setFilterCountry(countryTable);
@@ -82,20 +71,16 @@ function Connexion({ setConnexion, connexion }) {
       } catch (error) {
         console.error(error);
       }
-
       // get pour récupérer la table favoris à jour de la DB avec le user ID
       try {
         const favorisDb = await axios.get(
           `${import.meta.env.VITE_BACKEND_URL}/api/favoris/${res.data.user.id}`
         );
-
         setFavorisTable(favorisDb.data);
-
         localStorage.setItem("favoris", JSON.stringify(favorisDb.data));
-
-        setclickToConnect((current) => !current);
+        // setclickToConnect((current) => !current);
         setConnexion(!connexion);
-        navigate("/browse");
+        navigate("browse");
       } catch (error) {
         console.error(error);
       }
@@ -104,14 +89,14 @@ function Connexion({ setConnexion, connexion }) {
       setErrorMessage("Votre adresse email ou mot de passe est incorrect");
     }
   }
-
   function handleClick(e) {
     e.stopPropagation();
     setConnexion((current) => !current);
   }
-
+  console.info("connexion", connexion);
   return connexion ? (
     <div>
+      {/* {userInfos && clickToConnect && <Navigate to="/browse" />} */}
       <div className="connexion">
         <div className="connexionModal">
           <div className="closeDiv">
@@ -120,7 +105,7 @@ function Connexion({ setConnexion, connexion }) {
             </button>
           </div>
           <div className="formDiv">
-            <div className="title">Connexion</div>
+            <div className="title">Connexion {userInfos.pseudo}</div>
             {errorMessage && <p>{errorMessage}</p>}
             <form onSubmit={handleSubmit}>
               <input
@@ -156,10 +141,8 @@ function Connexion({ setConnexion, connexion }) {
     </div>
   ) : null;
 }
-
 Connexion.propTypes = {
   connexion: PropTypes.bool.isRequired,
   setConnexion: PropTypes.func.isRequired,
 };
-
 export default Connexion;

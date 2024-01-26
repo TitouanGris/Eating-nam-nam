@@ -1,6 +1,8 @@
 .filters {
   background-color: white;
   overflow-y: scroll;
+  max-height: 100vh;
+  padding-bottom: 20vh;
   .filters-header {
     display: flex;
     justify-content: space-between;
@@ -64,8 +66,8 @@
   .filters {
     padding-top: 15px;
     padding-left: 30px;
-    height: 89vh;
-    overflow-y: hidden;
+    height: 100vh;
+    overflow-y: scroll;
 
     .filters-header {
       justify-content: flex-end;

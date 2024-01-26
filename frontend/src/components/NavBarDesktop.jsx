@@ -103,7 +103,7 @@ function NavBarDesktop() {
         ) : (
           <div className="account-link">
             <img
-              src="src/assets/images/user.png"
+              src="/src/assets/images/user.png"
               alt="user-page"
               aria-hidden
               onClick={() => setMenuBurger(!menuBurger)}

@@ -344,7 +344,7 @@ INSERT INTO ingredient (name)
 VALUES ('Sel'), ('Poivre'), ('Huile d''olive'), ('Ail'), ('Oignon'), ('Tomate'), ('Basilic'), ('Persil'), ('Thym'), ('Origan'), ('Cumin'), ('Coriandre'), ('Paprika'), ('Moutarde'), ('Vinaigre balsamique'), ('Sucre'), ('Miel'), ('Citron'), ('Gingembre'), ('Cannelle'), ('Clou de girofle'), ('Noix de muscade'), ('Vanille'), ('Laurier'), ('Aneth'), ('Curry'), ('Piment'), ('Sauge'), ('Romarin'), ('Fenouil'), ('Câpres'), ('Olives'), ('Parmesan'), ('Mozzarella'), ('Gorgonzola'), ('Feta'), ('Cheddar'), ('Gruyère'), ('Camembert'), ('Roquefort'), ('Saumon'), ('Thon'), ('Crevettes'), ('Moules'), ('Poulet'), ('Bœuf'), ('Porc'), ('Agneau'), ('Canard'), ('Œufs'), ('Farine'), ('Levure'), ('Beurre'), ('Crème fraîche'), ('Yaourt'), ('Fromage blanc'), ('Lait'), ('Crème liquide'), ('Tomate concentrée'), ('Ketchup'), ('Mayonnaise'), ('Moutarde de Dijon'), ('Sauce soja'), ('Vinaigre de vin'), ('Sauce Worcestershire'), ('Pesto'), ('Sauce barbecue'), ('Sauce chili'), ('Sauce teriyaki'), ('Riz'), ('Pâtes'), ('Quinoa'), ('Couscous'), ('Blé'), ('Maïs'), ('Haricots'), ('Pommes de terre'), ('Carottes'), ('Brocoli'), ('Épinards'), ('Champignons'), ('Poivrons'), ('Aubergines'), ('Courgettes'), ('Radis'), ('Céleri'), ('Avocat'), ('Laitue'), ('Échalote'), ('Pomme'), ('Banane'), ('Fraise'), ('Orange'), ('Citron vert'), ('Pêche'), ('Mangue'), ('Ananas'), ('Framboise'), ('Myrtille'), ('Noix de coco');
 
 INSERT INTO unit (name)
-VALUES ("g"), ("mL"), ("càs"), ("càc"), ("tasse"), ("pincée"), ("unité"), ("feuille");
+VALUES ("g"), ("mL"), ("càs"), ("càc"), ("tasse(s)"), ("pincée(s)"), ("unité"), ("feuille(s)");
 -- id : g : 1; mL : 2; càs : 3; càc :4; tasse : 5; pincée : 6; unité : 7; feuille: 8;
 -- Pour la recette 'Salade Méditerranéenne'
 INSERT INTO
