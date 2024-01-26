@@ -106,7 +106,7 @@ function RecipeDetails() {
           src={
             recipe.recipeImage !== "/images/undefined"
               ? `${import.meta.env.VITE_BACKEND_URL}${recipe.recipeImage}`
-              : "/src/assets/images/logo.png"
+              : "/logo.png"
           }
           alt={`${recipe.recipeName}`}
         />

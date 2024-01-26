@@ -94,7 +94,9 @@ function NavBarDesktop() {
           <div className="account-link">
             <p>{userInfos.pseudo}</p>
             <img
-              src="src/assets/images/user.png"
+              src={`${import.meta.env.VITE_BACKEND_URL}/images/avatar/${
+                userInfos.image_url
+              }`}
               alt="user-page"
               aria-hidden
               onClick={() => setMenuBurger(!menuBurger)}
@@ -103,7 +105,7 @@ function NavBarDesktop() {
         ) : (
           <div className="account-link">
             <img
-              src="/src/assets/images/user.png"
+              src="/user.png"
               alt="user-page"
               aria-hidden
               onClick={() => setMenuBurger(!menuBurger)}

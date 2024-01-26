@@ -55,7 +55,7 @@ id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
   }
 
   async editAvatar(id, newUser) {
-    console.info("edit avatar manager");
+    console.info("edit manager");
     console.info(newUser);
     const [result] = await this.database.query(
       `UPDATE ${this.table} SET avatar_id = ? WHERE id = ?`,
@@ -90,21 +90,10 @@ id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
     return result[0];
   }
 
-  // async getByMail(email) {
-  //   const [result] = await this.database.query(
-  //     `SELECT a.image_url, u.id, u.pseudo, u.email, u.is_admin
-  //     FROM ${this.table} u
-  //     JOIN avatar a ON a.id = u.avatar_id
-  //     WHERE email = ?`,
-  //     [email]
-  //   );
-  //   return result[0];
-  // }
-
   async readOneUser(newUser) {
     const [result] = await this.database.query(
       `SELECT * FROM ${this.table}
-       WHERE pseudo = ? OR email = ? OR avatar_id = ? OR id=?`,
+       WHERE pseudo = ? OR email = ? OR avatar_id = ? OR id = ?`,
       [newUser.pseudo, newUser.email, newUser.avatarId, newUser.id]
     );
     return result[0];

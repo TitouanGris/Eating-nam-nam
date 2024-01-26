@@ -5,6 +5,14 @@ class IngredientManager extends AbstractManager {
     super({ table: "ingredient" });
   }
 
+  async readAllIng() {
+    // Execute the SQL SELECT query to retrieve all items from the "item" table
+    const [result] = await this.database.query(`SELECT * FROM ${this.table}
+    ORDER BY name ASC`);
+    // Return the array of items
+    return result;
+  }
+
   async create(name) {
     const [result] = await this.database.query(
       `INSERT INTO ${this.table} (name) VALUES (?)`,

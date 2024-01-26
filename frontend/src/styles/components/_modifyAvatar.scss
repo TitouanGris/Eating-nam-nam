@@ -13,9 +13,9 @@
     align-items: center;
     justify-content: center;
 
-    .modify-modal-content {
+    .modify-modal-content-avatar {
       background-color: white;
-      width: 60vw;
+      width: 80vw;
       height: 50vh;
       padding: 40px;
       border-radius: 8px;
@@ -28,8 +28,19 @@
         display: flex;
         flex-wrap: wrap;
         justify-content: space-around;
-        width: 100%;
+        margin: 0 auto;
+        margin-bottom: 10px;
+        width: 80%;
         height: 100%;
+        gap: 20px;
+
+        .avatar-button {
+          background-color: rgba(255, 255, 255, 0);
+
+          img {
+            width: 12vw;
+          }
+        }
       }
     }
   }

@@ -51,6 +51,27 @@
     }
   }
 
+  .ingredientSection {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+
+    .ingList {
+      display: flex;
+      align-items: center;
+
+      button {
+        margin-left: 10px;
+      }
+
+      .messageArea {
+        display: flex;
+        align-items: center;
+      }
+    }
+  }
+
   h1 {
     font-size: 1.5rem;
     font-weight: bold;
