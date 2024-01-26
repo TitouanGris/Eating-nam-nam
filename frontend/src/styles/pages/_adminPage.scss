@@ -5,6 +5,24 @@
   align-items: center;
   gap: 15px;
 
+  .avatarSection {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+
+    .avatars-container {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      .avatar-map {
+        display: flex;
+        justify-content: space-around;
+        flex-wrap: wrap;
+      }
+    }
+  }
+
   .recipeSection {
     display: flex;
     flex-direction: column;
@@ -49,11 +67,6 @@
         }
       }
     }
-  }
-
-  h1 {
-    font-size: 1.5rem;
-    font-weight: bold;
   }
 
   .userSection {
