@@ -23,21 +23,30 @@ function AdminPage() {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:3310/api/adminRecipe`)
+      .get(`${import.meta.env.VITE_BACKEND_URL}/api/adminRecipe`)
       .then((res) => setRecipes(res.data));
   }, []);
 
+  const fetchUsers = async () => {
+    try {
+      await axios
+        .get(`${import.meta.env.VITE_BACKEND_URL}/api/users`)
+        .then((res) => setUserList(res.data));
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   useEffect(() => {
-    axios
-      .get(`http://localhost:3310/api/users`)
-      .then((res) => setUserList(res.data));
+    fetchUsers();
   }, []);
 
   async function deleteUser(id) {
     try {
       await axios
-        .delete(`http://localhost:3310/api/user/${id}`)
+        .delete(`${import.meta.env.VITE_BACKEND_URL}/api/user/${id}`)
         .then((res) => console.info(res));
+      fetchUsers();
     } catch (err) {
       console.error(err);
     }
@@ -292,4 +301,5 @@ function AdminPage() {
     </div>
   );
 }
+
 export default AdminPage;
