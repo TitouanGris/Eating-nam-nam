@@ -21,7 +21,7 @@ function App() {
           <div className="navBarDesktopArea">
             {!pagesWithoutNavBar.includes(pathname) && <NavBarDesktop />}
           </div>
-          <div className="App">
+          <div className="outlet">
             <Outlet
               context={[favoriteMobileisActive, setFavoriteMobileisActive]}
             />

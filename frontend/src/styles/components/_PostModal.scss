@@ -23,12 +23,14 @@
     padding: 8vw;
     p {
       color: var(--primary-color);
-      font-size: xx-large;
+      font-size: 1.75rem;
       text-align: center;
     }
     a {
       color: black;
       font-size: larger;
+      text-align: center;
+      font-size: 1rem;
     }
   }
 }
@@ -36,11 +38,13 @@
 @media screen and (min-width: 900px) {
   .post {
     .post-modal {
+      display: flex;
+      justify-content: center;
+      align-items: center;
       width: 50vw;
-      height: 20vh;
+      height: 35vh;
       a {
         width: 30vw;
-        justify-self: center;
       }
     }
   }
