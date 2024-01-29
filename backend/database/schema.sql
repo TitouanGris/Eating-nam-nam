@@ -29,777 +29,772 @@ DROP TABLE IF EXISTS avatar;
 
 DROP TABLE IF EXISTS user;
 
-CREATE TABLE
-    avatar (
-        id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
-        image_url varchar(255) NOT NULL
-    );
+CREATE TABLE avatar (
+    id INT PRIMARY KEY AUTO_INCREMENT NOT NULL, image_url varchar(255) NOT NULL
+);
 
-CREATE TABLE
-    user (
-        id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
-        pseudo VARCHAR(20) NOT NULL,
-        email VARCHAR(255) NOT NULL,
-        created_date DATETIME NOT NULL DEFAULT NOW(),
-        updated_date DATETIME NULL DEFAULT NOW() ON UPDATE CURRENT_TIMESTAMP,
-        hashed_password VARCHAR(255) NOT NULL,
-        is_admin BOOL NOT NULL DEFAULT FALSE,
-        avatar_id INT NOT NULL DEFAULT 1,
-        CONSTRAINT fk_user_avatar FOREIGN KEY (avatar_id) REFERENCES avatar(id)
-    );
+CREATE TABLE user (
+    id INT PRIMARY KEY AUTO_INCREMENT NOT NULL, pseudo VARCHAR(20) NOT NULL, email VARCHAR(255) NOT NULL, created_date DATETIME NOT NULL DEFAULT NOW(), updated_date DATETIME NULL DEFAULT NOW() ON UPDATE CURRENT_TIMESTAMP, hashed_password VARCHAR(255) NOT NULL, is_admin BOOL NOT NULL DEFAULT FALSE, avatar_id INT NOT NULL DEFAULT 1, CONSTRAINT fk_user_avatar FOREIGN KEY (avatar_id) REFERENCES avatar (id)
+);
 
-CREATE TABLE
-    recipe (
-        id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
-        user_id INT NOT NULL,
-        name VARCHAR(80) COLLATE utf8mb4_unicode_ci NOT NULL,
-        summary VARCHAR(255) NOT NULL,
-        created_date DATETIME NOT NULL DEFAULT NOW(),
-        updated_date DATETIME NULL DEFAULT NOW() ON UPDATE CURRENT_TIMESTAMP,
-        photo_url VARCHAR(255) NULL,
-        nb_serving INT NOT NULL,
-        validate_recipe BOOL NOT NULL,
-        CONSTRAINT fk_user_recipe FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE CASCADE
-    );
+CREATE TABLE recipe (
+    id INT PRIMARY KEY AUTO_INCREMENT NOT NULL, user_id INT NOT NULL, name VARCHAR(80) COLLATE utf8mb4_unicode_ci NOT NULL, summary VARCHAR(255) NOT NULL, created_date DATETIME NOT NULL DEFAULT NOW(), updated_date DATETIME NULL DEFAULT NOW() ON UPDATE CURRENT_TIMESTAMP, photo_url VARCHAR(255) NULL, nb_serving INT NOT NULL, validate_recipe BOOL NOT NULL, CONSTRAINT fk_user_recipe FOREIGN KEY (user_id) REFERENCES user (id) ON DELETE CASCADE
+);
 
-CREATE TABLE
-    ingredient (
-        id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
-        name VARCHAR(80) COLLATE utf8mb4_unicode_ci NOT NULL
-    );
+CREATE TABLE ingredient (
+    id INT PRIMARY KEY AUTO_INCREMENT NOT NULL, name VARCHAR(80) COLLATE utf8mb4_unicode_ci NOT NULL
+);
 
-CREATE TABLE
-    unit (
-        id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
-        name VARCHAR(50) NOT NULL
-    );
+CREATE TABLE unit (
+    id INT PRIMARY KEY AUTO_INCREMENT NOT NULL, name VARCHAR(50) NOT NULL
+);
 
-CREATE TABLE
-    recipe_ingredient (
-        recipe_id INT NOT NULL,
-        ingredient_id INT NOT NULL,
-        quantity INT NOT NULL,
-        unit_id INT NOT NULL,
-        PRIMARY KEY (
-            recipe_id,
-            ingredient_id,
-            unit_id
-        ),
-        CONSTRAINT fk_recipe_recipe_ingredient FOREIGN KEY (recipe_id) REFERENCES recipe(id) ON DELETE CASCADE,
-        CONSTRAINT fk_ingredient_recipe_ingredient FOREIGN KEY (ingredient_id) REFERENCES ingredient(id),
-        CONSTRAINT fk_unit FOREIGN KEY (unit_id) REFERENCES unit(id)
-    );
+CREATE TABLE recipe_ingredient (
+    recipe_id INT NOT NULL, ingredient_id INT NOT NULL, quantity INT NOT NULL, unit_id INT NOT NULL, PRIMARY KEY (
+        recipe_id, ingredient_id, unit_id
+    ), CONSTRAINT fk_recipe_recipe_ingredient FOREIGN KEY (recipe_id) REFERENCES recipe (id) ON DELETE CASCADE, CONSTRAINT fk_ingredient_recipe_ingredient FOREIGN KEY (ingredient_id) REFERENCES ingredient (id), CONSTRAINT fk_unit FOREIGN KEY (unit_id) REFERENCES unit (id)
+);
 
-CREATE TABLE
-    step (
-        id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
-        recipe_id INT NOT NULL,
-        step_number INT NOT NULL,
-        description VARCHAR(255) COLLATE utf8mb4_unicode_ci NOT NULL
-    );
+CREATE TABLE step (
+    id INT PRIMARY KEY AUTO_INCREMENT NOT NULL, recipe_id INT NOT NULL, step_number INT NOT NULL, description VARCHAR(255) COLLATE utf8mb4_unicode_ci NOT NULL
+);
 
-CREATE TABLE
-    category (
-        id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
-        name VARCHAR(50) NOT NULL
-    );
+CREATE TABLE category (
+    id INT PRIMARY KEY AUTO_INCREMENT NOT NULL, name VARCHAR(50) NOT NULL
+);
 
-CREATE TABLE
-    tags (
-        id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
-        category_id INT NOT NULL,
-        image_url VARCHAR(255) NULL,
-        name VARCHAR(50) COLLATE utf8mb4_unicode_ci NOT NULL,
-        CONSTRAINT fk_category FOREIGN KEY (category_id) REFERENCES category(id)
-    );
+CREATE TABLE tags (
+    id INT PRIMARY KEY AUTO_INCREMENT NOT NULL, category_id INT NOT NULL, image_url VARCHAR(255) NULL, name VARCHAR(50) COLLATE utf8mb4_unicode_ci NOT NULL, CONSTRAINT fk_category FOREIGN KEY (category_id) REFERENCES category (id)
+);
 
-CREATE TABLE
-    recipe_tags (
-        recipe_id INT NOT NULL,
-        tags_id INT NOT NULL,
-        PRIMARY KEY (recipe_id, tags_id),
-        CONSTRAINT fk_recipe_recipe_tags FOREIGN KEY (recipe_id) REFERENCES recipe(id) ON DELETE CASCADE,
-        CONSTRAINT fk_tags_recipe_tags FOREIGN KEY (tags_id) REFERENCES tags(id)
-    );
+CREATE TABLE recipe_tags (
+    recipe_id INT NOT NULL, tags_id INT NOT NULL, PRIMARY KEY (recipe_id, tags_id), CONSTRAINT fk_recipe_recipe_tags FOREIGN KEY (recipe_id) REFERENCES recipe (id) ON DELETE CASCADE, CONSTRAINT fk_tags_recipe_tags FOREIGN KEY (tags_id) REFERENCES tags (id)
+);
 
-CREATE TABLE
-    user_tags (
-        user_id INT NOT NULL,
-        tags_id INT NOT NULL,
-        PRIMARY KEY (user_id, tags_id),
-        CONSTRAINT fk_user_user_tags FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE CASCADE,
-        CONSTRAINT fk_tags_user_tags FOREIGN KEY (tags_id) REFERENCES tags(id)
-    );
+CREATE TABLE user_tags (
+    user_id INT NOT NULL, tags_id INT NOT NULL, PRIMARY KEY (user_id, tags_id), CONSTRAINT fk_user_user_tags FOREIGN KEY (user_id) REFERENCES user (id) ON DELETE CASCADE, CONSTRAINT fk_tags_user_tags FOREIGN KEY (tags_id) REFERENCES tags (id)
+);
 
-CREATE TABLE
-    favoris (
-        user_id INT NOT NULL,
-        recipe_id INT NOT NULL,
-        PRIMARY KEY (user_id, recipe_id),
-        CONSTRAINT fk_user_favoris FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE CASCADE,
-        CONSTRAINT fk_recipe_favoris FOREIGN KEY (recipe_id) REFERENCES recipe(id) ON DELETE CASCADE
-    );
+CREATE TABLE favoris (
+    user_id INT NOT NULL, recipe_id INT NOT NULL, PRIMARY KEY (user_id, recipe_id), CONSTRAINT fk_user_favoris FOREIGN KEY (user_id) REFERENCES user (id) ON DELETE CASCADE, CONSTRAINT fk_recipe_favoris FOREIGN KEY (recipe_id) REFERENCES recipe (id) ON DELETE CASCADE
+);
 
-CREATE TABLE
-    comment (
-        id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
-        user_id INT NOT NULL,
-        recipe_id INT NOT NULL,
-        message TEXT COLLATE utf8mb4_unicode_ci NOT NULL,
-        created_date DATETIME NOT NULL DEFAULT NOW(),
-        updated_date DATETIME NULL DEFAULT NOW() ON UPDATE CURRENT_TIMESTAMP,
-        CONSTRAINT fk_user_comment FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE CASCADE,
-        CONSTRAINT fk_recipe_comment FOREIGN KEY (recipe_id) REFERENCES recipe(id) ON DELETE CASCADE
-    );
+CREATE TABLE comment (
+    id INT PRIMARY KEY AUTO_INCREMENT NOT NULL, user_id INT NOT NULL, recipe_id INT NOT NULL, message TEXT COLLATE utf8mb4_unicode_ci NOT NULL, created_date DATETIME NOT NULL DEFAULT NOW(), updated_date DATETIME NULL DEFAULT NOW() ON UPDATE CURRENT_TIMESTAMP, CONSTRAINT fk_user_comment FOREIGN KEY (user_id) REFERENCES user (id) ON DELETE CASCADE, CONSTRAINT fk_recipe_comment FOREIGN KEY (recipe_id) REFERENCES recipe (id) ON DELETE CASCADE
+);
 
-CREATE TABLE
-    user_ingredient (
-        user_id INT NOT NULL,
-        ingredient_id INT NOT NULL,
-        PRIMARY KEY (user_id, ingredient_id),
-        CONSTRAINT fk_user_user_ingredient FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE CASCADE,
-        CONSTRAINT fk_ingredient_user_ingredient FOREIGN KEY (ingredient_id) REFERENCES ingredient(id)
-    );
+CREATE TABLE user_ingredient (
+    user_id INT NOT NULL, ingredient_id INT NOT NULL, PRIMARY KEY (user_id, ingredient_id), CONSTRAINT fk_user_user_ingredient FOREIGN KEY (user_id) REFERENCES user (id) ON DELETE CASCADE, CONSTRAINT fk_ingredient_user_ingredient FOREIGN KEY (ingredient_id) REFERENCES ingredient (id)
+);
 /* ------------------ ICI LES INSERT ------------------- */
 
-INSERT INTO avatar (image_url)
-VALUES ('avatarDefault.png'), (
+INSERT INTO
+    avatar (image_url)
+VALUES ('avatarDefault.png'),
+    (
         '6ee5f281-5a04-4f85-a57f-544b402667ad-panda.png'
-    ), (
+    ),
+    (
         'c595c772-2541-4071-9141-31e6e962e4b9-cat.png  '
     );
 
 INSERT INTO
     user (
-        pseudo,
-        email,
-        created_date,
-        updated_date,
-        hashed_password,
-        is_admin,
-        avatar_id
+        pseudo, email, created_date, updated_date, hashed_password, is_admin, avatar_id
     )
 VALUES (
-        'Nadine',
-        'user1@email.com',
-        '2023-01-01',
-        NULL,
-        '$argon2id$v=19$m=19456,t=2,p=1$rcKDJ+nrC7qsE+3LCeWqAw$5mdbNlU0speuxxabBpzrIKGAiDMbmd7HO5k8YzChW5Q',
-        TRUE,
-        1
-    ), (
-        'Hélène',
-        'user2@email.com',
-        '2023-01-02',
-        NULL,
-        '$argon2id$v=19$m=19456,t=2,p=1$rcKDJ+nrC7qsE+3LCeWqAw$5mdbNlU0speuxxabBpzrIKGAiDMbmd7HO5k8YzChW5Q',
-        TRUE,
-        1
-    ), (
-        'Irwin',
-        'admin1@email.com',
-        '2023-01-03',
-        NULL,
-        '$argon2id$v=19$m=19456,t=2,p=1$rcKDJ+nrC7qsE+3LCeWqAw$5mdbNlU0speuxxabBpzrIKGAiDMbmd7HO5k8YzChW5Q',
-        TRUE,
-        1
-    ), (
-        'Titouan',
-        'user3@email.com',
-        '2023-01-04',
-        NULL,
-        '$argon2id$v=19$m=19456,t=2,p=1$rcKDJ+nrC7qsE+3LCeWqAw$5mdbNlU0speuxxabBpzrIKGAiDMbmd7HO5k8YzChW5Q',
-        TRUE,
-        1
-    ), (
-        'Guillaume',
-        'user4@email.com',
-        '2023-01-05',
-        NULL,
-        '$argon2id$v=19$m=19456,t=2,p=1$rcKDJ+nrC7qsE+3LCeWqAw$5mdbNlU0speuxxabBpzrIKGAiDMbmd7HO5k8YzChW5Q',
-        TRUE,
-        1
-    ), (
-        'Lucas',
-        'admin2@email.com',
-        '2023-01-06',
-        NULL,
-        '$argon2id$v=19$m=19456,t=2,p=1$rcKDJ+nrC7qsE+3LCeWqAw$5mdbNlU0speuxxabBpzrIKGAiDMbmd7HO5k8YzChW5Q',
-        FALSE,
-        1
-    ), (
-        'Lucasz',
-        'user5@email.com',
-        '2023-01-07',
-        NULL,
-        '$argon2id$v=19$m=19456,t=2,p=1$rcKDJ+nrC7qsE+3LCeWqAw$5mdbNlU0speuxxabBpzrIKGAiDMbmd7HO5k8YzChW5Q',
-        FALSE,
-        1
+        'Nadine', 'user1@email.com', '2023-01-01', NULL, '$argon2id$v=19$m=19456,t=2,p=1$rcKDJ+nrC7qsE+3LCeWqAw$5mdbNlU0speuxxabBpzrIKGAiDMbmd7HO5k8YzChW5Q', TRUE, 1
+    ),
+    (
+        'Hélène', 'user2@email.com', '2023-01-02', NULL, '$argon2id$v=19$m=19456,t=2,p=1$rcKDJ+nrC7qsE+3LCeWqAw$5mdbNlU0speuxxabBpzrIKGAiDMbmd7HO5k8YzChW5Q', TRUE, 1
+    ),
+    (
+        'Irwin', 'admin1@email.com', '2023-01-03', NULL, '$argon2id$v=19$m=19456,t=2,p=1$rcKDJ+nrC7qsE+3LCeWqAw$5mdbNlU0speuxxabBpzrIKGAiDMbmd7HO5k8YzChW5Q', TRUE, 1
+    ),
+    (
+        'Titouan', 'user3@email.com', '2023-01-04', NULL, '$argon2id$v=19$m=19456,t=2,p=1$rcKDJ+nrC7qsE+3LCeWqAw$5mdbNlU0speuxxabBpzrIKGAiDMbmd7HO5k8YzChW5Q', TRUE, 1
+    ),
+    (
+        'Guillaume', 'user4@email.com', '2023-01-05', NULL, '$argon2id$v=19$m=19456,t=2,p=1$rcKDJ+nrC7qsE+3LCeWqAw$5mdbNlU0speuxxabBpzrIKGAiDMbmd7HO5k8YzChW5Q', TRUE, 1
+    ),
+    (
+        'Lucas', 'admin2@email.com', '2023-01-06', NULL, '$argon2id$v=19$m=19456,t=2,p=1$rcKDJ+nrC7qsE+3LCeWqAw$5mdbNlU0speuxxabBpzrIKGAiDMbmd7HO5k8YzChW5Q', FALSE, 1
+    ),
+    (
+        'Lucasz', 'user5@email.com', '2023-01-07', NULL, '$argon2id$v=19$m=19456,t=2,p=1$rcKDJ+nrC7qsE+3LCeWqAw$5mdbNlU0speuxxabBpzrIKGAiDMbmd7HO5k8YzChW5Q', FALSE, 1
     );
 
 INSERT INTO
     recipe (
-        user_id,
-        name,
-        summary,
-        created_date,
-        updated_date,
-        photo_url,
-        nb_serving,
-        validate_recipe
+        user_id, name, summary, created_date, updated_date, photo_url, nb_serving, validate_recipe
     )
 VALUES (
-        1,
-        'Salade Méditerranéenne',
-        'Une délicieuse salade méditerranéenne avec des tomates, du concombre, des olives et du fromage feta.',
-        '2023-12-12',
-        NULL,
-        '/images/Recette 1.jpg',
-        4,
-        false
-    ), (
-        2,
-        'Poulet au Curry',
-        'Un plat de poulet savoureux avec une sauce curry crémeuse et des légumes colorés.',
-        '2023-12-11',
-        NULL,
-        '/images/Recette 2.jpg',
-        3,
-        false
-    ), (
-        3,
-        'Pâtes à la Carbonara',
-        'Des pâtes crémeuses avec une sauce carbonara riche à base de bacon, de crème et de parmesan.',
-        '2023-12-10',
-        NULL,
-        '/images/Recette 3.jpg',
-        2,
-        false
-    ), (
-        4,
-        'Riz Frit aux Légumes',
-        'Un délicieux riz frit aux légumes avec des petits pois, des carottes et des œufs.',
-        '2023-12-09',
-        NULL,
-        '/images/Recette 4.jpg',
-        4,
-        false
-    ), (
-        5,
-        'Pizza Margherita',
-        'Une pizza classique avec une sauce tomate, de la mozzarella fraîche et des feuilles de basilic.',
-        '2023-12-08',
-        NULL,
-        '/images/Recette 5.jpg',
-        3,
-        true
-    ), (
-        6,
-        'Smoothie aux Fruits Rouges',
-        'Un smoothie rafraîchissant avec des fraises, des framboises et des myrtilles.',
-        '2023-12-07',
-        NULL,
-        '/images/Recette 6.jpg',
-        2,
-        false
-    ), (
-        7,
-        'Tarte aux Pommes',
-        'Une tarte sucrée aux pommes avec une délicieuse croûte dorée.',
-        '2023-12-06',
-        NULL,
-        '/images/Recette 7.jpg',
-        8,
-        true
-    ), (
-        7,
-        'Saumon Grillé',
-        'Saumon grillé avec une marinade au citron et aux herbes, servi avec des légumes rôtis.',
-        '2023-12-05',
-        NULL,
-        '/images/Recette 8.jpg',
-        2,
-        true
-    ), (
-        4,
-        'Gâteau au Chocolat',
-        'Un délicieux gâteau au chocolat moelleux avec un glaçage fondant.',
-        '2023-12-04',
-        NULL,
-        '/images/Recette 9.jpg',
-        10,
-        true
-    ), (
-        3,
-        'Salade de Quinoa aux Légumes',
-        'Une salade saine de quinoa avec des légumes frais et une vinaigrette légère.',
-        '2023-12-03',
-        NULL,
-        '/images/Recette 10.jpg',
-        6,
-        true
+        1, 'Salade Méditerranéenne', 'Une délicieuse salade méditerranéenne avec des tomates, du concombre, des olives et du fromage feta.', '2023-12-12', NULL, '/images/Recette 1.jpg', 4, false
+    ),
+    (
+        2, 'Poulet au Curry', 'Un plat de poulet savoureux avec une sauce curry crémeuse et des légumes colorés.', '2023-12-11', NULL, '/images/Recette 2.jpg', 3, false
+    ),
+    (
+        3, 'Pâtes à la Carbonara', 'Des pâtes crémeuses avec une sauce carbonara riche à base de bacon, de crème et de parmesan.', '2023-12-10', NULL, '/images/Recette 3.jpg', 2, false
+    ),
+    (
+        4, 'Riz Frit aux Légumes', 'Un délicieux riz frit aux légumes avec des petits pois, des carottes et des œufs.', '2023-12-09', NULL, '/images/Recette 4.jpg', 4, false
+    ),
+    (
+        5, 'Pizza Margherita', 'Une pizza classique avec une sauce tomate, de la mozzarella fraîche et des feuilles de basilic.', '2023-12-08', NULL, '/images/Recette 5.jpg', 3, true
+    ),
+    (
+        6, 'Smoothie aux Fruits Rouges', 'Un smoothie rafraîchissant avec des fraises, des framboises et des myrtilles.', '2023-12-07', NULL, '/images/Recette 6.jpg', 2, false
+    ),
+    (
+        7, 'Tarte aux Pommes', 'Une tarte sucrée aux pommes avec une délicieuse croûte dorée.', '2023-12-06', NULL, '/images/Recette 7.jpg', 8, true
+    ),
+    (
+        7, 'Saumon Grillé', 'Saumon grillé avec une marinade au citron et aux herbes, servi avec des légumes rôtis.', '2023-12-05', NULL, '/images/Recette 8.jpg', 2, true
+    ),
+    (
+        4, 'Gâteau au Chocolat', 'Un délicieux gâteau au chocolat moelleux avec un glaçage fondant.', '2023-12-04', NULL, '/images/Recette 9.jpg', 10, true
+    ),
+    (
+        3, 'Salade de Quinoa aux Légumes', 'Une salade saine de quinoa avec des légumes frais et une vinaigrette légère.', '2023-12-03', NULL, '/images/Recette 10.jpg', 6, true
     );
 
-INSERT INTO ingredient (name)
-VALUES ('Sel'), ('Poivre'), ('Huile d''olive'), ('Ail'), ('Oignon'), ('Tomate'), ('Basilic'), ('Persil'), ('Thym'), ('Origan'), ('Cumin'), ('Coriandre'), ('Paprika'), ('Moutarde'), ('Vinaigre balsamique'), ('Sucre'), ('Miel'), ('Citron'), ('Gingembre'), ('Cannelle'), ('Clou de girofle'), ('Noix de muscade'), ('Vanille'), ('Laurier'), ('Aneth'), ('Curry'), ('Piment'), ('Sauge'), ('Romarin'), ('Fenouil'), ('Câpres'), ('Olives'), ('Parmesan'), ('Mozzarella'), ('Gorgonzola'), ('Feta'), ('Cheddar'), ('Gruyère'), ('Camembert'), ('Roquefort'), ('Saumon'), ('Thon'), ('Crevettes'), ('Moules'), ('Poulet'), ('Bœuf'), ('Porc'), ('Agneau'), ('Canard'), ('Œufs'), ('Farine'), ('Levure'), ('Beurre'), ('Crème fraîche'), ('Yaourt'), ('Fromage blanc'), ('Lait'), ('Crème liquide'), ('Tomate concentrée'), ('Ketchup'), ('Mayonnaise'), ('Moutarde de Dijon'), ('Sauce soja'), ('Vinaigre de vin'), ('Sauce Worcestershire'), ('Pesto'), ('Sauce barbecue'), ('Sauce chili'), ('Sauce teriyaki'), ('Riz'), ('Pâtes'), ('Quinoa'), ('Couscous'), ('Blé'), ('Maïs'), ('Haricots'), ('Pommes de terre'), ('Carottes'), ('Brocoli'), ('Épinards'), ('Champignons'), ('Poivrons'), ('Aubergines'), ('Courgettes'), ('Radis'), ('Céleri'), ('Avocat'), ('Laitue'), ('Échalote'), ('Pomme'), ('Banane'), ('Fraise'), ('Orange'), ('Citron vert'), ('Pêche'), ('Mangue'), ('Ananas'), ('Framboise'), ('Myrtille'), ('Noix de coco');
+INSERT INTO
+    ingredient (name)
+VALUES ('Sel'),
+    ('Poivre'),
+    ('Huile d''olive'),
+    ('Ail'),
+    ('Oignon'),
+    ('Tomate'),
+    ('Basilic'),
+    ('Persil'),
+    ('Thym'),
+    ('Origan'),
+    ('Cumin'),
+    ('Coriandre'),
+    ('Paprika'),
+    ('Moutarde'),
+    ('Vinaigre balsamique'),
+    ('Sucre'),
+    ('Miel'),
+    ('Citron'),
+    ('Gingembre'),
+    ('Cannelle'),
+    ('Clou de girofle'),
+    ('Noix de muscade'),
+    ('Vanille'),
+    ('Laurier'),
+    ('Aneth'),
+    ('Curry'),
+    ('Piment'),
+    ('Sauge'),
+    ('Romarin'),
+    ('Fenouil'),
+    ('Câpres'),
+    ('Olives'),
+    ('Parmesan'),
+    ('Mozzarella'),
+    ('Gorgonzola'),
+    ('Feta'),
+    ('Cheddar'),
+    ('Gruyère'),
+    ('Camembert'),
+    ('Roquefort'),
+    ('Saumon'),
+    ('Thon'),
+    ('Crevettes'),
+    ('Moules'),
+    ('Poulet'),
+    ('Bœuf'),
+    ('Porc'),
+    ('Agneau'),
+    ('Canard'),
+    ('Œufs'),
+    ('Farine'),
+    ('Levure'),
+    ('Beurre'),
+    ('Crème fraîche'),
+    ('Yaourt'),
+    ('Fromage blanc'),
+    ('Lait'),
+    ('Crème liquide'),
+    ('Tomate concentrée'),
+    ('Ketchup'),
+    ('Mayonnaise'),
+    ('Moutarde de Dijon'),
+    ('Sauce soja'),
+    ('Vinaigre de vin'),
+    ('Sauce Worcestershire'),
+    ('Pesto'),
+    ('Sauce barbecue'),
+    ('Sauce chili'),
+    ('Sauce teriyaki'),
+    ('Riz'),
+    ('Pâtes'),
+    ('Quinoa'),
+    ('Couscous'),
+    ('Blé'),
+    ('Maïs'),
+    ('Haricots'),
+    ('Pommes de terre'),
+    ('Carottes'),
+    ('Brocoli'),
+    ('Épinards'),
+    ('Champignons'),
+    ('Poivrons'),
+    ('Aubergines'),
+    ('Courgettes'),
+    ('Radis'),
+    ('Céleri'),
+    ('Avocat'),
+    ('Laitue'),
+    ('Échalote'),
+    ('Pomme'),
+    ('Banane'),
+    ('Fraise'),
+    ('Orange'),
+    ('Citron vert'),
+    ('Pêche'),
+    ('Mangue'),
+    ('Ananas'),
+    ('Framboise'),
+    ('Myrtille'),
+    ('Noix de coco');
 
-INSERT INTO unit (name)
-VALUES ("g"), ("mL"), ("càs"), ("càc"), ("tasse(s)"), ("pincée(s)"), ("unité"), ("feuille(s)");
+INSERT INTO
+    unit (name)
+VALUES ("g"),
+    ("mL"),
+    ("càs"),
+    ("càc"),
+    ("tasse(s)"),
+    ("pincée(s)"),
+    ("unité"),
+    ("feuille(s)");
 -- id : g : 1; mL : 2; càs : 3; càc :4; tasse : 5; pincée : 6; unité : 7; feuille: 8;
 -- Pour la recette 'Salade Méditerranéenne'
 INSERT INTO
     recipe_ingredient (
-        recipe_id,
-        ingredient_id,
-        quantity,
-        unit_id
+        recipe_id, ingredient_id, quantity, unit_id
     )
-VALUES (1, 1, 1, 6), (1, 6, 2, 7), (1, 32, 10, 7), (1, 33, 100, 1), (1, 7, 1, 5);
+VALUES (1, 1, 1, 6),
+    (1, 6, 2, 7),
+    (1, 32, 10, 7),
+    (1, 33, 100, 1),
+    (1, 7, 1, 5);
 -- Pour la recette 'Poulet au Curry'
 INSERT INTO
     recipe_ingredient (
-        recipe_id,
-        ingredient_id,
-        quantity,
-        unit_id
+        recipe_id, ingredient_id, quantity, unit_id
     )
-VALUES (2, 45, 500, 1), (2, 50, 4, 7), (2, 6, 2, 7), (2, 56, 200, 1), (2, 8, 1, 4);
+VALUES (2, 45, 500, 1),
+    (2, 50, 4, 7),
+    (2, 6, 2, 7),
+    (2, 56, 200, 1),
+    (2, 8, 1, 4);
 -- Pour la recette 'Pâtes à la Carbonara'
 INSERT INTO
     recipe_ingredient (
-        recipe_id,
-        ingredient_id,
-        quantity,
-        unit_id
+        recipe_id, ingredient_id, quantity, unit_id
     )
-VALUES (3, 71, 300, 1), (3, 54, 150, 2), (3, 33, 50, 1), (3, 13, 50, 1), (3, 50, 3, 7);
+VALUES (3, 71, 300, 1),
+    (3, 54, 150, 2),
+    (3, 33, 50, 1),
+    (3, 13, 50, 1),
+    (3, 50, 3, 7);
 -- Pour la recette 'Riz Frit aux Légumes'
 INSERT INTO
     recipe_ingredient (
-        recipe_id,
-        ingredient_id,
-        quantity,
-        unit_id
+        recipe_id, ingredient_id, quantity, unit_id
     )
-VALUES (4, 70, 200, 1), (4, 77, 1, 5), (4, 6, 1, 7), (4, 73, 150, 1), (4, 57, 50, 2);
+VALUES (4, 70, 200, 1),
+    (4, 77, 1, 5),
+    (4, 6, 1, 7),
+    (4, 73, 150, 1),
+    (4, 57, 50, 2);
 -- Pour la recette 'Pizza Margherita'
 INSERT INTO
     recipe_ingredient (
-        recipe_id,
-        ingredient_id,
-        quantity,
-        unit_id
+        recipe_id, ingredient_id, quantity, unit_id
     )
-VALUES (5, 51, 300, 1), (5, 71, 1, 7), (5, 33, 200, 1), (5, 32, 10, 7), (5, 23, 3, 8);
+VALUES (5, 51, 300, 1),
+    (5, 71, 1, 7),
+    (5, 33, 200, 1),
+    (5, 32, 10, 7),
+    (5, 23, 3, 8);
 -- Pour la recette 'Smoothie aux Fruits Rouges'
 INSERT INTO
     recipe_ingredient (
-        recipe_id,
-        ingredient_id,
-        quantity,
-        unit_id
+        recipe_id, ingredient_id, quantity, unit_id
     )
-VALUES (6, 92, 1, 5), (6, 98, 50, 1), (6, 99, 50, 1), (6, 100, 50, 1), (6, 57, 200, 2);
+VALUES (6, 92, 1, 5),
+    (6, 98, 50, 1),
+    (6, 99, 50, 1),
+    (6, 100, 50, 1),
+    (6, 57, 200, 2);
 -- Pour la recette 'Tarte aux Pommes'
 INSERT INTO
     recipe_ingredient (
-        recipe_id,
-        ingredient_id,
-        quantity,
-        unit_id
+        recipe_id, ingredient_id, quantity, unit_id
     )
-VALUES (7, 77, 1, 4), (7, 90, 4, 7), (7, 16, 100, 1), (7, 6, 3, 7), (7, 65, 1, 3);
+VALUES (7, 77, 1, 4),
+    (7, 90, 4, 7),
+    (7, 16, 100, 1),
+    (7, 6, 3, 7),
+    (7, 65, 1, 3);
 -- Pour la recette 'Gâteau au Chocolat'
 INSERT INTO
     recipe_ingredient (
-        recipe_id,
-        ingredient_id,
-        quantity,
-        unit_id
+        recipe_id, ingredient_id, quantity, unit_id
     )
-VALUES (9, 51, 200, 1), (9, 53, 150, 1), (9, 16, 150, 1), (9, 9, 3, 7), (9, 52, 200, 1);
+VALUES (9, 51, 200, 1),
+    (9, 53, 150, 1),
+    (9, 16, 150, 1),
+    (9, 9, 3, 7),
+    (9, 52, 200, 1);
 -- Pour la recette 'Saumon grillé'
 INSERT INTO
     recipe_ingredient (
-        recipe_id,
-        ingredient_id,
-        quantity,
-        unit_id
+        recipe_id, ingredient_id, quantity, unit_id
     )
-VALUES (8, 41, 800, 1), (8, 9, 5, 8), (8, 24, 5, 8), (8, 18, 1, 7), (8, 1, 1, 6), (8, 2, 1, 6), (8, 3, 1, 3);
+VALUES (8, 41, 800, 1),
+    (8, 9, 5, 8),
+    (8, 24, 5, 8),
+    (8, 18, 1, 7),
+    (8, 1, 1, 6),
+    (8, 2, 1, 6),
+    (8, 3, 1, 3);
 -- Pour la recette 'Salade de Quinoa aux Légumes'
 INSERT INTO
     recipe_ingredient (
-        recipe_id,
-        ingredient_id,
-        quantity,
-        unit_id
+        recipe_id, ingredient_id, quantity, unit_id
     )
-VALUES (10, 72, 1, 5), (10, 78, 1, 1), (10, 82, 1, 2), (10, 79, 100, 1), (10, 11, 1, 3);
+VALUES (10, 72, 1, 5),
+    (10, 78, 1, 1),
+    (10, 82, 1, 2),
+    (10, 79, 100, 1),
+    (10, 11, 1, 3);
 
 INSERT INTO
     step (
-        recipe_id,
-        step_number,
-        description
+        recipe_id, step_number, description
     )
 VALUES (
-        1,
-        1,
-        'Lavez et coupez les tomates fraîches.'
-    ), (
-        1,
-        2,
-        'Coupez le concombre et l''oignon rouge en dés.'
-    ), (
-        1,
-        3,
-        'Coupez les olives de Kalamata et le fromage feta.'
-    ), (
-        1,
-        4,
-        'Mélangez tous les légumes et le fromage dans un grand bol.'
-    ), (
-        1,
-        5,
-        'Arrosez la salade d''huile d''olive.'
-    ), (
-        1,
-        6,
-        'Saupoudrez d''origan séché et d''une pincée de sel.'
-    ), (
-        1,
-        7,
-        'Mélangez délicatement la salade pour combiner tous les ingrédients.'
-    ), (
-        1,
-        8,
-        'Servez frais et régalez-vous !'
-    ), (
-        2,
-        1,
-        'Coupez le poulet en morceaux.'
-    ), (
-        2,
-        2,
-        'Coupez les oignons, les tomates et le gingembre.'
-    ), (
-        2,
-        3,
-        'Chauffez de l''huile dans une poêle et faites sauter les oignons coupés jusqu''à ce qu''ils soient dorés.'
-    ), (
-        2,
-        4,
-        'Ajoutez les tomates et le gingembre coupés, faites cuire jusqu''à ce que les tomates soient tendres.'
-    ), (
-        2,
-        5,
-        'Ajoutez les morceaux de poulet et faites cuire jusqu''à ce qu''ils soient dorés de tous les côtés.'
-    ), (
-        2,
-        6,
-        'Ajoutez le curry, le cumin, la coriandre et le sel selon votre goût.'
-    ), (
-        2,
-        7,
-        'Versez le lait de coco et laissez mijoter jusqu''à ce que le poulet soit bien cuit.'
-    ), (
-        2,
-        8,
-        'Décorez avec du coriandre frais et servez sur du riz.'
-    ), (
-        3,
-        1,
-        'Portez de l''eau à ébullition et faites cuire les pâtes selon les instructions du paquet.'
-    ), (
-        3,
-        2,
-        'Dans une poêle séparée, faites cuire le pancetta en dés jusqu''à ce qu''il soit croustillant.'
-    ), (
-        3,
-        3,
-        'Fouettez ensemble les œufs, le parmesan râpé et le poivre dans un bol.'
-    ), (
-        3,
-        4,
-        'Égouttez les pâtes cuites et ajoutez-les à la poêle avec le pancetta croustillant.'
-    ), (
-        3,
-        5,
-        'Retirez la poêle du feu et remuez rapidement le mélange d''œufs et de fromage.'
-    ), (
-        3,
-        6,
-        'Continuez à remuer jusqu''à ce que la sauce épaississe et enrobe les pâtes.'
-    ), (
-        3,
-        7,
-        'Servez immédiatement, garni de parmesan supplémentaire et de poivre noir.'
-    ), (
-        4,
-        1,
-        'Cuisez le riz selon les instructions du paquet et laissez-le refroidir.'
-    ), (
-        4,
-        2,
-        'Coupez les carottes, les poivrons et les haricots verts en petits morceaux.'
-    ), (
-        4,
-        3,
-        'Chauffez de l''huile dans un wok ou une grande poêle à feu moyen.'
-    ), (
-        4,
-        4,
-        'Ajoutez les légumes coupés et faites-les sauter jusqu''à ce qu''ils soient légèrement tendres.'
-    ), (
-        4,
-        5,
-        'Poussez les légumes sur le côté du wok et cassez les œufs dans l''espace vide.'
-    ), (
-        4,
-        6,
-        'Brouillez les œufs et mélangez-les avec les légumes.'
-    ), (
-        4,
-        7,
-        'Ajoutez le riz cuit et refroidi dans le wok, en rompant les grumeaux.'
-    ), (
-        4,
-        8,
-        'Assaisonnez avec de la sauce soja, de l''huile de sésame et du sel selon votre goût.'
-    ), (
-        4,
-        9,
-        'Continuez à faire sauter jusqu''à ce que le riz soit réchauffé et uniformément enrobé de sauce.'
-    ), (
-        4,
-        10,
-        'Garnissez de ciboulette hachée et servez chaud.'
-    ), (
-        5,
-        1,
-        'Préchauffez le four à 475°F (245°C).'
-    ), (
-        5,
-        2,
-        'Étalez la pâte à pizza sur une surface farinée.'
-    ), (
-        5,
-        3,
-        'Étalez la sauce tomate sur la pâte, en laissant une bordure pour la croûte.'
-    ), (
-        5,
-        4,
-        'Ajoutez la mozzarella fraîche et les feuilles de basilic par-dessus.'
-    ), (
-        5,
-        5,
-        'Faites cuire au four préchauffé jusqu''à ce que la croûte soit dorée et le fromage soit bouillonnant.'
-    ), (
-        5,
-        6,
-        'Retirez du four, découpez et servez.'
-    ), (
-        6,
-        1,
-        'Mélangez des baies mélangées, du yaourt et du miel dans un blender.'
-    ), (
-        6,
-        2,
-        'Mixez jusqu''à obtention d''un mélange lisse et crémeux.'
-    ), (
-        6,
-        3,
-        'Versez le smoothie dans des verres et garnissez de baies supplémentaires.'
-    ), (
-        7,
-        1,
-        'Préchauffez le four à 425°F (220°C).'
-    ), (
-        7,
-        2,
-        'Pelez, évidez et coupez les pommes en tranches.'
-    ), (
-        7,
-        3,
-        'Mélangez les pommes avec du sucre, de la cannelle et du jus de citron.'
-    ), (
-        7,
-        4,
-        'Étalez la pâte à tarte et garnissez un moule à tarte.'
-    ), (
-        7,
-        5,
-        'Remplissez la croûte avec le mélange de pommes.'
-    ), (
-        7,
-        6,
-        'Couvrez d''une deuxième croûte et scellez les bords.'
-    ), (
-        7,
-        7,
-        'Faites des fentes dans la croûte supérieure pour permettre à la vapeur de s''échapper.'
-    ), (
-        7,
-        8,
-        'Faites cuire jusqu''à ce que la croûte soit dorée et la garniture bouillonnante.'
-    ), (
-        8,
-        1,
-        'Préchauffez le grill à feu moyen-élevé.'
-    ), (
-        8,
-        2,
-        'Assaisonnez les filets de saumon avec du sel, du poivre et du jus de citron.'
-    ), (
-        8,
-        3,
-        'Grillez le saumon pendant 4-5 minutes de chaque côté ou jusqu''à ce qu''il se défasse facilement à la fourchette.'
-    ), (
-        9,
-        1,
-        'Préchauffez le four à 350°F (175°C).'
-    ), (
-        9,
-        2,
-        'Graissez et farinez les moules à gâteau.'
-    ), (
-        9,
-        3,
-        'Dans un bol, mélangez la farine, le cacao, le bicarbonate de soude et le sel.'
-    ), (
-        9,
-        4,
-        'Dans un autre bol, battez les œufs, le sucre et l''extrait de vanille.'
-    ), (
-        9,
-        5,
-        'Ajoutez les ingrédients secs aux ingrédients humides et mélangez bien.'
-    ), (
-        9,
-        6,
-        'Versez la pâte dans les moules préparés et faites cuire jusqu''à ce qu''un cure-dent en ressorte propre.'
-    ), (
-        10,
-        1,
-        'Rincez le quinoa et faites-le cuire selon les instructions du paquet.'
-    ), (
-        10,
-        2,
-        'Coupez une variété de légumes frais tels que concombre, poivrons et tomates cerises.'
-    ), (
-        10,
-        3,
-        'Dans un grand bol, mélangez le quinoa cuit et les légumes coupés.'
-    ), (
-        10,
-        4,
-        'Arrosez d''huile d''olive et de vinaigre balsamique, et mélangez pour bien enrober.'
-    ), (
-        10,
-        5,
-        'Assaisonnez avec du sel, du poivre et vos herbes préférées.'
+        1, 1, 'Lavez et coupez les tomates fraîches.'
+    ),
+    (
+        1, 2, 'Coupez le concombre et l''oignon rouge en dés.'
+    ),
+    (
+        1, 3, 'Coupez les olives de Kalamata et le fromage feta.'
+    ),
+    (
+        1, 4, 'Mélangez tous les légumes et le fromage dans un grand bol.'
+    ),
+    (
+        1, 5, 'Arrosez la salade d''huile d''olive.'
+    ),
+    (
+        1, 6, 'Saupoudrez d''origan séché et d''une pincée de sel.'
+    ),
+    (
+        1, 7, 'Mélangez délicatement la salade pour combiner tous les ingrédients.'
+    ),
+    (
+        1, 8, 'Servez frais et régalez-vous !'
+    ),
+    (
+        2, 1, 'Coupez le poulet en morceaux.'
+    ),
+    (
+        2, 2, 'Coupez les oignons, les tomates et le gingembre.'
+    ),
+    (
+        2, 3, 'Chauffez de l''huile dans une poêle et faites sauter les oignons coupés jusqu''à ce qu''ils soient dorés.'
+    ),
+    (
+        2, 4, 'Ajoutez les tomates et le gingembre coupés, faites cuire jusqu''à ce que les tomates soient tendres.'
+    ),
+    (
+        2, 5, 'Ajoutez les morceaux de poulet et faites cuire jusqu''à ce qu''ils soient dorés de tous les côtés.'
+    ),
+    (
+        2, 6, 'Ajoutez le curry, le cumin, la coriandre et le sel selon votre goût.'
+    ),
+    (
+        2, 7, 'Versez le lait de coco et laissez mijoter jusqu''à ce que le poulet soit bien cuit.'
+    ),
+    (
+        2, 8, 'Décorez avec du coriandre frais et servez sur du riz.'
+    ),
+    (
+        3, 1, 'Portez de l''eau à ébullition et faites cuire les pâtes selon les instructions du paquet.'
+    ),
+    (
+        3, 2, 'Dans une poêle séparée, faites cuire le pancetta en dés jusqu''à ce qu''il soit croustillant.'
+    ),
+    (
+        3, 3, 'Fouettez ensemble les œufs, le parmesan râpé et le poivre dans un bol.'
+    ),
+    (
+        3, 4, 'Égouttez les pâtes cuites et ajoutez-les à la poêle avec le pancetta croustillant.'
+    ),
+    (
+        3, 5, 'Retirez la poêle du feu et remuez rapidement le mélange d''œufs et de fromage.'
+    ),
+    (
+        3, 6, 'Continuez à remuer jusqu''à ce que la sauce épaississe et enrobe les pâtes.'
+    ),
+    (
+        3, 7, 'Servez immédiatement, garni de parmesan supplémentaire et de poivre noir.'
+    ),
+    (
+        4, 1, 'Cuisez le riz selon les instructions du paquet et laissez-le refroidir.'
+    ),
+    (
+        4, 2, 'Coupez les carottes, les poivrons et les haricots verts en petits morceaux.'
+    ),
+    (
+        4, 3, 'Chauffez de l''huile dans un wok ou une grande poêle à feu moyen.'
+    ),
+    (
+        4, 4, 'Ajoutez les légumes coupés et faites-les sauter jusqu''à ce qu''ils soient légèrement tendres.'
+    ),
+    (
+        4, 5, 'Poussez les légumes sur le côté du wok et cassez les œufs dans l''espace vide.'
+    ),
+    (
+        4, 6, 'Brouillez les œufs et mélangez-les avec les légumes.'
+    ),
+    (
+        4, 7, 'Ajoutez le riz cuit et refroidi dans le wok, en rompant les grumeaux.'
+    ),
+    (
+        4, 8, 'Assaisonnez avec de la sauce soja, de l''huile de sésame et du sel selon votre goût.'
+    ),
+    (
+        4, 9, 'Continuez à faire sauter jusqu''à ce que le riz soit réchauffé et uniformément enrobé de sauce.'
+    ),
+    (
+        4, 10, 'Garnissez de ciboulette hachée et servez chaud.'
+    ),
+    (
+        5, 1, 'Préchauffez le four à 475°F (245°C).'
+    ),
+    (
+        5, 2, 'Étalez la pâte à pizza sur une surface farinée.'
+    ),
+    (
+        5, 3, 'Étalez la sauce tomate sur la pâte, en laissant une bordure pour la croûte.'
+    ),
+    (
+        5, 4, 'Ajoutez la mozzarella fraîche et les feuilles de basilic par-dessus.'
+    ),
+    (
+        5, 5, 'Faites cuire au four préchauffé jusqu''à ce que la croûte soit dorée et le fromage soit bouillonnant.'
+    ),
+    (
+        5, 6, 'Retirez du four, découpez et servez.'
+    ),
+    (
+        6, 1, 'Mélangez des baies mélangées, du yaourt et du miel dans un blender.'
+    ),
+    (
+        6, 2, 'Mixez jusqu''à obtention d''un mélange lisse et crémeux.'
+    ),
+    (
+        6, 3, 'Versez le smoothie dans des verres et garnissez de baies supplémentaires.'
+    ),
+    (
+        7, 1, 'Préchauffez le four à 425°F (220°C).'
+    ),
+    (
+        7, 2, 'Pelez, évidez et coupez les pommes en tranches.'
+    ),
+    (
+        7, 3, 'Mélangez les pommes avec du sucre, de la cannelle et du jus de citron.'
+    ),
+    (
+        7, 4, 'Étalez la pâte à tarte et garnissez un moule à tarte.'
+    ),
+    (
+        7, 5, 'Remplissez la croûte avec le mélange de pommes.'
+    ),
+    (
+        7, 6, 'Couvrez d''une deuxième croûte et scellez les bords.'
+    ),
+    (
+        7, 7, 'Faites des fentes dans la croûte supérieure pour permettre à la vapeur de s''échapper.'
+    ),
+    (
+        7, 8, 'Faites cuire jusqu''à ce que la croûte soit dorée et la garniture bouillonnante.'
+    ),
+    (
+        8, 1, 'Préchauffez le grill à feu moyen-élevé.'
+    ),
+    (
+        8, 2, 'Assaisonnez les filets de saumon avec du sel, du poivre et du jus de citron.'
+    ),
+    (
+        8, 3, 'Grillez le saumon pendant 4-5 minutes de chaque côté ou jusqu''à ce qu''il se défasse facilement à la fourchette.'
+    ),
+    (
+        9, 1, 'Préchauffez le four à 350°F (175°C).'
+    ),
+    (
+        9, 2, 'Graissez et farinez les moules à gâteau.'
+    ),
+    (
+        9, 3, 'Dans un bol, mélangez la farine, le cacao, le bicarbonate de soude et le sel.'
+    ),
+    (
+        9, 4, 'Dans un autre bol, battez les œufs, le sucre et l''extrait de vanille.'
+    ),
+    (
+        9, 5, 'Ajoutez les ingrédients secs aux ingrédients humides et mélangez bien.'
+    ),
+    (
+        9, 6, 'Versez la pâte dans les moules préparés et faites cuire jusqu''à ce qu''un cure-dent en ressorte propre.'
+    ),
+    (
+        10, 1, 'Rincez le quinoa et faites-le cuire selon les instructions du paquet.'
+    ),
+    (
+        10, 2, 'Coupez une variété de légumes frais tels que concombre, poivrons et tomates cerises.'
+    ),
+    (
+        10, 3, 'Dans un grand bol, mélangez le quinoa cuit et les légumes coupés.'
+    ),
+    (
+        10, 4, 'Arrosez d''huile d''olive et de vinaigre balsamique, et mélangez pour bien enrober.'
+    ),
+    (
+        10, 5, 'Assaisonnez avec du sel, du poivre et vos herbes préférées.'
     );
 -- Ajoutez autant de lignes que nécessaire
-INSERT INTO category (name)
-VALUES ('price'), ('country'), ('regime'), ('difficulty'), ('duration'), ('type');
+INSERT INTO
+    category (name)
+VALUES ('price'),
+    ('country'),
+    ('regime'),
+    ('difficulty'),
+    ('duration'),
+    ('type');
 
 INSERT INTO tags (category_id, image_url, name) VALUES
 
-(1, '/images/1euros.png', '€'), (1, '/images/2euros.png', '€€'), (1, '/images/3euros.png', '€€€'), (2, '', 'Italien'), (2, '', 'Français'), (2, '', 'Indien'), (2, '', 'Américain'), (3, '', 'Végétarien'), (3, '', 'Vegan'), (3, '', 'Viandard'), (3, '', 'Sans Gluten'), (3, '', 'Sans lactose'), (3, '', 'Sans porc'), (3, '', 'Pescétarien'), (
-    4,
-    '/images/chef15.png',
-    'Facile'
-), (
-    4,
-    '/images/chef16.png',
-    'Moyen'
-), (
-    4,
-    '/images/chef17.png',
-    'Difficile'
-), (5, '', '15 min'), (5, '', '30 min'), (5, '', '45 min'), (5, '', '1h'), (5, '', '1h30'), (5, '', '2h+'), (6, '', 'Entrée'), (6, '', 'Plat'), (6, '', 'Dessert'), (6, '', 'Boisson'), (6, '', 'Apéritif');
+(1, '/images/1euros.png', '€'),
+(1, '/images/2euros.png', '€€'),
+(
+    1, '/images/3euros.png', '€€€'
+),
+(2, '', 'Italien'),
+(2, '', 'Français'),
+(2, '', 'Indien'),
+(2, '', 'Américain'),
+(3, '', 'Végétarien'),
+(3, '', 'Vegan'),
+(3, '', 'Viandard'),
+(3, '', 'Sans Gluten'),
+(3, '', 'Sans lactose'),
+(3, '', 'Sans porc'),
+(3, '', 'Pescétarien'),
+(
+    4, '/images/chef15.png', 'Facile'
+),
+(
+    4, '/images/chef16.png', 'Moyen'
+),
+(
+    4, '/images/chef17.png', 'Difficile'
+),
+(5, '', '15 min'),
+(5, '', '30 min'),
+(5, '', '45 min'),
+(5, '', '1h'),
+(5, '', '1h30'),
+(5, '', '2h+'),
+(6, '', 'Entrée'),
+(6, '', 'Plat'),
+(6, '', 'Dessert'),
+(6, '', 'Boisson'),
+(6, '', 'Apéritif');
 
 Insert INTO
     recipe_tags (recipe_id, tags_id)
-VALUES (1, 2), (1, 5), (1, 8), (1, 13), (1, 15), (1, 18), (1, 25), (2, 2), (2, 6), (2, 10), (2, 12), (2, 13), (2, 15), (2, 20), (2, 25), (3, 1), (3, 4), (3, 13), (3, 15), (3, 19), (3, 25), (4, 1), (4, 8), (4, 12), (4, 13), (4, 15), (4, 19), (4, 25), (5, 2), (5, 4), (5, 8), (5, 13), (5, 16), (5, 22), (6, 3), (6, 9), (6, 11), (6, 13), (6, 14), (6, 16), (6, 20), (6, 27), (7, 1), (7, 5), (7, 12), (7, 13), (7, 14), (7, 15), (7, 20), (7, 26), (8, 2), (8, 5), (8, 14), (8, 15), (8, 18), (8, 25), (9, 1), (9, 5), (9, 12), (9, 13), (9, 14), (9, 15), (9, 20), (9, 26), (10, 2), (10, 5), (10, 9), (10, 16), (10, 22), (10, 25);
+VALUES (1, 2),
+    (1, 5),
+    (1, 8),
+    (1, 13),
+    (1, 15),
+    (1, 18),
+    (1, 25),
+    (2, 2),
+    (2, 6),
+    (2, 10),
+    (2, 12),
+    (2, 13),
+    (2, 15),
+    (2, 20),
+    (2, 25),
+    (3, 1),
+    (3, 4),
+    (3, 13),
+    (3, 15),
+    (3, 19),
+    (3, 25),
+    (4, 1),
+    (4, 8),
+    (4, 12),
+    (4, 13),
+    (4, 15),
+    (4, 19),
+    (4, 25),
+    (5, 2),
+    (5, 4),
+    (5, 8),
+    (5, 13),
+    (5, 16),
+    (5, 22),
+    (6, 3),
+    (6, 9),
+    (6, 11),
+    (6, 13),
+    (6, 14),
+    (6, 16),
+    (6, 20),
+    (6, 27),
+    (7, 1),
+    (7, 5),
+    (7, 12),
+    (7, 13),
+    (7, 14),
+    (7, 15),
+    (7, 20),
+    (7, 26),
+    (8, 2),
+    (8, 5),
+    (8, 14),
+    (8, 15),
+    (8, 18),
+    (8, 25),
+    (9, 1),
+    (9, 5),
+    (9, 12),
+    (9, 13),
+    (9, 14),
+    (9, 15),
+    (9, 20),
+    (9, 26),
+    (10, 2),
+    (10, 5),
+    (10, 9),
+    (10, 16),
+    (10, 22),
+    (10, 25);
 
 INSERT INTO
     user_tags (user_id, tags_id)
-VALUES (1, 1), (1, 2), (1, 3), (1, 5), (1, 6), (2, 2), (2, 3), (2, 5), (3, 3), (3, 4), (3, 6), (4, 6), (4, 2);
+VALUES (1, 1),
+    (1, 2),
+    (1, 3),
+    (1, 5),
+    (1, 6),
+    (2, 2),
+    (2, 3),
+    (2, 5),
+    (3, 3),
+    (3, 4),
+    (3, 6),
+    (4, 6),
+    (4, 2);
 
 INSERT INTO
     favoris (user_id, recipe_id)
-VALUES (1, 1), (1, 2), (1, 5), (1, 6), (1, 9), (2, 2), (2, 3), (2, 5), (3, 7), (3, 8), (3, 6), (4, 6), (4, 9), (6, 1), (7, 5), (7, 2);
+VALUES (1, 1),
+    (1, 2),
+    (1, 5),
+    (1, 6),
+    (1, 9),
+    (2, 2),
+    (2, 3),
+    (2, 5),
+    (3, 7),
+    (3, 8),
+    (3, 6),
+    (4, 6),
+    (4, 9),
+    (6, 1),
+    (7, 5),
+    (7, 2);
 
 INSERT INTO
     comment (user_id, recipe_id, message)
 VALUES (
-        1,
-        6,
-        'C''était plutôt bon, mais ça ne vaut pas les cookies de Guillaume'
-    ), (
-        7,
-        7,
-        'J''ai mis plus de pommes et plus de tarte'
-    ), (
-        7,
-        1,
-        'De nouveau pas déçu de cette recette'
-    ), (
-        2,
-        3,
-        'Les pâtes avec des lardons, je dis oui.'
-    ), (
-        3,
-        2,
-        'C''est pas très vegan tout ça😭'
-    ), (
-        4,
-        2,
-        'J''aime le poulet. J''aime le curry. J''aime le poulet au curry.🧑‍🍳'
-    ), (
-        3,
-        4,
-        'Chez nous, tous les lundis, c''est riz frit.'
-    ), (
-        2,
-        6,
-        ' J''aime mieux le yaourt'
-    ), (
-        5,
-        8,
-        'Cette recette de saumon a plu à mon oncle, et mon oncle il est difficile, alors si ça lui a plu c''est que cette recette, elle devait être bonne. J''aime bien mon oncle, il est gentil.'
-    ), (
-        6,
-        5,
-        "C''était plutôt bon, avec les cookies de Guillaume en dessert bien sûr !"
-    ), (
-        7,
-        6,
-        'I never cooked something this delicious ! 😍😍😍'
-    ), (
-        2,
-        10,
-        'Le quinoa c''est bof quand même, non ?'
-    ), (
-        3,
-        10,
-        'J''aime les plats vegan et j''avais besoin de le dire'
-    ), (
-        4,
-        8,
-        'Absolument horrible, ne jamais faire cette recette, mon four a explosé, mon chat à disparu depuis suite à ça. Ou mon chien, je sais plus. L''un des deux en tout cas.'
-    ), (
-        6,
-        9,
-        'J''ai trouvé le même chez Carrefour déjà tout fait, j''ai bien aimé'
-    ), (
-        3,
-        9,
-        'C''était bon, mais je mettrai de la courgette à la place du beurre la prochaine fois.'
+        1, 6, 'C''était plutôt bon, mais ça ne vaut pas les cookies de Guillaume'
+    ),
+    (
+        7, 7, 'J''ai mis plus de pommes et plus de tarte'
+    ),
+    (
+        7, 1, 'De nouveau pas déçu de cette recette'
+    ),
+    (
+        2, 3, 'Les pâtes avec des lardons, je dis oui.'
+    ),
+    (
+        3, 2, 'C''est pas très vegan tout ça😭'
+    ),
+    (
+        4, 2, 'J''aime le poulet. J''aime le curry. J''aime le poulet au curry.🧑‍🍳'
+    ),
+    (
+        3, 4, 'Chez nous, tous les lundis, c''est riz frit.'
+    ),
+    (
+        2, 6, ' J''aime mieux le yaourt'
+    ),
+    (
+        5, 8, 'Cette recette de saumon a plu à mon oncle, et mon oncle il est difficile, alors si ça lui a plu c''est que cette recette, elle devait être bonne. J''aime bien mon oncle, il est gentil.'
+    ),
+    (
+        6, 5, "C''était plutôt bon, avec les cookies de Guillaume en dessert bien sûr !"
+    ),
+    (
+        7, 6, 'I never cooked something this delicious ! 😍😍😍'
+    ),
+    (
+        2, 10, 'Le quinoa c''est bof quand même, non ?'
+    ),
+    (
+        3, 10, 'J''aime les plats vegan et j''avais besoin de le dire'
+    ),
+    (
+        4, 8, 'Absolument horrible, ne jamais faire cette recette, mon four a explosé, mon chat à disparu depuis suite à ça. Ou mon chien, je sais plus. L''un des deux en tout cas.'
+    ),
+    (
+        6, 9, 'J''ai trouvé le même chez Carrefour déjà tout fait, j''ai bien aimé'
+    ),
+    (
+        3, 9, 'C''était bon, mais je mettrai de la courgette à la place du beurre la prochaine fois.'
     );
 
 INSERT INTO
     user_ingredient (user_id, ingredient_id)
-VALUES (1, 1), (1, 2), (1, 5), (1, 6), (1, 9), (2, 2), (2, 3), (2, 5), (3, 7), (3, 8), (3, 6), (4, 6), (4, 9), (6, 1), (7, 5), (7, 2);
+VALUES (1, 1),
+    (1, 2),
+    (1, 5),
+    (1, 6),
+    (1, 9),
+    (2, 2),
+    (2, 3),
+    (2, 5),
+    (3, 7),
+    (3, 8),
+    (3, 6),
+    (4, 6),
+    (4, 9),
+    (6, 1),
+    (7, 5),
+    (7, 2);

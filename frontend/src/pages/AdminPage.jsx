@@ -21,6 +21,8 @@ function AdminPage() {
   const token = localStorage.getItem("token");
   const [previewURL, setPreviewURL] = useState(null);
 
+  console.info(userInfos);
+
   useEffect(() => {
     axios
       .get(`${import.meta.env.VITE_BACKEND_URL}/api/adminRecipe`)
