@@ -1,9 +1,11 @@
 import { useContext } from "react";
+import { useLocation } from "react-router-dom";
+
 import PropTypes from "prop-types";
 import Button from "./Button";
 import FiltersContext from "../context/FiltersContext";
 
-function FilterCountry({ countryTag }) {
+function FilterCountry({ countryTag, setCountryChange, countryChange }) {
   const {
     filterCountry,
     setFilterCountry,
@@ -11,26 +13,47 @@ function FilterCountry({ countryTag }) {
     setFilterCountryId,
   } = useContext(FiltersContext);
 
+  const location = useLocation();
+
   const handleClick = (tag) => {
+    if (location.pathname === "/") {
+      if (tag.category_id === 2) {
+        if (filterCountry.includes(tag.name) === true) {
+          const temp = [...filterCountry];
+          const temp2 = [...filterCountryId];
+
+          const tagIndex = temp.findIndex((item) => {
+            return item === tag.name;
+          });
+          temp.splice(tagIndex, 1);
+          temp2.splice(tagIndex, 1);
+          setFilterCountry(temp);
+          setFilterCountryId(temp2);
+        } else {
+          const temp = [...filterCountry];
+          const temp2 = [...filterCountryId];
+          temp.push(tag.name);
+          temp2.push(tag.id);
+          setFilterCountry(temp);
+          setFilterCountryId(temp2);
+        }
+      }
+    }
     if (tag.category_id === 2) {
-      if (filterCountry.includes(tag.name) === true) {
-        const temp = [...filterCountry];
-        const temp2 = [...filterCountryId];
+      if (countryChange.includes(tag.id) === true) {
+        const temp = [...countryChange];
 
         const tagIndex = temp.findIndex((item) => {
-          return item === tag.name;
+          return item === tag.id;
         });
         temp.splice(tagIndex, 1);
-        temp2.splice(tagIndex, 1);
-        setFilterCountry(temp);
-        setFilterCountryId(temp2);
+        setCountryChange(temp);
       } else {
-        const temp = [...filterCountry];
-        const temp2 = [...filterCountryId];
-        temp.push(tag.name);
-        temp2.push(tag.id);
-        setFilterCountry(temp);
-        setFilterCountryId(temp2);
+        const temp = [...countryChange];
+
+        temp.push(tag.id);
+
+        setCountryChange(temp);
       }
     }
   };
@@ -65,6 +88,13 @@ FilterCountry.propTypes = {
       name: PropTypes.string,
     })
   ).isRequired,
+  countryChange: PropTypes.arrayOf(
+    PropTypes.shape({
+      category_id: PropTypes.number,
+      id: PropTypes.number,
+    })
+  ).isRequired,
+  setCountryChange: PropTypes.func.isRequired,
 };
 
 export default FilterCountry;
