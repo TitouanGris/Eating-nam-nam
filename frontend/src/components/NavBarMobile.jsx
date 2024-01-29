@@ -60,7 +60,7 @@ function NavBarMobile({ setFavoriteMobileisActive }) {
         <>
           <NavLink to="/account">
             <div className="account-link">
-              <img src="src/assets/images/account.png" alt="user-page" />
+              <img src="/account.png" alt="user-page" />
               <p>{userInfos.pseudo}</p>
             </div>
           </NavLink>
@@ -70,7 +70,7 @@ function NavBarMobile({ setFavoriteMobileisActive }) {
             type="button"
             className="publish_button"
           >
-            <img alt="publish" src="./src/assets/images/add.png" />
+            <img alt="publish" src="/add.png" />
             <p>Publier</p>
           </button>
 
@@ -82,7 +82,7 @@ function NavBarMobile({ setFavoriteMobileisActive }) {
               navigate("/browse");
             }}
           >
-            <img alt="publish" src="./src/assets/images/heartfill.png" />
+            <img alt="publish" src="/src/assets/images/heartfill.png" />
             <p>Favoris</p>
           </button>
         </>
@@ -94,7 +94,7 @@ function NavBarMobile({ setFavoriteMobileisActive }) {
             onClick={() => {
               setConnexion(!connexion);
             }}
-            src="src/assets/images/account.png"
+            src="/account.png"
             alt="user-page"
           />
           <p>Connexion</p>

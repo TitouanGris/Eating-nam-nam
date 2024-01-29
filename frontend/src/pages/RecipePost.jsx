@@ -411,8 +411,6 @@ function RecipePost() {
             })}
           </div>
         </div>
-      </div>
-      <div className="post_right">
         <div className="recipe_regime">
           <p>Dans quel régime s'inscris votre recette ?</p>
           <div className="filters-button-container">
@@ -435,6 +433,8 @@ function RecipePost() {
             })}
           </div>
         </div>
+      </div>
+      <div className="post_right">
         <div className="recipe_country">
           <p>Pays</p>
           <div className="filters-button-container">
@@ -514,7 +514,7 @@ function RecipePost() {
                 />
               </div>
               {verifIng === false && (
-                <p>
+                <p className="errorIng">
                   ⚠️ L'ingrédient sélectionné n'est pas présent dans la liste ou
                   a déja été ajouté
                 </p>
@@ -526,7 +526,11 @@ function RecipePost() {
               return (
                 <div className="list" key={ing.ingValue}>
                   <p>
-                    {ing.qtyValue} {ing.unitValue} {ing.ingValue}
+                    {ing.qtyValue}{" "}
+                    {ing.unitValue === "unité" ? "" : ing.unitValue}{" "}
+                    {ing.qtyValue !== 1 && ing.unitValue === "unité"
+                      ? `${ing.ingValue}s`
+                      : ing.ingValue}
                   </p>
                   <Button
                     label="✖️"
@@ -613,7 +617,8 @@ function RecipePost() {
               toPostTags.price_tags_id === null ||
               toPostTags.time_tags_id === null ||
               toPostSteps.description === "" ||
-              sumIng.length === 0
+              sumIng.length === 0 ||
+              toPostSteps.length === 0
             }
             onClick={handleShareRecipe}
           />
