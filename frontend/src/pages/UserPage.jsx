@@ -120,6 +120,13 @@ function UserPage() {
     setShowModalTag(false);
   };
 
+  const handleFileChange = (e) => {
+    const selectedFile = e.target.files[0];
+    setFile(selectedFile);
+    setPreviewURL(URL.createObjectURL(selectedFile));
+    console.info(selectedFile);
+  };
+
   const submit = async (event) => {
     const token = localStorage.getItem("token");
     if (token) {
@@ -127,6 +134,7 @@ function UserPage() {
       if (file) {
         // le formData permet de passer une image dans le body
         const formData = new FormData();
+        console.info(formData.toString());
         console.info(formData.toString());
         formData.append("image", file); // on ajoute des données à notre formData avec append (couple clé, valeur)
         // dans le post, on passe le le formData dans le body pour l'envoyer au back
@@ -140,6 +148,7 @@ function UserPage() {
             },
           }
         );
+
         setPreviewURL(undefined);
         fetchAvatar(); // suite au post, on relance la fonction qui permet de fetch les avatars pour ensuite mapper avec le nouvel avatar
       } else {
@@ -162,13 +171,7 @@ function UserPage() {
       console.error("Pas de pref selectionnée");
     }
   };
-
-  const handleFileChange = (e) => {
-    const selectedFile = e.target.files[0];
-    setFile(selectedFile);
-    setPreviewURL(URL.createObjectURL(selectedFile));
-    console.info(selectedFile);
-  };
+  console.info(previewURL);
 
   return (
     <div className="userPage">
@@ -297,9 +300,11 @@ function UserPage() {
               </div>
             </div>
           </div>
+
           <div className="userRecipeBox">
             <div className="separationBarre" />
             <h2>Mes recettes ajoutées</h2>
+            <p> Toutes mes recettes ajoutées affichées ici</p>
             <div className="userRecipe">
               {userRecipe.map((r) => {
                 return (
@@ -322,7 +327,7 @@ function UserPage() {
                               ? `${import.meta.env.VITE_BACKEND_URL}${
                                   r.recipeImage
                                 }`
-                              : "/logo.png"
+                              : "/src/assets/images/logo.png"
                           }
                           alt={r.recipeName}
                         />

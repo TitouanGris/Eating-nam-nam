@@ -1,12 +1,27 @@
 .recipe_post {
   display: flex;
   flex-direction: column;
-  width: 100vw;
+  width: 100%;
   height: 100vh;
   gap: 2vh;
-  margin-inline: 1vw;
   padding-inline: 2vw;
   overflow-y: scroll;
+  &::-webkit-scrollbar {
+    width: 6px;
+    // background-color: #f5f5f5;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background-image: -webkit-gradient(
+      linear,
+      left bottom,
+      left top,
+      color-stop(0.44, var(--primary-color)),
+      // color-stop(0.72, rgb(11, 74, 151)),
+      // color-stop(0.86, rgb(28, 58, 148))
+    );
+  }
   input {
     border: solid gray 1.5px;
     padding: 1.5vh 0vh 1.5vh 1.5vh;
@@ -30,12 +45,12 @@
       .counter {
         display: flex;
         align-items: center;
-        border: solid;
+        border: solid 1.8px;
         border-color: gray;
         border-radius: 15px;
         width: fit-content;
         p {
-          border: solid;
+          border: solid 1.8px;
           border-color: black;
           padding: 2vh;
           font-size: var(--title-font-size);
@@ -367,6 +382,22 @@
   .recipe_post {
     flex-direction: row;
     overflow-y: scroll;
+    &::-webkit-scrollbar {
+      width: 6px;
+      // background-color: #f5f5f5;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      border-radius: 10px;
+      background-image: -webkit-gradient(
+        linear,
+        left bottom,
+        left top,
+        color-stop(0.44, var(--primary-color)),
+        // color-stop(0.72, rgb(11, 74, 151)),
+        // color-stop(0.86, rgb(28, 58, 148))
+      );
+    }
     .post_left {
       flex: 1;
       height: fit-content;

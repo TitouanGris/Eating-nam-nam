@@ -1,14 +1,32 @@
 .recipeBrowse {
   display: flex;
-
   .recipeBrowseCard {
     overflow-y: scroll;
     display: flex;
     flex-wrap: wrap;
     padding-top: 30px;
     gap: 20px;
-    align-items: center;
     justify-content: center;
+    &::-webkit-scrollbar {
+      width: 6px;
+      // background-color: #f5f5f5;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      border-radius: 10px;
+      background-image: -webkit-gradient(
+        linear,
+        left bottom,
+        left top,
+        color-stop(0.44, var(--primary-color)),
+        // color-stop(0.72, rgb(11, 74, 151)),
+        // color-stop(0.86, rgb(28, 58, 148))
+      );
+    }
+    .noFav {
+      display: flex;
+      align-items: center;
+    }
 
     a {
       display: flex;
@@ -34,7 +52,7 @@
   .recipeBrowse {
     .recipeBrowseCard {
       a:last-child {
-        margin-bottom: 15vh;
+        margin-bottom: 14vh;
       }
     }
   }
@@ -48,11 +66,13 @@
       // width: 70%;
       // padding-bottom: 3vh;
 
-      // overflow-y: scroll;
-      // height: 90vh;
-
+      overflow-y: scroll;
+      height: 90vh;
       a {
         width: 40%;
+      }
+      a:last-child {
+        margin-bottom: 6vh;
       }
     }
   }

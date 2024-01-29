@@ -5,12 +5,21 @@
   height: fit-content;
   overflow-y: scroll;
 
-  .userRecipe::-webkit-scrollbar {
-    height: 8px;
-    &-thumb {
-      background-color: var(--primary-color);
-      border-radius: 20px;
-    }
+  &::-webkit-scrollbar {
+    width: 6px;
+    // background-color: #f5f5f5;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background-image: -webkit-gradient(
+      linear,
+      left bottom,
+      left top,
+      color-stop(0.44, var(--primary-color)),
+      // color-stop(0.72, rgb(11, 74, 151)),
+      // color-stop(0.86, rgb(28, 58, 148))
+    );
   }
   .user-container {
     height: 100%;
@@ -64,6 +73,7 @@
               display: flex;
               justify-content: center;
               align-items: center;
+              cursor: pointer;
               .add-avatar-button {
                 display: flex;
                 justify-content: center;

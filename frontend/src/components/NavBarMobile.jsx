@@ -94,7 +94,7 @@ function NavBarMobile({ setFavoriteMobileisActive }) {
             onClick={() => {
               setConnexion(!connexion);
             }}
-            src="src/assets/images/account.png"
+            src="/account.png"
             alt="user-page"
           />
           <p>Connexion</p>

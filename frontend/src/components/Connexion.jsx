@@ -78,7 +78,6 @@ function Connexion({ setConnexion, connexion }) {
         );
         setFavorisTable(favorisDb.data);
         localStorage.setItem("favoris", JSON.stringify(favorisDb.data));
-
         // setclickToConnect((current) => !current);
         setConnexion(!connexion);
         navigate("browse");
@@ -95,7 +94,6 @@ function Connexion({ setConnexion, connexion }) {
     setConnexion((current) => !current);
   }
   console.info("connexion", connexion);
-
   return connexion ? (
     <div>
       {/* {userInfos && clickToConnect && <Navigate to="/browse" />} */}
