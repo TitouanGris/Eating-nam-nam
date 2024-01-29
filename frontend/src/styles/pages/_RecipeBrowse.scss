@@ -1,18 +1,46 @@
 .recipeBrowse {
   display: flex;
 
-  .recipeBrowseCard {
-    overflow-y: scroll;
+  .leftArea {
     display: flex;
-    flex-wrap: wrap;
-    padding-top: 30px;
-    gap: 20px;
-    align-items: center;
     justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 90vh;
 
-    a {
+    .searchBar {
+      justify-content: center;
+      align-items: center;
+      padding-top: 15px;
+      padding-bottom: 15px;
+
+      input {
+        width: 90vw;
+        border-radius: 15px;
+
+        border: solid 2px var(--primary-color);
+        color: black;
+        padding: 5px;
+        font-size: 1.3rem;
+
+        &::placeholder {
+          color: black;
+        }
+      }
+    }
+
+    .recipeBrowseCard {
+      overflow-y: scroll;
+      justify-content: center;
       display: flex;
-      width: 80%;
+      flex-wrap: wrap;
+
+      gap: 20px;
+      width: 100%;
+      a {
+        display: flex;
+        width: 80%;
+      }
     }
   }
 
@@ -32,27 +60,37 @@
 
 @media screen and (max-width: 899px) {
   .recipeBrowse {
-    .recipeBrowseCard {
-      a:last-child {
-        margin-bottom: 15vh;
+    .leftArea {
+      .recipeBrowseCard {
+        // height: 90vh;
+        a:last-child {
+          margin-bottom: 3vh;
+        }
       }
     }
   }
 }
 
-@media screen and (min-width: 500px) and (max-width: 1000px) {
+@media screen and (min-width: 650px) and (max-width: 1000px) {
   .recipeBrowse {
-    .recipeBrowseCard {
-      // flex-direction: initial;
-      // flex-wrap: wrap;
-      // width: 70%;
-      // padding-bottom: 3vh;
+    .leftArea {
+      .searchBar {
+        input {
+          width: 40vw;
+        }
+      }
+      .recipeBrowseCard {
+        // flex-direction: initial;
+        // flex-wrap: wrap;
+        // width: 70%;
+        // padding-bottom: 3vh;
 
-      // overflow-y: scroll;
-      // height: 90vh;
+        // overflow-y: scroll;
+        // height: 90vh;
 
-      a {
-        width: 40%;
+        a {
+          width: 40%;
+        }
       }
     }
   }
@@ -60,17 +98,27 @@
 
 @media screen and (min-width: 1000px) and (max-width: 1200px) {
   .recipeBrowse {
-    .recipeBrowseCard {
-      flex-direction: initial;
-      flex-wrap: wrap;
+    .leftArea {
       width: 70%;
-      padding-bottom: 3vh;
 
-      overflow-y: scroll;
-      height: 90vh;
+      .searchBar {
+        input {
+          width: 40vw;
+        }
+      }
 
-      a {
-        width: 40%;
+      .recipeBrowseCard {
+        flex-direction: initial;
+        flex-wrap: wrap;
+
+        padding-bottom: 3vh;
+
+        overflow-y: scroll;
+        height: 90vh;
+
+        a {
+          width: 40%;
+        }
       }
     }
 
@@ -119,17 +167,26 @@
 
 @media screen and (min-width: 1200px) {
   .recipeBrowse {
-    .recipeBrowseCard {
-      flex-direction: initial;
-      flex-wrap: wrap;
+    .leftArea {
       width: 70%;
-      padding-bottom: 3vh;
 
-      overflow-y: scroll;
-      height: 90vh;
+      .searchBar {
+        input {
+          width: 25vw;
+        }
+      }
 
-      a {
-        width: 30%;
+      .recipeBrowseCard {
+        flex-direction: initial;
+        flex-wrap: wrap;
+        // width: 70%;
+
+        overflow-y: scroll;
+        height: 90vh;
+
+        a {
+          width: 30%;
+        }
       }
     }
 
