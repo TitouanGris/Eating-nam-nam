@@ -13,11 +13,9 @@ function UserPage() {
   const { userInfos, setUserInfos } = useUser();
   const { filterRegimeId } = useContext(FiltersContext);
 
-
   const [file, setFile] = useState(undefined);
   const [avatar, setAvatar] = useState([]);
   const [previewURL, setPreviewURL] = useState(null);
-
 
   const [modal, setModal] = useState(false);
   const [showModifyAccount, setShowModifyAccount] = useState(false);
@@ -122,7 +120,6 @@ function UserPage() {
     setShowModalTag(false);
   };
 
-
   const handleFileChange = (e) => {
     const selectedFile = e.target.files[0];
     setFile(selectedFile);
@@ -137,6 +134,7 @@ function UserPage() {
       if (file) {
         // le formData permet de passer une image dans le body
         const formData = new FormData();
+        console.info(formData.toString());
         console.info(formData.toString());
         formData.append("image", file); // on ajoute des données à notre formData avec append (couple clé, valeur)
         // dans le post, on passe le le formData dans le body pour l'envoyer au back
@@ -159,7 +157,6 @@ function UserPage() {
     }
   };
 
-
   const deletePreference = async () => {
     if (preferenceId) {
       try {
@@ -177,184 +174,186 @@ function UserPage() {
   console.info(previewURL);
 
   return (
-    <div className="user-container">
-      <h1>Mon compte</h1>
-      <div className="user">
-        {/* attention chemin de l'url pour aller chercher l'image ne pas mettre public car cest le dossier static inndiqué dans app.js */}
-        <img
-          src={`${import.meta.env.VITE_BACKEND_URL}/images/avatar/${
-            userInfos.image_url
-          }`}
-          alt="profile"
-        />
-        <div className="userInfos">
-          <p>{userInfos.pseudo}</p>
-          <p>{userInfos.email}</p>
+    <div className="userPage">
+      <div className="user-container">
+        <h1>Mon compte</h1>
+        <div className="user">
+          {/* attention chemin de l'url pour aller chercher l'image ne pas mettre public car cest le dossier static inndiqué dans app.js */}
+          <img
+            src={`${import.meta.env.VITE_BACKEND_URL}/images/avatar/${
+              userInfos.image_url
+            }`}
+            alt="profile"
+          />
+          <div className="userInfos">
+            <p>{userInfos.pseudo}</p>
+            <p>{userInfos.email}</p>
+          </div>
         </div>
-      </div>
 
-      <div className="admin-button">
-        {userInfos.is_admin === 1 && (
-          <button
-            type="button"
-            onClick={() => {
-              navigate("/account/admin");
-            }}
-          >
-            Page admin
-          </button>
-        )}
-      </div>
-      <div className="modify-button">
-        <button type="button" onClick={handleModifyAccount}>
-          Modifier mes informations
-        </button>
-      </div>
-      {showModifyAccount && (
-        <ModifyAccount
-          isOpen={showModifyAccount}
-          setShowModifyAccount={setShowModifyAccount}
-        />
-      )}
-      <div className="infos-user">
-        <div>
-          <div className="separationBarre" />
-          <div className="preferences-container">
-            <h2>Mes préférences</h2>
-            <div className="preferences">
-              {preferences.map((preference) => (
-                <div key={preference.id}>
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setPreferenceId(preference.id);
-                      setShowModalTag(true);
-                    }}
-                  >
-                    &times;
-                  </button>
-                  {showModalTag && (
-                    <ModifyPreferences
-                      isOpen={showModalTag}
-                      deletePreference={deletePreference}
-                      onCancel={closeModal}
-                    />
-                  )}
-                  <div className="onePreferences">{preference.name}</div>
-                </div>
-              ))}
-            </div>
+        <div className="admin-button">
+          {userInfos.is_admin === 1 && (
             <button
               type="button"
-              className="button-user-preferences"
-              onClick={() => setShowModifyPreferences(true)}
+              onClick={() => {
+                navigate("/account/admin");
+              }}
             >
-              Ajouter des préférences
+              Page admin
             </button>
-            {showModifyPreferences && (
-              <div>
-                <Regime />
-              </div>
-            )}
-          </div>
+          )}
         </div>
-        <div>
-          <div className="separationBarre" />
-          <div className="avatars">
-            <div className="avatars-container">
-              <h2>Ajouter des avatars</h2>
-              <div className="avatar-map">
-                {avatar.map((a) => {
-                  return (
-                    <div key={a.id}>
-                      <img
-                        width="30px"
-                        src={`${
-                          import.meta.env.VITE_BACKEND_URL
-                        }/images/avatar/${a.image_url}`}
-                        alt=""
+        <div className="modify-button">
+          <button type="button" onClick={handleModifyAccount}>
+            Modifier mes informations
+          </button>
+        </div>
+        {showModifyAccount && (
+          <ModifyAccount
+            isOpen={showModifyAccount}
+            setShowModifyAccount={setShowModifyAccount}
+          />
+        )}
+        <div className="infos-user">
+          <div>
+            <div className="separationBarre" />
+            <div className="preferences-container">
+              <h2>Mes préférences</h2>
+              <div className="preferences">
+                {preferences.map((preference) => (
+                  <div key={preference.id}>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setPreferenceId(preference.id);
+                        setShowModalTag(true);
+                      }}
+                    >
+                      &times;
+                    </button>
+                    {showModalTag && (
+                      <ModifyPreferences
+                        isOpen={showModalTag}
+                        deletePreference={deletePreference}
+                        onCancel={closeModal}
                       />
-                    </div>
-                  );
-                })}
+                    )}
+                    <div className="onePreferences">{preference.name}</div>
+                  </div>
+                ))}
               </div>
-              {/* form submit nouvel avatar */}
-              <form onSubmit={submit} className="upload-form">
-                <input
-                  name={file}
-                  onChange={handleFileChange}
-                  type="file"
-                  accept="image/*"
-                  id="file-input"
-                />
-                <label htmlFor="file-input" className="upload">
-                  {previewURL ? (
-                    <div className="add-avatar-button">
-                      <button type="submit" className="button-user-avatar">
-                        Télécharger
-                      </button>
+              <button
+                type="button"
+                className="button-user-preferences"
+                onClick={() => setShowModifyPreferences(true)}
+              >
+                Ajouter des préférences
+              </button>
+              {showModifyPreferences && (
+                <div>
+                  <Regime />
+                </div>
+              )}
+            </div>
+          </div>
+          <div>
+            <div className="separationBarre" />
+            <div className="avatars">
+              <div className="avatars-container">
+                <h2>Ajouter des avatars</h2>
+                <div className="avatar-map">
+                  {avatar.map((a) => {
+                    return (
+                      <div key={a.id}>
+                        <img
+                          width="30px"
+                          src={`${
+                            import.meta.env.VITE_BACKEND_URL
+                          }/images/avatar/${a.image_url}`}
+                          alt=""
+                        />
+                      </div>
+                    );
+                  })}
+                </div>
+                {/* form submit nouvel avatar */}
+                <form onSubmit={submit} className="upload-form">
+                  <input
+                    name={file}
+                    onChange={handleFileChange}
+                    type="file"
+                    accept="image/*"
+                    id="file-input"
+                  />
+                  <label htmlFor="file-input" className="upload">
+                    {previewURL ? (
+                      <div className="add-avatar-button">
+                        <button type="submit" className="button-user-avatar">
+                          Télécharger
+                        </button>
+                      </div>
+                    ) : (
+                      <div>Ajouter un avatar</div>
+                    )}
+                  </label>
+                </form>
+              </div>
+            </div>
+          </div>
+
+          <div className="userRecipeBox">
+            <div className="separationBarre" />
+            <h2>Mes recettes ajoutées</h2>
+            <p> Toutes mes recettes ajoutées affichées ici</p>
+            <div className="userRecipe">
+              {userRecipe.map((r) => {
+                return (
+                  <Link
+                    key={r.recipeId}
+                    to={`/recipe/${r.recipeId}`}
+                    style={{ color: "inherit", textDecoration: "inherit" }}
+                  >
+                    <div
+                      className={
+                        r.validate_recipe
+                          ? "userRecipeCard"
+                          : "userRecipeCard notValidateRecipe"
+                      }
+                    >
+                      <div className="imgBox">
+                        <img
+                          src={
+                            r.recipeImage !== "/images/undefined"
+                              ? `${import.meta.env.VITE_BACKEND_URL}${
+                                  r.recipeImage
+                                }`
+                              : "/src/assets/images/logo.png"
+                          }
+                          alt={r.recipeName}
+                        />
+                      </div>
+                      <p>{r.recipeName}</p>
                     </div>
-                  ) : (
-                    <div>Ajouter un avatar</div>
-                  )}
-                </label>
-              </form>
+                  </Link>
+                );
+              })}
             </div>
           </div>
         </div>
-
-        <div className="userRecipeBox">
-          <div className="separationBarre" />
-          <h2>Mes recettes ajoutées</h2>
-          <p> Toutes mes recettes ajoutées affichées ici</p>
-          <div className="userRecipe">
-            {userRecipe.map((r) => {
-              return (
-                <Link
-                  key={r.recipeId}
-                  to={`/recipe/${r.recipeId}`}
-                  style={{ color: "inherit", textDecoration: "inherit" }}
-                >
-                  <div
-                    className={
-                      r.validate_recipe
-                        ? "userRecipeCard"
-                        : "userRecipeCard notValidateRecipe"
-                    }
-                  >
-                    <div className="imgBox">
-                      <img
-                        src={
-                          r.recipeImage !== "/images/undefined"
-                            ? `${import.meta.env.VITE_BACKEND_URL}${
-                                r.recipeImage
-                              }`
-                            : "/src/assets/images/logo.png"
-                        }
-                        alt={r.recipeName}
-                      />
-                    </div>
-                    <p>{r.recipeName}</p>
-                  </div>
-                </Link>
-              );
-            })}
-          </div>
+        <div className="delete-button">
+          <button type="button" onClick={handleDeleteUser}>
+            Supprimer mon compte
+          </button>
         </div>
+        <Button label="déconnexion" onClick={logout} className="reset-button" />
+        {modal && (
+          <ConfirmModal
+            isOpen={modal}
+            onConfirm={confirmDelete}
+            onCancel={closeModal}
+          />
+        )}
       </div>
-      <div className="delete-button">
-        <button type="button" onClick={handleDeleteUser}>
-          Supprimer mon compte
-        </button>
-      </div>
-      <Button label="déconnexion" onClick={logout} className="reset-button" />
-      {modal && (
-        <ConfirmModal
-          isOpen={modal}
-          onConfirm={confirmDelete}
-          onCancel={closeModal}
-        />
-      )}
     </div>
   );
 }

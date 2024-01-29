@@ -199,7 +199,11 @@ function AdminPage() {
                   <div className="imgDiv">
                     <img
                       className="recipeImg"
-                      src={`http://localhost:3310${recipeImage}`}
+                      src={
+                        recipeImage !== "/images/undefined"
+                          ? `${import.meta.env.VITE_BACKEND_URL}${recipeImage}`
+                          : "/logo.png"
+                      }
                       alt={recipeName}
                     />
                   </div>
