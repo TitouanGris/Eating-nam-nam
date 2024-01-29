@@ -1,4 +1,4 @@
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import { useLocation } from "react-router-dom";
 import PropTypes from "prop-types";
 import Button from "./Button";
@@ -52,10 +52,6 @@ function FilterRegime({ regimeTag, setRegimeChange, regimeChange }) {
       }
     }
   };
-
-  useEffect(() => {
-    console.info(filterRegime);
-  });
 
   return (
     <div className="regimes">

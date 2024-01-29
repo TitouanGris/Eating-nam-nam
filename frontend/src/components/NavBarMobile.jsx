@@ -82,7 +82,7 @@ function NavBarMobile({ setFavoriteMobileisActive }) {
               navigate("/browse");
             }}
           >
-            <img alt="publish" src="./src/assets/images/heartfill.png" />
+            <img alt="publish" src="/src/assets/images/heartfill.png" />
             <p>Favoris</p>
           </button>
         </>
@@ -94,7 +94,7 @@ function NavBarMobile({ setFavoriteMobileisActive }) {
             onClick={() => {
               setConnexion(!connexion);
             }}
-            src="src/assets/images/account.png"
+            src="/account.png"
             alt="user-page"
           />
           <p>Connexion</p>

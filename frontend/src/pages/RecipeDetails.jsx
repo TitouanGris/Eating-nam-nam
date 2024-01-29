@@ -89,7 +89,11 @@ function RecipeDetails() {
           <Link to={-1}>
             <img src="/src/assets/images/back.png" alt="Back Arrow" />
           </Link>
-          <h2>{recipe.recipeName}</h2>
+          <h2>
+            {recipe.recipeName.length > 25
+              ? `${recipe.recipeName.substring(0, 25)}...`
+              : recipe.recipeName}
+          </h2>
         </div>
         {userInfos.is_admin === 1 && recipe.validate_recipe === 0 && (
           <div className="validate_button">
@@ -106,7 +110,7 @@ function RecipeDetails() {
           src={
             recipe.recipeImage !== "/images/undefined"
               ? `${import.meta.env.VITE_BACKEND_URL}${recipe.recipeImage}`
-              : "/src/assets/images/logo.png"
+              : "/logo.png"
           }
           alt={`${recipe.recipeName}`}
         />

@@ -1,11 +1,27 @@
 .recipe_post {
   display: flex;
   flex-direction: column;
-  width: 100vw;
-  height: 100%;
+  width: 100%;
+  height: 100vh;
   gap: 2vh;
-  margin-inline: 1vw;
   padding-inline: 2vw;
+  overflow-y: scroll;
+  &::-webkit-scrollbar {
+    width: 6px;
+    // background-color: #f5f5f5;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background-image: -webkit-gradient(
+      linear,
+      left bottom,
+      left top,
+      color-stop(0.44, var(--primary-color)),
+      // color-stop(0.72, rgb(11, 74, 151)),
+      // color-stop(0.86, rgb(28, 58, 148))
+    );
+  }
   input {
     border: solid gray 1.5px;
     padding: 1.5vh 0vh 1.5vh 1.5vh;
@@ -18,28 +34,31 @@
   p {
     color: #d56c06;
     font-size: 1.5rem;
-    padding-top: 5vh;
-    padding-bottom: 3vh;
     font-weight: bold;
+    margin-top: 20px;
+    margin-bottom: 20px;
   }
   .post_left {
+    flex: 1;
+    height: 170%;
     .number_persons {
       .counter {
         display: flex;
         align-items: center;
-        border: solid;
+        border: solid 1.8px;
         border-color: gray;
         border-radius: 15px;
         width: fit-content;
-
         p {
-          border: solid;
+          border: solid 1.8px;
           border-color: black;
           padding: 2vh;
           font-size: var(--title-font-size);
           border-top: none;
           border-bottom: none;
           border-color: gray;
+          margin-top: 5px;
+          margin-bottom: 5px;
         }
 
         .less,
@@ -66,6 +85,7 @@
     }
   }
   .post_right {
+    flex: 1;
     margin-right: 1vw;
     .selection-ingredients {
       display: flex;
@@ -82,6 +102,12 @@
           padding-bottom: 5px;
           flex: 1;
           align-items: center;
+          .errorIng {
+            color: red;
+            filter: grayscale(0.5);
+            font-size: 1.1rem;
+            margin-left: 5px;
+          }
           .ingInput1 {
             padding: 5px;
             font-size: 1.2rem;
@@ -123,8 +149,12 @@
               &:hover {
                 cursor: pointer;
               }
-              &:active {
-                scale: 0.8;
+              &:disabled {
+                opacity: 0.5;
+                cursor: default;
+                background-color: #ffffff;
+                border: solid 0.5px black;
+                color: black;
               }
             }
           }
@@ -132,6 +162,10 @@
       }
     }
     .ingListSummary {
+      display: flex;
+      flex-direction: row;
+      gap: 1rem;
+      flex-wrap: wrap;
       .list {
         border: #d56c06 solid 2px;
         display: flex;
@@ -144,6 +178,8 @@
           color: black;
           font-size: 1rem;
           font-weight: 480;
+          margin-top: 10px;
+          margin-bottom: 10px;
         }
         .removeIng {
           display: flex;
@@ -160,7 +196,7 @@
     .recipe-steps {
       display: flex;
       flex-direction: column;
-      width: 45vw;
+      width: 90vw;
       textarea {
         font-size: 1.2rem;
         border: rgb(170, 170, 170) solid 1.5px;
@@ -268,16 +304,18 @@
     .selected-segmented {
       background-color: var(--primary-color);
       color: white;
-      border: solid black 1px;
+      border: solid gray 2px;
       padding: 1vh 2vh 1vh 2vh;
       font-size: 1.2rem;
       gap: 0;
     }
     .selected-segmented:first-child {
       border-radius: 15px 0 0 15px;
+      border-right: none;
     }
     .selected-segmented:last-child {
       border-radius: 0 15px 15px 0;
+      border-left: none;
     }
   }
   .uploadFile {
@@ -290,6 +328,7 @@
     .uploadInput {
       display: flex;
       width: fit-content;
+      align-self: center;
     }
     .uploadBox {
       width: 10rem;
@@ -301,18 +340,12 @@
         cursor: pointer;
       }
       .uploadedPic {
-        width: 200%;
+        width: 100%;
         border: none;
       }
     }
     #photoUpload {
-      align-self: center;
-      width: 0.1px;
-      height: 0.1px;
-      opacity: 0;
-      overflow: hidden;
-      position: absolute;
-      z-index: -1;
+      display: none;
     }
   }
 
@@ -348,11 +381,41 @@
 @media screen and (min-width: 900px) {
   .recipe_post {
     flex-direction: row;
+    overflow-y: scroll;
+    &::-webkit-scrollbar {
+      width: 6px;
+      // background-color: #f5f5f5;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      border-radius: 10px;
+      background-image: -webkit-gradient(
+        linear,
+        left bottom,
+        left top,
+        color-stop(0.44, var(--primary-color)),
+        // color-stop(0.72, rgb(11, 74, 151)),
+        // color-stop(0.86, rgb(28, 58, 148))
+      );
+    }
     .post_left {
       flex: 1;
+      height: fit-content;
+      margin-bottom: 15vh;
     }
     .post_right {
       flex: 1;
+      height: fit-content;
+      margin-bottom: 15vh;
+      .recipe-steps {
+        width: 45vw;
+        textarea {
+          font-size: 1.2rem;
+          border: rgb(170, 170, 170) solid 1.5px;
+          border-radius: 15px 15px 0 0;
+          padding-left: 1.5vw;
+        }
+      }
       .uploadFile {
         align-items: center;
       }

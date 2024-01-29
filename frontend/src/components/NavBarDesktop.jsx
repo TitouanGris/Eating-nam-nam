@@ -91,7 +91,11 @@ function NavBarDesktop() {
         </div>
 
         {userInfos.pseudo ? (
-          <div className="account-link">
+          <button
+            type="button"
+            className="account-link"
+            onClick={() => setMenuBurger(!menuBurger)}
+          >
             <p>{userInfos.pseudo}</p>
             <img
               src={`${import.meta.env.VITE_BACKEND_URL}/images/avatar/${
@@ -99,9 +103,8 @@ function NavBarDesktop() {
               }`}
               alt="user-page"
               aria-hidden
-              onClick={() => setMenuBurger(!menuBurger)}
             />
-          </div>
+          </button>
         ) : (
           <div className="account-link">
             <img
