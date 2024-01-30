@@ -19,7 +19,7 @@ function FilterDifficuly({
   const location = useLocation();
 
   const handleClick = (tag) => {
-    if (location.pathname === "/") {
+    if (location.pathname === "/" || location.pathname === "/browse") {
       if (tag.category_id === 4) {
         if (filterDifficulty.includes(tag.name) === true) {
           const temp = [...filterDifficulty];
@@ -41,8 +41,7 @@ function FilterDifficuly({
           setFilterDifficultyId(temp2);
         }
       }
-    }
-    if (tag.category_id === 4) {
+    } else if (tag.category_id === 4) {
       if (difficultyChange.includes(tag.id) === true) {
         const temp = [...difficultyChange];
 

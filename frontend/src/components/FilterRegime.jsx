@@ -11,7 +11,7 @@ function FilterRegime({ regimeTag, setRegimeChange, regimeChange }) {
   const location = useLocation();
 
   const handleClick = (tag) => {
-    if (location.pathname === "/") {
+    if (location.pathname === "/" || location.pathname === "/browse") {
       if (tag.category_id === 3) {
         if (filterRegime.includes(tag.name) === true) {
           const temp = [...filterRegime];
@@ -33,8 +33,7 @@ function FilterRegime({ regimeTag, setRegimeChange, regimeChange }) {
           setFilterRegimeId(temp2);
         }
       }
-    }
-    if (tag.category_id === 3) {
+    } else if (tag.category_id === 3) {
       if (regimeChange.includes(tag.id) === true) {
         const temp = [...regimeChange];
 

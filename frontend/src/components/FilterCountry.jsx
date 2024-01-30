@@ -16,7 +16,7 @@ function FilterCountry({ countryTag, setCountryChange, countryChange }) {
   const location = useLocation();
 
   const handleClick = (tag) => {
-    if (location.pathname === "/") {
+    if (location.pathname === "/" || location.pathname === "/browse") {
       if (tag.category_id === 2) {
         if (filterCountry.includes(tag.name) === true) {
           const temp = [...filterCountry];
@@ -38,8 +38,7 @@ function FilterCountry({ countryTag, setCountryChange, countryChange }) {
           setFilterCountryId(temp2);
         }
       }
-    }
-    if (tag.category_id === 2) {
+    } else if (tag.category_id === 2) {
       if (countryChange.includes(tag.id) === true) {
         const temp = [...countryChange];
 

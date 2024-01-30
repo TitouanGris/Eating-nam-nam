@@ -11,7 +11,7 @@ function FilterPrice({ priceTag, setPriceChange, priceChange }) {
   const location = useLocation();
 
   const handleClick = (tag) => {
-    if (location.pathname === "/") {
+    if (location.pathname === "/" || location.pathname === "/browse") {
       if (tag.category_id === 1) {
         if (filterPrice.includes(tag.name) === true) {
           const temp = [...filterPrice];
@@ -32,8 +32,7 @@ function FilterPrice({ priceTag, setPriceChange, priceChange }) {
           setFilterPriceId(temp2);
         }
       }
-    }
-    if (tag.category_id === 1) {
+    } else if (tag.category_id === 1) {
       if (priceChange.includes(tag.id) === true) {
         const temp = [...priceChange];
 
