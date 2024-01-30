@@ -124,7 +124,6 @@ function UserPage() {
     const selectedFile = e.target.files[0];
     setFile(selectedFile);
     setPreviewURL(URL.createObjectURL(selectedFile));
-    console.info(selectedFile);
   };
 
   const submit = async (event) => {
@@ -134,8 +133,6 @@ function UserPage() {
       if (file) {
         // le formData permet de passer une image dans le body
         const formData = new FormData();
-        console.info(formData.toString());
-        console.info(formData.toString());
         formData.append("image", file); // on ajoute des données à notre formData avec append (couple clé, valeur)
         // dans le post, on passe le le formData dans le body pour l'envoyer au back
         await axios.post(
@@ -164,6 +161,7 @@ function UserPage() {
           data: { userInfosId: userInfos.id, preferenceId },
         });
         fetchData();
+        closeModal();
       } catch (err) {
         console.error(err);
       }
@@ -171,7 +169,6 @@ function UserPage() {
       console.error("Pas de pref selectionnée");
     }
   };
-  console.info(previewURL);
 
   return (
     <div className="userPage">
@@ -188,20 +185,17 @@ function UserPage() {
           <div className="userInfos">
             <p>{userInfos.pseudo}</p>
             <p>{userInfos.email}</p>
+            {userInfos.is_admin === 1 && (
+              <button
+                type="button"
+                onClick={() => {
+                  navigate("/account/admin");
+                }}
+              >
+                Page admin
+              </button>
+            )}
           </div>
-        </div>
-
-        <div className="admin-button">
-          {userInfos.is_admin === 1 && (
-            <button
-              type="button"
-              onClick={() => {
-                navigate("/account/admin");
-              }}
-            >
-              Page admin
-            </button>
-          )}
         </div>
         <div className="modify-button">
           <button type="button" onClick={handleModifyAccount}>
@@ -222,15 +216,6 @@ function UserPage() {
               <div className="preferences">
                 {preferences.map((preference) => (
                   <div key={preference.id}>
-                    <button
-                      type="button"
-                      onClick={() => {
-                        setPreferenceId(preference.id);
-                        setShowModalTag(true);
-                      }}
-                    >
-                      &times;
-                    </button>
                     {showModalTag && (
                       <ModifyPreferences
                         isOpen={showModalTag}
@@ -238,7 +223,18 @@ function UserPage() {
                         onCancel={closeModal}
                       />
                     )}
-                    <div className="onePreferences">{preference.name}</div>
+                    <div className="onePreferences">
+                      {preference.name}
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setPreferenceId(preference.id);
+                          setShowModalTag(true);
+                        }}
+                      >
+                        ❌
+                      </button>
+                    </div>
                   </div>
                 ))}
               </div>
@@ -251,7 +247,7 @@ function UserPage() {
               </button>
               {showModifyPreferences && (
                 <div>
-                  <Regime />
+                  <Regime setShowModifyPreferences={setShowModifyPreferences} />
                 </div>
               )}
             </div>
@@ -304,7 +300,6 @@ function UserPage() {
           <div className="userRecipeBox">
             <div className="separationBarre" />
             <h2>Mes recettes ajoutées</h2>
-            <p> Toutes mes recettes ajoutées affichées ici</p>
             <div className="userRecipe">
               {userRecipe.map((r) => {
                 return (
@@ -345,7 +340,7 @@ function UserPage() {
             Supprimer mon compte
           </button>
         </div>
-        <Button label="déconnexion" onClick={logout} className="reset-button" />
+        <Button label="Déconnexion" onClick={logout} className="reset-button" />
         {modal && (
           <ConfirmModal
             isOpen={modal}

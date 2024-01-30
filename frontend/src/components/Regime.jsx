@@ -1,5 +1,5 @@
 import { useEffect, useState, useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import PropTypes from "prop-types";
 import axios from "axios";
 import { useUser } from "../context/UserContext";
@@ -12,7 +12,7 @@ import FilterPrice from "./FilterPrice";
 import FiltersContext from "../context/FiltersContext";
 import FilterDifficuly from "./FilterDifficuly";
 
-function Regime({ successMessage }) {
+function Regime({ successMessage, setShowModifyPreferences }) {
   const [filterChip, setFilterChip] = useState([]);
 
   const [validate, setValidate] = useState(false);
@@ -21,15 +21,20 @@ function Regime({ successMessage }) {
 
   const {
     filterRegimeId,
+    setFilterRegimeId,
     filterPriceId,
+    setFilterPriceId,
     filterCountryId,
+    setFilterCountryId,
     filterDifficultyId,
-    filterRegime,
+    setFilterDifficultyId,
   } = useContext(FiltersContext);
 
-  // const [selectedPreferences, setSelectedPreferences] = useState();
+  const [regimeChange, setRegimeChange] = useState([]);
+  const [priceChange, setPriceChange] = useState([]);
+  const [countryChange, setCountryChange] = useState([]);
+  const [difficultyChange, setDifficultyChange] = useState([]);
 
-  console.info(filterRegimeId, filterRegime);
   // on récupère les données en important le loader filter
   async function loadData() {
     const filter = await loadFiltersData();
@@ -52,59 +57,45 @@ function Regime({ successMessage }) {
   const difficultyTag = filterChip.filter((tag) => tag.category_id === 4);
 
   const navigate = useNavigate();
+  const location = useLocation();
 
   async function handleValidate() {
-    setValidate((current) => !current);
-    setTimeout(() => {
-      navigate("/browse");
-    }, 2000);
-
-    try {
-      const filterIdChosen = [
+    let filterIdChosen = [];
+    if (location.pathname === "/account") {
+      filterIdChosen = [
+        regimeChange,
+        priceChange,
+        countryChange,
+        difficultyChange,
+      ];
+      setShowModifyPreferences(false);
+    } else {
+      filterIdChosen = [
         filterRegimeId,
         filterPriceId,
         filterCountryId,
         filterDifficultyId,
       ];
+      setValidate((current) => !current);
+      setTimeout(() => {
+        navigate("/browse");
+      }, 2000);
+    }
 
+    try {
       const filterIdChosenReduced = filterIdChosen.reduce(
         (acc, currentArray) => acc.concat(currentArray),
         []
       );
-      // const token = localStorage.getItem("token");
-
-      // console.info(filterIdChosenReduced);
-
-      // const isPreferenceSelected = filterIdChosenReduced.filter((i) => {
-      //   // Utilisez simplement 'includes' pour vérifier si r.recipeId est dans favorisTable
-      //   return selectedPreferences.includes(i);
-      // });
-
-      // console.info(isPreferenceSelected);
-
-      // if (isPreferenceSelected) {
-      //   // faire une condition quand le user clique sur une preference verifier si cette preference existe dans la table user_tags
-      //   // si oui : faire une requete pour delete id du tags cliqué
-      //   // on delete dans la table user_tags
-      //   await axios.delete(
-      //     `http://localhost:3310/api/usertags/${selectedPreferences}`,
-      //     {
-      //       data: {
-      //         userInfosId: userInfos.id,
-      //         filterIdChosenReduced,
-      //         headers: {
-      //           "Content-Type": "application/json",
-      //           Authorization: `Bearer ${token}`, // Inclusion du jeton JWT
-      //         },
-      //       },
-      //     }
-      //   );
-      // } else {
       await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/usertags`, {
         // on INSERT dans la DB avec les infos saisies
         userInfosId: userInfos.id,
         filterIdChosenReduced,
       });
+      setFilterRegimeId(filterIdChosenReduced);
+      setFilterCountryId(filterIdChosenReduced);
+      setFilterPriceId(filterIdChosenReduced);
+      setFilterDifficultyId(filterIdChosenReduced);
     } catch (error) {
       console.error(error);
     }
@@ -125,20 +116,33 @@ function Regime({ successMessage }) {
           <div className="regimeTag">
             <FilterRegime
               regimeTag={regimeTag}
-              // setSelectedPreferences={setSelectedPreferences}
+              setRegimeChange={setRegimeChange}
+              regimeChange={regimeChange}
             />
           </div>
 
           <div className="CountryTag">
-            <FilterCountry countryTag={countryTag} />
+            <FilterCountry
+              countryTag={countryTag}
+              setCountryChange={setCountryChange}
+              countryChange={countryChange}
+            />
           </div>
 
           <div className="priceTag">
-            <FilterPrice priceTag={priceTag} />
+            <FilterPrice
+              priceTag={priceTag}
+              setPriceChange={setPriceChange}
+              priceChange={priceChange}
+            />
           </div>
 
           <div className="difficultyTag">
-            <FilterDifficuly difficultyTag={difficultyTag} />
+            <FilterDifficuly
+              difficultyTag={difficultyTag}
+              setDifficultyChange={setDifficultyChange}
+              difficultyChange={difficultyChange}
+            />
           </div>
           <div className="validateBtn">
             <Button
@@ -156,6 +160,7 @@ function Regime({ successMessage }) {
 
 Regime.propTypes = {
   successMessage: PropTypes.string.isRequired,
+  setShowModifyPreferences: PropTypes.bool.isRequired,
 };
 
 export default Regime;
