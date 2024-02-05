@@ -59,6 +59,16 @@
               color: var(--primary-color);
               border: solid 2px var(--primary-color);
             }
+            .button-user-avatar {
+              background-color: var(--primary-color);
+              border: none;
+              color: white;
+              font-size: 16px;
+            }
+            &:hover > .button-user-avatar {
+              background-color: white;
+              color: var(--primary-color);
+            }
           }
         }
       }
@@ -223,7 +233,23 @@
         }
         .deleteButton {
           button {
-            font-size: 1rem;
+            background-color: var(--primary-color);
+            color: var(--secondary-color-text);
+            border: none;
+            border-radius: 20px;
+            width: 80vw;
+            height: 5vh;
+            font-size: 16px;
+            font-family: var(--font-family);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            &:hover {
+              cursor: pointer;
+              background-color: white;
+              color: var(--primary-color);
+              border: solid 2px var(--primary-color);
+            }
           }
         }
       }
@@ -246,7 +272,7 @@
             flex-direction: column;
             align-items: center;
             .add-avatar-button {
-              width: 5vw;
+              width: 8vw;
               height: 5vh;
             }
           }
@@ -314,6 +340,12 @@
 
         .userCard {
           flex-direction: row;
+          .deleteButton {
+            button {
+              width: 7vw;
+              height: 5vh;
+            }
+          }
         }
       }
     }

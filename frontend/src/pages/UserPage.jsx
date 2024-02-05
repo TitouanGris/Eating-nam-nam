@@ -157,7 +157,7 @@ function UserPage() {
   const deletePreference = async () => {
     if (preferenceId) {
       try {
-        await axios.delete(`http://localhost:3310/api/usertags`, {
+        await axios.delete(`${import.meta.env.VITE_BACKEND_URL}/api/usertags`, {
           data: { userInfosId: userInfos.id, preferenceId },
         });
         fetchData();

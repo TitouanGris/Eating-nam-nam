@@ -1,6 +1,8 @@
 import { useLoaderData, useParams, Link, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { MdDelete } from "react-icons/md";
+import { FaCheck } from "react-icons/fa";
 import Button from "../components/Button";
 import { useUser } from "../context/UserContext";
 
@@ -61,6 +63,15 @@ function RecipeDetails() {
     }
   }
 
+  async function deleteRecipe(recipeId) {
+    try {
+      await axios.delete(`http://localhost:3310/api/recipe/${recipeId}`);
+      navigate("/account/admin");
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
   useEffect(() => {
     fetch(`${import.meta.env.VITE_BACKEND_URL}/api/step/${id}`)
       .then((res) => res.json())
@@ -98,10 +109,26 @@ function RecipeDetails() {
         {userInfos.is_admin === 1 && recipe.validate_recipe === 0 && (
           <div className="validate_button">
             <Button
-              label="Valider cette recette"
+              label={
+                <>
+                  <FaCheck size="25px" /> Valider
+                </>
+              }
               className="buttonGreen"
               onClick={() => validateRecipe(id)}
             />
+            <Button
+              label={
+                <>
+                  <MdDelete size="25px" />
+                  Supprimer
+                </>
+              }
+              className="buttonRed"
+              onClick={() => deleteRecipe(id)}
+            >
+              {" "}
+            </Button>
           </div>
         )}
       </div>
