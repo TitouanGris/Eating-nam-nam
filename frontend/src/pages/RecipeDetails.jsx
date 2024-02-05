@@ -70,7 +70,7 @@ function RecipeDetails() {
       await axios.delete(
         `${import.meta.env.VITE_BACKEND_URL}/api/recipe/${recipeId}`
       );
-      navigate("/account/admin");
+      navigate(-1);
     } catch (err) {
       console.error(err);
     }
@@ -121,19 +121,21 @@ function RecipeDetails() {
               className="buttonGreen"
               onClick={() => validateRecipe(id)}
             />
-            <Button
-              label={
-                <>
-                  <MdDelete size="25px" />
-                  Supprimer
-                </>
-              }
-              className="buttonRed"
-              onClick={() => deleteRecipe(id)}
-            >
-              {" "}
-            </Button>
           </div>
+        )}
+        {userInfos.is_admin === 1 && (
+          <Button
+            label={
+              <>
+                <MdDelete size="25px" />
+                Supprimer
+              </>
+            }
+            className="buttonRed"
+            onClick={() => deleteRecipe(id)}
+          >
+            {" "}
+          </Button>
         )}
       </div>
       <div className="imgContainer">

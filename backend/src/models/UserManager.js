@@ -12,17 +12,6 @@ class UserManager extends AbstractManager {
     return result;
   }
 
-  /**
-id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
-        pseudo VARCHAR(20) NOT NULL,
-        email VARCHAR(255) NOT NULL,
-        created_date DATETIME NOT NULL DEFAULT NOW(),
-        updated_date DATETIME NULL DEFAULT NOW() ON UPDATE CURRENT_TIMESTAMP,
-        password VARCHAR(255) NOT NULL,
-        is_admin BOOL NOT NULL DEFAULT FALSE,
-        avatar_id
-   */
-
   async create(user) {
     const [result] = await this.database.query(
       `INSERT INTO ${this.table} (pseudo, email, hashed_password, is_admin) values (?, ?, ?, ?)`,

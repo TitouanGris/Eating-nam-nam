@@ -43,7 +43,6 @@ const update = async (req, res, next) => {
 
 const destroy = async (req, res, next) => {
   const { userInfosId, preferenceId } = req.body;
-  console.info(req.body);
   try {
     const result = await tables.user_tags.delete(userInfosId, preferenceId);
 
