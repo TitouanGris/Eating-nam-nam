@@ -36,7 +36,9 @@ function FilterCategorys({ typeTag }) {
               label={tag.name}
               onClick={() => handleClick(tag)}
               className={
-                filterType.includes(tag.name) ? "selected chip" : "chip"
+                filterType.includes(tag.name) || filterType?.includes(tag.id)
+                  ? "selected chip"
+                  : "chip"
               }
             />
           );

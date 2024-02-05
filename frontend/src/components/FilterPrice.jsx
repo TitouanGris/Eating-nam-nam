@@ -62,7 +62,7 @@ function FilterPrice({ priceTag, setPriceChange, priceChange }) {
               label={tag.name}
               onClick={() => handleClick(tag)}
               className={
-                filterPrice.includes(tag.name)
+                filterPrice.includes(tag.name) || priceChange?.includes(tag.id)
                   ? "selected-segmented segmented-chip"
                   : "segmented-chip"
               }

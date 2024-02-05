@@ -68,7 +68,10 @@ function FilterCountry({ countryTag, setCountryChange, countryChange }) {
               label={tag.name}
               onClick={() => handleClick(tag)}
               className={
-                filterCountry.includes(tag.name) ? "selected chip" : "chip"
+                filterCountry.includes(tag.name) ||
+                countryChange?.includes(tag.id)
+                  ? "selected chip"
+                  : "chip"
               }
             />
           );
