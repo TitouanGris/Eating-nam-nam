@@ -128,6 +128,44 @@ function UserPage() {
         });
         fetchData();
         closeModal();
+
+        // get pour récupérer les préférences utilisations de la DB avec le user ID
+        try {
+          const res2 = await axios.get(
+            `${import.meta.env.VITE_BACKEND_URL}/api/usertags/${userInfos.id}`
+          );
+          const regimeTable = [];
+          const countryTable = [];
+          const priceTable = [];
+          const difficultyTable = [];
+          res2.data.result.forEach((e) => {
+            if (e.category_id === 1) {
+              priceTable.push(e.name);
+            }
+            if (e.category_id === 2) {
+              countryTable.push(e.name);
+            }
+            if (e.category_id === 3) {
+              regimeTable.push(e.name);
+            }
+            if (e.category_id === 4) {
+              difficultyTable.push(e.name);
+            }
+          });
+          setFilterRegime(regimeTable);
+          localStorage.setItem("regimeTable", JSON.stringify(regimeTable));
+          setFilterCountry(countryTable);
+          localStorage.setItem("countryTable", JSON.stringify(countryTable));
+          setFilterPrice(priceTable);
+          localStorage.setItem("priceTable", JSON.stringify(priceTable));
+          setFilterDifficulty(difficultyTable);
+          localStorage.setItem(
+            "difficultyTable",
+            JSON.stringify(difficultyTable)
+          );
+        } catch (error) {
+          console.error(error);
+        }
       } catch (err) {
         console.error(err);
       }
