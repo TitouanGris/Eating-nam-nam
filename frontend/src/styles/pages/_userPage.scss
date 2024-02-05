@@ -121,6 +121,7 @@
           .onePreferences {
             border-radius: 5px;
             width: fit-content;
+            white-space: nowrap;
             padding-inline: 10px;
             border: 1px solid var(--primary-color);
             color: var(--primary-color);
@@ -401,7 +402,7 @@
               height: 3vh;
             }
             .onePreferences {
-              width: 15vw;
+              width: fit-content;
               height: 3vh;
               display: flex;
               font-size: 15px;
@@ -609,7 +610,7 @@
               height: 4vh;
             }
             .onePreferences {
-              width: 8vw;
+              width: fit-content;
               height: 4vh;
               display: flex;
               font-size: 15px;
