@@ -56,7 +56,7 @@ function ModifyAccount({ isOpen, setShowModifyAccount }) {
             <p>Modifier ma photo</p>
             <img
               className="placeholderPic"
-              src="./src/assets/images/icons8-camera-100.png"
+              src="/icons8-camera-100.png"
               alt="Choose a pic"
             />
           </button>

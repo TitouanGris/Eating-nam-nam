@@ -24,21 +24,18 @@
   }
 
   .avatarSection {
+    width: 90vw;
     display: flex;
     flex-direction: column;
-    align-items: center;
     margin-top: 20px;
     gap: 20px;
+    background-color: white;
+    padding: 15px 30px;
+    border-radius: 20px;
 
-    .avatars-container {
+    .sectionHeader {
       display: flex;
-      flex-direction: column;
-      gap: 15px;
-      .avatar-map {
-        display: flex;
-        justify-content: space-around;
-        flex-wrap: wrap;
-      }
+      justify-content: space-between;
       .upload-form {
         input {
           display: none;
@@ -49,11 +46,10 @@
             color: var(--secondary-color-text);
             border: none;
             border-radius: 20px;
-            width: 90vw;
+            width: 25vw;
             height: 5vh;
-            font-size: var(--title-font-size);
+            font-size: 16px;
             font-family: var(--font-family);
-            margin-bottom: 15px;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -63,31 +59,50 @@
               color: var(--primary-color);
               border: solid 2px var(--primary-color);
             }
+            .button-user-avatar {
+              background-color: var(--primary-color);
+              border: none;
+              color: white;
+              font-size: 16px;
+            }
+            &:hover > .button-user-avatar {
+              background-color: white;
+              color: var(--primary-color);
+            }
           }
         }
+      }
+    }
+    .avatars-container {
+      .avatar-map {
+        display: flex;
+        gap: 15px;
+        flex-wrap: wrap;
       }
     }
   }
 
   .recipeSection {
+    width: 90vw;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    background-color: white;
+    padding: 15px 30px;
+    border-radius: 20px;
     gap: 20px;
     .recipeList {
       display: flex;
-      flex-direction: column;
       justify-content: center;
       gap: 20px;
+      flex-wrap: wrap;
 
       a {
         text-decoration: none;
 
         button.recipeDiv {
-          padding: 10px;
           background-color: white;
           border: none;
-          border-radius: 5px;
+          border-radius: 10px;
           box-shadow: 4px 4px 4px 0px #bbb9b9;
           display: flex;
           flex-direction: column;
@@ -98,16 +113,26 @@
           }
 
           p {
-            font-size: 0.9rem;
+            font-size: 1rem;
+            font-weight: 500;
+            color: var(--primary-color-text);
             width: 90%;
             text-align: left;
+            padding: 10px;
+            &.desktop {
+              display: none;
+            }
+            &.mobile {
+              display: block;
+            }
           }
 
           .imgDiv {
             .recipeImg {
-              width: 170px;
+              width: 70vw;
               height: 100px;
               object-fit: cover;
+              border-radius: 10px 10px 0 0;
             }
           }
         }
@@ -116,17 +141,43 @@
   }
 
   .ingredientSection {
+    width: 90vw;
+    background-color: white;
+    padding: 15px 30px;
+    border-radius: 20px;
     display: flex;
     flex-direction: column;
-    align-items: center;
     gap: 20px;
 
     .ingList {
       display: flex;
+      flex-direction: column;
       align-items: center;
+      gap: 20px;
+
+      input {
+        height: 5vh;
+        width: 75vw;
+      }
 
       button {
-        margin-left: 10px;
+        background-color: var(--primary-color);
+        color: var(--secondary-color-text);
+        border: none;
+        border-radius: 20px;
+        width: 80vw;
+        height: 5vh;
+        font-size: 16px;
+        font-family: var(--font-family);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        &:hover {
+          cursor: pointer;
+          background-color: white;
+          color: var(--primary-color);
+          border: solid 2px var(--primary-color);
+        }
       }
 
       .messageArea {
@@ -142,19 +193,22 @@
   }
 
   .userSection {
+    width: 90vw;
+    background-color: white;
+    padding: 15px 30px;
+    border-radius: 20px;
     display: flex;
     flex-direction: column;
-    align-items: center;
     gap: 20px;
     margin-bottom: 15vh;
     .searchUser {
       input {
-        width: 60vw;
+        width: 75vw;
+        height: 5vh;
       }
     }
     .userList {
       display: flex;
-      width: 90vw;
       flex-direction: column;
       gap: 10px;
       .userCard {
@@ -179,8 +233,24 @@
         }
         .deleteButton {
           button {
-            width: 200px;
-            font-size: 1rem;
+            background-color: var(--primary-color);
+            color: var(--secondary-color-text);
+            border: none;
+            border-radius: 20px;
+            width: 80vw;
+            height: 5vh;
+            font-size: 16px;
+            font-family: var(--font-family);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            &:hover {
+              cursor: pointer;
+              background-color: white;
+              color: var(--primary-color);
+              border: solid 2px var(--primary-color);
+            }
+
           }
         }
       }
@@ -193,45 +263,79 @@
     gap: 30px;
 
     .avatarSection {
+      width: 60vw;
       display: flex;
       flex-direction: column;
-      align-items: center;
-      gap: 20px;
-
-      .avatars-container {
-        display: flex;
-        width: 40vw;
-        flex-direction: column;
-        gap: 15px;
-        .avatar-map {
-          display: flex;
-          justify-content: space-around;
-          flex-wrap: wrap;
-        }
+      .sectionHeader {
         .upload-form {
           label {
             display: flex;
             flex-direction: column;
             align-items: center;
             .add-avatar-button {
-              width: 20vw;
+
+              width: 8vw;
+
               height: 5vh;
             }
           }
         }
       }
+
+      .avatars-container {
+        .avatar-map {
+          gap: 15px;
+        }
+      }
     }
 
     .recipeSection {
+      width: 60vw;
+
       .recipeList {
         flex-direction: row;
-        flex-wrap: wrap;
+        justify-content: left;
+
+        a {
+          button.recipeDiv {
+            p.desktop {
+              display: block;
+            }
+            p.mobile {
+              display: none;
+            }
+            .imgDiv {
+              .recipeImg {
+                width: 170px;
+                height: 100px;
+                object-fit: cover;
+                border-radius: 10px 10px 0 0;
+              }
+            }
+          }
+        }
+      }
+    }
+    .ingredientSection {
+      width: 60vw;
+
+      .ingList {
+        flex-direction: row;
+        input {
+          width: 20vw;
+        }
+        button {
+          width: 10vw;
+        }
       }
     }
     .userSection {
+      width: 60vw;
+
       .searchUser {
         input {
           width: 20vw;
+          height: 3vh;
         }
       }
       .userList {
@@ -239,6 +343,12 @@
 
         .userCard {
           flex-direction: row;
+          .deleteButton {
+            button {
+              width: 7vw;
+              height: 5vh;
+            }
+          }
         }
       }
     }

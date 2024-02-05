@@ -82,15 +82,9 @@ function RecipeCard({ r }) {
       <div className="favoris">
         <button className="heart" type="button" onClick={handleClick}>
           {favoris ? (
-            <img
-              src="/src/assets/images/heartFill.png"
-              alt="favoris coeur plein"
-            />
+            <img src="/heartFill.png" alt="favoris coeur plein" />
           ) : (
-            <img
-              src="/src/assets/images/heartEmpty.png"
-              alt="favoris coeur vide"
-            />
+            <img src="/heartEmpty.png" alt="favoris coeur vide" />
           )}
         </button>
       </div>
@@ -99,7 +93,7 @@ function RecipeCard({ r }) {
           src={
             r.recipeImage !== "/images/undefined"
               ? `${import.meta.env.VITE_BACKEND_URL}${r.recipeImage}`
-              : "/src/assets/images/logo.png"
+              : "/logo.png"
           }
           alt={`${r.recipeName}`}
         />
@@ -123,14 +117,11 @@ function RecipeCard({ r }) {
             <p>{r.difficulty[0].tagName}</p>
           </div>
           <div className="serving">
-            <img
-              src="/src/assets/images/nbServingImage.png"
-              alt="recipeServing"
-            />
+            <img src="/nbServingImage.png" alt="recipeServing" />
             <p>{r.recipeServing}</p>
           </div>
           <div className="duration">
-            <img src="/src/assets/images/durationImage.png" alt="TagDuration" />
+            <img src="/durationImage.png" alt="TagDuration" />
             <p>{r.duration[0].tagName}</p>
           </div>
         </div>
