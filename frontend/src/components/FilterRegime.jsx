@@ -65,7 +65,8 @@ function FilterRegime({ regimeTag, setRegimeChange, regimeChange }) {
                 handleClick(tag);
               }}
               className={
-                filterRegime.includes(tag.name) || regimeChange.includes(tag.id)
+                filterRegime.includes(tag.name) ||
+                regimeChange?.includes(tag.id)
                   ? "selected chip"
                   : "chip"
               }
