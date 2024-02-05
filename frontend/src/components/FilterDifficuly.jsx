@@ -87,7 +87,10 @@ function FilterDifficuly({
               }
               onClick={() => handleClick(tag)}
               className={
-                filterDifficulty.includes(tag.name) ? "selected chip" : "chip"
+                filterDifficulty.includes(tag.name) ||
+                difficultyChange.includes(tag.id)
+                  ? "selected chip"
+                  : "chip"
               }
             />
           );
