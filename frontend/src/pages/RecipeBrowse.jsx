@@ -149,11 +149,11 @@ function RecipeBrowse() {
         <div className="recipeBrowseCard">
           {recipe.length === 0 && <div> Vous n'avez pas de favoris</div>}
           {recipeFiltred.length === 0 && (
-            <div>
+            <p className="sorry">
               {" "}
               Désolé, nous n'avons pas trouvé de recette correspondant à vos
               filtres
-            </div>
+            </p>
           )}
           {recipeFiltred.map((r) => {
             return (

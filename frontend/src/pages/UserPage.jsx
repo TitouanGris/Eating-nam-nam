@@ -22,10 +22,6 @@ function UserPage() {
     setFavorisTable,
   } = useContext(FiltersContext);
 
-  const [file, setFile] = useState(undefined);
-  const [avatar, setAvatar] = useState([]);
-  const [previewURL, setPreviewURL] = useState(null);
-
   const [modal, setModal] = useState(false);
   const [showModifyAccount, setShowModifyAccount] = useState(false);
   const [showModalTag, setShowModalTag] = useState(false);
@@ -37,17 +33,6 @@ function UserPage() {
   const navigate = useNavigate();
 
   const [preferenceId, setPreferenceId] = useState();
-
-  const fetchAvatar = async () => {
-    try {
-      const response = await axios.get(
-        `${import.meta.env.VITE_BACKEND_URL}/api/avatar`
-      );
-      setAvatar(response.data);
-    } catch (error) {
-      console.error(error);
-    }
-  };
 
   const logout = () => {
     setUserInfos({});
@@ -101,7 +86,6 @@ function UserPage() {
   }, [userInfos.id]);
 
   useEffect(() => {
-    fetchAvatar();
     fetchData();
   }, [userInfos.id, filterRegimeId]);
 
@@ -134,40 +118,6 @@ function UserPage() {
   const closeModal = () => {
     setModal(false);
     setShowModalTag(false);
-  };
-
-  const handleFileChange = (e) => {
-    const selectedFile = e.target.files[0];
-    setFile(selectedFile);
-    setPreviewURL(URL.createObjectURL(selectedFile));
-  };
-
-  const submit = async (event) => {
-    const token = localStorage.getItem("token");
-    if (token) {
-      event.preventDefault();
-      if (file) {
-        // le formData permet de passer une image dans le body
-        const formData = new FormData();
-        formData.append("image", file); // on ajoute des données à notre formData avec append (couple clé, valeur)
-        // dans le post, on passe le le formData dans le body pour l'envoyer au back
-        await axios.post(
-          `${import.meta.env.VITE_BACKEND_URL}/api/avatar`,
-          formData,
-          {
-            headers: {
-              "Content-Type": "multipart/form-data",
-              Authorization: `Bearer ${token}`, // Inclusion du jeton JWT
-            },
-          }
-        );
-
-        setPreviewURL(undefined);
-        fetchAvatar(); // suite au post, on relance la fonction qui permet de fetch les avatars pour ensuite mapper avec le nouvel avatar
-      } else {
-        console.error("Pas de pièce jointe de renseignée");
-      }
-    }
   };
 
   const deletePreference = async () => {
@@ -266,50 +216,6 @@ function UserPage() {
                   <Regime setShowModifyPreferences={setShowModifyPreferences} />
                 </div>
               )}
-            </div>
-          </div>
-          <div>
-            <div className="separationBarre" />
-            <div className="avatars">
-              <div className="avatars-container">
-                <h2>Ajouter des avatars</h2>
-                <div className="avatar-map">
-                  {avatar.map((a) => {
-                    return (
-                      <div key={a.id}>
-                        <img
-                          width="30px"
-                          src={`${
-                            import.meta.env.VITE_BACKEND_URL
-                          }/images/avatar/${a.image_url}`}
-                          alt=""
-                        />
-                      </div>
-                    );
-                  })}
-                </div>
-                {/* form submit nouvel avatar */}
-                <form onSubmit={submit} className="upload-form">
-                  <input
-                    name={file}
-                    onChange={handleFileChange}
-                    type="file"
-                    accept="image/*"
-                    id="file-input"
-                  />
-                  <label htmlFor="file-input" className="upload">
-                    {previewURL ? (
-                      <div className="add-avatar-button">
-                        <button type="submit" className="button-user-avatar">
-                          Télécharger
-                        </button>
-                      </div>
-                    ) : (
-                      <div>Ajouter un avatar</div>
-                    )}
-                  </label>
-                </form>
-              </div>
             </div>
           </div>
 

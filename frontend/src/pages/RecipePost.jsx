@@ -370,7 +370,7 @@ function RecipePost() {
           </div>
         </div>
         <div className="recipe_price">
-          <p>Prix</p>
+          <p>Prix *</p>
           <div className="filters-button-segmented-container">
             {priceTag.map((tag) => {
               return (

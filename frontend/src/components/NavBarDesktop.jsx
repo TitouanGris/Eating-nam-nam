@@ -1,5 +1,4 @@
-// import { useState } from "react";
-import { useContext, useState } from "react";
+import React, { useContext, useState, useEffect, useRef } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import Signin from "./Signin";
 import FiltersContext from "../context/FiltersContext";
@@ -7,10 +6,6 @@ import { useUser } from "../context/UserContext";
 import Connexion from "./Connexion";
 
 function NavBarDesktop() {
-  // const [isConnected, setIsConnected] = useState(false);
-  // const handleConnected = () => {
-  //   setIsConnected(!isConnected);
-  // };
   const {
     setFilterCountry,
     setFilterDifficulty,
@@ -51,6 +46,24 @@ function NavBarDesktop() {
     localStorage.clear();
     navigate("/");
   };
+
+  const menuBurgerRef = useRef();
+
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (
+        menuBurgerRef.current &&
+        !menuBurgerRef.current.contains(event.target)
+      ) {
+        setMenuBurger(false);
+      }
+    }
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [menuBurgerRef]);
 
   const handleClickConnexion = () => {
     setConnexion(!connexion);
@@ -114,7 +127,7 @@ function NavBarDesktop() {
             />
           </button>
         ) : (
-          <div className="account-link">
+          <div className="account-link" ref={menuBurgerRef}>
             <img
               src="/user.png"
               alt="user-page"
@@ -125,7 +138,7 @@ function NavBarDesktop() {
         )}
       </div>
       {menuBurger && (
-        <div className="menuBurger">
+        <div className="menuBurger" ref={menuBurgerRef}>
           {userInfos.pseudo && (
             <>
               <NavLink to="/account">

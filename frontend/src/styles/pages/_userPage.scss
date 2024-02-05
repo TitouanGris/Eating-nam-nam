@@ -2,7 +2,7 @@
   display: flex;
   // align-items: center;
   justify-content: center;
-  height: fit-content;
+  height: 100vh;
   overflow-y: scroll;
 
   &::-webkit-scrollbar {
@@ -121,6 +121,7 @@
           .onePreferences {
             border-radius: 5px;
             width: fit-content;
+            white-space: nowrap;
             padding-inline: 10px;
             border: 1px solid var(--primary-color);
             color: var(--primary-color);
@@ -160,6 +161,22 @@
           margin-block: 1.2rem;
           overflow-x: scroll;
           padding-bottom: 1rem;
+          &::-webkit-scrollbar {
+            height: 8px;
+            // background-color: #f5f5f5;
+          }
+
+          &::-webkit-scrollbar-thumb {
+            border-radius: 10px;
+            background-image: -webkit-gradient(
+              linear,
+              left bottom,
+              left top,
+              color-stop(0.44, var(--primary-color)),
+              // color-stop(0.72, rgb(11, 74, 151)),
+              // color-stop(0.86, rgb(28, 58, 148))
+            );
+          }
           a {
             padding-inline: 10px;
             // width: 40%;
@@ -385,7 +402,7 @@
               height: 3vh;
             }
             .onePreferences {
-              width: 15vw;
+              width: fit-content;
               height: 3vh;
               display: flex;
               font-size: 15px;
@@ -593,7 +610,7 @@
               height: 4vh;
             }
             .onePreferences {
-              width: 8vw;
+              width: fit-content;
               height: 4vh;
               display: flex;
               font-size: 15px;
