@@ -196,6 +196,17 @@ const validateRecipe = async (req, res, next) => {
   }
 };
 
+const destroy = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const result = await tables.recipe.deleteById(id);
+    res.status(200).json({ result });
+  } catch (err) {
+    next(err);
+  }
+  return null;
+};
+
 module.exports = {
   browse,
   adminBrowse,
@@ -203,4 +214,5 @@ module.exports = {
   read,
   add,
   readUserRecipe,
+  destroy,
 };

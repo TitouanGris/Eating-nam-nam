@@ -6,6 +6,9 @@ import { loadIngredientsData } from "./RecipePost";
 import Input from "../components/Input";
 import Divider from "../components/Divider";
 
+import DeleteUserModal from "../components/DeleteUserModal";
+
+
 // import { useUser } from "../context/UserContext";
 
 function AdminPage() {
@@ -21,6 +24,8 @@ function AdminPage() {
   const [sucessIngAdd, setSucessIngAdd] = useState(false);
   const token = localStorage.getItem("token");
   const [previewURL, setPreviewURL] = useState(null);
+  const [modal, setModal] = useState(false);
+  const [deleteUserId, setDeleteUserId] = useState(null);
 
   console.info(userInfos);
 
@@ -44,16 +49,30 @@ function AdminPage() {
     fetchUsers();
   }, []);
 
-  async function deleteUser(id) {
-    try {
-      await axios
-        .delete(`${import.meta.env.VITE_BACKEND_URL}/api/user/${id}`)
-        .then((res) => console.info(res));
-      fetchUsers();
-    } catch (err) {
-      console.error(err);
+  const closeModal = () => {
+    setModal(false);
+  };
+
+  async function deleteUser() {
+    if (deleteUserId) {
+      console.info(deleteUserId);
+      console.info(`this is the id we get ${deleteUserId}`);
+      try {
+        await axios
+          .delete(
+            `${import.meta.env.VITE_BACKEND_URL}/api/user/${deleteUserId}`
+          )
+          .then((res) => console.info(res));
+        fetchUsers();
+        closeModal();
+      } catch (err) {
+        console.error(err);
+      }
+    } else {
+      console.error("Pas de user selectionné");
     }
   }
+
   const handleFileChange = (e) => {
     const selectedFile = e.target.files[0];
     setFile(selectedFile);
@@ -303,10 +322,24 @@ function AdminPage() {
                       </div>
                     </div>
                     <div className="deleteButton">
-                      <button type="button" onClick={() => deleteUser(user.id)}>
+
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setModal(true);
+                          setDeleteUserId(user.id);
+                        }}
+                      >
+
                         Supprimer
                       </button>
                     </div>
+                    <DeleteUserModal
+                      isOpen={modal}
+                      deleteUser={() => deleteUser()}
+                      onCancel={closeModal}
+                      deleteUserId={deleteUserId}
+                    />
                   </div>
                 )
               );

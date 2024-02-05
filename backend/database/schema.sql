@@ -117,6 +117,18 @@ CREATE TABLE `comment` (
 /*!40000 ALTER TABLE `comment` DISABLE KEYS */
 ;
 
+
+CREATE TABLE recipe (
+    id INT PRIMARY KEY AUTO_INCREMENT NOT NULL, user_id INT NOT NULL, 
+    name VARCHAR(80) COLLATE utf8mb4_unicode_ci NOT NULL, 
+    summary VARCHAR(255) NOT NULL, 
+    created_date DATETIME NOT NULL DEFAULT NOW(), 
+    updated_date DATETIME NULL DEFAULT NOW() ON UPDATE CURRENT_TIMESTAMP, 
+    photo_url VARCHAR(255) NULL, nb_serving INT NOT NULL, 
+    validate_recipe BOOL NOT NULL, 
+    CONSTRAINT fk_user_recipe FOREIGN KEY (user_id) REFERENCES user (id) ON DELETE CASCADE
+);
+
 INSERT INTO
     `comment`
 VALUES (
@@ -170,6 +182,7 @@ VALUES (
 /*!40000 ALTER TABLE `comment` ENABLE KEYS */
 ;
 
+
 --
 -- Table structure for table `favoris`
 --
@@ -180,11 +193,22 @@ DROP TABLE IF EXISTS `favoris`;
 /*!50503 SET character_set_client = utf8mb4 */
 ;
 
+
+CREATE TABLE recipe_ingredient (
+    recipe_id INT NOT NULL, 
+    ingredient_id INT NOT NULL, 
+    quantity INT NOT NULL, 
+    unit_id INT NOT NULL, PRIMARY KEY (
+        recipe_id, ingredient_id, unit_id
+    ), CONSTRAINT fk_recipe_recipe_ingredient FOREIGN KEY (recipe_id) REFERENCES recipe (id) ON DELETE CASCADE, CONSTRAINT fk_ingredient_recipe_ingredient FOREIGN KEY (ingredient_id) REFERENCES ingredient (id), CONSTRAINT fk_unit FOREIGN KEY (unit_id) REFERENCES unit (id)
+);
+
 CREATE TABLE `favoris` (
     `user_id` int NOT NULL, `recipe_id` int NOT NULL, PRIMARY KEY (`user_id`, `recipe_id`), KEY `fk_recipe_favoris` (`recipe_id`), CONSTRAINT `fk_recipe_favoris` FOREIGN KEY (`recipe_id`) REFERENCES `recipe` (`id`) ON DELETE CASCADE, CONSTRAINT `fk_user_favoris` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */
 ;
+
 
 --
 -- Dumping data for table `favoris`
