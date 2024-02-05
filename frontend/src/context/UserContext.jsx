@@ -1,6 +1,5 @@
 import { createContext, useState, useContext, useMemo, useEffect } from "react";
 import { useLocation } from "react-router-dom";
-
 import axios from "axios";
 import PropTypes from "prop-types";
 import FiltersContext from "./FiltersContext";

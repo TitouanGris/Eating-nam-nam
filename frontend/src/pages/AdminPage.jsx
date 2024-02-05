@@ -8,7 +8,6 @@ import Divider from "../components/Divider";
 
 import DeleteUserModal from "../components/DeleteUserModal";
 
-
 // import { useUser } from "../context/UserContext";
 
 function AdminPage() {
@@ -322,7 +321,6 @@ function AdminPage() {
                       </div>
                     </div>
                     <div className="deleteButton">
-
                       <button
                         type="button"
                         onClick={() => {
@@ -330,7 +328,6 @@ function AdminPage() {
                           setDeleteUserId(user.id);
                         }}
                       >
-
                         Supprimer
                       </button>
                     </div>
