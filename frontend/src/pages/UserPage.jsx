@@ -11,7 +11,16 @@ import Button from "../components/Button";
 
 function UserPage() {
   const { userInfos, setUserInfos } = useUser();
-  const { filterRegimeId } = useContext(FiltersContext);
+  const {
+    filterRegimeId,
+    setFilterCountry,
+    setFilterDifficulty,
+    setFilterDuration,
+    setFilterPrice,
+    setFilterRegime,
+    setFilterType,
+    setFavorisTable,
+  } = useContext(FiltersContext);
 
   const [modal, setModal] = useState(false);
   const [showModifyAccount, setShowModifyAccount] = useState(false);
@@ -27,6 +36,13 @@ function UserPage() {
 
   const logout = () => {
     setUserInfos({});
+    setFilterPrice([]);
+    setFilterDifficulty([]);
+    setFilterDuration([]);
+    setFilterRegime([]);
+    setFilterCountry([]);
+    setFilterType([]);
+    setFavorisTable([]);
     localStorage.clear();
     navigate("/");
   };
@@ -228,7 +244,7 @@ function UserPage() {
                               ? `${import.meta.env.VITE_BACKEND_URL}${
                                   r.recipeImage
                                 }`
-                              : "/src/assets/images/logo.png"
+                              : "/logo.png"
                           }
                           alt={r.recipeName}
                         />
