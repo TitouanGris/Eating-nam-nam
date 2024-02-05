@@ -23,7 +23,6 @@ function ModifyAccount({ isOpen, setShowModifyAccount }) {
 
   const handleModify1 = async () => {
     try {
-      console.info(userInfos);
       if (userInfos && userInfos.id) {
         await axios.put(
           `${import.meta.env.VITE_BACKEND_URL}/api/user/${userInfos.id}`,
@@ -34,8 +33,6 @@ function ModifyAccount({ isOpen, setShowModifyAccount }) {
             avatar_id: userInfos.avatarId,
           }
         );
-        console.info("modifié pseudo:");
-        console.info(newUser);
         setNewUser("");
         setUserInfos({
           ...userInfos,

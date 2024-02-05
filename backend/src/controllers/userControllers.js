@@ -45,7 +45,7 @@ const read = async (req, res, next) => {
   try {
     // Fetch a specific item from the database based on the provided ID
     const oneUser = await tables.user.read(req.params.id);
-    console.info(`oneuser: ${oneUser}`);
+
     // If the item is not found, respond with HTTP 404 (Not Found)
     // Otherwise, respond with the item in JSON format
     if (oneUser == null) {
@@ -76,12 +76,6 @@ const read = async (req, res, next) => {
 
 const update = async (req, res, next) => {
   const newUser = req.body;
-
-  console.info("reçu controller:");
-  console.info(newUser);
-
-  console.info(newUser.pseudo);
-
   try {
     const existingUser = await tables.user.readOneUser(newUser);
 
