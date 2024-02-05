@@ -5,7 +5,9 @@ import { useUser } from "../context/UserContext";
 import { loadIngredientsData } from "./RecipePost";
 import Input from "../components/Input";
 import Divider from "../components/Divider";
+
 import DeleteUserModal from "../components/DeleteUserModal";
+
 
 // import { useUser } from "../context/UserContext";
 
@@ -320,6 +322,7 @@ function AdminPage() {
                       </div>
                     </div>
                     <div className="deleteButton">
+
                       <button
                         type="button"
                         onClick={() => {
@@ -327,6 +330,7 @@ function AdminPage() {
                           setDeleteUserId(user.id);
                         }}
                       >
+
                         Supprimer
                       </button>
                     </div>

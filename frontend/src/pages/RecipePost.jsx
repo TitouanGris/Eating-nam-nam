@@ -370,7 +370,7 @@ function RecipePost() {
           </div>
         </div>
         <div className="recipe_price">
-          <p>Prix</p>
+          <p>Prix *</p>
           <div className="filters-button-segmented-container">
             {priceTag.map((tag) => {
               return (
@@ -597,7 +597,7 @@ function RecipePost() {
               ) : (
                 <img
                   className="placeholderPic"
-                  src="./src/assets/images/icons8-camera-100.png"
+                  src="/icons8-camera-100.png"
                   alt="Choose a pic"
                 />
               )}

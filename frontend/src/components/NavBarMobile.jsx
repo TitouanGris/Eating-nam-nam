@@ -82,7 +82,7 @@ function NavBarMobile({ setFavoriteMobileisActive }) {
               navigate("/browse");
             }}
           >
-            <img alt="publish" src="/src/assets/images/heartfill.png" />
+            <img alt="publish" src="/heartFill.png" />
             <p>Favoris</p>
           </button>
         </>
@@ -106,7 +106,7 @@ function NavBarMobile({ setFavoriteMobileisActive }) {
         className="filter_button"
         disabled={pagesWithoutFilter.includes(pathname)}
       >
-        <img alt="filters" src="/src/assets/images/settings.png" />
+        <img alt="filters" src="/settings.png" />
         <p>Filtres</p>
       </button>
 

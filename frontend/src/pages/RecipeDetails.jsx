@@ -98,7 +98,7 @@ function RecipeDetails() {
       <div className="recipeDetailsHeader">
         <div className="recipeName">
           <Link to={-1}>
-            <img src="/src/assets/images/back.png" alt="Back Arrow" />
+            <img src="/back.png" alt="Back Arrow" />
           </Link>
           <h2>
             {recipe.recipeName.length > 25
@@ -161,14 +161,11 @@ function RecipeDetails() {
             />
           </div>
           <div className="serving">
-            <img
-              src="/src/assets/images/nbServingImage.png"
-              alt="recipeServing"
-            />
+            <img src="/nbServingImage.png" alt="recipeServing" />
             <p>{recipe.recipeServing}</p>
           </div>
           <div className="duration">
-            <img src="/src/assets/images/durationImage.png" alt="TagDuration" />
+            <img src="/durationImage.png" alt="TagDuration" />
             <p>{recipe.duration[0].tagName}</p>
           </div>
         </div>

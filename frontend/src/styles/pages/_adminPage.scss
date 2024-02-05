@@ -250,6 +250,7 @@
               color: var(--primary-color);
               border: solid 2px var(--primary-color);
             }
+
           }
         }
       }
@@ -272,7 +273,9 @@
             flex-direction: column;
             align-items: center;
             .add-avatar-button {
+
               width: 8vw;
+
               height: 5vh;
             }
           }
