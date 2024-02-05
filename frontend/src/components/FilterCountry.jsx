@@ -69,7 +69,7 @@ function FilterCountry({ countryTag, setCountryChange, countryChange }) {
               onClick={() => handleClick(tag)}
               className={
                 filterCountry.includes(tag.name) ||
-                countryChange.includes(tag.id)
+                countryChange?.includes(tag.id)
                   ? "selected chip"
                   : "chip"
               }
