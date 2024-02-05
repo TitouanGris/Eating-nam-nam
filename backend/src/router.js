@@ -82,7 +82,7 @@ router.get("/comments/recipe/:id", commentControllers.readCommentsByRecipeId);
 router.get("/favoris/:id", favorisControllers.browse);
 router.get("/usertags/:id", userTagsControllers.browse);
 router.get("/items/:id", itemControllers.read);
-router.get("/user/:id", userControllers.read);
+// router.get("/user/:id", userControllers.read);
 router.get("/recipe/:id", recipeControllers.read);
 router.get("/step/:id", stepControllers.readSteps);
 router.get("/recipes/user/:id", recipeControllers.readUserRecipe);
