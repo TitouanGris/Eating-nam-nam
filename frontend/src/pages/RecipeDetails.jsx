@@ -56,7 +56,9 @@ function RecipeDetails() {
 
   async function validateRecipe(recipeId) {
     try {
-      await axios.put(`http://localhost:3310/api/recipe/${recipeId}/validate`);
+      await axios.put(
+        `${import.meta.env.VITE_BACKEND_URL}/api/recipe/${recipeId}/validate`
+      );
       navigate("/account/admin");
     } catch (err) {
       console.error(err);
@@ -65,7 +67,9 @@ function RecipeDetails() {
 
   async function deleteRecipe(recipeId) {
     try {
-      await axios.delete(`http://localhost:3310/api/recipe/${recipeId}`);
+      await axios.delete(
+        `${import.meta.env.VITE_BACKEND_URL}/api/recipe/${recipeId}`
+      );
       navigate(-1);
     } catch (err) {
       console.error(err);

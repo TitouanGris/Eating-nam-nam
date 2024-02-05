@@ -117,16 +117,8 @@ CREATE TABLE `comment` (
 /*!40000 ALTER TABLE `comment` DISABLE KEYS */
 ;
 
-
 CREATE TABLE recipe (
-    id INT PRIMARY KEY AUTO_INCREMENT NOT NULL, user_id INT NOT NULL, 
-    name VARCHAR(80) COLLATE utf8mb4_unicode_ci NOT NULL, 
-    summary VARCHAR(255) NOT NULL, 
-    created_date DATETIME NOT NULL DEFAULT NOW(), 
-    updated_date DATETIME NULL DEFAULT NOW() ON UPDATE CURRENT_TIMESTAMP, 
-    photo_url VARCHAR(255) NULL, nb_serving INT NOT NULL, 
-    validate_recipe BOOL NOT NULL, 
-    CONSTRAINT fk_user_recipe FOREIGN KEY (user_id) REFERENCES user (id) ON DELETE CASCADE
+    id INT PRIMARY KEY AUTO_INCREMENT NOT NULL, user_id INT NOT NULL, name VARCHAR(80) COLLATE utf8mb4_unicode_ci NOT NULL, summary VARCHAR(255) NOT NULL, created_date DATETIME NOT NULL DEFAULT NOW(), updated_date DATETIME NULL DEFAULT NOW() ON UPDATE CURRENT_TIMESTAMP, photo_url VARCHAR(255) NULL, nb_serving INT NOT NULL, validate_recipe BOOL NOT NULL, CONSTRAINT fk_user_recipe FOREIGN KEY (user_id) REFERENCES user (id) ON DELETE CASCADE
 );
 
 INSERT INTO
@@ -182,7 +174,6 @@ VALUES (
 /*!40000 ALTER TABLE `comment` ENABLE KEYS */
 ;
 
-
 --
 -- Table structure for table `favoris`
 --
@@ -193,12 +184,8 @@ DROP TABLE IF EXISTS `favoris`;
 /*!50503 SET character_set_client = utf8mb4 */
 ;
 
-
 CREATE TABLE recipe_ingredient (
-    recipe_id INT NOT NULL, 
-    ingredient_id INT NOT NULL, 
-    quantity INT NOT NULL, 
-    unit_id INT NOT NULL, PRIMARY KEY (
+    recipe_id INT NOT NULL, ingredient_id INT NOT NULL, quantity INT NOT NULL, unit_id INT NOT NULL, PRIMARY KEY (
         recipe_id, ingredient_id, unit_id
     ), CONSTRAINT fk_recipe_recipe_ingredient FOREIGN KEY (recipe_id) REFERENCES recipe (id) ON DELETE CASCADE, CONSTRAINT fk_ingredient_recipe_ingredient FOREIGN KEY (ingredient_id) REFERENCES ingredient (id), CONSTRAINT fk_unit FOREIGN KEY (unit_id) REFERENCES unit (id)
 );
@@ -208,7 +195,6 @@ CREATE TABLE `favoris` (
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */
 ;
-
 
 --
 -- Dumping data for table `favoris`
@@ -390,7 +376,9 @@ VALUES (1, 'Sel'),
     (125, 'Huile de tournesol'),
     (126, 'Huile de coco'),
     (127, 'Huile de noix'),
-    (128, 'Huile de pépins de raisin'),
+    (
+        128, 'Huile de pépins de raisin'
+    ),
     (129, 'Vin rouge'),
     (130, 'Vin blanc'),
     (131, 'Vin rosé'),
@@ -402,7 +390,9 @@ VALUES (1, 'Sel'),
     (137, 'Gelée de fruits'),
     (138, 'Compote de pommes'),
     (139, 'Purée de tomates'),
-    (140, 'Sauce tomate aux herbes'),
+    (
+        140, 'Sauce tomate aux herbes'
+    ),
     (141, 'Sauce aux piments doux'),
     (142, 'Sauce hoisin'),
     (143, 'Pâte de curry rouge'),
@@ -418,10 +408,14 @@ VALUES (1, 'Sel'),
     (153, 'Ail en poudre'),
     (154, 'Oignon en poudre'),
     (155, 'Curry en poudre'),
-    (156, 'Piment de cayenne en poudre'),
+    (
+        156, 'Piment de cayenne en poudre'
+    ),
     (157, 'Paprika fumé'),
     (158, 'Safran'),
-    (159, 'Feuilles de laurier séchées'),
+    (
+        159, 'Feuilles de laurier séchées'
+    ),
     (160, 'Herbes de Provence'),
     (161, 'Menthe fraîche'),
     (162, 'Coriandre fraîche'),
@@ -431,7 +425,9 @@ VALUES (1, 'Sel'),
     (166, 'Noix de cajou'),
     (167, 'Amandes effilées'),
     (168, 'Noisettes concassées'),
-    (169, 'Flocons de noix de coco'),
+    (
+        169, 'Flocons de noix de coco'
+    ),
     (170, 'Pain de mie'),
     (171, 'Pain complet'),
     (172, 'Pain ciabatta'),
@@ -484,7 +480,9 @@ VALUES (1, 'Sel'),
     (219, 'Aubergines grillées'),
     (220, 'Artichauts en conserve'),
     (221, 'Cœurs de palmier'),
-    (222, 'Feuilles de vigne en conserve'),
+    (
+        222, 'Feuilles de vigne en conserve'
+    ),
     (223, 'Câpres séchées'),
     (224, 'Anchois'),
     (225, 'Truffes'),
@@ -507,7 +505,8 @@ VALUES (1, 'Sel'),
     (242, 'Algues séchées'),
     (243, 'Houmous'),
     (244, 'Sauce tahini'),
-    (245, 'Ghee');
+    (245, 'Ghee'),
+    (246, 'Eau');
 /*!40000 ALTER TABLE `ingredient` ENABLE KEYS */
 ;
 
