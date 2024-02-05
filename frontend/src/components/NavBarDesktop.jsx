@@ -13,6 +13,7 @@ function NavBarDesktop() {
     setFilterPrice,
     setFilterRegime,
     setFilterType,
+    setFavorisTable,
   } = useContext(FiltersContext);
 
   const navigate = useNavigate();
@@ -35,6 +36,13 @@ function NavBarDesktop() {
 
   const logout = () => {
     setUserInfos({});
+    setFilterPrice([]);
+    setFilterDifficulty([]);
+    setFilterDuration([]);
+    setFilterRegime([]);
+    setFilterCountry([]);
+    setFilterType([]);
+    setFavorisTable([]);
     localStorage.clear();
     navigate("/");
   };

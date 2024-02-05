@@ -2,8 +2,6 @@ const jwt = require("jsonwebtoken");
 const argon2 = require("argon2");
 const tables = require("../tables");
 
-// todo : ajouter next pour le validator
-
 const login = async (req, res) => {
   try {
     const user = await tables.user.getByMail(req.body.inputEmail); // permet d'appeler un model qui va interroger la BDD pour sortir les infos du users via son adresse e-mail
@@ -27,7 +25,7 @@ const login = async (req, res) => {
         { expiresIn: "1h" }
       );
 
-      res.status(200).send({ token, user }); // todo : check if pas de MDP en front
+      res.status(200).send({ token, user });
     } else {
       res.status(422).send("incorrect email or password");
     }
