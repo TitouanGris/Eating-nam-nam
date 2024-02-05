@@ -10,7 +10,7 @@
   box-shadow: 4px 4px 20px 0px #bbb9b9;
   height: 35vh;
   margin-bottom: 5px;
-  width: 40vw;
+  // width: 40vw;
 
   &:hover {
     cursor: pointer;
@@ -139,6 +139,7 @@
   .recipeCard {
     // width: 40%;
     // height: 40vh;
+    width: 80vw;
   }
 }
 

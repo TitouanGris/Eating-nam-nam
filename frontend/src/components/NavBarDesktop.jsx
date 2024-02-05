@@ -8,7 +8,7 @@ import Connexion from "./Connexion";
 
 function NavBarDesktop() {
   // const [isConnected, setIsConnected] = useState(false);
-  // const handleConnected = () => {
+  // const handleConnected = () => {z
   //   setIsConnected(!isConnected);
   // };
   const {

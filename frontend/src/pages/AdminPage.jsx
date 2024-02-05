@@ -4,6 +4,7 @@ import axios from "axios";
 import { useUser } from "../context/UserContext";
 import { loadIngredientsData } from "./RecipePost";
 import Input from "../components/Input";
+import Divider from "../components/Divider";
 
 // import { useUser } from "../context/UserContext";
 
@@ -20,6 +21,8 @@ function AdminPage() {
   const [sucessIngAdd, setSucessIngAdd] = useState(false);
   const token = localStorage.getItem("token");
   const [previewURL, setPreviewURL] = useState(null);
+
+  console.info(userInfos);
 
   useEffect(() => {
     axios
@@ -145,23 +148,8 @@ function AdminPage() {
   return (
     <div className="adminPage">
       <div className="avatarSection">
-        <h2>Ajouter des avatars</h2>
-        <div className="avatars-container">
-          <div className="avatar-map">
-            {avatar.map((a) => {
-              return (
-                <div key={a.id}>
-                  <img
-                    width="30px"
-                    src={`${import.meta.env.VITE_BACKEND_URL}/images/avatar/${
-                      a.image_url
-                    }`}
-                    alt=""
-                  />
-                </div>
-              );
-            })}
-          </div>
+        <div className="sectionHeader">
+          <h2>Ajouter des avatars</h2>
           <form onSubmit={submit} className="upload-form">
             <input
               name={file}
@@ -178,12 +166,30 @@ function AdminPage() {
                   </button>
                 </div>
               ) : (
-                <div className="add-avatar-button">Ajouter un avatar</div>
+                <div className="add-avatar-button">Ajouter</div>
               )}
             </label>
           </form>
         </div>
+        <div className="avatars-container">
+          <div className="avatar-map">
+            {avatar.map((a) => {
+              return (
+                <div key={a.id}>
+                  <img
+                    width="70px"
+                    src={`${import.meta.env.VITE_BACKEND_URL}/images/avatar/${
+                      a.image_url
+                    }`}
+                    alt=""
+                  />
+                </div>
+              );
+            })}
+          </div>
+        </div>
       </div>
+      <Divider />
       <div className="recipeSection">
         <h2>Valider une recette</h2>
         <div className="recipeList">
@@ -191,11 +197,6 @@ function AdminPage() {
             return (
               <Link to={`/recipe/${id}`}>
                 <button type="button" className="recipeDiv" key={id}>
-                  <p>
-                    {recipeName.length > 20
-                      ? `${recipeName.substring(0, 20)}...`
-                      : recipeName}
-                  </p>
                   <div className="imgDiv">
                     <img
                       className="recipeImg"
@@ -207,13 +208,23 @@ function AdminPage() {
                       alt={recipeName}
                     />
                   </div>
+                  <p className="desktop">
+                    {recipeName.length > 14
+                      ? `${recipeName.substring(0, 14)}...`
+                      : recipeName}
+                  </p>
+                  <p className="mobile">
+                    {recipeName.length > 28
+                      ? `${recipeName.substring(0, 28)}...`
+                      : recipeName}
+                  </p>
                 </button>
               </Link>
             );
           })}
         </div>
       </div>
-
+      <Divider />
       <div className="ingredientSection">
         <h2>Ajouter des ingrédients</h2>
         <div className="ingList">
@@ -256,7 +267,7 @@ function AdminPage() {
           )}
         </div>
       </div>
-
+      <Divider />
       <div className="userSection">
         <h2>Gérer un utilisateur</h2>
         <div className="searchUser">
@@ -293,7 +304,7 @@ function AdminPage() {
                     </div>
                     <div className="deleteButton">
                       <button type="button" onClick={() => deleteUser(user.id)}>
-                        Supprimer {user.pseudo}
+                        Supprimer
                       </button>
                     </div>
                   </div>

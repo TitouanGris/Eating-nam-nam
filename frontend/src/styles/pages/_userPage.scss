@@ -2,7 +2,7 @@
   display: flex;
   // align-items: center;
   justify-content: center;
-  height: fit-content;
+  height: 100vh;
   overflow-y: scroll;
 
   &::-webkit-scrollbar {
@@ -83,6 +83,7 @@
                   background-color: var(--primary-color);
                   color: white;
                   border-radius: 50%;
+                  cursor: pointer;
                 }
               }
             }
@@ -95,7 +96,7 @@
             gap: 10px;
             margin-bottom: 20px;
             img {
-              width: 6vw;
+              width: 6vh;
             }
           }
         }
@@ -115,26 +116,26 @@
           justify-content: space-around;
           flex-wrap: wrap;
           margin-bottom: 20px;
-
-          button {
-            aspect-ratio: 1/1;
-            border-radius: 50%;
-            width: auto;
-            height: 1.5rem;
-            background-color: red;
-            color: white;
-            border: none;
-            margin-bottom: 5px;
-            font-size: 15px;
-          }
+          gap: 5px;
 
           .onePreferences {
-            border-radius: 10px;
-            width: 30vw;
+            border-radius: 5px;
+            width: fit-content;
+            padding-inline: 10px;
             border: 1px solid var(--primary-color);
             color: var(--primary-color);
             font-size: 13px;
             text-align: center;
+
+            button {
+              border-radius: 80px;
+              background-color: transparent;
+              height: 2.4vh;
+              border: none;
+              font-size: 15px;
+              margin-left: 10px;
+              cursor: pointer;
+            }
           }
         }
         .button-user-preferences {
@@ -146,6 +147,7 @@
           color: white;
           border-radius: 10px;
           margin: 0 auto;
+          cursor: pointer;
         }
       }
       .userRecipeBox {
@@ -158,9 +160,25 @@
           margin-block: 1.2rem;
           overflow-x: scroll;
           padding-bottom: 1rem;
+          &::-webkit-scrollbar {
+            height: 8px;
+            // background-color: #f5f5f5;
+          }
+
+          &::-webkit-scrollbar-thumb {
+            border-radius: 10px;
+            background-image: -webkit-gradient(
+              linear,
+              left bottom,
+              left top,
+              color-stop(0.44, var(--primary-color)),
+              // color-stop(0.72, rgb(11, 74, 151)),
+              // color-stop(0.86, rgb(28, 58, 148))
+            );
+          }
           a {
             padding-inline: 10px;
-            max-width: 250px;
+            // width: 40%;
             .userRecipeCard {
               box-shadow: 4px 4px 8px 0px #bbb9b9;
               flex-direction: column;
@@ -172,8 +190,6 @@
               width: 100%;
 
               .imgBox {
-                display: flex;
-                justify-content: center;
                 img {
                   object-fit: cover;
                   height: 150px;
@@ -201,7 +217,8 @@
 
     .user {
       display: flex;
-      justify-content: space-around;
+      justify-content: center;
+      gap: 10px;
       width: 100%;
       text-align: center;
       margin-bottom: 20px;
@@ -218,6 +235,18 @@
         p {
           font-size: var(--title-font-size);
         }
+        button {
+          height: 3vh;
+          width: 20vw;
+          font-size: 12px;
+          border: none;
+          background-color: white;
+          border: 1px solid var(--primary-color);
+          color: var(--primary-color);
+          border-radius: 5px;
+          margin: 0 auto;
+          cursor: pointer;
+        }
       }
     }
 
@@ -233,6 +262,7 @@
         background-color: var(--primary-color);
         color: white;
         border-radius: 8px;
+        cursor: pointer;
       }
     }
 
@@ -255,7 +285,6 @@
       display: flex;
       justify-content: flex-end;
       margin-right: 5px;
-
       button {
         height: 5vh;
         background-color: rgba(255, 255, 255, 0);
@@ -263,38 +292,53 @@
         font-size: var(--text-second-font-size);
         border: none;
         text-decoration: underline;
+        cursor: pointer;
       }
     }
     .reset-button {
       margin-bottom: 15vh;
+      height: 4vh;
+      width: 40vw;
+      font-size: 12px;
+      border: none;
+      background-color: var(--primary-color);
+      color: white;
+      border-radius: 8px;
+      cursor: pointer;
     }
   }
 }
 
-@media screen and (min-width: 899px) {
+@media screen and (min-width: 700px) {
   .userPage {
-    height: 100vh;
-
-    overflow-y: scroll;
     .user-container {
-      width: 50vw;
-      .user {
-        justify-content: start;
-      }
-
-      .delete-button {
+      .admin-button {
         button {
-          font-size: 14px;
+          height: 3vh;
+          width: 12vw;
+          font-size: 12px;
+          border: none;
+          background-color: white;
+          border: 1px solid var(--primary-color);
+          color: var(--primary-color);
+          border-radius: 5px;
+          margin: 0 auto;
         }
       }
       .reset-button {
         height: 4vh;
         width: 15%;
-        font-size: 14px;
+        font-size: 15px;
         border: none;
         background-color: var(--primary-color);
         color: white;
         border-radius: 8px;
+      }
+
+      .delete-button {
+        button {
+          font-size: 15px;
+        }
       }
       h1 {
         font-size: 2rem;
@@ -302,8 +346,7 @@
 
       .modify-button {
         button {
-          width: 13vw;
-          font-size: 14px;
+          font-size: 18px;
         }
       }
 
@@ -314,41 +357,269 @@
         margin-bottom: 20px;
 
         img {
-          height: 120px;
+          height: 25vh;
+        }
+
+        .userInfos {
+          button {
+            width: 60%;
+            font-size: 15px;
+          }
         }
       }
 
       .infos-user {
         h2 {
-          font-size: 18px;
+          font-size: 20px;
         }
+
         .avatars {
           .avatars-container {
             h2 {
-              font-size: 18px;
+              font-size: 20px;
+            }
+            form {
+              .upload {
+                font-size: 18px;
+              }
+            }
+            .avatar-map {
+              img {
+                width: 10vw;
+              }
             }
           }
         }
+
         .preferences-container {
           h2 {
-            font-size: 18px;
+            font-size: 20px;
           }
+
           .preferences {
-            justify-content: center;
-            gap: 1.5rem;
             button {
-              aspect-ratio: 1/1;
-              width: auto;
+              height: 3vh;
             }
             .onePreferences {
-              width: auto;
-              padding: 0.5rem;
-              font-size: larger;
+              width: 15vw;
+              height: 3vh;
+              display: flex;
+              font-size: 15px;
+              justify-content: center;
+              align-items: center;
             }
           }
           .button-user-preferences {
-            width: 13vw;
-            font-size: 14px;
+            font-size: 18px;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 1000px) {
+  .userPage {
+    .user-container {
+      width: 80vw;
+      .reset-button {
+        font-size: 16px;
+      }
+
+      .admin-button {
+        button {
+          height: 4vh;
+          width: 12vw;
+          font-size: 18px;
+        }
+      }
+      h1 {
+        font-size: 2.5rem;
+      }
+
+      .modify-button {
+        button {
+          width: 28%;
+          font-size: 18px;
+        }
+      }
+
+      .user {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 20px;
+        gap: 10vw;
+
+        img {
+          height: 25vh;
+        }
+      }
+
+      .infos-user {
+        h2 {
+          font-size: 20px;
+        }
+
+        .avatars {
+          .avatars-container {
+            h2 {
+              font-size: 20px;
+            }
+            form {
+              .upload {
+                font-size: 18px;
+                width: 28%;
+              }
+            }
+            .avatar-map {
+              display: flex;
+              margin: 0 auto;
+              gap: 10px;
+              width: 80%;
+              img {
+                width: 6vw;
+              }
+            }
+            form {
+              .upload {
+                width: 18%;
+                .add-avatar-button {
+                  .button-user-avatar {
+                    font-size: 18px;
+                  }
+                }
+              }
+            }
+          }
+        }
+
+        .preferences-container {
+          h2 {
+            font-size: 20px;
+          }
+
+          .preferences {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+
+            .onePreferences {
+              width: fit-content;
+              padding-inline: 10px;
+              height: 5vh;
+              display: flex;
+              font-size: 15px;
+              justify-content: center;
+              align-items: center;
+            }
+          }
+          .button-user-preferences {
+            width: 25%;
+            font-size: 18px;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 1400px) {
+  .userPage {
+    .user-container {
+      .reset-button {
+        width: 10%;
+      }
+
+      .admin-button {
+        button {
+          height: 4vh;
+          width: 6vw;
+          font-size: 18px;
+        }
+      }
+      h1 {
+        font-size: 2.5rem;
+      }
+
+      .modify-button {
+        button {
+          width: 20%;
+          font-size: 18px;
+        }
+      }
+
+      .user {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 20px;
+        gap: 10vw;
+
+        img {
+          height: 25vh;
+        }
+      }
+
+      .infos-user {
+        h2 {
+          font-size: 20px;
+        }
+
+        .avatars {
+          .avatars-container {
+            h2 {
+              font-size: 20px;
+            }
+            form {
+              .upload {
+                font-size: 18px;
+                width: 25%;
+              }
+            }
+            .avatar-map {
+              display: flex;
+              justify-content: center;
+              gap: 10px;
+              img {
+                width: 6vw;
+              }
+            }
+            form {
+              .upload {
+                width: 18%;
+                .add-avatar-button {
+                  .button-user-avatar {
+                    font-size: 18px;
+                  }
+                }
+              }
+            }
+          }
+        }
+
+        .preferences-container {
+          h2 {
+            font-size: 20px;
+          }
+
+          .preferences {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            button {
+              height: 4vh;
+            }
+            .onePreferences {
+              width: 8vw;
+              height: 4vh;
+              display: flex;
+              font-size: 15px;
+              justify-content: center;
+              align-items: center;
+            }
+          }
+          .button-user-preferences {
+            width: 18%;
+            font-size: 18px;
           }
         }
       }

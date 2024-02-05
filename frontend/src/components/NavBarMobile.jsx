@@ -52,7 +52,7 @@ function NavBarMobile({ setFavoriteMobileisActive }) {
           navigate("/browse");
         }}
       >
-        <img alt="home" src="/src/assets/images/home.png" />
+        <img alt="home" src="/home.png" />
         <p>Accueil</p>
       </button>
 

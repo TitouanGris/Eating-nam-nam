@@ -2,7 +2,7 @@ const tables = require("../tables");
 
 const add = async (req, res, next) => {
   const { userInfosId, filterIdChosenReduced } = req.body;
-
+  console.info(req.body);
   const newTable = filterIdChosenReduced.map(
     (reg) => `(${userInfosId}, ${reg})`
   );
@@ -43,6 +43,7 @@ const update = async (req, res, next) => {
 
 const destroy = async (req, res, next) => {
   const { userInfosId, preferenceId } = req.body;
+  console.info(req.body);
   try {
     const result = await tables.user_tags.delete(userInfosId, preferenceId);
 

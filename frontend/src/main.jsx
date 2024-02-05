@@ -15,6 +15,7 @@ import Signin from "./components/Signin";
 import AdminPage from "./pages/AdminPage";
 
 import "./styles/index.scss";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 const router = createBrowserRouter([
   {
@@ -36,7 +37,12 @@ const router = createBrowserRouter([
       },
       {
         path: "/account/admin",
-        element: <AdminPage />,
+        element: (
+          <ProtectedRoute>
+            {" "}
+            <AdminPage />
+          </ProtectedRoute>
+        ),
       },
       {
         path: "/signin",

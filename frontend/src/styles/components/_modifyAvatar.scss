@@ -16,7 +16,7 @@
     .modify-modal-content-avatar {
       background-color: white;
       width: 80vw;
-      height: 50vh;
+      height: 40vh;
       padding: 40px;
       border-radius: 8px;
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -33,6 +33,7 @@
         width: 80%;
         height: 100%;
         gap: 20px;
+        overflow-y: scroll;
 
         .avatar-button {
           background-color: rgba(255, 255, 255, 0);

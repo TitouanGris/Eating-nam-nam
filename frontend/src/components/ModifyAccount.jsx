@@ -56,7 +56,12 @@ function ModifyAccount({ isOpen, setShowModifyAccount }) {
       <div className="modify-modal-content">
         <div className="photo">
           <button type="button" onClick={handleModifyAvatar}>
-            Modifier ma photo
+            <p>Modifier ma photo</p>
+            <img
+              className="placeholderPic"
+              src="./src/assets/images/icons8-camera-100.png"
+              alt="Choose a pic"
+            />
           </button>
         </div>
         {showModifyAvatar && (
@@ -77,6 +82,7 @@ function ModifyAccount({ isOpen, setShowModifyAccount }) {
         </div>
         <button
           type="button"
+          className="terminer-button"
           onClick={() => {
             setShowModifyAccount(false);
             handleModify1();
