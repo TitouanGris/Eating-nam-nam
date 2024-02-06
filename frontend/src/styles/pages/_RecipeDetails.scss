@@ -18,6 +18,12 @@
       display: flex;
       gap: 20px;
     }
+    .local {
+      width: fit-content;
+      padding: 15px;
+      height: auto;
+      align-self: center;
+    }
     h2 {
       font-size: 1.2rem;
     }
@@ -160,6 +166,9 @@
       }
     }
   }
+  .spaceCss {
+    height: 8vh;
+  }
 
   .comment_form {
     display: flex;
@@ -224,6 +233,13 @@
 
       img {
         width: 30px;
+      }
+
+      .local {
+        &:hover {
+          padding: 14px;
+          border: solid 1px var(--primary-color);
+        }
       }
     }
     .imgContainer {

@@ -44,6 +44,7 @@ function NavBarDesktop() {
     setFilterType([]);
     setFavorisTable([]);
     localStorage.clear();
+    setFavorisBtn(false);
     navigate("/");
   };
 
