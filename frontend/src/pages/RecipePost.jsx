@@ -214,6 +214,7 @@ function RecipePost() {
           user_id: 1,
           summary: "",
           nb_serving: persons,
+          validateRecipe: false,
           photoUrl: null,
         });
         setToPostTags({
@@ -238,6 +239,7 @@ function RecipePost() {
           user_id: 1,
           summary: "",
           nb_serving: persons,
+          validateRecipe: false,
           photoUrl: null,
         });
         setToPostTags({
@@ -258,6 +260,7 @@ function RecipePost() {
         user_id: 1,
         summary: "",
         nb_serving: persons,
+        validateRecipe: false,
         photoUrl: null,
       });
       setToPostTags({
