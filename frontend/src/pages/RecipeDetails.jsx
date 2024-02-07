@@ -131,7 +131,7 @@ function RecipeDetails() {
                 Supprimer
               </>
             }
-            className="buttonRed"
+            className="local buttonRed"
             onClick={() => deleteRecipe(id)}
           >
             {" "}
@@ -187,9 +187,9 @@ function RecipeDetails() {
           <h3>Ingrédients</h3>
           <ul>
             {ingredients.map((ingredient) => (
-              <li
-                key={ingredient.id}
-              >{`${ingredient.quantity} ${ingredient.unitName} ${ingredient.ingredientName}`}</li>
+              <li key={ingredient.id}>{`${ingredient.quantity} ${
+                ingredient.unitName === "unité" ? "" : ingredient.unitName
+              } ${ingredient.ingredientName}`}</li>
             ))}
           </ul>
         </div>
@@ -217,6 +217,7 @@ function RecipeDetails() {
           ))}
         </div>
       </div>
+      {!userInfos.id && <div className="spaceCss" />}
       {userInfos.id && (
         <div className="comment_form">
           <h3>Et vous, vous en avez pensé quoi ?</h3>

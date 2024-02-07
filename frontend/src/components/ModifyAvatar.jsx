@@ -67,7 +67,11 @@ function ModifyAvatar({ isOpen, setShowModifyAvatar }) {
                   setImageAvatar(a.image_url);
                 }}
                 type="button"
-                className="avatar-button"
+                className={
+                  selectedAvatarId === a.id
+                    ? "avatar-button-selected"
+                    : "avatar-button"
+                }
                 aria-label={`Select avatar ${a.id}`}
                 // aria-label pour accesibilité user
               >

@@ -36,10 +36,20 @@
         overflow-y: scroll;
 
         .avatar-button {
-          background-color: rgba(255, 255, 255, 0);
+          background-color: transparent;
 
           img {
             width: 12vw;
+          }
+        }
+        .avatar-button-selected {
+          background-color: transparent;
+
+          img {
+            width: 12vw;
+            border: solid 5px var(--primary-color);
+            border-radius: 5px;
+            padding: 5px;
           }
         }
       }

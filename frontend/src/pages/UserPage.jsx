@@ -10,7 +10,7 @@ import Regime from "../components/Regime";
 import Button from "../components/Button";
 
 function UserPage() {
-  const { userInfos, setUserInfos } = useUser();
+  const { userInfos, setUserInfos, setFavorisBtn } = useUser();
   const {
     filterRegimeId,
     setFilterCountry,
@@ -45,6 +45,7 @@ function UserPage() {
     setFavorisTable([]);
     localStorage.clear();
     navigate("/");
+    setFavorisBtn(false);
   };
 
   const fetchData = async () => {
