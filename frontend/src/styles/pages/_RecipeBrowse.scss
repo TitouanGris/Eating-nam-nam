@@ -13,7 +13,7 @@
       overflow-y: scroll;
       display: flex;
       flex-wrap: wrap;
-      padding-top: 30px;
+      padding-top: 20px;
       gap: 20px;
       justify-content: center;
       .sorry {
@@ -74,6 +74,9 @@
       a {
         display: flex;
         width: 80%;
+        &:last-child {
+          margin-bottom: 5vh;
+        }
       }
     }
   }
@@ -92,19 +95,6 @@
   }
 }
 
-@media screen and (max-width: 899px) {
-  .recipeBrowse {
-    .leftArea {
-      .recipeBrowseCard {
-        // height: 90vh;
-        a:last-child {
-          margin-bottom: 3vh;
-        }
-      }
-    }
-  }
-}
-
 @media screen and (min-width: 650px) and (max-width: 1000px) {
   .recipeBrowse {
     .leftArea {
@@ -114,14 +104,6 @@
         }
       }
       .recipeBrowseCard {
-        // flex-direction: initial;
-        // flex-wrap: wrap;
-        // width: 70%;
-        // padding-bottom: 3vh;
-
-        // overflow-y: scroll;
-        // height: 90vh;
-
         a {
           width: 40%;
         }

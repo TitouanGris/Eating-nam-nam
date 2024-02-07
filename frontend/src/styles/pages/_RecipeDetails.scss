@@ -4,7 +4,7 @@
   gap: 15px;
   padding-top: 10px;
   background-color: white;
-  padding-bottom: 13vh;
+  padding-bottom: 15vh;
 
   .recipeDetailsHeader {
     display: flex;
@@ -17,6 +17,12 @@
     .recipeName {
       display: flex;
       gap: 20px;
+    }
+    .local {
+      width: fit-content;
+      padding: 15px;
+      height: auto;
+      align-self: center;
     }
     h2 {
       font-size: 1.2rem;
@@ -160,6 +166,9 @@
       }
     }
   }
+  .spaceCss {
+    height: 8vh;
+  }
 
   .comment_form {
     display: flex;
@@ -195,7 +204,7 @@
   .recipeDetails {
     padding-top: 20px;
     width: 60vw;
-    padding: 0 5vw;
+    padding-bottom: 15vh;
     margin: auto;
     background-color: white;
     overflow-y: scroll;
@@ -224,6 +233,13 @@
 
       img {
         width: 30px;
+      }
+
+      .local {
+        &:hover {
+          padding: 14px;
+          border: solid 1px var(--primary-color);
+        }
       }
     }
     .imgContainer {

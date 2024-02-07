@@ -80,13 +80,15 @@ function RecipeCard({ r }) {
   return (
     <div className="recipeCard">
       <div className="favoris">
-        <button className="heart" type="button" onClick={handleClick}>
-          {favoris ? (
-            <img src="/heartFill.png" alt="favoris coeur plein" />
-          ) : (
-            <img src="/heartEmpty.png" alt="favoris coeur vide" />
-          )}
-        </button>
+        {userInfos.id && (
+          <button className="heart" type="button" onClick={handleClick}>
+            {favoris ? (
+              <img src="/heartFill.png" alt="favoris coeur plein" />
+            ) : (
+              <img src="/heartEmpty.png" alt="favoris coeur vide" />
+            )}
+          </button>
+        )}
       </div>
       <div className="imgContainer">
         <img
