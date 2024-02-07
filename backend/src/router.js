@@ -118,12 +118,15 @@ router.put("/recipe/:id/validate", recipeControllers.validateRecipe);
 /* ************************************************************************* */
 // router.use(verifyToken);
 
-router.use(verifyToken); // mur où il est nécéssaire d'être authentifier pour passer (voir auth.js)
-
 // Route to upload a single image
 // /!\ le middleware upload.single est lié à l'utilisation de multer (voir en haut de ce fichier)
-router.post("/avatar", uploadAvatar.single("image"), avatarControllers.add);
-router.get("/userbytoken", userControllers.getbytoken);
-router.post("/ingredients", ingredientControllers.add);
+router.post(
+  "/avatar",
+  verifyToken,
+  uploadAvatar.single("image"),
+  avatarControllers.add
+);
+router.get("/userbytoken", verifyToken, userControllers.getbytoken);
+router.post("/ingredients", verifyToken, ingredientControllers.add);
 
 module.exports = router;
