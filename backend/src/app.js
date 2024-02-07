@@ -1,6 +1,7 @@
 // Load the express module to create a web application
 
 const express = require("express");
+const path = require("path");
 
 const app = express();
 
@@ -85,7 +86,9 @@ const router = require("./router");
 
 // Mount the API routes under the "/api" endpoint
 app.use("/api", router);
-
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "../public/index.html"));
+});
 /* ************************************************************************* */
 
 // Production-ready setup: What is it for, and when should I enable it?
