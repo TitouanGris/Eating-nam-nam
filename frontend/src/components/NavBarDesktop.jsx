@@ -1,14 +1,11 @@
-// import { useState } from "react";
-import { useContext } from "react";
-import { NavLink } from "react-router-dom";
+import React, { useContext, useState, useEffect, useRef } from "react";
+import { NavLink, useNavigate } from "react-router-dom";
+import Signin from "./Signin";
 import FiltersContext from "../context/FiltersContext";
 import { useUser } from "../context/UserContext";
+import Connexion from "./Connexion";
 
 function NavBarDesktop() {
-  // const [isConnected, setIsConnected] = useState(false);
-  // const handleConnected = () => {
-  //   setIsConnected(!isConnected);
-  // };
   const {
     setFilterCountry,
     setFilterDifficulty,
@@ -16,7 +13,11 @@ function NavBarDesktop() {
     setFilterPrice,
     setFilterRegime,
     setFilterType,
+    setFavorisTable,
   } = useContext(FiltersContext);
+
+  const navigate = useNavigate();
+
   const handlePublish = () => {
     setFilterPrice([]);
     setFilterDifficulty([]);
@@ -24,49 +25,154 @@ function NavBarDesktop() {
     setFilterRegime([]);
     setFilterCountry([]);
     setFilterType([]);
+    navigate("/publish");
   };
-  const { userInfos } = useUser();
+  const { userInfos, setFavorisBtn, setUserInfos } = useUser();
+
+  const [inscription, setInscription] = useState(false);
+  const [connexion, setConnexion] = useState(false);
+
+  const [menuBurger, setMenuBurger] = useState(false);
+
+  const logout = () => {
+    setUserInfos({});
+    setFilterPrice([]);
+    setFilterDifficulty([]);
+    setFilterDuration([]);
+    setFilterRegime([]);
+    setFilterCountry([]);
+    setFilterType([]);
+    setFavorisTable([]);
+    localStorage.clear();
+    setFavorisBtn(false);
+    navigate("/");
+  };
+
+  const menuBurgerRef = useRef();
+
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (
+        menuBurgerRef.current &&
+        !menuBurgerRef.current.contains(event.target)
+      ) {
+        setMenuBurger(false);
+      }
+    }
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [menuBurgerRef]);
+
+  const handleClickConnexion = () => {
+    setConnexion(!connexion);
+    setMenuBurger(!menuBurger);
+  };
+
+  const handleClickInscription = () => {
+    setInscription(!inscription);
+    setMenuBurger(!menuBurger);
+  };
+
   return (
     <div className="navBarDesktop">
       <div className="logo">
-        <img src="/src/assets/images/logo.png" alt="" />
+        <img src="/logo.png" alt="" />
       </div>
       <div className="lien">
         <div className="lien1">
-          <NavLink to="/browse">
-            <p>Accueil</p>
-          </NavLink>
+          <button
+            className="text"
+            type="button"
+            onClick={() => {
+              setFavorisBtn(false);
+              navigate("/browse");
+            }}
+          >
+            Accueil
+          </button>
           {userInfos.pseudo && (
-            <NavLink to="/publish" onClick={handlePublish}>
-              <p>Publier</p>
-            </NavLink>
+            <>
+              <button className="text" type="button" onClick={handlePublish}>
+                Publier
+              </button>
+              <button
+                className="text"
+                type="button"
+                onClick={() => {
+                  setFavorisBtn(true);
+                  navigate("/browse");
+                }}
+              >
+                Favoris
+              </button>
+            </>
           )}
         </div>
-        {userInfos.pseudo && (
-          <NavLink to="/account">
-            <div className="account-link">
-              <img src="src/assets/images/user.png" alt="user-page" />
-              <p>{userInfos.pseudo}</p>
-            </div>
-          </NavLink>
+
+        {userInfos.pseudo ? (
+          <button
+            type="button"
+            className="account-link"
+            onClick={() => setMenuBurger(!menuBurger)}
+          >
+            <p>{userInfos.pseudo}</p>
+            <img
+              src={`${import.meta.env.VITE_BACKEND_URL}/images/avatar/${
+                userInfos.image_url
+              }`}
+              alt="user-page"
+              aria-hidden
+            />
+          </button>
+        ) : (
+          <div className="account-link" ref={menuBurgerRef}>
+            <img
+              src="/user.png"
+              alt="user-page"
+              aria-hidden
+              onClick={() => setMenuBurger(!menuBurger)}
+            />
+          </div>
         )}
       </div>
-      {/* <button type="button" disabled={!isConnected} className="publish_button">
-        <img alt="publish" src="./src/assets/images/add.png" />
-        <p>Publier</p>
-      </button> */}
-      {/* <button
-        type="button"
-        className={`account${isConnected ? "_connected" : ""}`}
-        onClick={handleConnected}
-      >
-        <img alt="account" src="./src/assets/images/account.png" />
-        <p>{isConnected === false ? "Créer un compte" : "Profil"}</p>
-      </button> */}
-      {/* <button type="button" disabled={!isConnected} className="favorite_button">
-        <img alt="favorite" src="./src/assets/images/heartFill.png" />
-        <p>Favoris</p>
-      </button> */}
+      {menuBurger && (
+        <div className="menuBurger" ref={menuBurgerRef}>
+          {userInfos.pseudo && (
+            <>
+              <NavLink to="/account">
+                <div aria-hidden onClick={() => setMenuBurger(!menuBurger)}>
+                  Mon profil
+                </div>
+              </NavLink>
+              <div aria-hidden type="button" onClick={logout}>
+                Deconnexion
+              </div>
+            </>
+          )}
+
+          {!userInfos.pseudo && (
+            <>
+              <div type="button" aria-hidden onClick={handleClickConnexion}>
+                {" "}
+                Connexion{" "}
+              </div>
+              <div type="button" aria-hidden onClick={handleClickInscription}>
+                Créer son compte
+              </div>{" "}
+            </>
+          )}
+        </div>
+      )}
+
+      {inscription && (
+        <Signin inscription={inscription} setInscription={setInscription} />
+      )}
+      {connexion && (
+        <Connexion connexion={connexion} setConnexion={setConnexion} />
+      )}
     </div>
   );
 }

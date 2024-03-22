@@ -14,13 +14,14 @@ function App() {
 
   return (
     // le userProvider permet de fournir les infos du user à tous les enfants de APP (via un context)
-    <UserProvider>
-      <FiltersContextProvider>
+
+    <FiltersContextProvider>
+      <UserProvider>
         <div className="app" id="app">
           <div className="navBarDesktopArea">
             {!pagesWithoutNavBar.includes(pathname) && <NavBarDesktop />}
           </div>
-          <div className="App">
+          <div className="outlet">
             <Outlet
               context={[favoriteMobileisActive, setFavoriteMobileisActive]}
             />
@@ -33,8 +34,8 @@ function App() {
             </div>
           </div>
         </div>
-      </FiltersContextProvider>
-    </UserProvider>
+      </UserProvider>
+    </FiltersContextProvider>
   );
 }
 

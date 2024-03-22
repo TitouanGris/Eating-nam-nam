@@ -14,7 +14,8 @@ class UserTagsManager extends AbstractManager {
 
   async browse(id) {
     const [result] = await this.database.query(
-      `SELECT t.name FROM tags t
+      `SELECT t.name, t.id, t.category_id 
+      FROM tags t
       JOIN ${this.table} ut on ut.tags_id = t.id
       WHERE ut.user_id = ${id}
       `
@@ -22,13 +23,12 @@ class UserTagsManager extends AbstractManager {
     return result;
   }
 
-  // async delete({ userId, tagsId }) {
-  //   const [result] = await this.database.query(
-  //     `DELETE FROM  ${this.table} WHERE user_id=? AND tags_id=?`,
-  //     [userId, tagsId]
-  //   );
-  //   return result;
-  // }
+  async delete(userInfosId, preferenceId) {
+    const [result] = await this.database.query(
+      `DELETE FROM ${this.table} WHERE user_id=${userInfosId} AND tags_id=${preferenceId}`
+    );
+    return result;
+  }
 }
 
 module.exports = UserTagsManager;

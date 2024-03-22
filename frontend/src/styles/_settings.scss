@@ -1,22 +1,27 @@
 * {
+  button,
+  a {
+    cursor: pointer;
+  }
   box-sizing: border-box;
   margin: 0;
   padding: 0;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  transition: all 150ms;
 }
 
 html,
 body,
 :root {
-  min-height: 100vh;
+  // min-height: 100vh;
   overflow-x: hidden;
-  overflow-y: scroll;
 }
 
 :root {
   --primary-color-text: black;
   --secondary-color-text: white;
   --primary-color: #d56c06;
+  --tertiary-color: #97bf0d;
   --title-font-size: 20px;
   --text-second-font-size: 12px;
   --font-family: "poppins";
@@ -30,7 +35,6 @@ body,
   width: 90vw;
   height: 8vh;
   font-size: var(--title-font-size);
-  font-family: var(--font-family);
   margin-bottom: 15px;
 
   &:hover {
@@ -49,7 +53,6 @@ body,
   width: 60vw;
   height: 8vh;
   font-size: var(--title-font-size);
-  font-family: var(--font-family);
   margin-bottom: 15px;
   &:hover {
     cursor: pointer;
@@ -64,7 +67,6 @@ body,
   color: var(--primary-color-text);
   border: none;
   font-size: 15px;
-  font-family: var(--font-family);
   margin-bottom: 15px;
   text-decoration: underline;
   &:hover {
@@ -72,23 +74,77 @@ body,
   }
 }
 
+.buttonGreen {
+  background-color: var(--tertiary-color);
+  color: var(--secondary-color-text);
+  border: none;
+  border-radius: 20px;
+  width: 90vw;
+  height: 8vh;
+  font-size: var(--title-font-size);
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  &:hover {
+    cursor: pointer;
+    background-color: white;
+    color: var(--tertiary-color);
+    border: solid 2px var(--tertiary-color);
+  }
+}
+
+.buttonRed {
+  background-color: var(--primary-color);
+  color: var(--secondary-color-text);
+  border: none;
+  border-radius: 20px;
+  width: 90vw;
+  height: 8vh;
+  font-size: var(--title-font-size);
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding-inline: 10px;
+
+  &:hover {
+    cursor: pointer;
+    background-color: white;
+    color: var(--primary-color);
+    border: solid 2px var(--primary-color);
+  }
+}
+
 @media screen and (min-width: 900px) {
   html,
   body,
   :root {
-    overflow-y: auto;
+    overflow-y: hidden;
   }
 
   .button1 {
     border-radius: 20px;
     width: 15vw;
     height: 5vh;
-    font-size: 1em;
-    font-family: var(--font-family);
     margin-bottom: 15px;
 
     &:hover {
       cursor: pointer;
     }
+  }
+  .buttonGreen {
+    width: 15vw;
+    height: 5vh;
+    font-size: 1em;
+    font-family: var(--font-family);
+  }
+  .buttonRed {
+    width: 15vw;
+    height: 5vh;
+    font-size: 1em;
+    font-family: var(--font-family);
   }
 }

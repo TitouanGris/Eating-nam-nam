@@ -7,13 +7,22 @@
 @import "./pages/RecipeDetails";
 @import "home";
 @import "./pages/filters";
-@import "./pages/regime";
+
 @import "./pages/RecipePost";
+@import "./pages/userPage";
+@import "./pages/adminPage";
+
 // ------------ import du styles des composants ------------ //
 @import "./components/RecipeCard";
 @import "./components/NavBarDesktop";
 @import "./components/connexion";
 @import "./components/NavBarMobile";
 @import "./components/signin";
+@import "./components/confirmModal";
+@import "./components/modifyAccount";
 @import "./components/regime";
 @import "./components/PostModal";
+@import "./components/filterPrice";
+@import "./components/filterDifficultiesCategorysCountryRegimeDuration";
+@import "./components/modifyAvatar";
+@import "./components/modifyPreferences";

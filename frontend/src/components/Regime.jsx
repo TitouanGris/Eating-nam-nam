@@ -1,85 +1,143 @@
 import { useEffect, useState, useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import PropTypes from "prop-types";
 import axios from "axios";
 import { useUser } from "../context/UserContext";
-import { loadIngredientsData } from "../pages/RecipePost";
+// import { loadIngredientsData } from "../pages/RecipePost";
 import { loadFiltersData } from "./Filters";
 import Button from "./Button";
 import FilterRegime from "./FilterRegime";
+import FilterCountry from "./FilterCountry";
+import FilterPrice from "./FilterPrice";
 import FiltersContext from "../context/FiltersContext";
+import FilterDifficuly from "./FilterDifficuly";
 
-function Regime({ successMessage }) {
+function Regime({ successMessage, setShowModifyPreferences }) {
   const [filterChip, setFilterChip] = useState([]);
-  const [ingredients, setIngredients] = useState([]);
-  const [ingSelected, setIngSelected] = useState([]);
+
   const [validate, setValidate] = useState(false);
 
   const { userInfos } = useUser();
 
-  const { filterRegimeId } = useContext(FiltersContext);
+  const {
+    filterRegimeId,
+    setFilterRegimeId,
+    filterPriceId,
+    setFilterPriceId,
+    filterCountryId,
+    setFilterCountryId,
+    filterDifficultyId,
+    setFilterDifficultyId,
+    setFilterRegime,
+    setFilterPrice,
+    setFilterCountry,
+    setFilterDifficulty,
+  } = useContext(FiltersContext);
 
-  // on récupère les données en important les loaders ingrédients et filter
+  const [regimeChange, setRegimeChange] = useState([]);
+  const [priceChange, setPriceChange] = useState([]);
+  const [countryChange, setCountryChange] = useState([]);
+  const [difficultyChange, setDifficultyChange] = useState([]);
+
+  // on récupère les données en important le loader filter
   async function loadData() {
-    const ing = await loadIngredientsData();
-    setIngredients(ing);
-
     const filter = await loadFiltersData();
     setFilterChip(filter);
   }
 
-  /// le use effect est nécéssaire pour accompagner l'effet async
+  // le use effect est nécéssaire pour accompagner l'effet async
   useEffect(() => {
     loadData();
   }, []);
 
-  function handleClick(ingredient) {
-    if (ingSelected.includes(ingredient.id)) {
-      const temp = [...ingSelected];
-      const ingIndex = temp.findIndex((ing) => {
-        return ing === ingredient.id;
-      });
-      temp.splice(ingIndex, 1);
-      setIngSelected(temp);
-    } else {
-      setIngSelected((current) => [...current, ingredient.id]);
-    }
-  }
   // on ne récupère que les filter avec tag id 3 (pour les régimes)
   const regimeTag = filterChip.filter((tag) => tag.category_id === 3);
+  // on ne récupère que les filter avec tag id 2 (pour les pays)
+  const countryTag = filterChip.filter((tag) => tag.category_id === 2);
+  // on ne récupère que les filter avec tag id 1 (pour les prix)
+  const priceTag = filterChip.filter((tag) => tag.category_id === 1);
 
-  // todo : mettre des icons pour les régime : https://react-icons.github.io/react-icons/
-  // todo : classer par ordre alphabétique les ingrédients
+  // on ne récupère que les filter avec tag id 4 (pour les difficulté)
+  const difficultyTag = filterChip.filter((tag) => tag.category_id === 4);
 
   const navigate = useNavigate();
+  const location = useLocation();
 
   async function handleValidate() {
-    setValidate((current) => !current);
-    setTimeout(() => {
-      navigate("/browse");
-    }, 2000);
-
-    // POST vers BACK
-
-    // todo : faire 2 routes une pour supprimer et l'autre pour ajouter
-    // pré-requis : avoir un tableau liste d'ajout et un autre de suppression
-
-    try {
-      await axios.post("http://localhost:3310/api/useringredients", {
-        // on INSERT dans la DB avec les infos saisies
-        userInfosId: userInfos.id,
-        ingSelected,
-      });
-    } catch (error) {
-      console.error(error);
+    let filterIdChosen = [];
+    if (location.pathname === "/account") {
+      filterIdChosen = [
+        regimeChange,
+        priceChange,
+        countryChange,
+        difficultyChange,
+      ];
+      setShowModifyPreferences(false);
+    } else {
+      filterIdChosen = [
+        filterRegimeId,
+        filterPriceId,
+        filterCountryId,
+        filterDifficultyId,
+      ];
+      setValidate((current) => !current);
+      setTimeout(() => {
+        navigate("/browse");
+      }, 2000);
     }
 
     try {
-      await axios.post("http://localhost:3310/api/usertags", {
+      const filterIdChosenReduced = filterIdChosen.reduce(
+        (acc, currentArray) => acc.concat(currentArray),
+        []
+      );
+      await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/usertags`, {
         // on INSERT dans la DB avec les infos saisies
         userInfosId: userInfos.id,
-        filterRegimeId,
+        filterIdChosenReduced,
       });
+      setFilterRegimeId(filterIdChosenReduced);
+      setFilterCountryId(filterIdChosenReduced);
+      setFilterPriceId(filterIdChosenReduced);
+      setFilterDifficultyId(filterIdChosenReduced);
+
+      // get pour récupérer les préférences utilisations de la DB avec le user ID
+      try {
+        const res2 = await axios.get(
+          `${import.meta.env.VITE_BACKEND_URL}/api/usertags/${userInfos.id}`
+        );
+        const regimeTable = [];
+        const countryTable = [];
+        const priceTable = [];
+        const difficultyTable = [];
+        res2.data.result.forEach((e) => {
+          if (e.category_id === 1) {
+            priceTable.push(e.name);
+          }
+          if (e.category_id === 2) {
+            countryTable.push(e.name);
+          }
+          if (e.category_id === 3) {
+            regimeTable.push(e.name);
+          }
+          if (e.category_id === 4) {
+            difficultyTable.push(e.name);
+          }
+        });
+        setFilterRegime(regimeTable);
+        localStorage.setItem("regimeTable", JSON.stringify(regimeTable));
+        setFilterCountry(countryTable);
+        localStorage.setItem("countryTable", JSON.stringify(countryTable));
+        setFilterPrice(priceTable);
+        localStorage.setItem("priceTable", JSON.stringify(priceTable));
+        setFilterDifficulty(difficultyTable);
+        localStorage.setItem(
+          "difficultyTable",
+          JSON.stringify(difficultyTable)
+        );
+      } catch (error) {
+        console.error(error);
+      }
     } catch (error) {
       console.error(error);
     }
@@ -95,41 +153,39 @@ function Regime({ successMessage }) {
 
       {!validate && (
         <div className="regime">
-          <div className="titleRegimeTag">
-            {" "}
-            <h1>Votre régime</h1>
-            <p>Sélectionner vos préférences (si vous en avez)</p>
-          </div>
+          <p>Sélectionner vos préférences (si vous en avez)</p>
+
           <div className="regimeTag">
-            <FilterRegime regimeTag={regimeTag} />
-          </div>
-          <div className="titleIngredientTag">
-            {" "}
-            <h1>Ingrédients à exclure</h1>
-            <p>
-              Quels sont les ingrédients qui n’iront pas dans votre assiette ?
-            </p>
-          </div>
-          <div className="ingredientTagContainer">
-            {" "}
-            {ingredients.map((ingredient) => {
-              return (
-                <Button
-                  label={ingredient.name}
-                  key={ingredient.id}
-                  value={ingredient.id}
-                  // style={{ borderRadius: "0px", backgroundColor: "green" }}
-                  onClick={() => handleClick(ingredient)}
-                  className={
-                    ingSelected.includes(ingredient.id)
-                      ? "buttonIng1"
-                      : "buttonIng2"
-                  }
-                />
-              );
-            })}
+            <FilterRegime
+              regimeTag={regimeTag}
+              setRegimeChange={setRegimeChange}
+              regimeChange={regimeChange}
+            />
           </div>
 
+          <div className="CountryTag">
+            <FilterCountry
+              countryTag={countryTag}
+              setCountryChange={setCountryChange}
+              countryChange={countryChange}
+            />
+          </div>
+
+          <div className="priceTag">
+            <FilterPrice
+              priceTag={priceTag}
+              setPriceChange={setPriceChange}
+              priceChange={priceChange}
+            />
+          </div>
+
+          <div className="difficultyTag">
+            <FilterDifficuly
+              difficultyTag={difficultyTag}
+              setDifficultyChange={setDifficultyChange}
+              difficultyChange={difficultyChange}
+            />
+          </div>
           <div className="validateBtn">
             <Button
               label="Valider"
@@ -146,6 +202,7 @@ function Regime({ successMessage }) {
 
 Regime.propTypes = {
   successMessage: PropTypes.string.isRequired,
+  setShowModifyPreferences: PropTypes.bool.isRequired,
 };
 
 export default Regime;

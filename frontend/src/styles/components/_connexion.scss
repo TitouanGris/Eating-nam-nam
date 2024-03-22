@@ -4,26 +4,72 @@
   left: 0;
   width: 100vw;
   height: 100vh;
-  z-index: 1;
+  z-index: 4;
   display: flex;
   justify-content: center;
   backdrop-filter: blur(5px);
   align-items: center;
+
   .connexionModal {
+    width: 90vw;
+    height: auto;
+    padding-bottom: 50px;
+    position: absolute;
+    z-index: 3;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     border-radius: 10px;
     border: 2px solid var(--primary-color);
-    width: 70vw;
-    height: 70vw;
     background-color: white;
-    .title {
-      color: var(--primary-color);
-      font-size: var(--title-font-size);
-      font-weight: 600;
-      margin-bottom: 3vh;
+
+    .connexionBtn {
+      background-color: var(--primary-color);
+      color: var(--secondary-color-text);
+      font-size: 1.5rem;
+      border-radius: 10px;
+      border: none;
+      width: 80vw;
+      height: 6vh;
+    }
+
+    .textInscription {
+      background-color: transparent;
+      border: none;
+      margin: 0;
+      padding: 0;
+      text-align: inherit;
+      font: inherit;
+      border-radius: 0;
+      appearance: none;
+    }
+
+    .closeDiv {
+      margin: 20px 0 0 0;
+      width: 100%;
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    button.closeButton {
+      background-color: white;
+      border: none;
+      font-weight: black;
+      font-size: 2rem;
+      width: 100px;
+      cursor: pointer;
+    }
+
+    .formDiv {
+      text-align: center;
+
+      .title {
+        color: var(--primary-color);
+        font-size: 2rem;
+        font-weight: 600;
+        margin-bottom: 3vh;
+      }
     }
 
     form {
@@ -34,40 +80,51 @@
 
       input {
         margin-bottom: 3vh;
-        width: 60vw;
+        width: 80vw;
         height: 6vh;
         border-radius: 10px;
         font-size: var(--text-second-font-size);
-      }
-
-      .connexionBtn {
-        background-color: var(--primary-color);
-        color: var(--secondary-color-text);
-        font-size: 1.5rem;
-        border-radius: 10px;
-        border: none;
-        width: 40vw;
-        height: 6vh;
       }
     }
   }
 }
 
-@media screen and (min-width: 900px) {
+@media screen and (min-width: 500px) {
   .connexion {
     .connexionModal {
-      width: 50vw;
-      height: 40vw;
+      width: 70vw;
+      height: 50vh;
+
+      .connexionBtn {
+        width: 40vw;
+      }
+
+      form {
+        input {
+          margin-bottom: 3vh;
+          width: 40vw;
+          height: 5vh;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 700px) {
+  .connexion {
+    .connexionModal {
+      width: 40vw;
+      height: 50vh;
+
+      .connexionBtn {
+        width: 30vw;
+      }
 
       form {
         input {
           margin-bottom: 3vh;
           width: 30vw;
           height: 5vh;
-        }
-
-        .connexionBtn {
-          width: 30vw;
         }
       }
     }

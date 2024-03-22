@@ -4,13 +4,26 @@
   gap: 15px;
   padding-top: 10px;
   background-color: white;
+  padding-bottom: 15vh;
 
   .recipeDetailsHeader {
     display: flex;
+    flex-direction: column;
     gap: 20px;
     padding-left: 10px;
     padding-top: 10px;
     justify-content: left;
+
+    .recipeName {
+      display: flex;
+      gap: 20px;
+    }
+    .local {
+      width: fit-content;
+      padding: 15px;
+      height: auto;
+      align-self: center;
+    }
     h2 {
       font-size: 1.2rem;
     }
@@ -153,6 +166,9 @@
       }
     }
   }
+  .spaceCss {
+    height: 8vh;
+  }
 
   .comment_form {
     display: flex;
@@ -185,22 +201,45 @@
 }
 
 @media screen and (min-width: 900px) {
-  html,
-  body,
-  :root {
-    background-color: #eeeeee;
-  }
-
   .recipeDetails {
     padding-top: 20px;
     width: 60vw;
-    padding: 0 5vw;
+    padding-bottom: 15vh;
     margin: auto;
     background-color: white;
+    overflow-y: scroll;
+    max-height: 100vh;
+    &::-webkit-scrollbar {
+      width: 6px;
+      // background-color: #f5f5f5;
+    }
+    // background-color: #f5f5f5;
+
+    &::-webkit-scrollbar-thumb {
+      border-radius: 10px;
+      background-image: -webkit-gradient(
+        linear,
+        left bottom,
+        left top,
+        color-stop(0.44, var(--primary-color)),
+        // color-stop(0.72, rgb(11, 74, 151)),
+        // color-stop(0.86, rgb(28, 58, 148))
+      );
+    }
 
     .recipeDetailsHeader {
+      flex-direction: row;
+      align-items: center;
+
       img {
         width: 30px;
+      }
+
+      .local {
+        &:hover {
+          padding: 14px;
+          border: solid 1px var(--primary-color);
+        }
       }
     }
     .imgContainer {

@@ -1,25 +1,61 @@
 import { useContext } from "react";
+import { useLocation } from "react-router-dom";
 import PropTypes from "prop-types";
 import Button from "./Button";
 import FiltersContext from "../context/FiltersContext";
 
-function FilterDifficuly({ difficultyTag }) {
-  const { filterDifficulty, setFilterDifficulty } = useContext(FiltersContext);
+function FilterDifficuly({
+  difficultyTag,
+  difficultyChange,
+  setDifficultyChange,
+}) {
+  const {
+    filterDifficulty,
+    setFilterDifficulty,
+    filterDifficultyId,
+    setFilterDifficultyId,
+  } = useContext(FiltersContext);
+
+  const location = useLocation();
+
   const handleClick = (tag) => {
-    if (tag.category_id === 4) {
-      if (filterDifficulty.includes(tag.name) === true) {
-        const temp = [...filterDifficulty];
-        // const temp = []; Initialisation de la variable
-        // temp.push(...selectedTags); // [1, 2, 3] = > ../ => 1, 2, 3
+    if (location.pathname === "/" || location.pathname === "/browse") {
+      if (tag.category_id === 4) {
+        if (filterDifficulty.includes(tag.name) === true) {
+          const temp = [...filterDifficulty];
+          const temp2 = [...filterDifficultyId];
+
+          const tagIndex = temp.findIndex((item) => {
+            return item === tag.name;
+          });
+          temp.splice(tagIndex, 1);
+          temp2.splice(tagIndex, 1);
+          setFilterDifficulty(temp);
+          setFilterDifficultyId(temp2);
+        } else {
+          const temp = [...filterDifficulty];
+          const temp2 = [...filterDifficultyId];
+          temp.push(tag.name);
+          temp2.push(tag.id);
+          setFilterDifficulty(temp);
+          setFilterDifficultyId(temp2);
+        }
+      }
+    } else if (tag.category_id === 4) {
+      if (difficultyChange.includes(tag.id) === true) {
+        const temp = [...difficultyChange];
+
         const tagIndex = temp.findIndex((item) => {
-          return item === tag.name;
+          return item === tag.id;
         });
         temp.splice(tagIndex, 1);
-        setFilterDifficulty(temp);
+        setDifficultyChange(temp);
       } else {
-        const temp = [...filterDifficulty];
-        temp.push(tag.name);
-        setFilterDifficulty(temp);
+        const temp = [...difficultyChange];
+
+        temp.push(tag.id);
+
+        setDifficultyChange(temp);
       }
     }
   };
@@ -35,19 +71,26 @@ function FilterDifficuly({ difficultyTag }) {
               label={
                 filterDifficulty.includes(tag.name) ? (
                   <img
-                    src={`http://localhost:3310/images/chef${tag.id}active.png`}
+                    src={`${import.meta.env.VITE_BACKEND_URL}/images/chef${
+                      tag.id
+                    }active.png`}
                     alt={`Difficulté ${tag.id}`}
                   />
                 ) : (
                   <img
-                    src={`http://localhost:3310/images/chef${tag.id}.png`}
+                    src={`${import.meta.env.VITE_BACKEND_URL}/images/chef${
+                      tag.id
+                    }.png`}
                     alt={`Difficulté ${tag.id - 14}`}
                   />
                 )
               }
               onClick={() => handleClick(tag)}
               className={
-                filterDifficulty.includes(tag.name) ? "selected chip" : "chip"
+                filterDifficulty.includes(tag.name) ||
+                difficultyChange?.includes(tag.id)
+                  ? "selected chip"
+                  : "chip"
               }
             />
           );
@@ -66,6 +109,13 @@ FilterDifficuly.propTypes = {
       name: PropTypes.string,
     })
   ).isRequired,
+  difficultyChange: PropTypes.arrayOf(
+    PropTypes.shape({
+      category_id: PropTypes.number,
+      id: PropTypes.number,
+    })
+  ).isRequired,
+  setDifficultyChange: PropTypes.func.isRequired,
 };
 
 export default FilterDifficuly;

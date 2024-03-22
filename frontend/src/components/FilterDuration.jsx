@@ -36,7 +36,10 @@ function FilterDuration({ durationTag }) {
               label={tag.name}
               onClick={() => handleClick(tag)}
               className={
-                filterDuration.includes(tag.name) ? "selected chip" : "chip"
+                filterDuration.includes(tag.name) ||
+                filterDuration?.includes(tag.id)
+                  ? "selected chip"
+                  : "chip"
               }
             />
           );

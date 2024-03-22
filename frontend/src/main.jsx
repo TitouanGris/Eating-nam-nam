@@ -10,8 +10,12 @@ import RecipePost, {
 } from "./pages/RecipePost";
 import RecipeBrowse from "./pages/RecipeBrowse";
 import RecipeDetails, { loadRecipeDetails } from "./pages/RecipeDetails";
+import UserPage from "./pages/UserPage";
+import Signin from "./components/Signin";
+import AdminPage from "./pages/AdminPage";
 
 import "./styles/index.scss";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 const router = createBrowserRouter([
   {
@@ -26,6 +30,23 @@ const router = createBrowserRouter([
         path: "/browse",
         element: <RecipeBrowse />,
         loader: loadFiltersData,
+      },
+      {
+        path: "/account",
+        element: <UserPage />,
+      },
+      {
+        path: "/account/admin",
+        element: (
+          <ProtectedRoute>
+            {" "}
+            <AdminPage />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "/signin",
+        element: <Signin />,
       },
       {
         path: "/publish",
@@ -49,34 +70,6 @@ const router = createBrowserRouter([
     ],
   },
 ]);
-//       // {
-//       //   path:"/bouh",
-//       //   element: <>Composant </>
-//       //   children: [
-//       //     //avec barre
-//       //   ]
-//       // }
-//     ],
-//   },
-//   // {
-//   //   path: "/recipe-create",
-//   //   element: <RecipeCreate />,
-//   // },
-//   // {
-//   //   path: "/user-profile",
-//   //   element: <UserProfile />,
-//   // },
-//   // {
-//   //   path: "/filters",
-//   //   element: <Filters />,
-//   // },
-//   // {
-//   //   path: "/favorite-recipes",
-//   //   element: <FavoriteRecipes />,
-//   // },
-// ],
-//   },
-// ]);
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
